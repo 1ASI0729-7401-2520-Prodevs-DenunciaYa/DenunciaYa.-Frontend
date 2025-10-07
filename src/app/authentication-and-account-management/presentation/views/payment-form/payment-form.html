@@ -1,0 +1,100 @@
+<div class="payment-container">
+  <div class="payment-card">
+    <button mat-button class="back-link" (click)="navigateToPlans()" aria-label="Go back to plan selection">← Back</button>
+
+    <h1 class="app-title">
+      <img src="/assets/images/Logo_1.jpg" alt="Citizen" class="logoImage" />
+      DenunciaYa
+    </h1>
+
+    <p>Please enter your credit or debit card information</p>
+
+    <form class="payment-form" #paymentForm="ngForm" (ngSubmit)="confirmPayment()">
+      <mat-form-field appearance="fill" class="input-full-width">
+        <mat-label>Credit Card Number</mat-label>
+        <input
+          matInput
+          name="cardNumber"
+          ngModel
+          required
+          pattern="^[0-9]{13,19}$"
+          placeholder="Enter your credit card number"
+          aria-label="Enter credit card number"
+          type="text"
+        />
+        <mat-error *ngIf="paymentForm.submitted && paymentForm.controls['cardNumber']?.invalid">
+          Please enter a valid card number (13–19 digits)
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="input-half">
+        <mat-label>Expiration Date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          name="expirationDate"
+          ngModel
+          required
+          placeholder="MM/DD/YYYY"
+          aria-label="Select expiration date"
+        />
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker startView="multi-year" panelClass="datepicker-panel"></mat-datepicker>
+        <mat-error *ngIf="paymentForm.submitted && paymentForm.controls['expirationDate']?.invalid">
+          Please select a valid expiration date
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="input-half">
+        <mat-label>CVC / CVV</mat-label>
+        <input
+          matInput
+          name="cvc"
+          ngModel
+          required
+          pattern="^[0-9]{3}$"
+          maxlength="3"
+          placeholder="Enter security code"
+          aria-label="Enter security code"
+          type="password"
+        />
+        <mat-error *ngIf="paymentForm.submitted && paymentForm.controls['cvc']?.invalid">
+          Please enter a valid 3-digit CVC
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="input-full-width">
+        <mat-label>Cardholder Name</mat-label>
+        <input
+          matInput
+          name="cardholderName"
+          ngModel
+          required
+          pattern="^[a-zA-ZÀ-ÿ\\s]+$"
+          placeholder="Enter name on the card"
+          aria-label="Enter cardholder name"
+          type="text"
+        />
+        <mat-error *ngIf="paymentForm.submitted && paymentForm.controls['cardholderName']?.invalid">
+          Only letters are allowed
+        </mat-error>
+      </mat-form-field>
+
+      <mat-checkbox name="terms" ngModel required aria-label="Accept terms and conditions">
+        I accept the <a href="#" class="terms-link">terms and conditions</a>.
+      </mat-checkbox>
+
+      <div class="btn-container">
+        <button
+          mat-button="filled"
+          color="primary"
+          class="confirm-btn"
+          type="submit"
+          [disabled]="!paymentForm.valid"
+        >
+          Confirm and Pay
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
