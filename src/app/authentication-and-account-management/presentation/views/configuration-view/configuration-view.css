@@ -1,0 +1,271 @@
+@import url('https://fonts.googleapis.com/css2?family=Akshar:wght@300&family=Alegreya+Sans&display=swap');
+
+* {
+  font-family: 'Alegreya Sans', sans-serif;
+  box-sizing: border-box;
+}
+
+.config-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #ffffff;
+  padding: 40px 20px;
+}
+
+.config-content {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1100px;
+  gap: 40px;
+}
+
+.config-left {
+  flex: 1;
+  max-width: 480px;
+}
+
+.config-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.config-right img {
+  width: 420px;
+  height: auto;
+  max-width: 100%;
+}
+
+h1 {
+  font-size: 44px;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 40px;
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1976d2;
+  margin-bottom: 20px;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.option-text h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  color: #000;
+}
+
+.option-text p {
+  font-size: 14px;
+  color: #666;
+  margin: 3px 0 0 0;
+}
+
+.language-field {
+  width: 180px;
+}
+
+.save-btn {
+  background-color: #1976d2;
+  color: white;
+  border-radius: 6px;
+  padding: 10px 25px;
+  margin-top: 30px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.save-btn:hover {
+  background-color: #135ca0;
+}
+
+/* ======= RESPONSIVE DESIGN ======= */
+
+@media (max-width: 900px) {
+  .config-content {
+    flex-direction: column-reverse;
+    align-items: center;
+    text-align: center;
+  }
+
+  .config-left {
+    max-width: 100%;
+  }
+
+  .option {
+    justify-content: center;
+  }
+
+  .language-field {
+    margin: 0 auto;
+  }
+
+  .config-right img {
+    margin-bottom: 30px;
+    width: 320px;
+  }
+}
+.plan-section {
+  margin-bottom: 40px;
+}
+
+.selected-plan-card {
+  background-color: #f5f9ff;
+  border: 2px solid #1976d2;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(25, 118, 210, 0.2);
+}
+
+.selected-plan-card h3 {
+  font-size: 1.3rem;
+  color: #1976d2;
+  margin-bottom: 10px;
+}
+
+.plan-price {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #0a62d0;
+  margin-bottom: 15px;
+}
+
+.update-btn {
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.test-role-btn {
+  display: block;
+  margin: 30px auto;
+  padding: 10px 20px;
+  font-size: 14px;
+  background-color: #ffb300;
+  color: white;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.test-role-btn:hover {
+  background-color: #e89c00;
+}
+@media (max-width: 480px) {
+  h1 {
+    font-size: 36px;
+  }
+
+  .save-btn {
+    width: 100%;
+    padding: 12px;
+  }
+}
+.config-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.selected-plan-card {
+  background-color: #f5f9ff;
+  border: 2px solid #1976d2;
+  border-radius: 12px;
+  padding: 30px 25px;
+  text-align: center;
+  width: 380px;
+  box-shadow: 0 2px 6px rgba(25, 118, 210, 0.2);
+}
+
+.selected-plan-card h3 {
+  font-size: 1.5rem;
+  color: #1976d2;
+  margin-bottom: 10px;
+}
+
+.plan-price {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #0a62d0;
+  margin-bottom: 20px;
+}
+
+.plan-features {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.plan-features li {
+  font-size: 14px;
+  color: #333;
+  margin: 5px 0;
+}
+
+.update-btn {
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.config-right img {
+  width: 380px;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Botón para prueba de rol */
+.test-role-btn {
+  display: block;
+  margin: 40px auto;
+  padding: 10px 25px;
+  font-size: 15px;
+  background-color: #ffb300;
+  color: white;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.test-role-btn:hover {
+  background-color: #e89c00;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .config-content {
+    flex-direction: column-reverse;
+    text-align: center;
+  }
+
+  .config-right {
+    width: 100%;
+  }
+
+  .selected-plan-card {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto 20px auto;
+  }
+}
