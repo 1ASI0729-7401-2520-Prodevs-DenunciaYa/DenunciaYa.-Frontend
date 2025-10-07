@@ -1,0 +1,117 @@
+<div class="login-container">
+  <div class="login-card">
+    <button mat-button (click)="navigateToHome()" aria-label="Go back to home">← Return</button>
+
+    <h1 class="app-title" aria-label="DenunciaYa application logo">
+      <img src="/assets/images/Logo_1.jpg" alt="Citizen" class="logoImage" />
+      DenunciaYa
+    </h1>
+
+    <div class="role-selection" role="radiogroup" aria-label="Select your role">
+      <div
+        class="role-card"
+        [class.active]="selectedRole === 'citizen'"
+        (click)="selectRole('citizen')"
+        tabindex="0"
+        role="radio"
+        [attr.aria-checked]="selectedRole === 'citizen'"
+        aria-label="Select citizen role"
+      >
+        <img src="/assets/images/citizen.png" alt="Citizen icon" />
+        <p>Citizen</p>
+      </div>
+
+      <div
+        class="role-card"
+        [class.active]="selectedRole === 'authority'"
+        (click)="selectRole('authority')"
+        tabindex="0"
+        role="radio"
+        [attr.aria-checked]="selectedRole === 'authority'"
+        aria-label="Select authority role"
+      >
+        <img src="/assets/images/authority.png" alt="Authority icon" />
+        <p>Authority</p>
+      </div>
+    </div>
+
+    <div class="form-section" aria-label="Login form section">
+      <h3>Hello {{ selectedRole | titlecase }}</h3>
+      <p>Please fill out the form below to get started</p>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()" aria-label="Login form">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Email*</mat-label>
+          <input
+            matInput
+            placeholder="Enter your email"
+            formControlName="email"
+            aria-required="true"
+            aria-label="Email address"
+          />
+          <mat-icon matPrefix>email</mat-icon>
+          <mat-error *ngIf="loginForm.get('email')?.hasError('required')">Email is required</mat-error>
+          <mat-error *ngIf="loginForm.get('email')?.hasError('email')">Please enter a valid email address</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Password*</mat-label>
+          <input
+            matInput
+            [type]="hidePassword ? 'password' : 'text'"
+            formControlName="password"
+            aria-required="true"
+            aria-label="Password"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            type="button"
+            (click)="hidePassword = !hidePassword"
+            [attr.aria-label]="hidePassword ? 'Show password' : 'Hide password'"
+            [attr.aria-pressed]="!hidePassword"
+          >
+            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Password is required</mat-error>
+        </mat-form-field>
+        <div class="options">
+          <mat-checkbox formControlName="remember" aria-label="Remember me">Remember me</mat-checkbox>
+          <button
+            type="button"
+            class="forgot-link"
+            (click)="navigateToForgotAccount()"
+            aria-label="Forgot password link"
+          >
+            Forgot password?
+          </button>
+        </div>
+
+        <div class="btn-container">
+          <button
+            mat-flat-button
+            color="primary"
+            class="login-btn"
+            type="submit"
+            [disabled]="loginForm.invalid"
+            aria-label="Log in button"
+          >
+            Log In
+          </button>
+        </div>
+
+        <p class="register-text">
+          Not a member yet?
+          <button
+            type="button"
+            class="register-link"
+            (click)="navigateToRegister()"
+            aria-label="Register link"
+          >
+            Register
+          </button>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
