@@ -1,0 +1,89 @@
+<div class="profile-container">
+  <div class="profile-content">
+
+    <div class="profile-left">
+      <h1>User Profile</h1>
+      <p class="subtitle">
+        Manage your personal and contact information
+      </p>
+
+      <form [formGroup]="profileForm" aria-label="Profile information form">
+        <mat-form-field appearance="fill" class="input-field">
+          <mat-label>First Name</mat-label>
+          <input matInput formControlName="firstName" aria-label="First Name" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="input-field">
+          <mat-label>Last Name</mat-label>
+          <input matInput formControlName="lastName" aria-label="Last Name" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="input-field">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email" aria-label="Email" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="input-field">
+          <mat-label>Phone (optional)</mat-label>
+          <input matInput formControlName="phone" aria-label="Phone" />
+        </mat-form-field>
+
+        <div class="buttons">
+          <button
+            mat-stroked-button
+            color="primary"
+            (click)="toggleEdit()"
+            aria-label="Edit information"
+          >
+            {{ isEditing ? 'Cancel' : 'Edit Information' }}
+          </button>
+
+          <button
+            mat-flat-button
+            color="accent"
+            [disabled]="!isEditing"
+            (click)="onSaveChanges()"
+            aria-label="Save changes"
+          >
+            Save Changes
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="profile-right" aria-label="Profile illustration and plan info">
+
+      <ng-container *ngIf="userRole === 'authority'">
+        <div class="selected-plan-card">
+          <h3>{{ selectedPlan | titlecase }} Plan</h3>
+          <p class="plan-price">
+            {{ selectedPlan === 'premium' ? 'S/. 249.00' : 'S/. 99.00' }}
+          </p>
+          <ul class="plan-features">
+            <li *ngIf="selectedPlan === 'basic'">Access to received reports</li>
+            <li *ngIf="selectedPlan === 'basic'">Simple table view</li>
+            <li *ngIf="selectedPlan === 'basic'">Basic notifications</li>
+
+            <li *ngIf="selectedPlan === 'premium'">Everything from Basic Plan</li>
+            <li *ngIf="selectedPlan === 'premium'">Advanced metrics dashboard</li>
+            <li *ngIf="selectedPlan === 'premium'">Incident map</li>
+            <li *ngIf="selectedPlan === 'premium'">Team management</li>
+            <li *ngIf="selectedPlan === 'premium'">PDF/Excel export</li>
+            <li *ngIf="selectedPlan === 'premium'">Urgent alerts</li>
+          </ul>
+        </div>
+
+      </ng-container>
+
+      <ng-container *ngIf="userRole === 'citizen'">
+        <img
+          src="/assets/images/configuration.png"
+          alt="Profile illustration for citizen"
+        />
+      </ng-container>
+
+    </div>
+  </div>
+
+
+</div>
