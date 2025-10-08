@@ -1,0 +1,95 @@
+/* === Estilo general === */
+.sidenav-container {
+  width: 240px;
+  height: 100vh;
+  background-color: #0c2233; /* Azul marino */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #f8eed9; /* Texto color crema */
+  font-family: 'Inter', sans-serif;
+}
+
+/* === Logo y encabezado === */
+.sidenav-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 16px;
+}
+
+.logo {
+  width: 32px;
+  height: 32px;
+}
+
+.logo-text {
+  font-weight: 600;
+  font-size: 18px;
+  color: #f8eed9; /* Asegura color crema */
+}
+
+/* === Íconos y texto === */
+mat-icon {
+  color: #f8eed9; /* Color crema para los íconos */
+  margin-right: 12px;
+  font-size: 20px;
+  transition: color 0.2s ease;
+}
+
+.nav-item {
+  color: #f8eed9;
+  border-radius: 8px;
+  margin: 2px 8px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Hover y link activo */
+.nav-item:hover,
+.active-link {
+  background-color: rgba(248, 238, 217, 0.15); /* crema semitransparente */
+}
+
+.nav-item:hover mat-icon,
+.nav-item:hover span {
+  color: #fff9e6; /* un tono más claro */
+}
+
+/* === Parte inferior === */
+.bottom-section {
+  margin-top: auto;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 8px;
+}
+
+/* === Refuerzo por si Angular Material sobrescribe === */
+.mat-mdc-list-item,
+.mat-mdc-list-item * {
+  color: #f8eed9 !important;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  color: white;
+}
+
+.active-link {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+/* Mantener todos tus estilos existentes */
+
+/* Transición para colapsar */
+.sidenav-container {
+  transition: width 0.3s;
+}
+
+.sidenav-container.collapsed {
+  width: 70px; /* solo iconos */
+}
+
+/* Ocultar textos al colapsar */
+.sidenav-container.collapsed .logo-text,
+.sidenav-container.collapsed .nav-item span {
+  display: none;
+}
