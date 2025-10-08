@@ -1,0 +1,94 @@
+<div *ngIf="!complaint" class="loading" aria-live="polite" aria-busy="true">
+  <p>Loading complaint details...</p>
+</div>
+
+<div class="complaint-detail" *ngIf="complaint" aria-labelledby="complaint-title">
+  <h1 class="title" id="complaint-title">Complaint Detail</h1>
+
+  <section class="timeline-section" aria-label="Complaint status timeline">
+    <div class="container">
+      <ejs-timeline cssClass="dot-color custom-connector" orientation="Horizontal" aria-label="Progress timeline">
+        <e-items>
+          <e-item
+            *ngFor="let item of orderStatus"
+            [content]="item.content"
+            [oppositeContent]="item.oppositeContent"
+            [cssClass]="item.cssClass"
+            [attr.aria-label]="item.content + ' - ' + item.oppositeContent">
+          </e-item>
+        </e-items>
+      </ejs-timeline>
+    </div>
+  </section>
+
+
+  <div class="complaint-info" aria-label="Complaint information">
+    <h2>Category</h2>
+    <p>{{ complaint.category }}</p>
+
+    <h2>Department</h2>
+    <p>{{ complaint.department }}</p>
+
+    <h2>City</h2>
+    <p>{{ complaint.city }}</p>
+
+    <h2>District</h2>
+    <p>{{ complaint.district }}</p>
+
+    <h2>Location</h2>
+    <p>{{ complaint.location }}</p>
+
+    <h2>Reference Information</h2>
+    <p>{{ complaint.referenceInfo }}</p>
+
+    <h2>Description</h2>
+    <p>{{ complaint.description }}</p>
+
+    <h2>Status</h2>
+    <p>
+      <span [ngClass]="getStatusClass(complaint.status)" [attr.aria-label]="'Current status: ' + complaint.status">
+        {{ complaint.status }}
+      </span>
+    </p>
+
+    <h2>Priority</h2>
+    <p>
+      <span [ngClass]="getPriorityClass(complaint.priority)" [attr.aria-label]="'Priority level: ' + complaint.priority">
+        {{ complaint.priority }}
+      </span>
+    </p>
+
+    <h2>Evidence</h2>
+    <div class="image-grid" aria-label="Evidence images">
+      <img *ngFor="let img of complaint.evidence; let i = index" [src]="img" [alt]="'Evidence image ' + (i + 1)" />
+    </div>
+
+    <h2>Assigned To</h2>
+    <p>{{ complaint.assignedTo }}</p>
+
+    <div class="responsible-section" *ngIf="isAssigned()" aria-label="Responsible person information">
+      <button
+        mat-stroked-button
+        color="accent"
+        (click)="viewResponsibleInfo()"
+        class="responsible-button"
+        aria-label="View responsible person details">
+        <span class="button-icon" aria-hidden="true">👤</span>
+        View Responsible Information
+      </button>
+    </div>
+
+    <div class="update-channel" aria-label="Latest update information">
+      <h3>Update Channel</h3>
+      <div class="channel-message">
+        <p>{{ getCurrentStatusMessage() }}</p>
+        <span class="message-date" aria-label="Last update date">{{ complaint.updateDate | date: 'dd/MM/yyyy HH:mm' }}</span>
+      </div>
+    </div>
+
+    <div *ngIf="canEditOrDelete()" class="button-group" aria-label="Complaint management options">
+      <button mat-stroked-button color="primary" (click)="editComplaint()" aria-label="Edit complaint details">Edit</button>
+      <button mat-stroked-button color="warn" (click)="deleteComplaint()" aria-label="Delete this complaint">Delete</button>
+    </div>
+  </div>
+</div>
