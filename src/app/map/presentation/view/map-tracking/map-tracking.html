@@ -1,0 +1,238 @@
+<div class="map-container" aria-label="Citizen Complaints Tracking Map">
+  <div *ngIf="loading" class="loading-overlay">
+    <mat-progress-spinner diameter="50" mode="indeterminate"></mat-progress-spinner>
+    <p class="loading-text">Loading complaints from API...</p>
+  </div>
+
+  <mat-card class="header-card">
+    <div class="header-content">
+      <div>
+        <h1 class="header-title">Citizen Complaints Map</h1>
+        <p class="header-subtitle">Real-time tracking of citizen reports</p>
+      </div>
+      <div class="header-actions">
+        <button mat-raised-button
+                color="primary"
+                (click)="loadComplaintsFromAPI()"
+                [disabled]="loading"
+                aria-label="Refresh data">
+          <mat-icon>refresh</mat-icon>
+          {{ loading ? 'Loading...' : 'Refresh Data' }}
+        </button>
+        <button mat-stroked-button
+                color="warn"
+                (click)="resetFilters()"
+                aria-label="Clear all filters">
+          <mat-icon>clear_all</mat-icon>
+          Clear Filters
+        </button>
+      </div>
+    </div>
+  </mat-card>
+
+  <mat-card class="filters-card">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>filter_list</mat-icon>
+        Search Filters
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="filters-grid">
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>Category</mat-label>
+          <mat-select [(ngModel)]="selectedCategory"
+                      (ngModelChange)="filterComplaints()"
+                      aria-label="Select complaint category">
+            <mat-option value="">All Categories</mat-option>
+            <mat-option *ngFor="let category of categories"
+                        [value]="category">
+              {{ category }}
+            </mat-option>
+          </mat-select>
+          <mat-icon matSuffix>category</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>District</mat-label>
+          <mat-select [(ngModel)]="selectedDistrict"
+                      (ngModelChange)="filterComplaints()"
+                      aria-label="Select district">
+            <mat-option value="">All Districts</mat-option>
+            <mat-option *ngFor="let district of districts"
+                        [value]="district">
+              {{ district }}
+            </mat-option>
+          </mat-select>
+          <mat-icon matSuffix>location_on</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>Status</mat-label>
+          <mat-select [(ngModel)]="selectedStatus"
+                      (ngModelChange)="filterComplaints()"
+                      aria-label="Select complaint status">
+            <mat-option value="">All Statuses</mat-option>
+            <mat-option *ngFor="let status of statuses"
+                        [value]="status">
+              {{ status }}
+            </mat-option>
+          </mat-select>
+          <mat-icon matSuffix>status</mat-icon>
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="info-card">
+    <div class="info-stats">
+      <div class="stat-item">
+        <mat-icon>place</mat-icon>
+        <span class="stat-label">Visible Markers:</span>
+        <span class="stat-value">{{ filteredMarkers.length }}</span>
+      </div>
+      <div class="stat-item" *ngIf="selectedCategory">
+        <mat-icon>category</mat-icon>
+        <span class="stat-label">Category:</span>
+        <span class="stat-value">{{ selectedCategory }}</span>
+      </div>
+      <div class="stat-item" *ngIf="selectedDistrict">
+        <mat-icon>location_on</mat-icon>
+        <span class="stat-label">District:</span>
+        <span class="stat-value">{{ selectedDistrict }}</span>
+      </div>
+      <div class="stat-item" *ngIf="selectedStatus">
+        <mat-icon>status</mat-icon>
+        <span class="stat-label">Status:</span>
+        <span class="stat-value">{{ selectedStatus }}</span>
+      </div>
+    </div>
+  </mat-card>
+
+  <mat-card class="map-card">
+    <google-map
+      height="500px"
+      width="100%"
+      [center]="center"
+      [zoom]="zoom"
+      [options]="{
+        mapTypeControl: true,
+        streetViewControl: true,
+        fullscreenControl: true,
+        styles: mapStyles
+      }"
+      aria-label="Interactive map showing citizen complaints">
+
+      <map-marker
+        *ngFor="let marker of filteredMarkers; trackBy: trackByMarkerId"
+        [position]="marker.position"
+        [title]="marker.title"
+        [options]="{
+          icon: getMarkerIcon(marker.status)
+        }"
+        aria-label="Complaint marker for {{ marker.complaintData.category }}">
+
+        <map-info-window>
+          <div class="info-window-content">
+            <div class="info-header">
+              <h3>{{ marker.complaintData.category }}</h3>
+              <div class="status-indicators">
+                <mat-chip [class]="getStatusBadgeClass(marker.status)" class="status-chip">
+                  {{ marker.status }}
+                </mat-chip>
+                <mat-chip [class]="getPriorityBadgeClass(marker.priority)" class="priority-chip">
+                  {{ marker.priority }}
+                </mat-chip>
+              </div>
+            </div>
+
+            <mat-divider></mat-divider>
+            <div class="info-section">
+              <div class="info-row">
+                <mat-icon>fingerprint</mat-icon>
+                <span><strong>ID:</strong> {{ marker.complaintData.id }}</span>
+              </div>
+              <div class="info-row">
+                <mat-icon>location_on</mat-icon>
+                <span><strong>District:</strong> {{ marker.complaintData.district }}</span>
+              </div>
+              <div class="info-row">
+                <mat-icon>place</mat-icon>
+                <span><strong>Location:</strong> {{ marker.complaintData.location }}</span>
+              </div>
+              <div class="info-row">
+                <mat-icon>description</mat-icon>
+                <span><strong>Description:</strong> {{ marker.complaintData.description }}</span>
+              </div>
+            </div>
+
+            <mat-divider></mat-divider>
+            <div class="info-section">
+              <div class="info-row">
+                <mat-icon>person</mat-icon>
+                <span><strong>Assigned to:</strong> {{ marker.complaintData.assignedTo }}</span>
+              </div>
+              <div class="info-row">
+                <mat-icon>schedule</mat-icon>
+                <span><strong>Last update:</strong> {{ marker.complaintData.updateDate | date:'medium' }}</span>
+              </div>
+              <div class="info-row">
+                <mat-icon>message</mat-icon>
+                <span><strong>Message:</strong> {{ marker.complaintData.updateMessage }}</span>
+              </div>
+            </div>
+
+            <div *ngIf="marker.complaintData.evidence && marker.complaintData.evidence.length > 0"
+                 class="evidence-section">
+              <mat-divider></mat-divider>
+              <div class="section-title">
+                <mat-icon>photo_library</mat-icon>
+                <span>Evidence ({{ marker.complaintData.evidence.length }})</span>
+              </div>
+              <div class="evidence-grid">
+                <img *ngFor="let img of marker.complaintData.evidence; let i = index"
+                     [src]="img"
+                     [alt]="'Evidence image ' + (i + 1)"
+                     class="evidence-image"
+                     (click)="openImage(img)">
+              </div>
+            </div>
+          </div>
+        </map-info-window>
+      </map-marker>
+    </google-map>
+  </mat-card>
+
+  <mat-card class="legend-card">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>legend_toggle</mat-icon>
+        Status Legend
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="legend-items">
+        <div class="legend-item">
+          <div class="legend-color completed"></div>
+          <span>Completed</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color pending"></div>
+          <span>Pending</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color awaiting-response"></div>
+          <span>Awaiting Response</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color rejected"></div>
+          <span>Rejected</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color in-process"></div>
+          <span>In Process</span>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
