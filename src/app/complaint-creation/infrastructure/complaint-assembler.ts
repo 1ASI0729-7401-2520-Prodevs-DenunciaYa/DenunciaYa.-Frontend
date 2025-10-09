@@ -3,7 +3,7 @@ import {ComplaintResource, ComplaintsResponse, TimelineItemResource} from './com
 
 export class ComplaintAssembler {
   static toEntityFromResource(resource: ComplaintResource): Complaint {
-    return {
+    return new Complaint({
       id: resource.id,
       category: resource.category,
       department: resource.department,
@@ -19,11 +19,11 @@ export class ComplaintAssembler {
       updateMessage: resource.updateMessage,
       updateDate: resource.updateDate,
       timeline: resource.timeline ? resource.timeline.map(timelineItem => this.toTimelineItemFromResource(timelineItem)) : []
-    };
+    });
   }
 
   static toEntitiesFromResponse(response: ComplaintsResponse): Complaint[] {
-    return response.complaints.map(resource => this.toEntityFromResource(resource));
+    return response.complaints.map(resource => this.toEntityFromResource(resource as ComplaintResource));
   }
 
   static toTimelineItemFromResource(resource: TimelineItemResource): TimelineItem {

@@ -27,6 +27,7 @@ export class ComplaintsStore {
     this.errorSignal.set(null);
     this.api.getComplaints().pipe(retry(2)).subscribe({
       next: data => {
+        console.log('Denuncias recibidas:', data); // quitar luego
         this.complaintsSignal.set(data);
         this.loadingSignal.set(false);
       },
