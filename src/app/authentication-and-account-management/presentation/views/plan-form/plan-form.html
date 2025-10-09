@@ -1,0 +1,90 @@
+<div class="plan-container">
+  <div class="plan-card">
+
+    <button mat-button class="back-link" (click)="navigateToLogin()" aria-label="Go back to login">← Back</button>
+
+    <h1 class="app-title" aria-label="DenunciaYa application logo">
+      <img src="/assets/images/Logo_1.jpg" alt="Citizen" class="logoImage" />
+      DenunciaYa
+    </h1>
+
+    <p aria-label="Select your plan">Please select a plan</p>
+
+    <div class="plans-section" role="radiogroup" aria-label="Available plans">
+      <div
+        class="plan-option"
+        [class.active]="selectedPlan === 'basic'"
+        (click)="selectPlan('basic')"
+        tabindex="0"
+        role="radio"
+        [attr.aria-checked]="selectedPlan === 'basic'"
+        aria-label="Select Basic plan"
+      >
+        <h2 class="plan-title">Basic Plan</h2>
+        <p class="plan-desc">
+          Perfect to get started, simple access, and an affordable cost.
+        </p>
+        <p class="plan-price">S/. 99.00</p>
+        <ul class="plan-features">
+          <li>Access to received reports</li>
+          <li>Simple table view</li>
+          <li>Basic notifications</li>
+        </ul>
+        <button
+          mat-flat-button
+          color="primary"
+          class="select-btn"
+          type="button"
+          [disabled]="selectedPlan !== 'basic'"
+        >
+          Selected
+        </button>
+      </div>
+
+      <div
+        class="plan-option"
+        [class.active]="selectedPlan === 'premium'"
+        (click)="selectPlan('premium')"
+        tabindex="0"
+        role="radio"
+        [attr.aria-checked]="selectedPlan === 'premium'"
+        aria-label="Select Premium plan"
+      >
+        <h2 class="plan-title">Premium Plan</h2>
+        <p class="plan-desc">
+          Unlock advanced features for complete case management.
+        </p>
+        <p class="plan-price">S/. 249.00</p>
+        <ul class="plan-features">
+          <li>Everything from the Basic Plan</li>
+          <li>Advanced metrics dashboard</li>
+          <li>Incident map</li>
+          <li>Team management</li>
+          <li>PDF/Excel export</li>
+          <li>Urgent alerts</li>
+        </ul>
+        <button
+          mat-flat-button
+          color="primary"
+          class="select-btn"
+          type="button"
+          [disabled]="selectedPlan !== 'premium'"
+        >
+          Selected
+        </button>
+      </div>
+    </div>
+
+    <div class="btn-container">
+      <button
+        mat-flat-button
+        color="primary"
+        class="continue-btn"
+        [disabled]="!selectedPlan"
+        (click)="continueToRegister()"
+      >
+        Continue
+      </button>
+    </div>
+  </div>
+</div>

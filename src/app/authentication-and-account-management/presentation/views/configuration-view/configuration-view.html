@@ -1,0 +1,105 @@
+<div class="config-container">
+  <div class="config-content">
+
+    <div class="config-left">
+      <h1>Configuration</h1>
+      <p class="subtitle">
+        Manage your preferences and notification settings
+      </p>
+
+      <h2 class="section-title">Notification Preferences</h2>
+
+      <form [formGroup]="configForm" aria-label="Notification configuration form">
+        <div class="option">
+          <div class="option-text">
+            <h3>Email Notifications</h3>
+            <p>Receive alerts via email</p>
+          </div>
+          <mat-slide-toggle
+            formControlName="emailNotifications"
+            color="primary"
+            aria-label="Enable or disable email notifications"
+          ></mat-slide-toggle>
+        </div>
+
+        <div class="option">
+          <div class="option-text">
+            <h3>SMS Notifications</h3>
+            <p>Receive alerts via text message</p>
+          </div>
+          <mat-slide-toggle
+            formControlName="smsNotifications"
+            color="primary"
+            aria-label="Enable or disable SMS notifications"
+          ></mat-slide-toggle>
+        </div>
+
+        <div class="option">
+          <div class="option-text">
+            <h3>Language</h3>
+            <p>Select your interface language</p>
+          </div>
+          <mat-form-field
+            appearance="fill"
+            class="language-field"
+            aria-label="Language selection field"
+          >
+            <mat-select formControlName="language" aria-label="Select preferred language">
+              <mat-option value="en" aria-label="English">English</mat-option>
+              <mat-option value="es" aria-label="Spanish">Spanish</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <button
+          mat-flat-button
+          color="primary"
+          class="save-btn"
+          aria-label="Save configuration changes"
+          (click)="onSaveChanges()"
+        >
+          Save Changes
+        </button>
+      </form>
+    </div>
+
+    <div class="config-right" aria-label="Right panel with user info">
+
+      <div *ngIf="userRole === 'authority'" class="selected-plan-card">
+        <h3>{{ selectedPlan | titlecase }} Plan</h3>
+        <p class="plan-price">
+          {{ selectedPlan === 'premium' ? 'S/. 249.00' : 'S/. 99.00' }}
+        </p>
+        <ul class="plan-features">
+          <li *ngIf="selectedPlan === 'basic'">Access to received reports</li>
+          <li *ngIf="selectedPlan === 'basic'">Simple table view</li>
+          <li *ngIf="selectedPlan === 'basic'">Basic notifications</li>
+
+          <li *ngIf="selectedPlan === 'premium'">Everything from the Basic Plan</li>
+          <li *ngIf="selectedPlan === 'premium'">Advanced metrics dashboard</li>
+          <li *ngIf="selectedPlan === 'premium'">Incident map</li>
+          <li *ngIf="selectedPlan === 'premium'">Team management</li>
+          <li *ngIf="selectedPlan === 'premium'">PDF/Excel export</li>
+          <li *ngIf="selectedPlan === 'premium'">Urgent alerts</li>
+        </ul>
+
+        <button
+          mat-flat-button
+          color="primary"
+          class="update-btn"
+          (click)="navigateToPlans()"
+          aria-label="Update your plan"
+        >
+          Update Plan
+        </button>
+      </div>
+
+      <img
+        *ngIf="userRole === 'citizen'"
+        src="/assets/images/configuration.png"
+        alt="Configuration illustration showing settings adjustments"
+      />
+    </div>
+  </div>
+</div>
+

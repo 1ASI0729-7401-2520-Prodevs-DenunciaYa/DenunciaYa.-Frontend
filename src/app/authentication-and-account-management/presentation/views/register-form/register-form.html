@@ -1,0 +1,148 @@
+<div class="login-container">
+  <div class="login-card">
+    <button mat-button color="primary" (click)="navigateToLogin()" aria-label="Go back to login">
+      ← Back
+    </button>
+
+    <h1 class="app-title" aria-label="DenunciaYa application logo">
+      <img src="/assets/images/Logo_1.jpg" alt="Citizen" class="logoImage" />
+      DenunciaYa
+    </h1>
+    <h2>Register</h2>
+
+    <div class="role-selection" role="radiogroup" aria-label="Select your role">
+      <div
+        class="role-card"
+        [class.active]="selectedRole === 'citizen'"
+        (click)="selectRole('citizen')"
+        tabindex="0"
+        role="radio"
+        [attr.aria-checked]="selectedRole === 'citizen'"
+        aria-label="Select citizen role"
+      >
+        <img src="/assets/images/citizen.png" alt="Citizen icon" />
+        <p>Citizen</p>
+      </div>
+
+      <div
+        class="role-card"
+        [class.active]="selectedRole === 'authority'"
+        (click)="selectRole('authority')"
+        tabindex="0"
+        role="radio"
+        [attr.aria-checked]="selectedRole === 'authority'"
+        aria-label="Select authority role"
+      >
+        <img src="/assets/images/authority.png" alt="Authority icon" />
+        <p>Authority</p>
+      </div>
+    </div>
+
+    <div class="form-section" aria-label="Register form section">
+      <h3>Hello, please choose the type of person you are.</h3>
+      <p>Complete the forms to sign up</p>
+
+      <form [formGroup]="registerForm" (ngSubmit)="onRegister()" aria-label="Register form">
+
+        <div class="name-row">
+          <mat-form-field appearance="fill" class="half-width">
+            <mat-label>First Name*</mat-label>
+            <input matInput placeholder="Enter first name" formControlName="firstName" aria-required="true" />
+            <mat-error *ngIf="registerForm.get('firstName')?.hasError('required')">
+              First name is required
+            </mat-error>
+            <mat-error *ngIf="registerForm.get('firstName')?.hasError('pattern')">
+              Only letters and spaces are allowed
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="half-width">
+            <mat-label>Last Name*</mat-label>
+            <input matInput placeholder="Enter last name" formControlName="lastName" aria-required="true" />
+            <mat-error *ngIf="registerForm.get('lastName')?.hasError('required')">
+              Last name is required
+            </mat-error>
+            <mat-error *ngIf="registerForm.get('lastName')?.hasError('pattern')">
+              Only letters and spaces are allowed
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Email*</mat-label>
+          <input matInput placeholder="Enter your email" formControlName="email" aria-required="true" />
+          <mat-icon matPrefix>email</mat-icon>
+          <mat-error *ngIf="registerForm.get('email')?.hasError('required')">
+            Email is required
+          </mat-error>
+          <mat-error *ngIf="registerForm.get('email')?.hasError('email')">
+            Please enter a valid email address
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Password*</mat-label>
+          <input
+            matInput
+            [type]="hidePassword ? 'password' : 'text'"
+            placeholder="Enter password"
+            formControlName="password"
+            aria-required="true"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            type="button"
+            (click)="hidePassword = !hidePassword"
+            [attr.aria-label]="hidePassword ? 'Show password' : 'Hide password'"
+            [attr.aria-pressed]="!hidePassword"
+          >
+            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="registerForm.get('password')?.hasError('required')">
+            Password is required
+          </mat-error>
+          <mat-error *ngIf="registerForm.get('password')?.hasError('minlength')">
+            Password must be at least 6 characters
+          </mat-error>
+          <mat-error *ngIf="registerForm.get('password')?.hasError('maxlength')">
+            Password cannot exceed 20 characters
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Phone (optional)</mat-label>
+          <input matInput type="number" placeholder="Enter your phone number" formControlName="phone" />
+          <mat-icon matPrefix>phone</mat-icon>
+          <mat-error *ngIf="registerForm.get('phone')?.hasError('min')">
+            The number must start from 900000000
+          </mat-error>
+          <mat-error *ngIf="registerForm.get('phone')?.hasError('max')">
+            The number cannot exceed 999999999
+          </mat-error>
+        </mat-form-field>
+
+        <mat-checkbox formControlName="terms" aria-label="Accept terms and conditions">
+          Accept Terms and Conditions
+        </mat-checkbox>
+        <mat-error *ngIf="registerForm.get('terms')?.hasError('required')">
+          You must accept the terms
+        </mat-error>
+
+        <div class="btn-container">
+          <button
+            mat-flat-button
+            color="primary"
+            class="login-btn"
+            type="submit"
+            [disabled]="registerForm.invalid"
+            aria-label="Register button"
+          >
+            Register
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
