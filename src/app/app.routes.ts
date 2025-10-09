@@ -9,6 +9,9 @@ import {
   ResponsibleCreateComponent
 } from './authorities-panel/presentation/responsible-create.component.ts/responsible-create.component';
 import {ProfileResponsibleComponent} from './authorities-panel/presentation/profile-responsible/profile-responsible';
+import {
+  AuthorityHomeComponent
+} from './history-and-follow-up-of-complaints/presentation/view/authority-home/authority-home';
 
 
 
@@ -19,6 +22,6 @@ export const routes: Routes = [
   { path: 'pages/metrics', component: AuthorityMetricsAndGraphs },
   { path: 'pages/profile', component: ProfileResponsibleComponent },
   { path: 'pages/responsibleCreate', component: ResponsibleCreateComponent },
-
+  {path: 'authority/home', component: AuthorityHomeComponent},
   { path: '', redirectTo: 'pages/community', pathMatch: 'full' },
 ];
