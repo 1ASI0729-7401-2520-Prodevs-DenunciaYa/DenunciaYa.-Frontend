@@ -1,0 +1,21 @@
+.community-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #f9fafc;
+  border-radius: 16px;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #0a2540;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.divider {
+  height: 1px;
+  background-color: #d9e1ec;
+  margin: 2rem 0;
+}

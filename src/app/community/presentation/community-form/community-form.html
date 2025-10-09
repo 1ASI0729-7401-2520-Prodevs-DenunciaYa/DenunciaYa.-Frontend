@@ -1,0 +1,43 @@
+<mat-card class="form-card">
+  <div class="form-container">
+    <div class="avatar-icon">
+      <mat-icon>person</mat-icon>
+    </div>
+
+    <div class="form-content">
+      <mat-form-field class="full-width" appearance="outline">
+        <textarea
+          matInput
+          placeholder="¿Qué estás pensando?"
+          [(ngModel)]="content"
+          rows="3">
+        </textarea>
+      </mat-form-field>
+
+      <div *ngIf="imageUrl" class="image-preview">
+        <img [src]="imageUrl" alt="preview" />
+      </div>
+
+      <div class="actions">
+        <button mat-icon-button color="primary" (click)="fileInput.click()">
+          <mat-icon>image</mat-icon>
+        </button>
+        <input
+          #fileInput
+          type="file"
+          accept="image/*"
+          (change)="handleImageUpload($event)"
+          hidden />
+
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="submitPost()"
+          [disabled]="!content.trim() && !imageUrl">
+          <mat-icon>send</mat-icon>
+          Publicar
+        </button>
+      </div>
+    </div>
+  </div>
+</mat-card>
