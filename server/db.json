@@ -1,3 +1,22 @@
 {
-
+  "communities": [
+    {
+      "id": 1759882715903,
+      "userId": 1,
+      "author": "Usuario",
+      "content": "wdadawedwad",
+      "likes": 1,
+      "createdAt": "2025-10-08T00:18:35.903Z",
+      "comments": []
+    },
+    {
+      "id": 1759882721608,
+      "userId": 1,
+      "author": "Usuario",
+      "content": "dawdadwadasdwadwadqwad",
+      "likes": 0,
+      "createdAt": "2025-10-08T00:18:41.608Z",
+      "comments": []
+    }
+  ]
 }

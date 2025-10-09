@@ -1,0 +1,40 @@
+/* Contenedor principal del layout */
+.layout-container {
+  height: 100vh;
+  display: flex;
+}
+
+/* Side navigation */
+.sidenav {
+  width: 250px;
+}
+
+/* Contenido principal: top-bar + page content */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* Top bar simulando toolbar */
+.top-bar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 16px 24px;
+  /* opcional: sombra para destacar */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Spacer para empujar el switcher a la derecha */
+.spacer {
+  flex: 1 1 auto;
+}
+
+/* Contenido de la página */
+.page-content {
+  padding: 16px;
+  overflow-y: auto;
+}
+
+/* Elimina referencias a la línea separadora */
