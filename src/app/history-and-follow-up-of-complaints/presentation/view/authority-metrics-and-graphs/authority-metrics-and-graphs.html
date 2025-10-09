@@ -1,0 +1,79 @@
+<div class="authority-metrics" role="main" aria-label="Metrics and Reports Dashboard">
+  <header class="metrics-header" aria-labelledby="metrics-title">
+    <h1 id="metrics-title" class="metrics-title">Metrics and Reports</h1>
+    <p class="metrics-subtitle">
+      Detailed analysis of complaints and trends
+    </p>
+  </header>
+
+  <div *ngIf="isLoading" class="loading-state" role="status" aria-live="polite">
+    <p>Loading metrics data...</p>
+  </div>
+
+  <div *ngIf="errorMessage && !isLoading" class="error-state" role="alert" aria-live="assertive">
+    <p>{{ errorMessage }}</p>
+    <button (click)="loadMetricsData()" class="retry-button" aria-label="Retry loading metrics">Retry</button>
+  </div>
+
+  <section *ngIf="!isLoading && !errorMessage" class="metrics-grid" aria-label="Key metrics summary">
+    <div class="metric-card" role="group" aria-label="Total monthly complaints">
+      <div class="metric-icon total-icon">
+        <span class="icon" aria-hidden="true">📈</span>
+      </div>
+      <div class="metric-content">
+        <h3 class="metric-title">Total Complaints This Month</h3>
+        <p class="metric-number" aria-label="{{ monthlyTotal }} complaints this month">{{ monthlyTotal }}</p>
+      </div>
+    </div>
+
+    <div class="metric-card" role="group" aria-label="Most common complaint category">
+      <div class="metric-icon category-icon">
+        <span class="icon" aria-hidden="true">🏷️</span>
+      </div>
+      <div class="metric-content">
+        <h3 class="metric-title">Most Common Category</h3>
+        <p class="metric-category" aria-label="Most common category: {{ mostCommonCategory }}">{{ mostCommonCategory }}</p>
+      </div>
+    </div>
+
+    <div class="metric-card" role="group" aria-label="District with most complaints">
+      <div class="metric-icon district-icon">
+        <span class="icon" aria-hidden="true">🏙️</span>
+      </div>
+      <div class="metric-content">
+        <h3 class="metric-title">District with Most Complaints</h3>
+        <p class="metric-district" aria-label="District with most complaints: {{ districtWithMostComplaints }}">{{ districtWithMostComplaints }}</p>
+      </div>
+    </div>
+
+
+  </section>
+
+  <div class="charts-section" *ngIf="!isLoading && !errorMessage" role="region" aria-label="Analytics charts">
+    <div class="chart-card polar-area-card" role="group" aria-label="Polar chart of distribution by category">
+      <h3 class="chart-title">Distribution by Category</h3>
+      <div class="chart-wrapper">
+        <p-chart
+          type="polarArea"
+          [data]="polarAreaData"
+          [options]="polarAreaOptions"
+          [style]="{'width': '100%', 'height': '400px'}"
+          aria-label="Polar area chart showing complaints distribution by category">
+        </p-chart>
+      </div>
+    </div>
+
+    <div class="chart-card trends-card" role="group" aria-label="Monthly trends chart by category">
+      <h3 class="chart-title">Monthly Trends by Category</h3>
+      <div class="chart-wrapper">
+        <p-chart
+          type="bar"
+          [data]="categoryTrendsData"
+          [options]="categoryTrendsOptions"
+          [style]="{'width': '100%', 'height': '400px'}"
+          aria-label="Bar chart showing monthly complaints trends by category">
+        </p-chart>
+      </div>
+    </div>
+  </div>
+</div>
