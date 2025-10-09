@@ -2,6 +2,7 @@ import {Complaint, TimelineItem} from '../domain/model/complaint.entity';
 import {ComplaintResource, ComplaintsResponse, TimelineItemResource} from './complaint-response';
 
 export class ComplaintAssembler {
+
   static toEntityFromResource(resource: ComplaintResource): Complaint {
     return new Complaint({
       id: resource.id,

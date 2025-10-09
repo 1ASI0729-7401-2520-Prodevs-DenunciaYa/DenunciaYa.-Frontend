@@ -15,23 +15,24 @@ export class Complaint {
   private _updateDate: string;
   private _timeline: TimelineItem[];
 
-  constructor(complaint:Partial<Complaint> = {} ) {
-    this._id = '';
-    this._category = '';
-    this._department = '';
-    this._city = '';
-    this._district = '';
-    this._location = '';
-    this._referenceInfo = '';
-    this._description = '';
-    this._status = 'Pending';
-    this._priority = 'Standard';
-    this._evidence = [];
-    this._assignedTo = 'Not assigned';
-    this._updateMessage = '';
-    this._updateDate = new Date().toISOString();
-    this._timeline = [];
+  constructor(complaint: Partial<Complaint> = {}) {
+    this._id = complaint.id ?? '';
+    this._category = complaint.category ?? '';
+    this._department = complaint.department ?? '';
+    this._city = complaint.city ?? '';
+    this._district = complaint.district ?? '';
+    this._location = complaint.location ?? '';
+    this._referenceInfo = complaint.referenceInfo ?? '';
+    this._description = complaint.description ?? '';
+    this._status = complaint.status ?? 'Pending';
+    this._priority = complaint.priority ?? 'Standard';
+    this._evidence = complaint.evidence ?? [];
+    this._assignedTo = complaint.assignedTo ?? 'Not assigned';
+    this._updateMessage = complaint.updateMessage ?? '';
+    this._updateDate = complaint.updateDate ?? new Date().toISOString();
+    this._timeline = complaint.timeline ?? [];
   }
+
 
   get id(): string {
     return this._id;
