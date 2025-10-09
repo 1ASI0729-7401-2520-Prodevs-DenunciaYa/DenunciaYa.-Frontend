@@ -21,7 +21,8 @@ export class Responsible implements BaseEntity {
     description: string[];
     accessLevel: string;
     createdAt?: Date;
-  }) {
+  })
+  {
     this._id = responsible.id;
     this._firstName = responsible.firstName;
     this._lastName = responsible.lastName;

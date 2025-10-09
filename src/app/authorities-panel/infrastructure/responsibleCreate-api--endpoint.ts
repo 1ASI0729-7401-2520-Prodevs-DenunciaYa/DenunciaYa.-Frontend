@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { BaseApiEndpoint } from '../../shared/infrastructure/base-api-endpoint';
-import { environment } from '../../../environments/environment';
-import {Responsible} from '../domain/model/responsibleCreate,entity';
+import { Responsible } from '../domain/model/responsibleCreate.entity';
 import { ResponsibleAssembler } from './responsibleCreate.assembler';
 import {
   ResponsibleResource,
   ResponsiblesResponse,
 } from './responsibleCreate.response';
+import { BaseApiEndpoint } from '../../shared/infrastructure/base-api-endpoint';
 
-const responsibleEndpointUrl = `${environment.platformProviderApiBaseUrl}${environment.platformProviderResponsiblesEndpointPath}`;
+const responsibleEndpointUrl = 'http://localhost:3000/responsibles';
 
 @Injectable({ providedIn: 'root' })
 export class ResponsibleApiEndpoint extends BaseApiEndpoint<
@@ -23,8 +22,7 @@ export class ResponsibleApiEndpoint extends BaseApiEndpoint<
     super(http, responsibleEndpointUrl, new ResponsibleAssembler());
   }
 
-
   patch(id: number, partial: Partial<Responsible>): Observable<Responsible> {
-    return this.http.patch<Responsible>(`${responsibleEndpointUrl}/${id}`, partial);
+    return this.http.patch<Responsible>(`${this.endpointUrl}/${id}`, partial);
   }
 }

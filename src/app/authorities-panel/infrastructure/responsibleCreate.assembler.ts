@@ -1,5 +1,5 @@
 import { BaseAssembler } from '../../shared/infrastructure/base-assembler';
-import {Responsible} from '../domain/model/responsibleCreate,entity';
+import {Responsible} from '../domain/model/responsibleCreate.entity';
 import { ResponsibleResponse, ResponsiblesResponse, ResponsibleResource } from './responsibleCreate.response';
 
 export class ResponsibleAssembler

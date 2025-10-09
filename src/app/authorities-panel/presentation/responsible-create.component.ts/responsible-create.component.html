@@ -1,0 +1,56 @@
+<div class="container">
+  <h2>Añadir Nuevo Responsable</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="responsible-form">
+
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input matInput placeholder="Ingrese su Primer No." formControlName="firstName">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Apellido</mat-label>
+        <input matInput placeholder="Ingrese su Primer Ap." formControlName="lastName">
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Correo electrónico</mat-label>
+      <input matInput placeholder="Ingrese su correo electrónico" formControlName="email">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Celular</mat-label>
+      <input matInput placeholder="Ingrese su número de celular" formControlName="phone">
+    </mat-form-field>
+
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Cargo</mat-label>
+        <input matInput placeholder="Ingrese su cargo" formControlName="role">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Descripción / Área</mat-label>
+        <mat-select formControlName="description">
+          <mat-option *ngFor="let area of areas" [value]="area.value">{{ area.label }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Nivel de Acceso</mat-label>
+      <mat-select formControlName="accessLevel">
+        <mat-option *ngFor="let level of accessLevels" [value]="level.value">{{ level.label }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="button-group">
+      <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">Agregar Responsable</button>
+      <button mat-stroked-button color="warn" type="button" (click)="onCancel()">Descartar Responsable</button>
+    </div>
+  </form>
+
+  <mat-spinner *ngIf="store.loading()" diameter="40"></mat-spinner>
+</div>
