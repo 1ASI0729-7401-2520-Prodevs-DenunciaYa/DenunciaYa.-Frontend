@@ -20,6 +20,12 @@ export class ComplaintsApiService {
       .pipe(map(resources => resources.map(resource => ComplaintAssembler.toEntityFromResource(resource))));
   }
 
+  createComplaint(complaint: Complaint): Observable<Complaint> {
+    return this.http.post<ComplaintResource>(`${this.baseUrl}${this.endpoint}`, ComplaintAssembler.toResourceFromEntity(complaint))
+      .pipe(map(resource => ComplaintAssembler.toEntityFromResource(resource)));
+  }
+
+
   getComplaintById(id: string): Observable<Complaint> {
     return this.http.get<ComplaintResource>(`${this.baseUrl}${this.endpoint}/${id}`)
       .pipe(map(resource => ComplaintAssembler.toEntityFromResource(resource)));
