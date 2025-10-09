@@ -1,3 +1,72 @@
 {
-
+  "responsibles": [
+    {
+      "id": 1,
+      "name": "Juan Pérez",
+      "email": "juan.perez@example.com",
+      "position": "Coordinador de Seguridad",
+      "department": "Seguridad",
+      "phone": "+51 999 888 777",
+      "status": "Activo"
+    },
+    {
+      "id": 2,
+      "name": "María Rodríguez",
+      "email": "maria.rodriguez@example.com",
+      "position": "Supervisora de Atención al Cliente",
+      "department": "Atención al Cliente",
+      "phone": "+51 988 777 666",
+      "status": "Activo"
+    },
+    {
+      "firstName": "aaaa",
+      "lastName": "aaaa",
+      "email": "dadw@gmail.com",
+      "phone": "121121121",
+      "role": "as",
+      "description": "Infraestructura",
+      "accessLevel": "Supervisor",
+      "id": 3
+    },
+    {
+      "firstName": "addawdwad",
+      "lastName": "dwadawd",
+      "email": "dadadaw@gmail.com",
+      "phone": "121212112",
+      "role": "adwadwa",
+      "description": "Seguridad Ciudadana",
+      "accessLevel": "Supervisor",
+      "id": 4
+    },
+    {
+      "firstName": "gabriel",
+      "lastName": "mamani",
+      "email": "dawdawd@gmail.com",
+      "phone": "122222222",
+      "role": "dwadwad",
+      "description": "Infraestructura",
+      "accessLevel": "Supervisor",
+      "id": 5
+    }
+  ],
+  "complaints": [
+    {
+      "id": 1,
+      "categoria": "Ruido excesivo",
+      "fecha": "2025-10-08",
+      "estado": "Abierta",
+      "prioridad": "Alta",
+      "responsibleId": 1,
+      "descripcion": "Vecinos reportan ruido constante después de las 11 PM."
+    },
+    {
+      "id": 2,
+      "categoria": "Basura acumulada",
+      "fecha": "2025-10-07",
+      "estado": "En revisión",
+      "prioridad": "Media",
+      "responsibleId": 2,
+      "descripcion": "Contenedores de basura llenos sin recolección durante 3 días."
+    }
+  ]
 }

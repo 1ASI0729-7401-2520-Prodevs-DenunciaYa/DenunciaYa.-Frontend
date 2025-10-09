@@ -4,11 +4,13 @@ import {TranslateService} from '@ngx-translate/core';
 import {
   ResponsibleCreateComponent
 } from './authorities-panel/presentation/responsible-create.component.ts/responsible-create.component';
+import {ProfileResponsibleComponent} from './authorities-panel/presentation/profile-responsible/profile-responsible';
 
 @Component({
   selector: 'app-root',
   imports: [
-    ResponsibleCreateComponent
+    ResponsibleCreateComponent,
+    ProfileResponsibleComponent
 
   ],
   templateUrl: './app.html',
