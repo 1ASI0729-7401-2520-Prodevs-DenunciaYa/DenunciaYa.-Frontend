@@ -1,0 +1,16 @@
+<div class="container">
+  <h1>Directorio de Recursos y Contactos</h1>
+  <p>Encuentra rápidamente información y responsables para realizar tus reportes.</p>
+
+  <div class="filters"></div>
+
+  @if (store.loading()) {
+    <p class="loading-message">Cargando directorio...</p>
+  }
+
+  <div class="list-container">
+    @for (item of store.entities(); track item.id) {
+      <app-directory-item [entity]="item"></app-directory-item>
+    }
+  </div>
+</div>

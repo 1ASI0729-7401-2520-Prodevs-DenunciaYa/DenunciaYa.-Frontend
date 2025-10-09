@@ -1,3 +1,138 @@
 {
-
+  "directory-entities": [
+    {
+      "id": "1",
+      "name": "Comisaría PNP - San Isidro",
+      "type": "Comisaría",
+      "district": "San Isidro",
+      "category": "Seguridad",
+      "address": "Av. Javier Prado Este, San Isidro",
+      "attentionHours": "24 horas",
+      "phone": "(01) 222-1234",
+      "email": "contacto@comisariasidro.gob.pe",
+      "website": "www.pnp.gob.pe/san-isidro",
+      "services": [
+        "Recepción de denuncias por robo y hurto.",
+        "Control de tránsito en la jurisdicción.",
+        "Patrullaje motorizado y a pie.",
+        "Programas de seguridad ciudadana."
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Serenazgo Miraflores",
+      "type": "Oficina Municipal",
+      "district": "Miraflores",
+      "category": "Seguridad",
+      "address": "Calle Gral. Vidal 230, Miraflores",
+      "attentionHours": "24 horas",
+      "phone": "(01) 313-5000",
+      "email": "serenazgo@miraflores.gob.pe",
+      "website": "www.miraflores.gob.pe/serenazgo",
+      "services": [
+        "Vigilancia y patrullaje preventivo.",
+        "Asistencia en emergencias.",
+        "Monitoreo con cámaras de seguridad."
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Defensa Civil - INDECI",
+      "type": "Emergencia",
+      "district": "Lima Cercado",
+      "category": "Emergencias",
+      "address": "Jr. Camaná 564, Lima",
+      "attentionHours": "Lunes a Viernes 8:30 am - 4:30 pm",
+      "phone": "(01) 225-9898",
+      "website": "www.indeci.gob.pe",
+      "services": [
+        "Prevención y atención de desastres.",
+        "Inspecciones técnicas de seguridad.",
+        "Capacitación a la comunidad."
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Compañía de Bomberos Miraflores N° 28",
+      "type": "Emergencia",
+      "district": "Miraflores",
+      "category": "Bomberos",
+      "address": "Av. Mariscal La Mar 1251, Miraflores",
+      "attentionHours": "24 horas",
+      "phone": "116",
+      "email": "bomberos28@bomberosperu.gob.pe",
+      "website": "www.bomberosperu.gob.pe",
+      "services": [
+        "Atención de incendios.",
+        "Rescate en accidentes vehiculares.",
+        "Atención de emergencias médicas."
+      ]
+    },
+    {
+      "id": "5",
+      "name": "Hospital Nacional Casimiro Ulloa",
+      "type": "Emergencia",
+      "district": "Miraflores",
+      "category": "Salud",
+      "address": "Av. República de Panamá 6355, Miraflores",
+      "attentionHours": "24 horas (Emergencia)",
+      "phone": "(01) 241-7545",
+      "website": "www.hecasimiroUlloa.gob.pe",
+      "services": [
+        "Atención médica de emergencia.",
+        "Servicios de hospitalización.",
+        "Consultas externas."
+      ]
+    },
+    {
+      "id": "6",
+      "name": "Oficina de Fiscalización - San Borja",
+      "type": "Oficina Municipal",
+      "district": "San Borja",
+      "category": "Trámites",
+      "address": "Av. Joaquín Madrid 200, San Borja",
+      "attentionHours": "Lunes a Viernes 8:00 am - 5:30 pm",
+      "phone": "(01) 612-5555",
+      "email": "fiscalizacion@msb.gob.pe",
+      "website": "www.munisanborja.gob.pe",
+      "services": [
+        "Control de licencias de funcionamiento.",
+        "Supervisión del cumplimiento de normativas municipales.",
+        "Recepción de quejas sobre comercios."
+      ]
+    },
+    {
+      "id": "7",
+      "name": "Comisaría PNP - Surquillo",
+      "type": "Comisaría",
+      "district": "Surquillo",
+      "category": "Seguridad",
+      "address": "Jr. Dante 745, Surquillo",
+      "attentionHours": "24 horas",
+      "phone": "(01) 241-1996",
+      "email": "contacto@comisariasurquillo.gob.pe",
+      "website": "www.pnp.gob.pe/surquillo",
+      "services": [
+        "Investigación de delitos menores.",
+        "Emisión de certificados de antecedentes policiales.",
+        "Atención a la comunidad."
+      ]
+    },
+    {
+      "id": "8",
+      "name": "DEMUNA - Municipalidad de Lince",
+      "type": "Oficina Municipal",
+      "district": "Lince",
+      "category": "Social",
+      "address": "Av. Juan Pardo de Zela 480, Lince",
+      "attentionHours": "Lunes a Viernes 8:00 am - 4:00 pm",
+      "phone": "(01) 619-1818",
+      "website": "www.munilince.gob.pe/demuna",
+      "services": [
+        "Defensoría Municipal del Niño y del Adolescente.",
+        "Conciliaciones extrajudiciales en alimentos y tenencia.",
+        "Orientación psicológica y legal."
+      ]
+    }
+  ]
 }

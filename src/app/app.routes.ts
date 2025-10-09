@@ -1,3 +1,16 @@
 import { Routes } from '@angular/router';
 
-export const routes: Routes = [];
+import { DirectoryListComponent } from './resources-and-contacts-directory/presentation/directory-list/directory-list';
+
+export const routes: Routes = [
+  {
+    path: 'directorio',
+    component: DirectoryListComponent
+  },
+
+  {
+    path: '',
+    redirectTo: '/directorio',
+    pathMatch: 'full'
+  }
+];

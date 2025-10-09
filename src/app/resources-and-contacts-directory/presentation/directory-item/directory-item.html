@@ -1,0 +1,28 @@
+<div class="item-card">
+  <h2>{{ entity.name }}</h2>
+  <div class="details">
+    <p><strong>Dirección:</strong> {{ entity.address }}</p>
+    <p><strong>Horario de Atención:</strong> {{ entity.attentionHours }}</p>
+
+    @if(entity.phone) {
+      <p><strong>Teléfono:</strong> {{ entity.phone }}</p>
+    }
+    @if(entity.email) {
+      <p><strong>Correo Electrónico:</strong> {{ entity.email }}</p>
+    }
+    @if(entity.website) {
+      <p><strong>Página Web:</strong> <a [href]="entity.website" target="_blank">{{ entity.website }}</a></p>
+    }
+  </div>
+
+  @if (entity.services && entity.services.length > 0) {
+    <div class="services">
+      <strong>Servicios que realiza:</strong>
+      <ul>
+        @for (service of entity.services; track $index) {
+          <li>{{ service }}</li>
+        }
+      </ul>
+    </div>
+  }
+</div>
