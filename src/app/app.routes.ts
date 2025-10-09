@@ -13,9 +13,10 @@ import {
   AuthorityHomeComponent
 } from './history-and-follow-up-of-complaints/presentation/view/authority-home/authority-home';
 
+import {ComplaintForm} from './complaint-creation/presentation/views/complaint-form/complaint-form';
+import {ComplaintList} from './complaint-creation/presentation/views/complaint-list/complaint-list';
 
-
-
+import {TeamManagementComponent} from './authorities-panel/presentation/team-management/team-management';
 export const routes: Routes = [
   { path: 'pages/community', component: CommunityPage },
   { path: 'pages/map', component: MapTrackingComponent },
@@ -23,5 +24,13 @@ export const routes: Routes = [
   { path: 'pages/profile', component: ProfileResponsibleComponent },
   { path: 'pages/responsibleCreate', component: ResponsibleCreateComponent },
   {path: 'authority/home', component: AuthorityHomeComponent},
+
+  {path: 'pages/complainForm', component: ComplaintForm},
+  {path: 'pages/complainList', component: ComplaintList},
+
+  {path: 'pages/teamManagment', component: TeamManagementComponent},
+
+
+
   { path: '', redirectTo: 'pages/community', pathMatch: 'full' },
 ];
