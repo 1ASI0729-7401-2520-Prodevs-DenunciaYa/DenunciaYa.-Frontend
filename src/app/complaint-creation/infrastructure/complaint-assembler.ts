@@ -1,5 +1,5 @@
-import {Complaint} from '../domain/model/complaint.entity';
-import {ComplaintsResponse} from './complaint-response';
+import {Complaint, TimelineItem} from '../domain/model/complaint.entity';
+import {ComplaintResource, ComplaintsResponse, TimelineItemResource} from './complaint-response';
 
 export class ComplaintAssembler {
   static toEntityFromResource(resource: ComplaintResource): Complaint {
@@ -22,7 +22,7 @@ export class ComplaintAssembler {
     };
   }
 
-  static toEntitiesFromResponse(response: ComplaintsResponse): ComplaintsResponse[] {
+  static toEntitiesFromResponse(response: ComplaintsResponse): Complaint[] {
     return response.complaints.map(resource => this.toEntityFromResource(resource));
   }
 
@@ -38,7 +38,7 @@ export class ComplaintAssembler {
 
   static toResourceFromEntity(entity: Complaint): ComplaintResource {
     return {
-      id: entity.id,
+      id: String(entity.id),
       category: entity.category,
       department: entity.department,
       city: entity.city,
