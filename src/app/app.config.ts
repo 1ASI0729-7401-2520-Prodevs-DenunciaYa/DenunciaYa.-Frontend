@@ -8,6 +8,8 @@ import { routes } from './app.routes';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import type { TranslationObject } from '@ngx-translate/core';
+import { GoogleMapsModule } from '@angular/google-maps';
+import {environment} from '../environments/environment';
 
 export class TypedTranslateHttpLoader extends TranslateHttpLoader implements TranslateLoader {
   override getTranslation(lang: string): Observable<TranslationObject> {
@@ -36,6 +38,9 @@ export const appConfig: ApplicationConfig = {
           deps: [HttpClient]
         }
       })
-    )
+    ),
+    GoogleMapsModule,
+    { provide: 'googleMapsApiKey', useValue: environment.googleMapsApiKey }
+
   ]
 };

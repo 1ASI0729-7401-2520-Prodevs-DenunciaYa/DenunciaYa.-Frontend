@@ -12,6 +12,9 @@ import {ProfileResponsibleComponent} from './authorities-panel/presentation/prof
 import {
   AuthorityHomeComponent
 } from './history-and-follow-up-of-complaints/presentation/view/authority-home/authority-home';
+import {
+  ConfigurationView
+} from './authentication-and-account-management/presentation/views/configuration-view/configuration-view';
 
 import {ComplaintForm} from './complaint-creation/presentation/views/complaint-form/complaint-form';
 import {ComplaintList} from './complaint-creation/presentation/views/complaint-list/complaint-list';
@@ -32,5 +35,7 @@ export const routes: Routes = [
 
 
 
+  {path: 'pages/map', component: MapTrackingComponent},
+  {path: 'configuracion', component: ConfigurationView},
   { path: '', redirectTo: 'pages/community', pathMatch: 'full' },
 ];
