@@ -1,5 +1,5 @@
-<div [class.collapsed]="collapsed" class="sidenav-container">
-  <!-- Logo y título -->
+<div class="sidenav-container" [class.collapsed]="collapsed">
+  <!-- Logo -->
   <div class="sidenav-header" (click)="toggleSidenav()">
     <img src="https://i.postimg.cc/8CQhhKrm/Whats-App-Image-2025-10-06-at-18-16-03-removebg-preview.png"
          alt="DenunciaYa"
@@ -9,64 +9,13 @@
 
   <!-- Menú principal -->
   <mat-nav-list>
-    <a mat-list-item routerLink="/inicio" routerLinkActive="active-link" class="nav-item">
-      <mat-icon>home</mat-icon>
-      <span *ngIf="!collapsed">{{ 'SIDENAV.HOME' | translate }}</span>
-    </a>
-
-    <a mat-list-item routerLink="/denuncias" routerLinkActive="active-link" class="nav-item">
-      <mat-icon>report_problem</mat-icon>
-      <span *ngIf="!collapsed">{{ 'SIDENAV.REPORTS' | translate }}</span>
-    </a>
-
-    <a mat-list-item routerLink="/mapa" routerLinkActive="active-link" class="nav-item">
-      <mat-icon>map</mat-icon>
-      <span *ngIf="!collapsed">{{ 'SIDENAV.MAP' | translate }}</span>
-    </a>
-
-    <a mat-list-item routerLink="/metricas" routerLinkActive="active-link" class="nav-item">
-      <mat-icon>bar_chart</mat-icon>
-      <span *ngIf="!collapsed">{{ 'SIDENAV.METRICS' | translate }}</span>
-    </a>
-
-    <a mat-list-item routerLink="/equipos" routerLinkActive="active-link" class="nav-item">
-      <mat-icon>groups</mat-icon>
-      <span *ngIf="!collapsed">{{ 'SIDENAV.TEAMS' | translate }}</span>
-    </a>
-
-    <a mat-list-item routerLink="/soporte" routerLinkActive="active-link" class="nav-item">
-      <mat-icon>help_outline</mat-icon>
-      <span *ngIf="!collapsed">{{ 'SIDENAV.SUPPORT' | translate }}</span>
-    </a>
-
-    <a mat-list-item routerLink="/directorio" routerLinkActive="active-link" class="nav-item">
-      <mat-icon>menu_book</mat-icon>
-      <span *ngIf="!collapsed">{{ 'SIDENAV.DIRECTORY' | translate }}</span>
-    </a>
-
-    <a mat-list-item routerLink="/communities/home" routerLinkActive="active-link" class="nav-item">
-      <mat-icon>forum</mat-icon>
-      <span *ngIf="!collapsed">{{ 'SIDENAV.COMMUNITY' | translate }}</span>
+    <a mat-list-item
+       *ngFor="let item of sidenavItems"
+       [routerLink]="item.route"
+       routerLinkActive="active-link"
+       class="nav-item">
+      <mat-icon>{{ item.icon }}</mat-icon>
+      <span *ngIf="!collapsed">{{ item.label | translate }}</span>
     </a>
   </mat-nav-list>
-
-  <!-- Sección inferior -->
-  <div class="bottom-section">
-    <mat-nav-list>
-      <a mat-list-item routerLink="/perfil" routerLinkActive="active-link" class="nav-item">
-        <mat-icon>person</mat-icon>
-        <span *ngIf="!collapsed">{{ 'SIDENAV.PROFILE' | translate }}</span>
-      </a>
-
-      <a mat-list-item routerLink="/configuracion" routerLinkActive="active-link" class="nav-item">
-        <mat-icon>settings</mat-icon>
-        <span *ngIf="!collapsed">{{ 'SIDENAV.SETTINGS' | translate }}</span>
-      </a>
-
-      <a mat-list-item routerLink="/cerrar-cuenta" routerLinkActive="active-link" class="nav-item">
-        <mat-icon>logout</mat-icon>
-        <span *ngIf="!collapsed">{{ 'SIDENAV.LOGOUT' | translate }}</span>
-      </a>
-    </mat-nav-list>
-  </div>
 </div>

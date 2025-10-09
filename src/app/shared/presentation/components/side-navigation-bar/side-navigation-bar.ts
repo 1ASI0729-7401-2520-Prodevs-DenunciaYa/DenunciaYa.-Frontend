@@ -1,10 +1,16 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgForOf } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule, MatNavList, MatListItem } from '@angular/material/list';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+
+interface SideNavigationItem {
+  label: string;
+  icon: string;
+  route: string;
+}
 
 @Component({
   selector: 'app-side-navigation-bar',
@@ -15,14 +21,32 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     CommonModule,
     MatSidenavModule,
     MatListModule,
-    MatIconModule,
+    MatNavList,
+    MatListItem,
+    NgForOf,
     RouterLink,
     RouterLinkActive,
+    MatIconModule,
     TranslateModule
   ]
 })
 export class SideNavigationBarComponent {
-  collapsed = false; // controla si el sidenav está colapsado
+  collapsed = false;
+
+  sidenavItems: SideNavigationItem[] = [
+    { label: 'SIDENAV.HOME', icon: 'home', route: '/authority/home' },
+    { label: 'SIDENAV.REPORTS', icon: 'report_problem', route: '/denuncias' },
+    { label: 'SIDENAV.MAP', icon: 'map', route: '/pages/map' },
+    { label: 'SIDENAV.METRICS', icon: 'bar_chart', route: 'pages/metrics' },
+    { label: 'SIDENAV.TEAMS', icon: 'groups', route: '/equipos' },
+    { label: 'SIDENAV.SUPPORT', icon: 'help_outline', route: '/soporte' },
+    { label: 'SIDENAV.DIRECTORY', icon: 'menu_book', route: '/directorio' },
+    { label: 'SIDENAV.COMMUNITY', icon: 'forum', route: '/pages/community' },
+    { label: 'SIDENAV.RESPONSIBLECREATE', icon: 'forum', route: 'pages/responsibleCreate' },
+    { label: 'SIDENAV.PROFILE', icon: 'person', route: '/pages/profile' },
+    { label: 'SIDENAV.SETTINGS', icon: 'settings', route: '/configuracion' },
+    { label: 'SIDENAV.LOGOUT', icon: 'logout', route: '/cerrar-cuenta' }
+  ];
 
   constructor(private translate: TranslateService) {
     this.translate.setDefaultLang('es');
