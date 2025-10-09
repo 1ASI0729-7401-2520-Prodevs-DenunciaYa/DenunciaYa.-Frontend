@@ -15,7 +15,7 @@ export class Complaint {
   updateDate: string;
   timeline: TimelineItem[];
 
-  constructor() {
+  constructor(complaint:Partial<Complaint> = {} ) {
     this.id = '';
     this.category = '';
     this.department = '';
