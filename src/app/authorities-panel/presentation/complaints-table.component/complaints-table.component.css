@@ -1,0 +1,52 @@
+.table-container {
+  width: 90%;
+  margin: 30px auto;
+}
+
+.custom-table {
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+th {
+  background: #f7f7f7;
+  font-weight: 600;
+}
+
+td, th {
+  text-align: center;
+  padding: 10px;
+}
+
+/* Estado */
+.status {
+  padding: 5px 12px;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  font-size: 13px;
+}
+.status.estandar { background: #2196f3; }
+.status.urgente { background: #fbc02d; color: #000; }
+.status.crítica, .status.critica { background: #f44336; }
+.status.resuelta { background: #4caf50; }
+
+/* Prioridad */
+.priority {
+  padding: 5px 12px;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  font-size: 13px;
+}
+.priority.pendiente { background: #ffb300; color: #000; }
+.priority.en\ proceso, .priority.en-proceso { background: #1976d2; }
+.priority.resuelta { background: #4caf50; }
+.priority.rechazada { background: #f44336; }
+
+/* Botón */
+button {
+  border-radius: 20px !important;
+  font-size: 13px;
+}

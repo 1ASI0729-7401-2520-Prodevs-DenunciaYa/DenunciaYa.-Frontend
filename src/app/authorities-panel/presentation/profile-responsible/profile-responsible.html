@@ -1,0 +1,33 @@
+<div class="profile-container">
+  <div class="profile-info">
+    <h1>Perfil del Responsable</h1>
+    <div class="section-title">Información Personal</div>
+    <div class="section-subtitle">
+      Gestiona tu información de contacto y detalles personales.
+    </div>
+
+    <div class="profile-fields">
+      <mat-form-field appearance="fill">
+        <mat-label>Primer Nombre</mat-label>
+        <input matInput [value]="latestResponsible()?.firstName || ''" readonly />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Apellido</mat-label>
+        <input matInput [value]="latestResponsible()?.lastName || ''" readonly />
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>Correo electrónico</mat-label>
+        <input matInput [value]="latestResponsible()?.email || ''" readonly />
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>Teléfono</mat-label>
+        <input matInput [value]="latestResponsible()?.phone || ''" readonly />
+      </mat-form-field>
+    </div>
+  </div>
+
+
+</div>
