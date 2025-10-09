@@ -1,0 +1,101 @@
+/* ===== CONTENEDOR PRINCIPAL ===== */
+.team-container {
+  width: 90%;
+  margin: 2rem auto;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 1.8rem;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  font-family: 'Inter', sans-serif;
+}
+
+/* ===== TÍTULO ===== */
+h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1e1e1e;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.3px;
+}
+
+/* ===== FILTRO ===== */
+.filter-box {
+  margin-bottom: 1.3rem;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.filter-input {
+  width: 280px;
+  padding: 0.6rem 1rem;
+  border: 2px solid #d3d3d3;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  font-size: 0.95rem;
+  color: #333;
+  background-color: #f8f8f8;
+  transition: all 0.25s ease;
+}
+
+.filter-input:focus {
+  outline: none;
+  border-color: #007bff;
+  background-color: #fff;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.2);
+}
+
+/* ===== TABLA ===== */
+.team-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.8rem;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.team-table th,
+.team-table td {
+  text-align: left;
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid #e6e6e6;
+  font-size: 0.95rem;
+}
+
+.team-table th {
+  font-weight: 600;
+  background-color: #fafafa;
+  color: #333;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.team-table tr:hover td {
+  background-color: #f5f8ff;
+}
+
+/* ===== BOTÓN ASIGNAR ===== */
+.assign-btn {
+  background-color: transparent;
+  border: 2px solid #d3d3d3;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  color: #007bff;
+  border-radius: 20px;
+  padding: 0.4rem 1.1rem;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.25s ease;
+}
+
+.assign-btn:hover {
+  background-color: #007bff;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 123, 255, 0.3);
+}
+
+/* ===== ESTADO VACÍO ===== */
+.empty-text {
+  text-align: center;
+  font-size: 1rem;
+  color: #777;
+  padding: 1.5rem 0;
+}

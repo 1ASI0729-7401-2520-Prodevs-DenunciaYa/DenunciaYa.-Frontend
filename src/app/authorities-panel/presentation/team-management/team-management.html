@@ -1,0 +1,34 @@
+<div class="team-container">
+  <h2>Gestión de equipos</h2>
+
+
+  @if (filteredResponsibles.length > 0) {
+    <table class="team-table">
+      <thead>
+      <tr>
+        <th>Responsable</th>
+        <th>N° de Casos</th>
+        <th>Categoría</th>
+        <th>Asignación</th>
+      </tr>
+      </thead>
+
+      <tbody>
+        @for (r of filteredResponsibles; track r.id) {
+          <tr>
+            <td>{{ r.firstName }} {{ r.lastName }}</td>
+            <td>{{ r.caseCount || '-' }}</td>
+            <td>{{ r.category || '-' }}</td>
+            <td>
+              <button class="assign-btn" (click)="assignComplaint(r)">
+                Asignar denuncia
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  } @else {
+    <p class="empty-text">No hay responsables registrados.</p>
+  }
+</div>
