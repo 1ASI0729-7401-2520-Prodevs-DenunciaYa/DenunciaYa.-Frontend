@@ -5,7 +5,7 @@
 
   <ng-container *ngIf="!communityStore.loading()">
     <div *ngIf="communityStore.communities().length === 0" class="no-posts">
-      <p>No hay publicaciones todavía</p>
+      <p>{{ 'COMMUNITY_LIST.NO_POSTS' | translate }}</p>
     </div>
 
     <mat-card
@@ -19,26 +19,49 @@
 
       <mat-card-content>
         <p>{{ post.content }}</p>
-        <img *ngIf="post.imageUrl" [src]="post.imageUrl" alt="Imagen" class="post-image"/>
+        <img
+          *ngIf="post.imageUrl"
+          [src]="post.imageUrl"
+          [alt]="'COMMUNITY_LIST.POST.IMAGE_ALT' | translate"
+          class="post-image"
+        />
       </mat-card-content>
 
       <mat-card-actions class="actions-row">
-        <button mat-icon-button color="primary" (click)="onToggleLike(post)">
+        <button
+          mat-icon-button
+          color="primary"
+          (click)="onToggleLike(post)"
+          [attr.aria-label]="'COMMUNITY_LIST.POST.ACTIONS.LIKE' | translate"
+        >
           <mat-icon>thumb_up</mat-icon>
         </button>
         <span>{{ post.likes }}</span>
 
-        <button mat-icon-button (click)="toggleComments(post)">
+        <button
+          mat-icon-button
+          (click)="toggleComments(post)"
+          [attr.aria-label]="'COMMUNITY_LIST.POST.ACTIONS.COMMENT' | translate"
+        >
           <mat-icon>comment</mat-icon>
         </button>
         <span>{{ post.comments.length }}</span>
 
-        <button mat-icon-button color="warn" (click)="onDelete(post.id)">
+        <button
+          mat-icon-button
+          color="warn"
+          (click)="onDelete(post.id)"
+          [attr.aria-label]="'COMMUNITY_LIST.POST.ACTIONS.DELETE' | translate"
+        >
           <mat-icon>delete</mat-icon>
         </button>
       </mat-card-actions>
 
-      <div *ngIf="showComments[post.id]" class="comments-section">
+      <div
+        *ngIf="showComments[post.id]"
+        class="comments-section"
+        [attr.aria-label]="'COMMUNITY_LIST.COMMENTS.SECTION' | translate"
+      >
         <div *ngFor="let comment of getDisplayedComments(post)" class="comment">
           <b>{{ comment.author }}:</b> {{ comment.content }}
         </div>
@@ -49,17 +72,25 @@
           color="primary"
           (click)="toggleShowComments(post)"
         >
-          {{ showAllComments[post.id] ? 'Ver menos comentarios' : 'Ver más comentarios' }}
+          {{ showAllComments[post.id] ?
+          ('COMMUNITY_LIST.COMMENTS.SHOW_LESS' | translate) :
+          ('COMMUNITY_LIST.COMMENTS.SHOW_MORE' | translate)
+          }}
         </button>
 
         <div class="add-comment">
           <input
             type="text"
             [(ngModel)]="newComments[post.id]"
-            placeholder="Escribe un comentario..."
+            [placeholder]="'COMMUNITY_LIST.COMMENTS.ADD_COMMENT.PLACEHOLDER' | translate"
             (keydown.enter)="addComment(post)"
           />
-          <button mat-icon-button color="primary" (click)="addComment(post)">
+          <button
+            mat-icon-button
+            color="primary"
+            (click)="addComment(post)"
+            [attr.aria-label]="'COMMUNITY_LIST.COMMENTS.ADD_COMMENT.BUTTON' | translate"
+          >
             <mat-icon>send</mat-icon>
           </button>
         </div>

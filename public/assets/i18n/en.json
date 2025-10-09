@@ -658,7 +658,46 @@
       "HIGH": "High",
       "URGENT": "Urgent"
     }
+  },
+
+  "POST_FORM": {
+    "PLACEHOLDER": "What are you thinking?",
+    "IMAGE_PREVIEW_ALT": "Image preview",
+    "ACTIONS": {
+      "UPLOAD_IMAGE": "Upload image",
+      "PUBLISH": "Publish"
+    },
+    "VALIDATION": {
+      "CONTENT_REQUIRED": "Content is required",
+      "IMAGE_UPLOAD_ERROR": "Error uploading image"
+    }
+  },
+
+  "COMMUNITY_LIST": {
+    "NO_POSTS": "No posts yet",
+    "POST": {
+      "IMAGE_ALT": "Post image",
+      "ACTIONS": {
+        "LIKE": "Like post",
+        "COMMENT": "View comments",
+        "DELETE": "Delete post"
+      }
+    },
+    "COMMENTS": {
+      "SECTION": "Comments section",
+      "SHOW_LESS": "Show fewer comments",
+      "SHOW_MORE": "Show more comments",
+      "ADD_COMMENT": {
+        "PLACEHOLDER": "Write a comment...",
+        "BUTTON": "Send comment"
+      }
+    },
+    "COMMUNITY": {
+      "TITLE": "Community"
+    }
   }
+
+
 
 
 

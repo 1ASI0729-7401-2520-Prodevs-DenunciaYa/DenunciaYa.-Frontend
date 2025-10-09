@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommunityStore } from '../../application/community.store';
 import { Community, Comment } from '../../domain/model/community.entity';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-community-list',
@@ -17,7 +18,8 @@ import { Community, Comment } from '../../domain/model/community.entity';
     MatCardModule,
     MatIconModule,
     MatButtonModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    TranslatePipe
   ],
   templateUrl: './community-list.html',
   styleUrls: ['./community-list.css']

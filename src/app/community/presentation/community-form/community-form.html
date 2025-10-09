@@ -8,18 +8,22 @@
       <mat-form-field class="full-width" appearance="outline">
         <textarea
           matInput
-          placeholder="¿Qué estás pensando?"
+          [placeholder]="'POST_FORM.PLACEHOLDER' | translate"
           [(ngModel)]="content"
           rows="3">
         </textarea>
       </mat-form-field>
 
       <div *ngIf="imageUrl" class="image-preview">
-        <img [src]="imageUrl" alt="preview" />
+        <img [src]="imageUrl" [alt]="'POST_FORM.IMAGE_PREVIEW_ALT' | translate" />
       </div>
 
       <div class="actions">
-        <button mat-icon-button color="primary" (click)="fileInput.click()">
+        <button
+          mat-icon-button
+          color="primary"
+          (click)="fileInput.click()"
+          [attr.aria-label]="'POST_FORM.ACTIONS.UPLOAD_IMAGE' | translate">
           <mat-icon>image</mat-icon>
         </button>
         <input
@@ -35,7 +39,7 @@
           (click)="submitPost()"
           [disabled]="!content.trim() && !imageUrl">
           <mat-icon>send</mat-icon>
-          Publicar
+          {{ 'POST_FORM.ACTIONS.PUBLISH' | translate }}
         </button>
       </div>
     </div>

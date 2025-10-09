@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { CommunityStore } from '../../application/community.store';
 import { Community } from '../../domain/model/community.entity';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-community-form',
@@ -19,7 +20,8 @@ import { Community } from '../../domain/model/community.entity';
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    TranslatePipe
   ],
   templateUrl: './community-form.html',
   styleUrls: ['./community-form.css']
