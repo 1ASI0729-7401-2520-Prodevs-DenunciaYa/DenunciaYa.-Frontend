@@ -44,7 +44,7 @@ export class ComplaintsStore {
   addComplaint(complaint: Complaint) {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
-    this.api.addComplaint(complaint).pipe(retry(2)).subscribe({
+    this.api.createComplaint(complaint).pipe(retry(2)).subscribe({
       next: newComplaint => {
         this.complaintsSignal.update(list => [...list, newComplaint]);
         this.loadingSignal.set(false);
@@ -73,7 +73,7 @@ export class ComplaintsStore {
     });
   }
 
-  deleteComplaint(id: number | string) {
+  deleteComplaint(id: string) {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
     this.api.deleteComplaint(id).pipe(retry(2)).subscribe({
