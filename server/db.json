@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "communities": [
     {
       "id": 1759882715903,
@@ -18,7 +17,8 @@
       "likes": 0,
       "createdAt": "2025-10-08T00:18:41.608Z",
       "comments": []
-=======
+    }
+  ],
   "responsibles": [
     {
       "id": 1,
@@ -39,55 +39,1733 @@
       "status": "Activo"
     },
     {
+      "id": 3,
       "firstName": "aaaa",
       "lastName": "aaaa",
       "email": "dadw@gmail.com",
       "phone": "121121121",
       "role": "as",
       "description": "Infraestructura",
-      "accessLevel": "Supervisor",
-      "id": 3
+      "accessLevel": "Supervisor"
     },
     {
+      "id": 4,
       "firstName": "addawdwad",
       "lastName": "dwadawd",
       "email": "dadadaw@gmail.com",
       "phone": "121212112",
       "role": "adwadwa",
       "description": "Seguridad Ciudadana",
-      "accessLevel": "Supervisor",
-      "id": 4
+      "accessLevel": "Supervisor"
     },
     {
+      "id": 5,
       "firstName": "gabriel",
       "lastName": "mamani",
       "email": "dawdawd@gmail.com",
       "phone": "122222222",
       "role": "dwadwad",
       "description": "Infraestructura",
-      "accessLevel": "Supervisor",
-      "id": 5
+      "accessLevel": "Supervisor"
     }
   ],
-  "complaints": [
+  "citizen": [
     {
-      "id": 1,
-      "categoria": "Ruido excesivo",
-      "fecha": "2025-10-08",
-      "estado": "Abierta",
-      "prioridad": "Alta",
-      "responsibleId": 1,
-      "descripcion": "Vecinos reportan ruido constante después de las 11 PM."
+      "id": "1",
+      "firstName": "Carlos",
+      "lastName": "Ramirez",
+      "email": "ciudadano1@gmail.com",
+      "password": "password123",
+      "role": "citizen",
+      "phone": "987654321",
+      "terms": true
     },
     {
-      "id": 2,
-      "categoria": "Basura acumulada",
-      "fecha": "2025-10-07",
-      "estado": "En revisión",
-      "prioridad": "Media",
-      "responsibleId": 2,
-      "descripcion": "Contenedores de basura llenos sin recolección durante 3 días."
->>>>>>> origin/feature/authorities-panel
+      "id": "2",
+      "firstName": "Lucia",
+      "lastName": "Gomez",
+      "email": "ciudadano2@gmail.com",
+      "password": "password234",
+      "role": "citizen",
+      "phone": "",
+      "terms": true
+    },
+    {
+      "id": "3",
+      "firstName": "Javier",
+      "lastName": "Torres",
+      "email": "ciudadano3@gmail.com",
+      "password": "password345",
+      "role": "citizen",
+      "phone": "956123478",
+      "terms": true
+    },
+    {
+      "id": "257e",
+      "firstName": "Omar",
+      "lastName": "Rivera",
+      "email": "omarriveraticllacuri@gmail.com",
+      "password": "password123",
+      "role": "citizen",
+      "phone": "",
+      "terms": true
     }
+  ],
+  "authority": [
+    {
+      "id": "4",
+      "firstName": "Maria",
+      "lastName": "Fernandez",
+      "email": "autoridad1@gmail.com",
+      "password": "password321",
+      "role": "authority",
+      "plan": "premium",
+      "paymentStatus": "completed",
+      "phone": "999888777",
+      "terms": true
+    },
+    {
+      "id": "5",
+      "firstName": "Andres",
+      "lastName": "Perez",
+      "email": "autoridad2@gmail.com",
+      "password": "password456",
+      "role": "authority",
+      "plan": "basic",
+      "paymentStatus": "pending",
+      "phone": "",
+      "terms": true
+    },
+    {
+      "id": "6",
+      "firstName": "Sofia",
+      "lastName": "Rojas",
+      "email": "autoridad3@gmail.com",
+      "password": "password567",
+      "role": "authority",
+      "plan": "premium",
+      "paymentStatus": "pending",
+      "phone": "981456723",
+      "terms": true
+    },
+    {
+      "id": 506949,
+      "firstName": "Om",
+      "lastName": "Rs",
+      "email": "a@gmail.com",
+      "password": "asdas123",
+      "role": "authority",
+      "plan": "basic",
+      "paymentStatus": "completed",
+      "phone": "900685106",
+      "terms": true
+    },
+    {
+      "id": 422613,
+      "firstName": "Diegro",
+      "lastName": "Franco",
+      "email": "diego@gmail.com",
+      "password": "oooo0000",
+      "role": "authority",
+      "plan": "premium",
+      "paymentStatus": "completed",
+      "phone": "900685106",
+      "terms": true
+    }
+  ],
+  "status": "success",
+  "complaints": [
+    {
+      "id": "000237",
+      "category": "Infrastructure and Public Spaces",
+      "department": "Lima",
+      "city": "Lima",
+      "district": "San Juan de Miraflores",
+      "location": "456 Lima Street, Block 7",
+      "referenceInfo": "In front of San Martín school",
+      "description": "Damaged streetlights affecting pedestrian safety at night",
+      "status": "Completed",
+      "priority": "Urgent",
+      "evidence": [
+        "https://picsum.photos/200/200?random=1",
+        "https://picsum.photos/200/200?random=2"
+      ],
+      "assignedTo": "Carlos Méndez - Maintenance Chief",
+      "updateMessage": "Your complaint has been accepted and is being processed.",
+      "updateDate": "2025-10-08T03:16:51.825Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-07T20:09:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Under review",
+          "date": "2025-10-08T03:16:46.898Z",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Awaiting response",
+          "date": "2025-10-08T03:16:48.847Z",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Accepted",
+          "date": "2025-10-08T03:16:51.825Z",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Completed",
+          "date": "2025-10-08T03:16:51.825Z",
+          "completed": true,
+          "current": true,
+          "waitingDecision": false
+        }
+      ]
+    },
+    {
+      "id": "004851",
+      "category": "Infrastructure and Public Spaces",
+      "department": "Arequipa",
+      "city": "Arequipa",
+      "district": "Cerro Colorado",
+      "location": "123 Arequipa Avenue, Office 4B",
+      "referenceInfo": "Half block from the industrial park",
+      "description": "Irregular water supply reported in residential zone",
+      "status": "Pending",
+      "priority": "Standard",
+      "evidence": [
+        "https://picsum.photos/200/200?random=6",
+        "https://picsum.photos/200/200?random=7"
+      ],
+      "assignedTo": "Not assigned",
+      "updateMessage": "Awareness has been taken of the problem and preventive actions will begin.",
+      "updateDate": "2025-10-08T02:37:26.514Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-07T20:09:00",
+          "completed": true,
+          "current": true,
+          "waitingDecision": false
+        },
+        {
+          "status": "Under review",
+          "date": "2025-10-07T18:44:00",
+          "completed": false,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Awaiting response",
+          "date": "2025-10-07T18:44:00",
+          "completed": false,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Decision pending",
+          "date": "2025-10-07T20:19:00",
+          "completed": false,
+          "current": false,
+          "waitingDecision": true
+        },
+        {
+          "status": "Completed",
+          "date": "2025-10-07T18:44:00",
+          "completed": false,
+          "current": false,
+          "waitingDecision": false
+        }
+      ]
+    },
+    {
+      "id": "007892",
+      "category": "Environment",
+      "department": "Cusco",
+      "city": "Cusco",
+      "district": "San Blas",
+      "location": "789 Ecological Park, Sector B",
+      "referenceInfo": "Near the historic center, next to the river",
+      "description": "Illegal garbage dumping in protected natural area",
+      "status": "Awaiting response",
+      "priority": "Critical",
+      "evidence": [
+        "https://picsum.photos/200/200?random=9",
+        "https://picsum.photos/200/200?random=10",
+        "https://picsum.photos/200/200?random=11"
+      ],
+      "assignedTo": "María Torres - Environmental Inspector",
+      "updateMessage": "Your complaint is being processed, you will have a response soon",
+      "updateDate": "2025-10-08T10:15:22.123Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-06T09:30:00",
+          "completed": true,
+          "current": false
+        },
+        {
+          "status": "Under review",
+          "date": "2025-10-07T14:20:00",
+          "completed": true,
+          "current": false
+        },
+        {
+          "status": "Awaiting response",
+          "date": "2025-10-08T10:15:22.123Z",
+          "completed": true,
+          "current": true
+        },
+        {
+          "status": "Decision pending",
+          "date": "2025-10-07T20:19:00",
+          "completed": false,
+          "current": false,
+          "waitingDecision": true
+        },
+        {
+          "status": "Completed",
+          "date": "2025-10-07T18:44:00",
+          "completed": false,
+          "current": false
+        }
+      ]
+    },
+    {
+      "id": "012345",
+      "category": "Citizen Security",
+      "department": "Trujillo",
+      "city": "Trujillo",
+      "district": "La Esperanza",
+      "location": "321 Security Street, Block 15",
+      "referenceInfo": "In front of the municipal market",
+      "description": "Lack of police presence and surveillance cameras in high crime area",
+      "status": "Decision pending",
+      "priority": "Urgent",
+      "evidence": [
+        "https://picsum.photos/200/200?random=12",
+        "https://picsum.photos/200/200?random=13"
+      ],
+      "assignedTo": "Roberto Silva - Security Coordinator",
+      "updateMessage": "Your case is in the final evaluation process",
+      "updateDate": "2025-10-08T15:45:33.789Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-05T08:15:00",
+          "completed": true,
+          "current": false
+        },
+        {
+          "status": "Under review",
+          "date": "2025-10-06T11:30:00",
+          "completed": true,
+          "current": false
+        },
+        {
+          "status": "Awaiting response",
+          "date": "2025-10-07T16:45:00",
+          "completed": true,
+          "current": false
+        },
+        {
+          "status": "Decision pending",
+          "date": "2025-10-08T15:45:33.789Z",
+          "completed": true,
+          "current": true,
+          "waitingDecision": true
+        },
+        {
+          "status": "Completed",
+          "date": "2025-10-07T18:44:00",
+          "completed": false,
+          "current": false
+        }
+      ]
+    },
+    {
+      "id": "015678",
+      "category": "Transport and Mobility",
+      "department": "Lima",
+      "city": "Lima",
+      "district": "Miraflores",
+      "location": "159 Larco Avenue, Intersection with Diagonal",
+      "referenceInfo": "Main avenue near the beach",
+      "description": "Traffic lights malfunction causing traffic congestion during peak hours",
+      "status": "Completed",
+      "priority": "Standard",
+      "evidence": [
+        "https://picsum.photos/200/200?random=14",
+        "https://picsum.photos/200/200?random=15",
+        "https://picsum.photos/200/200?random=16"
+      ],
+      "assignedTo": "Juan Pérez - Traffic Engineer",
+      "updateMessage": "Your complaint has been completed. Thank you for your support",
+      "updateDate": "2025-10-08T18:20:45.321Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-01T10:00:00",
+          "completed": true,
+          "current": false
+        },
+        {
+          "status": "Under review",
+          "date": "2025-10-02T14:30:00",
+          "completed": true,
+          "current": false
+        },
+        {
+          "status": "Awaiting response",
+          "date": "2025-10-03T09:15:00",
+          "completed": true,
+          "current": false
+        },
+        {
+          "status": "Decision pending",
+          "date": "2025-10-04T16:45:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Completed",
+          "date": "2025-10-08T18:20:45.321Z",
+          "completed": true,
+          "current": true
+        }
+      ]
+    },
+    {
+      "id": "019876",
+      "category": "Public Health",
+      "department": "Piura",
+      "city": "Piura",
+      "district": "Castilla",
+      "location": "753 Health Center, Wing C",
+      "referenceInfo": "Next to the main hospital",
+      "description": "Accumulation of stagnant water creating mosquito breeding grounds",
+      "status": "Rejected",
+      "priority": "Critical",
+      "evidence": [
+        "https://picsum.photos/200/200?random=17"
+      ],
+      "assignedTo": "Laura Gutierrez - Health Inspector",
+      "updateMessage": "We apologize for the inconvenience, but your complaint will be rejected due to lack of evidence",
+      "updateDate": "2025-10-08T12:10:15.654Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-07T08:20:00",
+          "completed": true,
+          "current": false
+        },
+        {
+          "status": "Under review",
+          "date": "2025-10-07T14:35:00",
+          "completed": true,
+          "current": false
+        },
+        {
+          "status": "Awaiting response",
+          "date": "2025-10-08T09:45:00",
+          "completed": true,
+          "current": false
+        },
+        {
+          "status": "Rejected",
+          "date": "2025-10-08T12:10:15.654Z",
+          "completed": true,
+          "current": true,
+          "waitingDecision": false
+        },
+        {
+          "status": "Completed",
+          "date": "2025-10-07T18:44:00",
+          "completed": false,
+          "current": false
+        }
+      ]
+    },
+    {
+      "id": "023456",
+      "category": "Informal Commerce",
+      "department": "Lima",
+      "city": "Lima",
+      "district": "Surco",
+      "location": "852 Commercial Center, Food Court",
+      "referenceInfo": "In front of the municipal library",
+      "description": "Unauthorized street vendors blocking pedestrian access",
+      "status": "Pending",
+      "priority": "Standard",
+      "evidence": [
+        "https://picsum.photos/200/200?random=18",
+        "https://picsum.photos/200/200?random=19",
+        "https://picsum.photos/200/200?random=20"
+      ],
+      "assignedTo": "Not assigned",
+      "updateMessage": "Awareness has been taken of the problem and preventive actions will begin",
+      "updateDate": "2025-10-08T07:30:12.987Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-08T07:30:12.987Z",
+          "completed": true,
+          "current": true,
+          "waitingDecision": false
+        },
+        {
+          "status": "Under review",
+          "date": "2025-10-07T18:44:00",
+          "completed": false,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Awaiting response",
+          "date": "2025-10-07T18:44:00",
+          "completed": false,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Decision pending",
+          "date": "2025-10-07T20:19:00",
+          "completed": false,
+          "current": false,
+          "waitingDecision": true
+        },
+        {
+          "status": "Completed",
+          "date": "2025-10-07T18:44:00",
+          "completed": false,
+          "current": false,
+          "waitingDecision": false
+        }
+      ]
+    },
+    {
+      "id": "028741",
+      "category": "Public Services",
+      "department": "Lambayeque",
+      "city": "Chiclayo",
+      "district": "Pimentel",
+      "location": "258 Water Plant, Sector 3",
+      "referenceInfo": "Behind the sports complex",
+      "description": "Water leakage from main pipe causing street flooding",
+      "status": "Under review",
+      "priority": "Urgent",
+      "evidence": [
+        "https://picsum.photos/200/200?random=21",
+        "https://picsum.photos/200/200?random=22"
+      ],
+      "assignedTo": "Pedro Ruiz - Water Services",
+      "updateMessage": "Technical team has been dispatched to assess the situation",
+      "updateDate": "2025-10-08T14:20:33.456Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-08T08:15:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Under review",
+          "date": "2025-10-08T14:20:33.456Z",
+          "completed": true,
+          "current": true,
+          "waitingDecision": false
+        },
+        {
+          "status": "Awaiting response",
+          "date": "2025-10-07T18:44:00",
+          "completed": false,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Decision pending",
+          "date": "2025-10-07T20:19:00",
+          "completed": false,
+          "current": false,
+          "waitingDecision": true
+        },
+        {
+          "status": "Completed",
+          "date": "2025-10-07T18:44:00",
+          "completed": false,
+          "current": false,
+          "waitingDecision": false
+        }
+      ]
+    },
+    {
+      "id": "032569",
+      "category": "Urban Cleaning",
+      "department": "La Libertad",
+      "city": "Trujillo",
+      "district": "Trujillo Centro",
+      "location": "147 Main Square, North Side",
+      "referenceInfo": "Next to the cathedral",
+      "description": "Overflowing public trash bins attracting pests and rodents",
+      "status": "Completed",
+      "priority": "Standard",
+      "evidence": [
+        "https://picsum.photos/200/200?random=23"
+      ],
+      "assignedTo": "Ana Mendoza - Cleaning Supervisor",
+      "updateMessage": "Area has been cleaned and sanitation protocol implemented",
+      "updateDate": "2025-10-08T16:45:22.111Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-06T11:30:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Under review",
+          "date": "2025-10-07T09:15:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Awaiting response",
+          "date": "2025-10-07T14:20:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Decision pending",
+          "date": "2025-10-08T10:30:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Completed",
+          "date": "2025-10-08T16:45:22.111Z",
+          "completed": true,
+          "current": true,
+          "waitingDecision": false
+        }
+      ]
+    },
+    {
+      "id": "036985",
+      "category": "Public Transportation",
+      "department": "Lima",
+      "city": "Lima",
+      "district": "Los Olivos",
+      "location": "963 Metro Station, Exit 2",
+      "referenceInfo": "Metro line 1, north station",
+      "description": "Faulty escalators in metro station causing passenger congestion",
+      "status": "Awaiting response",
+      "priority": "Urgent",
+      "evidence": [
+        "https://picsum.photos/200/200?random=24",
+        "https://picsum.photos/200/200?random=25",
+        "https://picsum.photos/200/200?random=26"
+      ],
+      "assignedTo": "Luis Ramirez - Metro Maintenance",
+      "updateMessage": "Waiting for replacement parts from international supplier",
+      "updateDate": "2025-10-08T13:10:45.789Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-05T07:45:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Under review",
+          "date": "2025-10-06T12:20:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Awaiting response",
+          "date": "2025-10-08T13:10:45.789Z",
+          "completed": true,
+          "current": true,
+          "waitingDecision": false
+        },
+        {
+          "status": "Decision pending",
+          "date": "2025-10-07T20:19:00",
+          "completed": false,
+          "current": false,
+          "waitingDecision": true
+        },
+        {
+          "status": "Completed",
+          "date": "2025-10-07T18:44:00",
+          "completed": false,
+          "current": false,
+          "waitingDecision": false
+        }
+      ]
+    },
+    {
+      "id": "041237",
+      "category": "Parks and Recreation",
+      "department": "Arequipa",
+      "city": "Arequipa",
+      "district": "Yanahuara",
+      "location": "159 Children's Park, Play Area",
+      "referenceInfo": "Mirador viewpoint area",
+      "description": "Broken and unsafe playground equipment in public park",
+      "status": "Decision pending",
+      "priority": "Standard",
+      "evidence": [
+        "https://picsum.photos/200/200?random=27",
+        "https://picsum.photos/200/200?random=28"
+      ],
+      "assignedTo": "Carmen Vargas - Parks Department",
+      "updateMessage": "Budget approval pending for equipment replacement",
+      "updateDate": "2025-10-08T11:25:18.333Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-04T15:20:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Under review",
+          "date": "2025-10-05T10:45:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Awaiting response",
+          "date": "2025-10-06T14:30:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Decision pending",
+          "date": "2025-10-08T11:25:18.333Z",
+          "completed": true,
+          "current": true,
+          "waitingDecision": true
+        },
+        {
+          "status": "Completed",
+          "date": "2025-10-07T18:44:00",
+          "completed": false,
+          "current": false,
+          "waitingDecision": false
+        }
+      ]
+    },
+    {
+      "id": "045678",
+      "category": "Road Infrastructure",
+      "department": "Piura",
+      "city": "Piura",
+      "district": "Piura",
+      "location": "753 Panamericana Norte, Km 12",
+      "referenceInfo": "Near the industrial zone entrance",
+      "description": "Large potholes on main highway causing vehicle damage",
+      "status": "Completed",
+      "priority": "Critical",
+      "evidence": [
+        "https://picsum.photos/200/200?random=29",
+        "https://picsum.photos/200/200?random=30",
+        "https://picsum.photos/200/200?random=31"
+      ],
+      "assignedTo": "Jorge Herrera - Road Maintenance",
+      "updateMessage": "Emergency repair completed ahead of schedule",
+      "updateDate": "2025-10-08T17:50:12.666Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-03T09:10:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Under review",
+          "date": "2025-10-04T11:45:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Awaiting response",
+          "date": "2025-10-05T13:20:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Decision pending",
+          "date": "2025-10-06T15:35:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Completed",
+          "date": "2025-10-08T17:50:12.666Z",
+          "completed": true,
+          "current": true,
+          "waitingDecision": false
+        }
+      ]
+    },
+    {
+      "id": "049632",
+      "category": "Noise Pollution",
+      "department": "Lima",
+      "city": "Lima",
+      "district": "Barranco",
+      "location": "852 Bohemian Street, Block 5",
+      "referenceInfo": "Near the bridge of sighs",
+      "description": "Excessive noise from bars and clubs during late hours",
+      "status": "Pending",
+      "priority": "Standard",
+      "evidence": [
+        "https://picsum.photos/200/200?random=32"
+      ],
+      "assignedTo": "Not assigned",
+      "updateMessage": "Complaint received and awaiting initial review",
+      "updateDate": "2025-10-08T09:15:27.444Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-08T09:15:27.444Z",
+          "completed": true,
+          "current": true,
+          "waitingDecision": false
+        },
+        {
+          "status": "Under review",
+          "date": "2025-10-07T18:44:00",
+          "completed": false,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Awaiting response",
+          "date": "2025-10-07T18:44:00",
+          "completed": false,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Decision pending",
+          "date": "2025-10-07T20:19:00",
+          "completed": false,
+          "current": false,
+          "waitingDecision": true
+        },
+        {
+          "status": "Completed",
+          "date": "2025-10-07T18:44:00",
+          "completed": false,
+          "current": false,
+          "waitingDecision": false
+        }
+      ]
+    },
+    {
+      "id": "053214",
+      "category": "Public Lighting",
+      "department": "Cusco",
+      "city": "Cusco",
+      "district": "Cusco Historic Center",
+      "location": "123 Stone Street, Plaza Area",
+      "referenceInfo": "Between the temple of the sun and main square",
+      "description": "Multiple street lights not working in tourist area",
+      "status": "Under review",
+      "priority": "Urgent",
+      "evidence": [
+        "https://picsum.photos/200/200?random=33",
+        "https://picsum.photos/200/200?random=34"
+      ],
+      "assignedTo": "Miguel Santos - Electrical Services",
+      "updateMessage": "Technical assessment in progress to determine repair scope",
+      "updateDate": "2025-10-08T15:40:19.777Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-07T18:30:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Under review",
+          "date": "2025-10-08T15:40:19.777Z",
+          "completed": true,
+          "current": true,
+          "waitingDecision": false
+        },
+        {
+          "status": "Awaiting response",
+          "date": "2025-10-07T18:44:00",
+          "completed": false,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Decision pending",
+          "date": "2025-10-07T20:19:00",
+          "completed": false,
+          "current": false,
+          "waitingDecision": true
+        },
+        {
+          "status": "Completed",
+          "date": "2025-10-07T18:44:00",
+          "completed": false,
+          "current": false,
+          "waitingDecision": false
+        }
+      ]
+    },
+    {
+      "id": "057896",
+      "category": "Drainage Systems",
+      "department": "Lambayeque",
+      "city": "Chiclayo",
+      "district": "José Leonardo Ortiz",
+      "location": "456 Drainage Canal, Section 8",
+      "referenceInfo": "Near the market complex",
+      "description": "Clogged storm drains causing water accumulation during rains",
+      "status": "Completed",
+      "priority": "Standard",
+      "evidence": [
+        "https://picsum.photos/200/200?random=35"
+      ],
+      "assignedTo": "Raul Fernandez - Drainage Maintenance",
+      "updateMessage": "Drainage system cleaned and fully functional",
+      "updateDate": "2025-10-08T12:30:45.888Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-02T14:20:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Under review",
+          "date": "2025-10-03T10:15:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Awaiting response",
+          "date": "2025-10-04T16:40:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Decision pending",
+          "date": "2025-10-05T11:25:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Completed",
+          "date": "2025-10-08T12:30:45.888Z",
+          "completed": true,
+          "current": true,
+          "waitingDecision": false
+        }
+      ]
+    },
+    {
+      "id": "061234",
+      "category": "Public Transportation",
+      "department": "La Libertad",
+      "city": "Trujillo",
+      "district": "Victor Larco",
+      "location": "789 Bus Terminal, Platform 3",
+      "referenceInfo": "Main interprovincial terminal",
+      "description": "Unauthorized bus operators causing traffic chaos",
+      "status": "Rejected",
+      "priority": "Standard",
+      "evidence": [
+        "https://picsum.photos/200/200?random=36",
+        "https://picsum.photos/200/200?random=37"
+      ],
+      "assignedTo": "Sofia Rios - Transport Regulation",
+      "updateMessage": "Complaint falls outside municipal jurisdiction",
+      "updateDate": "2025-10-08T10:55:33.222Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-06T13:45:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Under review",
+          "date": "2025-10-07T09:30:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Awaiting response",
+          "date": "2025-10-07T15:20:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Rejected",
+          "date": "2025-10-08T10:55:33.222Z",
+          "completed": true,
+          "current": true,
+          "waitingDecision": false
+        },
+        {
+          "status": "Completed",
+          "date": "2025-10-07T18:44:00",
+          "completed": false,
+          "current": false,
+          "waitingDecision": false
+        }
+      ]
+    },
+    {
+      "id": "065478",
+      "category": "Public Safety",
+      "department": "Arequipa",
+      "city": "Arequipa",
+      "district": "Cayma",
+      "location": "321 Viewpoint Road, Curve 5",
+      "referenceInfo": "Dangerous curve near residential area",
+      "description": "Lack of safety railings on dangerous road curve",
+      "status": "Awaiting response",
+      "priority": "Critical",
+      "evidence": [
+        "https://picsum.photos/200/200?random=38",
+        "https://picsum.photos/200/200?random=39",
+        "https://picsum.photos/200/200?random=40"
+      ],
+      "assignedTo": "Carlos Rodriguez - Infrastructure Safety",
+      "updateMessage": "Engineering department analyzing optimal safety solution",
+      "updateDate": "2025-10-08T14:15:28.999Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-04T16:50:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Under review",
+          "date": "2025-10-05T11:35:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Awaiting response",
+          "date": "2025-10-08T14:15:28.999Z",
+          "completed": true,
+          "current": true,
+          "waitingDecision": false
+        },
+        {
+          "status": "Decision pending",
+          "date": "2025-10-07T20:19:00",
+          "completed": false,
+          "current": false,
+          "waitingDecision": true
+        },
+        {
+          "status": "Completed",
+          "date": "2025-10-07T18:44:00",
+          "completed": false,
+          "current": false,
+          "waitingDecision": false
+        }
+      ]
+    },
+    {
+      "id": "069123",
+      "category": "Public Health",
+      "department": "Lima",
+      "city": "Lima",
+      "district": "Comas",
+      "location": "654 Health Center, Emergency Wing",
+      "referenceInfo": "Next to the municipal market",
+      "description": "Improper medical waste disposal in public area",
+      "status": "Under review",
+      "priority": "Critical",
+      "evidence": [
+        "https://picsum.photos/200/200?random=41",
+        "https://picsum.photos/200/200?random=42"
+      ],
+      "assignedTo": "Dr. Elena Morales - Health Inspector",
+      "updateMessage": "Emergency containment measures implemented",
+      "updateDate": "2025-10-08T16:20:15.123Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-08T10:30:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Under review",
+          "date": "2025-10-08T16:20:15.123Z",
+          "completed": true,
+          "current": true,
+          "waitingDecision": false
+        },
+        {
+          "status": "Awaiting response",
+          "date": "2025-10-09T00:00:00",
+          "completed": false,
+          "current": false,
+          "waitingDecision": false
+        }
+      ]
+    },
+    {
+      "id": "072456",
+      "category": "Education",
+      "department": "Callao",
+      "city": "Callao",
+      "district": "Bellavista",
+      "location": "852 School Street, Block 12",
+      "referenceInfo": "Public school San Miguel",
+      "description": "Collapsed classroom roof after heavy rains",
+      "status": "Pending",
+      "priority": "Urgent",
+      "evidence": [
+        "https://picsum.photos/200/200?random=43",
+        "https://picsum.photos/200/200?random=44"
+      ],
+      "assignedTo": "Not assigned",
+      "updateMessage": "Emergency assessment required",
+      "updateDate": "2025-10-08T14:45:33.456Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-08T14:45:33.456Z",
+          "completed": true,
+          "current": true,
+          "waitingDecision": false
+        }
+      ]
+    },
+    {
+      "id": "075789",
+      "category": "Infrastructure and Public Spaces",
+      "department": "Ica",
+      "city": "Ica",
+      "district": "Ica Centro",
+      "location": "123 Main Square, Fountain Area",
+      "referenceInfo": "Central plaza fountain",
+      "description": "Non-functional public fountain with stagnant water",
+      "status": "Completed",
+      "priority": "Standard",
+      "evidence": [
+        "https://picsum.photos/200/200?random=45"
+      ],
+      "assignedTo": "Ing. Marco Flores - Public Works",
+      "updateMessage": "Fountain repaired and operational",
+      "updateDate": "2025-10-08T18:30:22.789Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-05T09:15:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Under review",
+          "date": "2025-10-06T11:30:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Completed",
+          "date": "2025-10-08T18:30:22.789Z",
+          "completed": true,
+          "current": true,
+          "waitingDecision": false
+        }
+      ]
+    },
+    {
+      "id": "078901",
+      "category": "Environment",
+      "department": "Loreto",
+      "city": "Iquitos",
+      "district": "Iquitos",
+      "location": "456 River Street, Port Area",
+      "referenceInfo": "Amazon river waterfront",
+      "description": "Oil spill contamination in river affecting wildlife",
+      "status": "Decision pending",
+      "priority": "Critical",
+      "evidence": [
+        "https://picsum.photos/200/200?random=46",
+        "https://picsum.photos/200/200?random=47"
+      ],
+      "assignedTo": "Dra. Isabel Quispe - Environmental Agency",
+      "updateMessage": "Environmental impact assessment in progress",
+      "updateDate": "2025-10-08T15:10:44.321Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-06T08:20:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Under review",
+          "date": "2025-10-07T12:45:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Awaiting response",
+          "date": "2025-10-07T16:30:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Decision pending",
+          "date": "2025-10-08T15:10:44.321Z",
+          "completed": true,
+          "current": true,
+          "waitingDecision": true
+        }
+      ]
+    },
+    {
+      "id": "082345",
+      "category": "Transport and Mobility",
+      "department": "Ancash",
+      "city": "Huaraz",
+      "district": "Huaraz",
+      "location": "789 Mountain Road, Km 8",
+      "referenceInfo": "Route to thermal baths",
+      "description": "Landslide blocking main tourist route",
+      "status": "Under review",
+      "priority": "Urgent",
+      "evidence": [
+        "https://picsum.photos/200/200?random=48",
+        "https://picsum.photos/200/200?random=49"
+      ],
+      "assignedTo": "Ing. Roberto Silva - Civil Defense",
+      "updateMessage": "Geological team dispatched for assessment",
+      "updateDate": "2025-10-08T17:25:18.654Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-08T13:40:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Under review",
+          "date": "2025-10-08T17:25:18.654Z",
+          "completed": true,
+          "current": true,
+          "waitingDecision": false
+        }
+      ]
+    },
+    {
+      "id": "085678",
+      "category": "Public Services",
+      "department": "Tacna",
+      "city": "Tacna",
+      "district": "Tacna",
+      "location": "321 Water Reservoir, Sector B",
+      "referenceInfo": "Main water distribution center",
+      "description": "Water rationing affecting entire district",
+      "status": "Awaiting response",
+      "priority": "Critical",
+      "evidence": [
+        "https://picsum.photos/200/200?random=50"
+      ],
+      "assignedTo": "Ing. Patricia Navarro - Water Services",
+      "updateMessage": "Emergency water trucks deployed",
+      "updateDate": "2025-10-08T19:15:27.987Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-07T22:10:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Under review",
+          "date": "2025-10-08T08:30:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Awaiting response",
+          "date": "2025-10-08T19:15:27.987Z",
+          "completed": true,
+          "current": true,
+          "waitingDecision": false
+        }
+      ]
+    },
+    {
+      "id": "088901",
+      "category": "Urban Cleaning",
+      "department": "Moquegua",
+      "city": "Moquegua",
+      "district": "Moquegua",
+      "location": "654 Clean Street, Market Area",
+      "referenceInfo": "Behind municipal stadium",
+      "description": "Illegal garbage dump with hazardous materials",
+      "status": "Completed",
+      "priority": "Urgent",
+      "evidence": [
+        "https://picsum.photos/200/200?random=51",
+        "https://picsum.photos/200/200?random=52"
+      ],
+      "assignedTo": "Sr. Manuel Ortiz - Sanitation Dept",
+      "updateMessage": "Area completely cleaned and secured",
+      "updateDate": "2025-10-08T20:40:33.111Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-04T11:20:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Under review",
+          "date": "2025-10-05T14:35:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Completed",
+          "date": "2025-10-08T20:40:33.111Z",
+          "completed": true,
+          "current": true,
+          "waitingDecision": false
+        }
+      ]
+    },
+    {
+      "id": "092234",
+      "category": "Public Safety",
+      "department": "Puno",
+      "city": "Puno",
+      "district": "Puno",
+      "location": "987 Lake Street, Port Area",
+      "referenceInfo": "Titicaca lake waterfront",
+      "description": "Missing safety equipment at tourist boat docks",
+      "status": "Pending",
+      "priority": "Standard",
+      "evidence": [
+        "https://picsum.photos/200/200?random=53"
+      ],
+      "assignedTo": "Not assigned",
+      "updateMessage": "Initial safety inspection scheduled",
+      "updateDate": "2025-10-08T21:25:44.222Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-08T21:25:44.222Z",
+          "completed": true,
+          "current": true,
+          "waitingDecision": false
+        }
+      ]
+    },
+    {
+      "id": "095567",
+      "category": "Road Infrastructure",
+      "department": "Madre de Dios",
+      "city": "Puerto Maldonado",
+      "district": "Puerto Maldonado",
+      "location": "159 Jungle Road, Km 15",
+      "referenceInfo": "Route to ecological reserve",
+      "description": "Bridge structural damage preventing vehicle access",
+      "status": "Decision pending",
+      "priority": "Critical",
+      "evidence": [
+        "https://picsum.photos/200/200?random=54",
+        "https://picsum.photos/200/200?random=55"
+      ],
+      "assignedTo": "Ing. Fernando Rios - Infrastructure",
+      "updateMessage": "Structural engineers evaluating repair options",
+      "updateDate": "2025-10-08T22:30:55.333Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-06T15:45:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Under review",
+          "date": "2025-10-07T18:20:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Decision pending",
+          "date": "2025-10-08T22:30:55.333Z",
+          "completed": true,
+          "current": true,
+          "waitingDecision": true
+        }
+      ]
+    },
+    {
+      "id": "098890",
+      "category": "Public Lighting",
+      "department": "San Martín",
+      "city": "Moyobamba",
+      "district": "Moyobamba",
+      "location": "753 Orchid Avenue, Park Area",
+      "referenceInfo": "Botanical garden surroundings",
+      "description": "Complete blackout in tourist area affecting security",
+      "status": "Completed",
+      "priority": "Urgent",
+      "evidence": [
+        "https://picsum.photos/200/200?random=56"
+      ],
+      "assignedTo": "Téc. Luis Gomez - Electrical Grid",
+      "updateMessage": "Power restored with backup generators",
+      "updateDate": "2025-10-08T23:15:66.444Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-08T19:30:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Under review",
+          "date": "2025-10-08T20:45:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Completed",
+          "date": "2025-10-08T23:15:66.444Z",
+          "completed": true,
+          "current": true,
+          "waitingDecision": false
+        }
+      ]
+    },
+    {
+      "id": "102123",
+      "category": "Drainage Systems",
+      "department": "Ucayali",
+      "city": "Pucallpa",
+      "district": "Pucallpa",
+      "location": "486 River Canal, Urban Zone",
+      "referenceInfo": "Near central market",
+      "description": "Severe flooding due to blocked drainage canals",
+      "status": "Under review",
+      "priority": "Critical",
+      "evidence": [
+        "https://picsum.photos/200/200?random=57",
+        "https://picsum.photos/200/200?random=58"
+      ],
+      "assignedTo": "Ing. Carlos Mendoza - Drainage Dept",
+      "updateMessage": "Emergency pumps deployed to control flooding",
+      "updateDate": "2025-10-08T23:45:77.555Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-08T18:15:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Under review",
+          "date": "2025-10-08T23:45:77.555Z",
+          "completed": true,
+          "current": true,
+          "waitingDecision": false
+        }
+      ]
+    },
+    {
+      "id": "105456",
+      "category": "Public Transportation",
+      "department": "Huánuco",
+      "city": "Huánuco",
+      "district": "Huánuco",
+      "location": "624 Bus Terminal, Platform 1",
+      "referenceInfo": "Main regional terminal",
+      "description": "Overcrowding and lack of COVID safety measures",
+      "status": "Rejected",
+      "priority": "Standard",
+      "evidence": [
+        "https://picsum.photos/200/200?random=59"
+      ],
+      "assignedTo": "Lic. Maria Lopez - Transport Authority",
+      "updateMessage": "Complaint redirected to regional health authority",
+      "updateDate": "2025-10-08T23:55:88.666Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-07T16:40:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Under review",
+          "date": "2025-10-08T10:25:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Rejected",
+          "date": "2025-10-08T23:55:88.666Z",
+          "completed": true,
+          "current": true,
+          "waitingDecision": false
+        }
+      ]
+    },
+    {
+      "id": "108789",
+      "category": "Parks and Recreation",
+      "department": "Amazonas",
+      "city": "Chachapoyas",
+      "district": "Chachapoyas",
+      "location": "951 Cloud Forest Park, Trail 3",
+      "referenceInfo": "Archaeological site access",
+      "description": "Erosion damage on hiking trails creating safety hazards",
+      "status": "Awaiting response",
+      "priority": "Standard",
+      "evidence": [
+        "https://picsum.photos/200/200?random=60",
+        "https://picsum.photos/200/200?random=61"
+      ],
+      "assignedTo": "Biól. Ana Torres - Parks Management",
+      "updateMessage": "Trail closure implemented pending repairs",
+      "updateDate": "2025-10-08T23:59:99.777Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-05T14:20:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Under review",
+          "date": "2025-10-06T17:35:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Awaiting response",
+          "date": "2025-10-08T23:59:99.777Z",
+          "completed": true,
+          "current": true,
+          "waitingDecision": false
+        }
+      ]
+    },
+    {
+      "id": "112122",
+      "category": "Noise Pollution",
+      "department": "Cajamarca",
+      "city": "Cajamarca",
+      "district": "Cajamarca",
+      "location": "357 Thermal Baths Street, Zone A",
+      "referenceInfo": "Near historic thermal complex",
+      "description": "Construction noise during prohibited hours",
+      "status": "Pending",
+      "priority": "Standard",
+      "evidence": [
+        "https://picsum.photos/200/200?random=62"
+      ],
+      "assignedTo": "Not assigned",
+      "updateMessage": "Noise level monitoring initiated",
+      "updateDate": "2025-10-09T00:15:11.888Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-09T00:15:11.888Z",
+          "completed": true,
+          "current": true,
+          "waitingDecision": false
+        }
+      ]
+    },
+    {
+      "id": "115455",
+      "category": "Citizen Security",
+      "department": "Ayacucho",
+      "city": "Ayacucho",
+      "district": "Ayacucho",
+      "location": "684 Independence Square, North Side",
+      "referenceInfo": "Main tourist square",
+      "description": "Increased pickpocket incidents targeting tourists",
+      "status": "Under review",
+      "priority": "Urgent",
+      "evidence": [
+        "https://picsum.photos/200/200?random=63"
+      ],
+      "assignedTo": "Cpt. Jorge Herrera - Police Coordination",
+      "updateMessage": "Additional police patrols deployed",
+      "updateDate": "2025-10-09T00:25:22.999Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-08T22:45:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Under review",
+          "date": "2025-10-09T00:25:22.999Z",
+          "completed": true,
+          "current": true,
+          "waitingDecision": false
+        }
+      ]
+    },
+    {
+      "id": "118788",
+      "category": "Informal Commerce",
+      "department": "Junín",
+      "city": "Huancayo",
+      "district": "Huancayo",
+      "location": "279 Market Street, Informal Zone",
+      "referenceInfo": "Outside formal market premises",
+      "description": "Unauthorized street vendors blocking emergency vehicle access",
+      "status": "Completed",
+      "priority": "Critical",
+      "evidence": [
+        "https://picsum.photos/200/200?random=64",
+        "https://picsum.photos/200/200?random=65"
+      ],
+      "assignedTo": "Lic. Rosa Fernandez - Commerce Regulation",
+      "updateMessage": "Vendors relocated to designated areas",
+      "updateDate": "2025-10-09T00:35:33.111Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-03T11:30:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Under review",
+          "date": "2025-10-04T14:45:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Completed",
+          "date": "2025-10-09T00:35:33.111Z",
+          "completed": true,
+          "current": true,
+          "waitingDecision": false
+        }
+      ]
+    },
+    {
+      "id": "122121",
+      "category": "Public Health",
+      "department": "Pasco",
+      "city": "Cerro de Pasco",
+      "district": "Cerro de Pasco",
+      "location": "816 Mining Hospital, Waste Area",
+      "referenceInfo": "Medical facility backyard",
+      "description": "Improper disposal of pharmaceutical products",
+      "status": "Decision pending",
+      "priority": "Critical",
+      "evidence": [
+        "https://picsum.photos/200/200?random=66"
+      ],
+      "assignedTo": "Dra. Carmen Ruiz - Health Inspection",
+      "updateMessage": "Environmental contamination assessment required",
+      "updateDate": "2025-10-09T00:45:44.222Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-06T13:15:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Under review",
+          "date": "2025-10-07T16:30:00",
+          "completed": true,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Decision pending",
+          "date": "2025-10-09T00:45:44.222Z",
+          "completed": true,
+          "current": true,
+          "waitingDecision": true
+        }
+      ]
+    }
+
   ]
+
 }
+
+
