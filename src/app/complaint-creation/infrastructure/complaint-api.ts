@@ -10,7 +10,7 @@ import { ComplaintAssembler } from './complaint-assembler';
   providedIn: 'root'
 })
 export class ComplaintsApiService {
-  private baseUrl = environment.apiBaseUrl || 'http://localhost:3000';
+  private baseUrl = environment.apiBaseUrl || 'https://denunciaya-fakeapi.onrender.com/';
   private endpoint = '/complaints';
 
   constructor(private http: HttpClient) {}

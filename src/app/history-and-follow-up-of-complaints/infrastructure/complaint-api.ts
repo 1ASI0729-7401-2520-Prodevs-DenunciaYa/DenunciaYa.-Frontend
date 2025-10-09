@@ -11,12 +11,11 @@ import { of } from 'rxjs';
   providedIn: 'root'
 })
 export class ComplaintsApiService {
-  private baseUrl = environment.apiBaseUrl || 'http://localhost:3000';
+  private baseUrl = environment.apiBaseUrl || 'https://denunciaya-fakeapi.onrender.com/';
   private endpoint = '/complaints';
 
   constructor(private http: HttpClient) {}
 
-  // Método para el Store (retorna Observable<Complaint[]>)
   getComplaints(): Observable<Complaint[]> {
     return this.http.get<Complaint[]>(`${this.baseUrl}${this.endpoint}`)
       .pipe(
@@ -31,7 +30,6 @@ export class ComplaintsApiService {
       );
   }
 
-  // Método para el componente de métricas (retorna la estructura esperada)
   getAllComplaints(): Observable<{ status: string; complaints: Complaint[] }> {
     return this.http.get<Complaint[]>(`${this.baseUrl}${this.endpoint}`)
       .pipe(

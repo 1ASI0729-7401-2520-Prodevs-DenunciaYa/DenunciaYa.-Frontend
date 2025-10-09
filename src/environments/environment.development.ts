@@ -1,19 +1,17 @@
 export const environment = {
   production: true,
-
-  // API Configuration
   platformProviderApiBaseUrl: 'http://localhost:3001/api/v1',
   platformProviderCommunitiesEndpointPath: '/communities',
   platformProviderResponsiblesEndpointPath: '/responsibles',
 
-  apiBaseUrl: 'http://localhost:3000/api',
+  apiBaseUrl: 'https://denunciaya-fakeapi.onrender.com/',
+
   apiEndpoints: {
     complaints: '/complaints',
     citizens: '/citizens',
     authorities: '/authorities'
   },
 
-  // Google Maps Configuration
   googleMapsApiKey: 'AIzaSyDRrq_VcuuezEAhyUIBhkAV7iZOVqNDnqA',
   mapConfig: {
     defaultCenter: { lat: -12.0464, lng: -77.0428 },
