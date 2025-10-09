@@ -175,7 +175,7 @@ export class AuthorityHomeComponent implements OnInit {
             usePointStyle: true,
             color: '#222222',
             font: {
-              family: "'Alegreya Sans', sans-serif",
+              family: "'Roboto', sans-serif",
               size: 14
             }
           }
@@ -198,7 +198,7 @@ export class AuthorityHomeComponent implements OnInit {
           font: {
             size: 18,
             weight: 'bold',
-            family: "'Akshar', sans-serif"
+            family: "'Roboto', sans-serif"
           }
         }
       },
@@ -264,7 +264,7 @@ export class AuthorityHomeComponent implements OnInit {
           labels: {
             color: '#222222',
             font: {
-              family: "'Alegreya Sans', sans-serif",
+              family: "'Roboto', sans-serif",
               size: 12
             }
           }
@@ -276,7 +276,7 @@ export class AuthorityHomeComponent implements OnInit {
           font: {
             size: 18,
             weight: 'bold',
-            family: "'Akshar', sans-serif"
+            family: "'Roboto', sans-serif"
           }
         }
       },
@@ -286,7 +286,7 @@ export class AuthorityHomeComponent implements OnInit {
           ticks: {
             color: '#555555',
             font: {
-              family: "'Alegreya Sans', sans-serif"
+              family: "'Roboto', sans-serif"
             }
           },
           grid: {
@@ -299,7 +299,7 @@ export class AuthorityHomeComponent implements OnInit {
           ticks: {
             color: '#555555',
             font: {
-              family: "'Alegreya Sans', sans-serif"
+              family: "'Roboto', sans-serif"
             }
           },
           grid: {

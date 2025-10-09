@@ -34,7 +34,6 @@ import {TranslatePipe} from '@ngx-translate/core';
     MatOptionModule,
     MatDialogModule,
     MatSnackBarModule,
-    TitleCasePipe,
     TranslatePipe
   ],
   templateUrl: './configuration-view.html',

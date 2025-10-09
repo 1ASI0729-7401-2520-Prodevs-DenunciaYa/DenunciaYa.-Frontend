@@ -156,7 +156,7 @@ export class AuthorityMetricsAndGraphs implements OnInit {
           labels: {
             color: documentStyle.getPropertyValue('--text-primary') || '#222222',
             font: {
-              family: "'Alegreya Sans', sans-serif",
+              family: "'Roboto', sans-serif",
               size: 12
             }
           }
@@ -181,7 +181,7 @@ export class AuthorityMetricsAndGraphs implements OnInit {
           ticks: {
             color: documentStyle.getPropertyValue('--text-secondary') || '#555555',
             font: {
-              family: "'Alegreya Sans', sans-serif"
+              family: "'Roboto', sans-serif"
             }
           }
         }
@@ -220,7 +220,7 @@ export class AuthorityMetricsAndGraphs implements OnInit {
           labels: {
             color: documentStyle.getPropertyValue('--text-primary') || '#222222',
             font: {
-              family: "'Alegreya Sans', sans-serif",
+              family: "'Roboto', sans-serif",
               size: 11
             }
           }
@@ -232,7 +232,7 @@ export class AuthorityMetricsAndGraphs implements OnInit {
           font: {
             size: 16,
             weight: 'bold',
-            family: "'Akshar', sans-serif"
+            family: "'Roboto', sans-serif"
           }
         }
       },
@@ -241,7 +241,7 @@ export class AuthorityMetricsAndGraphs implements OnInit {
           ticks: {
             color: documentStyle.getPropertyValue('--text-secondary') || '#555555',
             font: {
-              family: "'Alegreya Sans', sans-serif"
+              family: "'Roboto', sans-serif"
             }
           },
           grid: {
@@ -254,7 +254,7 @@ export class AuthorityMetricsAndGraphs implements OnInit {
           ticks: {
             color: documentStyle.getPropertyValue('--text-secondary') || '#555555',
             font: {
-              family: "'Alegreya Sans', sans-serif"
+              family: "'Roboto', sans-serif"
             }
           },
           grid: {

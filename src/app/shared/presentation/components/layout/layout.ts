@@ -17,7 +17,6 @@ import {RouterOutlet} from '@angular/router';
     MatIconModule,
     SideNavigationBarComponent,
     LanguageSwitcher,
-    CommunityPage,
     RouterOutlet
   ],
   templateUrl: './layout.html',

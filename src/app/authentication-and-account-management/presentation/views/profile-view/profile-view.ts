@@ -16,7 +16,6 @@ import {TranslatePipe} from '@ngx-translate/core';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    TitleCasePipe,
     TranslatePipe
   ],
   templateUrl: './profile-view.html',

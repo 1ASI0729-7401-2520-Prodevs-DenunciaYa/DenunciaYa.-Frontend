@@ -1,7 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Akshar:wght@300&family=Alegreya+Sans&display=swap');
 
 * {
-  font-family: 'Alegreya Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
   box-sizing: border-box;
 }
 
@@ -80,7 +79,7 @@ body, html {
 }
 
 .plan-price {
-  font-family: 'Akshar', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 24px;
   color: #0a62d0;
   margin: 10px 0;
