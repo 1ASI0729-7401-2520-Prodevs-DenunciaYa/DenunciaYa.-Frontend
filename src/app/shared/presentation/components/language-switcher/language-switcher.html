@@ -1,0 +1,20 @@
+<mat-form-field appearance="outline" class="lang-select">
+  <mat-select
+    [(value)]="currentLang"
+    (selectionChange)="useLanguage($event.value)"
+  >
+    <mat-select-trigger>
+      <div class="lang-option" *ngIf="currentLanguage">
+        <span class="flag">{{ currentLanguage.flag }}</span>
+        <span>{{ currentLanguage.name }}</span>
+      </div>
+    </mat-select-trigger>
+
+    <mat-option *ngFor="let lang of languages" [value]="lang.code">
+      <div class="lang-option">
+        <span class="flag">{{ lang.flag }}</span>
+        <span>{{ lang.name }}</span>
+      </div>
+    </mat-option>
+  </mat-select>
+</mat-form-field>

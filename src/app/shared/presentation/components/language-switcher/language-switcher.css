@@ -1,0 +1,14 @@
+.lang-select {
+  min-width: 140px;
+  font-size: 0.95rem;
+}
+
+.lang-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.flag {
+  font-size: 1.2rem;
+}

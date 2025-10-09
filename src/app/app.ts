@@ -1,23 +1,18 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { CommunityPage } from './community/presentation/community-page/community-page';
-import { LayoutComponent } from './shared/presentation/components/layout/layout';
-import { ResponsibleCreateComponent } from './authorities-panel/presentation/responsible-create.component.ts/responsible-create.component';
-import { ProfileResponsibleComponent } from './authorities-panel/presentation/profile-responsible/profile-responsible';
+import {CommunityPage} from './community/presentation/community-page/community-page';
+import {LayoutComponent} from './shared/presentation/components/layout/layout';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    LayoutComponent,
-    ProfileResponsibleComponent
-  ],
+  imports: [ LayoutComponent],
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
 export class App {
-  protected readonly title = signal('denunciaya-frontend');
+  protected readonly title = signal('learning-center');
   private readonly translate = inject(TranslateService);
 
   constructor() {
