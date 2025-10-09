@@ -1,0 +1,101 @@
+<div class="container">
+  <button class="back-button" mat-stroked-button color="accent" routerLink="/">
+    ← Regresar a Denuncias
+  </button>
+
+  <h2>Editar Denuncia #{{ complaintId }}</h2>
+
+  <form [formGroup]="complaintForm" class="edit-form">
+    <div class="row">
+      <mat-form-field appearance="fill">
+        <mat-label>Categoría</mat-label>
+        <input matInput formControlName="category" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Ubicación</mat-label>
+        <input matInput formControlName="location" />
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Referencia</mat-label>
+      <input matInput formControlName="referenceInfo" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+
+    <!-- Evidencias -->
+    <div class="evidence-section">
+      <h3>Evidencias</h3>
+
+      @if (complaintData?.evidence?.length > 0) {
+        <div class="evidence-gallery">
+          @for (img of complaintData.evidence; track img) {
+            <img
+              ngSrc="{{ img }}"
+              alt="Evidencia"
+              width="200"
+              height="200"
+              class="evidence-img"
+              (click)="openImage(img)"
+            />
+          }
+        </div>
+      } @else {
+        <p class="no-evidence">No hay imágenes adjuntas.</p>
+      }
+    </div>
+
+    <!-- Estado / Prioridad / Asignación -->
+    <div class="row">
+      <mat-form-field appearance="fill">
+        <mat-label>Estado</mat-label>
+        <mat-select formControlName="status">
+          @for (s of statuses; track s) {
+            <mat-option [value]="s">{{ s }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Prioridad</mat-label>
+        <mat-select formControlName="priority">
+          @for (p of priorities; track p) {
+            <mat-option [value]="p">{{ p }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Asignar a</mat-label>
+        <mat-select formControlName="assignedTo">
+          @for (a of assignedOptions; track a) {
+            <mat-option [value]="a">{{ a }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Dar un tipo de aviso</mat-label>
+      <textarea matInput formControlName="updateMessage"></textarea>
+    </mat-form-field>
+
+
+
+    <div class="button-group">
+      <button mat-flat-button color="primary" (click)="saveChanges()">Guardar cambios</button>
+      <button mat-stroked-button color="warn" (click)="discardChanges()">Descartar</button>
+    </div>
+  </form>
+
+  @if (selectedImage) {
+    <div class="image-modal" (click)="selectedImage = null">
+      <img ngSrc="{{ selectedImage }}" width="800" height="600" alt="Evidencia grande" />
+    </div>
+  }
+</div>
