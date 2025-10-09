@@ -1,13 +1,13 @@
 <div *ngIf="!complaint" class="loading" aria-live="polite" aria-busy="true">
-  <p>Loading complaint details...</p>
+  <p>{{ 'COMPLAINT_DETAIL.LOADING' | translate }}</p>
 </div>
 
 <div class="complaint-detail" *ngIf="complaint" aria-labelledby="complaint-title">
-  <h1 class="title" id="complaint-title">Complaint Detail</h1>
+  <h1 class="title" id="complaint-title">{{ 'COMPLAINT_DETAIL.TITLE' | translate }}</h1>
 
-  <section class="timeline-section" aria-label="Complaint status timeline">
+  <section class="timeline-section" [attr.aria-label]="'COMPLAINT_DETAIL.TIMELINE.SECTION_LABEL' | translate">
     <div class="container">
-      <ejs-timeline cssClass="dot-color custom-connector" orientation="Horizontal" aria-label="Progress timeline">
+      <ejs-timeline cssClass="dot-color custom-connector" orientation="Horizontal" [attr.aria-label]="'COMPLAINT_DETAIL.TIMELINE.ARIA_LABEL' | translate">
         <e-items>
           <e-item
             *ngFor="let item of orderStatus"
@@ -21,98 +21,104 @@
     </div>
   </section>
 
-  <div class="complaint-info" aria-label="Complaint information">
-    <h2>Category</h2>
+  <div class="complaint-info" [attr.aria-label]="'COMPLAINT_DETAIL.INFO_SECTION.LABEL' | translate">
+    <h2>{{ 'COMPLAINT_DETAIL.INFO_SECTION.FIELDS.CATEGORY' | translate }}</h2>
     <p>{{ complaint.category }}</p>
 
-    <h2>Department</h2>
+    <h2>{{ 'COMPLAINT_DETAIL.INFO_SECTION.FIELDS.DEPARTMENT' | translate }}</h2>
     <p>{{ complaint.department }}</p>
 
-    <h2>City</h2>
+    <h2>{{ 'COMPLAINT_DETAIL.INFO_SECTION.FIELDS.CITY' | translate }}</h2>
     <p>{{ complaint.city }}</p>
 
-    <h2>District</h2>
+    <h2>{{ 'COMPLAINT_DETAIL.INFO_SECTION.FIELDS.DISTRICT' | translate }}</h2>
     <p>{{ complaint.district }}</p>
 
-    <h2>Location</h2>
+    <h2>{{ 'COMPLAINT_DETAIL.INFO_SECTION.FIELDS.LOCATION' | translate }}</h2>
     <p>{{ complaint.location }}</p>
 
-    <h2>Reference Information</h2>
+    <h2>{{ 'COMPLAINT_DETAIL.INFO_SECTION.FIELDS.REFERENCE_INFO' | translate }}</h2>
     <p>{{ complaint.referenceInfo }}</p>
 
-    <h2>Description</h2>
+    <h2>{{ 'COMPLAINT_DETAIL.INFO_SECTION.FIELDS.DESCRIPTION' | translate }}</h2>
     <p>{{ complaint.description }}</p>
 
-    <h2>Status</h2>
+    <h2>{{ 'COMPLAINT_DETAIL.INFO_SECTION.FIELDS.STATUS' | translate }}</h2>
     <p>
-      <span [ngClass]="getStatusClass(complaint.status)" [attr.aria-label]="'Current status: ' + complaint.status">
+      <span [ngClass]="getStatusClass(complaint.status)" [attr.aria-label]="'COMPLAINT_DETAIL.INFO_SECTION.ARIA_LABELS.CURRENT_STATUS' | translate: { status: complaint.status }">
         {{ complaint.status }}
       </span>
     </p>
 
-    <h2>Priority</h2>
+    <h2>{{ 'COMPLAINT_DETAIL.INFO_SECTION.FIELDS.PRIORITY' | translate }}</h2>
     <p>
-      <span [ngClass]="getPriorityClass(complaint.priority)" [attr.aria-label]="'Priority level: ' + complaint.priority">
+      <span [ngClass]="getPriorityClass(complaint.priority)" [attr.aria-label]="'COMPLAINT_DETAIL.INFO_SECTION.ARIA_LABELS.PRIORITY_LEVEL' | translate: { priority: complaint.priority }">
         {{ complaint.priority }}
       </span>
     </p>
 
-    <h2>Evidence</h2>
-    <div class="image-grid" aria-label="Evidence images">
-      <img *ngFor="let img of complaint.evidence; let i = index" [src]="img" [alt]="'Evidence image ' + (i + 1)" />
+    <h2>{{ 'COMPLAINT_DETAIL.INFO_SECTION.FIELDS.EVIDENCE' | translate }}</h2>
+    <div class="image-grid" [attr.aria-label]="'COMPLAINT_DETAIL.INFO_SECTION.ARIA_LABELS.EVIDENCE_IMAGES' | translate">
+      <img
+        *ngFor="let img of complaint.evidence; let i = index"
+        [src]="img"
+        [alt]="'COMPLAINT_DETAIL.INFO_SECTION.ARIA_LABELS.EVIDENCE_IMAGE_ALT' | translate: { number: i + 1 }"
+      />
     </div>
 
-    <h2>Assigned To</h2>
+    <h2>{{ 'COMPLAINT_DETAIL.INFO_SECTION.FIELDS.ASSIGNED_TO' | translate }}</h2>
     <p>{{ complaint.assignedTo }}</p>
 
-    <div class="responsible-section" *ngIf="isAssigned()" aria-label="Responsible person information">
+    <div class="responsible-section" *ngIf="isAssigned()" [attr.aria-label]="'COMPLAINT_DETAIL.RESPONSIBLE_SECTION.LABEL' | translate">
       <button
         mat-stroked-button
         color="accent"
         (click)="viewResponsibleInfo()"
         class="responsible-button"
-        aria-label="View responsible person details">
+        [attr.aria-label]="'COMPLAINT_DETAIL.RESPONSIBLE_SECTION.BUTTON.ARIA_LABEL' | translate">
         <span class="button-icon" aria-hidden="true">👤</span>
-        View Responsible Information
+        {{ 'COMPLAINT_DETAIL.RESPONSIBLE_SECTION.BUTTON.TEXT' | translate }}
       </button>
     </div>
 
-    <div class="update-channel" aria-label="Latest update information">
-      <h3>Update Channel</h3>
+    <div class="update-channel" [attr.aria-label]="'COMPLAINT_DETAIL.UPDATE_CHANNEL.LABEL' | translate">
+      <h3>{{ 'COMPLAINT_DETAIL.UPDATE_CHANNEL.TITLE' | translate }}</h3>
       <div class="channel-message">
         <p>{{ getCurrentStatusMessage() }}</p>
-        <span class="message-date" aria-label="Last update date">{{ complaint.updateDate | date: 'dd/MM/yyyy HH:mm' }}</span>
+        <span class="message-date" [attr.aria-label]="'COMPLAINT_DETAIL.UPDATE_CHANNEL.LAST_UPDATE' | translate">
+          {{ complaint.updateDate | date: 'dd/MM/yyyy HH:mm' }}
+        </span>
       </div>
     </div>
   </div>
 
   <!-- Botones movidos al final -->
-  <div class="timeline-controls" *ngIf="complaint.timeline && complaint.timeline.length > 0" aria-label="Timeline controls">
+  <div class="timeline-controls" *ngIf="complaint.timeline && complaint.timeline.length > 0" [attr.aria-label]="'COMPLAINT_DETAIL.CONTROLS.TIMELINE_CONTROLS' | translate">
 
     <button
       mat-stroked-button
       color="primary"
       (click)="advanceStatus()"
       [disabled]="!canAdvanceStatus()"
-      aria-label="Advance to next status">
-      Advance Status
+      [attr.aria-label]="'COMPLAINT_DETAIL.CONTROLS.ADVANCE_STATUS.ARIA_LABEL' | translate">
+      {{ 'COMPLAINT_DETAIL.CONTROLS.ADVANCE_STATUS.BUTTON' | translate }}
     </button>
 
-    <div class="decision-buttons" *ngIf="showDecisionButtons" aria-label="Decision options">
+    <div class="decision-buttons" *ngIf="showDecisionButtons" [attr.aria-label]="'COMPLAINT_DETAIL.CONTROLS.DECISION_BUTTONS.LABEL' | translate">
       <button
         mat-stroked-button
         color="primary"
         (click)="acceptComplaint()"
-        aria-label="Accept complaint">
-        Accept
+        [attr.aria-label]="'COMPLAINT_DETAIL.CONTROLS.DECISION_BUTTONS.ACCEPT.ARIA_LABEL' | translate">
+        {{ 'COMPLAINT_DETAIL.CONTROLS.DECISION_BUTTONS.ACCEPT.BUTTON' | translate }}
       </button>
 
       <button
         mat-stroked-button
         color="warn"
         (click)="rejectComplaint()"
-        aria-label="Reject complaint">
-        Reject
+        [attr.aria-label]="'COMPLAINT_DETAIL.CONTROLS.DECISION_BUTTONS.REJECT.ARIA_LABEL' | translate">
+        {{ 'COMPLAINT_DETAIL.CONTROLS.DECISION_BUTTONS.REJECT.BUTTON' | translate }}
       </button>
     </div>
 
@@ -121,13 +127,25 @@
       color="basic"
       (click)="resetComplaint()"
       *ngIf="complaint.status !== 'Pending'"
-      aria-label="Reset timeline to initial status">
-      Reset Timeline
+      [attr.aria-label]="'COMPLAINT_DETAIL.CONTROLS.RESET_TIMELINE.ARIA_LABEL' | translate">
+      {{ 'COMPLAINT_DETAIL.CONTROLS.RESET_TIMELINE.BUTTON' | translate }}
     </button>
   </div>
 
-  <div *ngIf="canEditOrDelete()" class="button-group" aria-label="Complaint management options">
-    <button mat-stroked-button color="primary" (click)="editComplaint()" aria-label="Edit complaint details">Edit Complaint</button>
-    <button mat-stroked-button color="warn" (click)="deleteComplaint()" aria-label="Delete this complaint">Delete Complaint</button>
+  <div *ngIf="canEditOrDelete()" class="button-group" [attr.aria-label]="'COMPLAINT_DETAIL.MANAGEMENT.LABEL' | translate">
+    <button
+      mat-stroked-button
+      color="primary"
+      (click)="editComplaint()"
+      [attr.aria-label]="'COMPLAINT_DETAIL.MANAGEMENT.EDIT.ARIA_LABEL' | translate">
+      {{ 'COMPLAINT_DETAIL.MANAGEMENT.EDIT.BUTTON' | translate }}
+    </button>
+    <button
+      mat-stroked-button
+      color="warn"
+      (click)="deleteComplaint()"
+      [attr.aria-label]="'COMPLAINT_DETAIL.MANAGEMENT.DELETE.ARIA_LABEL' | translate">
+      {{ 'COMPLAINT_DETAIL.MANAGEMENT.DELETE.BUTTON' | translate }}
+    </button>
   </div>
 </div>

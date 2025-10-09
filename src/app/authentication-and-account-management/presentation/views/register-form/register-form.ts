@@ -9,6 +9,7 @@ import { MatCheckbox } from '@angular/material/checkbox';
 import {CommonModule} from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import {SnackbarService} from '../../component/snackbar-component/snackbar.service';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-register',
@@ -29,7 +30,7 @@ import {SnackbarService} from '../../component/snackbar-component/snackbar.servi
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule, HttpClientModule
+    MatButtonModule, HttpClientModule, TranslatePipe
   ]
 })
 /** @class RegisterComponent

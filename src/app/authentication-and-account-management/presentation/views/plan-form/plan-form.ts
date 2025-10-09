@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import {Router} from '@angular/router';
 import {MatButton} from '@angular/material/button';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-plan-form',
   imports: [
-    MatButton
+    MatButton,
+    TranslatePipe
   ],
   templateUrl: './plan-form.html',
   styleUrl: './plan-form.css'

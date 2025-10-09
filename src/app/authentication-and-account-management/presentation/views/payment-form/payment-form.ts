@@ -10,6 +10,7 @@ import { MatCheckbox } from '@angular/material/checkbox';
 import { MatButton } from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-payment-form',
@@ -28,7 +29,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatNativeDateModule,
     MatError,
     MatIconModule,
-    HttpClientModule
+    HttpClientModule,
+    TranslatePipe
   ],
   templateUrl: './payment-form.html',
   styleUrls: ['./payment-form.css']

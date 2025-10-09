@@ -5,6 +5,7 @@ import { TimelineModule, TimelineItemModel } from '@syncfusion/ej2-angular-layou
 import {MatButton, MatButtonModule} from '@angular/material/button';
 import {ComplaintsApiService} from '../../../infrastructure/complaint-api';
 import {Complaint, TimelineItem} from '../../../model/domain/complaint.entity';
+import {TranslatePipe} from '@ngx-translate/core';
 @Component({
   selector: 'app-complaint-detail-authority',
   imports: [
@@ -13,7 +14,8 @@ import {Complaint, TimelineItem} from '../../../model/domain/complaint.entity';
     DatePipe,
     MatButton,
     NgIf,
-    NgClass
+    NgClass,
+    TranslatePipe
   ],
   templateUrl: './complaint-detail-authority.html',
   styleUrl: './complaint-detail-authority.css'

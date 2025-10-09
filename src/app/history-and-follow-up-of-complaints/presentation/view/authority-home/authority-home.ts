@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { ChartModule } from 'primeng/chart';
 import { ComplaintsApiService } from '../../../infrastructure/complaint-api';
 import { Complaint } from '../../../model/domain/complaint.entity';
+import {TranslatePipe} from '@ngx-translate/core';
 
 /**
  * Component for the authority's home dashboard.
@@ -12,7 +13,7 @@ import { Complaint } from '../../../model/domain/complaint.entity';
 @Component({
   selector: 'app-authority-home',
   standalone: true,
-  imports: [CommonModule, RouterModule, ChartModule],
+  imports: [CommonModule, RouterModule, ChartModule, TranslatePipe],
   templateUrl: './authority-home.html',
   styleUrls: ['./authority-home.css']
 })

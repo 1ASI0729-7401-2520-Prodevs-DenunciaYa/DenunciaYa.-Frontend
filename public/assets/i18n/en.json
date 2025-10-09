@@ -10,6 +10,663 @@
     "PROFILE": "My Profile",
     "SETTINGS": "Settings",
     "LOGOUT": "Log Out"
+  },
+  "CONFIGURATION": {
+    "TITLE": "Configuration",
+    "SUBTITLE": "Manage your preferences and notification settings",
+    "NOTIFICATION_PREFERENCES": "Notification Preferences",
+
+    "EMAIL_NOTIFICATIONS": {
+      "TITLE": "Email Notifications",
+      "DESCRIPTION": "Receive alerts via email"
+    },
+
+    "SMS_NOTIFICATIONS": {
+      "TITLE": "SMS Notifications",
+      "DESCRIPTION": "Receive alerts via text message"
+    },
+
+    "LANGUAGE": {
+      "TITLE": "Language",
+      "DESCRIPTION": "Select your interface language"
+    },
+
+    "PLANS": {
+      "BASIC": "Basic",
+      "PREMIUM": "Premium",
+      "PRICE_BASIC": "S/. 99.00",
+      "PRICE_PREMIUM": "S/. 249.00",
+      "UPDATE_BUTTON": "Update Plan"
+    },
+
+    "BUTTONS": {
+      "SAVE_CHANGES": "Save Changes"
+    },
+
+    "FEATURES": {
+      "BASIC": [
+        "Access to received reports",
+        "Simple table view",
+        "Basic notifications"
+      ],
+      "PREMIUM": [
+        "Everything from the Basic Plan",
+        "Advanced metrics dashboard",
+        "Incident map",
+        "Team management",
+        "PDF/Excel export",
+        "Urgent alerts"
+      ]
+    },
+
+    "ARIA_LABELS": {
+      "FORM": "Notification configuration form",
+      "EMAIL_TOGGLE": "Enable or disable email notifications",
+      "SMS_TOGGLE": "Enable or disable SMS notifications",
+      "LANGUAGE_FIELD": "Language selection field",
+      "LANGUAGE_SELECT": "Select preferred language",
+      "SAVE_BUTTON": "Save configuration changes",
+      "RIGHT_PANEL": "Right panel with user info",
+      "UPDATE_PLAN": "Update your plan"
+    }
+
+},
+  "RECOVERY": {
+    "BACK_BUTTON": "← Back",
+    "APP_TITLE": "DenunciaYa",
+    "FORM_TITLE": "Forgot your password?",
+    "FORM_DESCRIPTION": "If you forgot your account, don’t worry — you can recover it by entering your email.",
+    "EMAIL_LABEL": "Email",
+    "EMAIL_PLACEHOLDER": "Enter your email",
+    "EMAIL_ERROR_REQUIRED": "Email is required.",
+    "EMAIL_ERROR_INVALID": "Please enter a valid email address.",
+    "TERMS_CHECKBOX": "Accept terms and conditions.",
+    "CONFIRM_BUTTON": "Confirm the email",
+    "ARIA_LABELS": {
+      "BACK_BUTTON": "Go back to home",
+      "APP_LOGO": "DenunciaYa application logo",
+      "FORM_SECTION": "Forgot password form section",
+      "FORM": "Forgot password form",
+      "EMAIL_FIELD": "Email address",
+      "TERMS_CHECKBOX": "Accept terms and conditions",
+      "CONFIRM_BUTTON": "Confirm email button"
+    }
+
+},
+
+  "LOGIN": {
+    "BACK_BUTTON": "← Return",
+    "APP_TITLE": "DenunciaYa",
+    "ROLE_SELECTION": "Select your role",
+    "CITIZEN_ROLE": "Citizen",
+    "AUTHORITY_ROLE": "Authority",
+    "FORM_TITLE": "Hello {{role}}",
+    "FORM_SUBTITLE": "Please fill out the form below to get started",
+    "EMAIL_LABEL": "Email*",
+    "EMAIL_PLACEHOLDER": "Enter your email",
+    "PASSWORD_LABEL": "Password*",
+    "REMEMBER_ME": "Remember me",
+    "FORGOT_PASSWORD": "Forgot password?",
+    "LOGIN_BUTTON": "Log In",
+    "REGISTER_TEXT": "Not a member yet?",
+    "REGISTER_LINK": "Register",
+    "ERRORS": {
+      "EMAIL_REQUIRED": "Email is required",
+      "EMAIL_INVALID": "Please enter a valid email address",
+      "PASSWORD_REQUIRED": "Password is required"
+    },
+    "ARIA_LABELS": {
+      "BACK_BUTTON": "Go back to home",
+      "APP_LOGO": "DenunciaYa application logo",
+      "ROLE_SELECTION": "Select your role",
+      "CITIZEN_ROLE": "Select citizen role",
+      "AUTHORITY_ROLE": "Select authority role",
+      "FORM_SECTION": "Login form section",
+      "LOGIN_FORM": "Login form",
+      "EMAIL_FIELD": "Email address",
+      "PASSWORD_FIELD": "Password",
+      "SHOW_PASSWORD": "Show password",
+      "HIDE_PASSWORD": "Hide password",
+      "REMEMBER_ME": "Remember me",
+      "FORGOT_PASSWORD": "Forgot password link",
+      "LOGIN_BUTTON": "Log in button",
+      "REGISTER_LINK": "Register link"
+    }
+  },
+
+  "PAYMENT": {
+    "BACK_BUTTON": "← Back",
+    "APP_TITLE": "DenunciaYa",
+    "INSTRUCTIONS": "Please enter your credit or debit card information",
+    "CARD_NUMBER_LABEL": "Credit Card Number",
+    "CARD_NUMBER_PLACEHOLDER": "Enter your credit card number",
+    "EXPIRATION_DATE_LABEL": "Expiration Date",
+    "EXPIRATION_DATE_PLACEHOLDER": "MM/DD/YYYY",
+    "CVC_LABEL": "CVC / CVV",
+    "CVC_PLACEHOLDER": "Enter security code",
+    "CARDHOLDER_NAME_LABEL": "Cardholder Name",
+    "CARDHOLDER_NAME_PLACEHOLDER": "Enter name on the card",
+    "TERMS_CHECKBOX": "I accept the <a href=\"#\" class=\"terms-link\">terms and conditions</a>.",
+    "CONFIRM_BUTTON": "Confirm and Pay",
+    "ERRORS": {
+      "CARD_NUMBER_REQUIRED": "Please enter a valid card number (13–19 digits)",
+      "EXPIRATION_DATE_REQUIRED": "Please select a valid expiration date",
+      "CVC_REQUIRED": "Please enter a valid 3-digit CVC",
+      "CARDHOLDER_NAME_REQUIRED": "Only letters are allowed"
+    },
+    "ARIA_LABELS": {
+      "BACK_BUTTON": "Go back to plan selection",
+      "CARD_NUMBER_FIELD": "Enter credit card number",
+      "EXPIRATION_DATE_FIELD": "Select expiration date",
+      "CVC_FIELD": "Enter security code",
+      "CARDHOLDER_NAME_FIELD": "Enter cardholder name",
+      "TERMS_CHECKBOX": "Accept terms and conditions"
+    }
+
+},
+
+  "PLANS": {
+    "BACK_BUTTON": "← Back",
+    "APP_TITLE": "DenunciaYa",
+    "SELECT_PLAN_TITLE": "Please select a plan",
+    "BASIC_PLAN": {
+      "TITLE": "Basic Plan",
+      "DESCRIPTION": "Perfect to get started, simple access, and an affordable cost.",
+      "PRICE": "S/. 99.00",
+      "FEATURES": [
+        "Access to received reports",
+        "Simple table view",
+        "Basic notifications"
+      ]
+    },
+    "PREMIUM_PLAN": {
+      "TITLE": "Premium Plan",
+      "DESCRIPTION": "Unlock advanced features for complete case management.",
+      "PRICE": "S/. 249.00",
+      "FEATURES": [
+        "Everything from the Basic Plan",
+        "Advanced metrics dashboard",
+        "Incident map",
+        "Team management",
+        "PDF/Excel export",
+        "Urgent alerts"
+      ]
+    },
+    "BUTTONS": {
+      "SELECTED": "Selected",
+      "CONTINUE": "Continue"
+    },
+    "ARIA_LABELS": {
+      "BACK_BUTTON": "Go back to login",
+      "APP_LOGO": "DenunciaYa application logo",
+      "SELECT_PLAN": "Select your plan",
+      "PLANS_GROUP": "Available plans",
+      "BASIC_PLAN": "Select Basic plan",
+      "PREMIUM_PLAN": "Select Premium plan"
+    }
+  },
+
+  "PROFILE": {
+    "TITLE": "User Profile",
+    "SUBTITLE": "Manage your personal and contact information",
+    "FIELDS": {
+      "FIRST_NAME": "First Name",
+      "LAST_NAME": "Last Name",
+      "EMAIL": "Email",
+      "PHONE": "Phone (optional)"
+    },
+    "BUTTONS": {
+      "EDIT_INFO": "Edit Information",
+      "CANCEL": "Cancel",
+      "SAVE_CHANGES": "Save Changes"
+    },
+    "PLANS": {
+      "BASIC": "Basic",
+      "PREMIUM": "Premium",
+      "PRICE_BASIC": "S/. 99.00",
+      "PRICE_PREMIUM": "S/. 249.00"
+    },
+    "FEATURES": {
+      "BASIC": [
+        "Access to received reports",
+        "Simple table view",
+        "Basic notifications"
+      ],
+      "PREMIUM": [
+        "Everything from Basic Plan",
+        "Advanced metrics dashboard",
+        "Incident map",
+        "Team management",
+        "PDF/Excel export",
+        "Urgent alerts"
+      ]
+    },
+    "ARIA_LABELS": {
+      "FORM": "Profile information form",
+      "FIRST_NAME": "First Name",
+      "LAST_NAME": "Last Name",
+      "EMAIL": "Email",
+      "PHONE": "Phone",
+      "EDIT_BUTTON": "Edit information",
+      "SAVE_BUTTON": "Save changes",
+      "RIGHT_PANEL": "Profile illustration and plan info"
+    }
+  },
+
+  "REGISTER": {
+    "BACK_BUTTON": "← Back",
+    "APP_TITLE": "DenunciaYa",
+    "PAGE_TITLE": "Register",
+    "ROLE_SELECTION": "Select your role",
+    "CITIZEN_ROLE": "Citizen",
+    "AUTHORITY_ROLE": "Authority",
+    "FORM_TITLE": "Hello, please choose the type of person you are.",
+    "FORM_SUBTITLE": "Complete the forms to sign up",
+    "FIELDS": {
+      "FIRST_NAME": "First Name*",
+      "FIRST_NAME_PLACEHOLDER": "Enter first name",
+      "LAST_NAME": "Last Name*",
+      "LAST_NAME_PLACEHOLDER": "Enter last name",
+      "EMAIL": "Email*",
+      "EMAIL_PLACEHOLDER": "Enter your email",
+      "PASSWORD": "Password*",
+      "PASSWORD_PLACEHOLDER": "Enter password",
+      "PHONE": "Phone (optional)",
+      "PHONE_PLACEHOLDER": "Enter your phone number"
+    },
+    "TERMS_CHECKBOX": "Accept Terms and Conditions",
+    "REGISTER_BUTTON": "Register",
+    "ERRORS": {
+      "FIRST_NAME_REQUIRED": "First name is required",
+      "FIRST_NAME_PATTERN": "Only letters and spaces are allowed",
+      "LAST_NAME_REQUIRED": "Last name is required",
+      "LAST_NAME_PATTERN": "Only letters and spaces are allowed",
+      "EMAIL_REQUIRED": "Email is required",
+      "EMAIL_INVALID": "Please enter a valid email address",
+      "PASSWORD_REQUIRED": "Password is required",
+      "PASSWORD_MINLENGTH": "Password must be at least 6 characters",
+      "PASSWORD_MAXLENGTH": "Password cannot exceed 20 characters",
+      "PHONE_MIN": "The number must start from 900000000",
+      "PHONE_MAX": "The number cannot exceed 999999999",
+      "TERMS_REQUIRED": "You must accept the terms"
+    },
+    "ARIA_LABELS": {
+      "BACK_BUTTON": "Go back to login",
+      "APP_LOGO": "DenunciaYa application logo",
+      "ROLE_SELECTION": "Select your role",
+      "CITIZEN_ROLE": "Select citizen role",
+      "AUTHORITY_ROLE": "Select authority role",
+      "FORM_SECTION": "Register form section",
+      "REGISTER_FORM": "Register form",
+      "SHOW_PASSWORD": "Show password",
+      "HIDE_PASSWORD": "Hide password",
+      "TERMS_CHECKBOX": "Accept terms and conditions",
+      "REGISTER_BUTTON": "Register button"
+    }
+
+},
+
+  "RESET_PASSWORD": {
+    "BACK_BUTTON": "← Back",
+    "APP_TITLE": "DenunciaYa",
+    "FORM_TITLE": "Reset your password",
+    "FORM_DESCRIPTION": "Please enter your new password twice to confirm. (8-12 characters)",
+    "FIELDS": {
+      "NEW_PASSWORD": "New Password",
+      "NEW_PASSWORD_PLACEHOLDER": "Enter new password",
+      "CONFIRM_PASSWORD": "Confirm Password",
+      "CONFIRM_PASSWORD_PLACEHOLDER": "Confirm new password"
+    },
+    "ERRORS": {
+      "PASSWORD_LENGTH": "Password must be 8-12 characters",
+      "PASSWORDS_MISMATCH": "Passwords do not match!"
+    },
+    "BUTTONS": {
+      "CONFIRM_ENTER": "Confirm and Enter"
+    },
+    "ARIA_LABELS": {
+      "BACK_BUTTON": "Go back to login page",
+      "NEW_PASSWORD_FIELD": "Enter new password",
+      "CONFIRM_PASSWORD_FIELD": "Confirm new password",
+      "CONFIRM_BUTTON": "Confirm and enter new password"
+    }
+  },
+
+  "MAP": {
+    "CONTAINER_LABEL": "Citizen Complaints Tracking Map",
+    "LOADING": {
+      "TEXT": "Loading complaints from API...",
+      "REFRESH_BUTTON": "Refresh Data",
+      "REFRESHING_BUTTON": "Loading..."
+    },
+    "HEADER": {
+      "TITLE": "Citizen Complaints Map",
+      "SUBTITLE": "Real-time tracking of citizen reports",
+      "ACTIONS": {
+        "REFRESH": "Refresh Data",
+        "CLEAR_FILTERS": "Clear Filters"
+      },
+      "ARIA_LABELS": {
+        "REFRESH": "Refresh data",
+        "CLEAR_FILTERS": "Clear all filters"
+      }
+    },
+    "FILTERS": {
+      "TITLE": "Search Filters",
+      "CATEGORY": {
+        "LABEL": "Category",
+        "ARIA_LABEL": "Select complaint category",
+        "ALL": "All Categories"
+      },
+      "DISTRICT": {
+        "LABEL": "District",
+        "ARIA_LABEL": "Select district",
+        "ALL": "All Districts"
+      },
+      "STATUS": {
+        "LABEL": "Status",
+        "ARIA_LABEL": "Select complaint status",
+        "ALL": "All Statuses"
+      }
+    },
+    "STATS": {
+      "VISIBLE_MARKERS": "Visible Markers:",
+      "CATEGORY": "Category:",
+      "DISTRICT": "District:",
+      "STATUS": "Status:"
+    },
+    "MAP": {
+      "ARIA_LABEL": "Interactive map showing citizen complaints",
+      "MARKER_ARIA_LABEL": "Complaint marker for {{category}}"
+    },
+    "INFO_WINDOW": {
+      "FIELDS": {
+        "ID": "ID:",
+        "DISTRICT": "District:",
+        "LOCATION": "Location:",
+        "DESCRIPTION": "Description:",
+        "ASSIGNED_TO": "Assigned to:",
+        "LAST_UPDATE": "Last update:",
+        "MESSAGE": "Message:",
+        "EVIDENCE": "Evidence ({{count}})"
+      },
+      "EVIDENCE_ALT": "Evidence image {{number}}"
+    },
+    "LEGEND": {
+      "TITLE": "Status Legend",
+      "ITEMS": {
+        "COMPLETED": "Completed",
+        "PENDING": "Pending",
+        "AWAITING_RESPONSE": "Awaiting Response",
+        "REJECTED": "Rejected",
+        "IN_PROCESS": "In Process"
+      }
+    },
+    "STATUSES": {
+      "COMPLETED": "Completed",
+      "PENDING": "Pending",
+      "AWAITING_RESPONSE": "Awaiting Response",
+      "REJECTED": "Rejected",
+      "IN_PROCESS": "In Process"
+    },
+    "PRIORITIES": {
+      "LOW": "Low",
+      "MEDIUM": "Medium",
+      "HIGH": "High",
+      "URGENT": "Urgent"
+    }
+  },
+  "DASHBOARD": {
+    "MAIN_LABEL": "Authority Dashboard",
+    "WELCOME": {
+      "TITLE": "Welcome",
+      "SUBTITLE": "Hello {{userName}}, here is the summary of citizen complaints"
+    },
+    "STATES": {
+      "LOADING": "Loading data...",
+      "ERROR": "Error loading data",
+      "RETRY": "Retry"
+    },
+    "STATS": {
+      "SECTION_LABEL": "Complaints summary statistics",
+      "TOTAL_COMPLAINTS": {
+        "TITLE": "Total Complaints",
+        "ARIA_LABEL": "Total number of complaints"
+      },
+      "PENDING": {
+        "TITLE": "Pending",
+        "ARIA_LABEL": "Number of pending complaints"
+      },
+      "RESOLVED": {
+        "TITLE": "Resolved",
+        "ARIA_LABEL": "Number of resolved complaints"
+      },
+      "DISTRICT_MOST_COMPLAINTS": {
+        "TITLE": "District with Most Complaints",
+        "ARIA_LABEL": "District with the most complaints"
+      },
+      "MOST_COMMON_CATEGORY": {
+        "TITLE": "Most Common Category",
+        "ARIA_LABEL": "Most common category"
+      }
+    },
+    "CHARTS": {
+      "SECTION_LABEL": "Complaints analytics charts",
+      "STATUS_DISTRIBUTION": {
+        "LABEL": "Complaint status distribution",
+        "ARIA_LABEL": "Pie chart showing the proportion of complaints by status"
+      },
+      "BY_CATEGORY": {
+        "LABEL": "Complaints by category",
+        "ARIA_LABEL": "Bar chart showing the number of complaints by category"
+      }
+    }
+  },
+
+  "METRICS": {
+    "MAIN_LABEL": "Metrics and Reports Dashboard",
+    "HEADER": {
+      "TITLE": "Metrics and Reports",
+      "SUBTITLE": "Detailed analysis of complaints and trends"
+    },
+    "STATES": {
+      "LOADING": "Loading metrics data...",
+      "ERROR": "Error loading metrics data",
+      "RETRY": "Retry"
+    },
+    "METRICS_GRID": {
+      "SECTION_LABEL": "Key metrics summary",
+      "MONTHLY_TOTAL": {
+        "TITLE": "Total Complaints This Month",
+        "ARIA_LABEL": "{{count}} complaints this month"
+      },
+      "MOST_COMMON_CATEGORY": {
+        "TITLE": "Most Common Category",
+        "ARIA_LABEL": "Most common category: {{category}}"
+      },
+      "DISTRICT_MOST_COMPLAINTS": {
+        "TITLE": "District with Most Complaints",
+        "ARIA_LABEL": "District with most complaints: {{district}}"
+      }
+    },
+    "CHARTS": {
+      "SECTION_LABEL": "Analytics charts",
+      "DISTRIBUTION_BY_CATEGORY": {
+        "TITLE": "Distribution by Category",
+        "ARIA_LABEL": "Polar area chart showing complaints distribution by category"
+      },
+      "MONTHLY_TRENDS": {
+        "TITLE": "Monthly Trends by Category",
+        "ARIA_LABEL": "Bar chart showing monthly complaints trends by category"
+      }
+    }
+  },
+
+  "COMPLAINT_DETAIL": {
+    "LOADING": "Loading complaint details...",
+    "TITLE": "Complaint Detail",
+    "TIMELINE": {
+      "SECTION_LABEL": "Complaint status timeline",
+      "ARIA_LABEL": "Progress timeline"
+    },
+    "INFO_SECTION": {
+      "LABEL": "Complaint information",
+      "FIELDS": {
+        "CATEGORY": "Category",
+        "DEPARTMENT": "Department",
+        "CITY": "City",
+        "DISTRICT": "District",
+        "LOCATION": "Location",
+        "REFERENCE_INFO": "Reference Information",
+        "DESCRIPTION": "Description",
+        "STATUS": "Status",
+        "PRIORITY": "Priority",
+        "EVIDENCE": "Evidence",
+        "ASSIGNED_TO": "Assigned To"
+      },
+      "ARIA_LABELS": {
+        "CURRENT_STATUS": "Current status: {{status}}",
+        "PRIORITY_LEVEL": "Priority level: {{priority}}",
+        "EVIDENCE_IMAGES": "Evidence images",
+        "EVIDENCE_IMAGE_ALT": "Evidence image {{number}}"
+      }
+    },
+    "RESPONSIBLE_SECTION": {
+      "LABEL": "Responsible person information",
+      "BUTTON": {
+        "TEXT": "View Responsible Information",
+        "ARIA_LABEL": "View responsible person details"
+      }
+    },
+    "UPDATE_CHANNEL": {
+      "LABEL": "Latest update information",
+      "TITLE": "Update Channel",
+      "LAST_UPDATE": "Last update date"
+    },
+    "CONTROLS": {
+      "TIMELINE_CONTROLS": "Timeline controls",
+      "ADVANCE_STATUS": {
+        "BUTTON": "Advance Status",
+        "ARIA_LABEL": "Advance to next status"
+      },
+      "DECISION_BUTTONS": {
+        "LABEL": "Decision options",
+        "ACCEPT": {
+          "BUTTON": "Accept",
+          "ARIA_LABEL": "Accept complaint"
+        },
+        "REJECT": {
+          "BUTTON": "Reject",
+          "ARIA_LABEL": "Reject complaint"
+        }
+      },
+      "RESET_TIMELINE": {
+        "BUTTON": "Reset Timeline",
+        "ARIA_LABEL": "Reset timeline to initial status"
+      }
+    },
+    "MANAGEMENT": {
+      "LABEL": "Complaint management options",
+      "EDIT": {
+        "BUTTON": "Edit Complaint",
+        "ARIA_LABEL": "Edit complaint details"
+      },
+      "DELETE": {
+        "BUTTON": "Delete Complaint",
+        "ARIA_LABEL": "Delete this complaint"
+      }
+    },
+    "STATUSES": {
+      "PENDING": "Pending",
+      "IN_REVIEW": "In Review",
+      "IN_PROGRESS": "In Progress",
+      "RESOLVED": "Resolved",
+      "REJECTED": "Rejected",
+      "CLOSED": "Closed"
+    },
+    "PRIORITIES": {
+      "LOW": "Low",
+      "MEDIUM": "Medium",
+      "HIGH": "High",
+      "URGENT": "Urgent"
+    }
+  },
+
+  "CITIZEN_COMPLAINT_DETAIL": {
+    "LOADING": "Loading complaint details...",
+    "TITLE": "Complaint Detail",
+    "TIMELINE": {
+      "SECTION_LABEL": "Complaint status timeline",
+      "ARIA_LABEL": "Progress timeline"
+    },
+    "INFO_SECTION": {
+      "LABEL": "Complaint information",
+      "FIELDS": {
+        "CATEGORY": "Category",
+        "DEPARTMENT": "Department",
+        "CITY": "City",
+        "DISTRICT": "District",
+        "LOCATION": "Location",
+        "REFERENCE_INFO": "Reference Information",
+        "DESCRIPTION": "Description",
+        "STATUS": "Status",
+        "PRIORITY": "Priority",
+        "EVIDENCE": "Evidence",
+        "ASSIGNED_TO": "Assigned To"
+      },
+      "ARIA_LABELS": {
+        "CURRENT_STATUS": "Current status: {{status}}",
+        "PRIORITY_LEVEL": "Priority level: {{priority}}",
+        "EVIDENCE_IMAGES": "Evidence images",
+        "EVIDENCE_IMAGE_ALT": "Evidence image {{number}}"
+      }
+    },
+    "RESPONSIBLE_SECTION": {
+      "LABEL": "Responsible person information",
+      "BUTTON": {
+        "TEXT": "View Responsible Information",
+        "ARIA_LABEL": "View responsible person details"
+      }
+    },
+    "UPDATE_CHANNEL": {
+      "LABEL": "Latest update information",
+      "TITLE": "Update Channel",
+      "LAST_UPDATE": "Last update date"
+    },
+    "MANAGEMENT": {
+      "LABEL": "Complaint management options",
+      "EDIT": {
+        "BUTTON": "Edit",
+        "ARIA_LABEL": "Edit complaint details"
+      },
+      "DELETE": {
+        "BUTTON": "Delete",
+        "ARIA_LABEL": "Delete this complaint"
+      }
+    },
+    "STATUSES": {
+      "PENDING": "Pending",
+      "IN_REVIEW": "In Review",
+      "IN_PROGRESS": "In Progress",
+      "RESOLVED": "Resolved",
+      "REJECTED": "Rejected",
+      "CLOSED": "Closed"
+    },
+    "PRIORITIES": {
+      "LOW": "Low",
+      "MEDIUM": "Medium",
+      "HIGH": "High",
+      "URGENT": "Urgent"
+    }
   }
+
+
+
+
+
+
+
+
+
 
 }

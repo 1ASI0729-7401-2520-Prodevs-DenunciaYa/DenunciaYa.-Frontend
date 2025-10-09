@@ -1,30 +1,30 @@
-<div class="map-container" aria-label="Citizen Complaints Tracking Map">
+<div class="map-container" [attr.aria-label]="'MAP.CONTAINER_LABEL' | translate">
   <div *ngIf="loading" class="loading-overlay">
     <mat-progress-spinner diameter="50" mode="indeterminate"></mat-progress-spinner>
-    <p class="loading-text">Loading complaints from API...</p>
+    <p class="loading-text">{{ 'MAP.LOADING.TEXT' | translate }}</p>
   </div>
 
   <mat-card class="header-card">
     <div class="header-content">
       <div>
-        <h1 class="header-title">Citizen Complaints Map</h1>
-        <p class="header-subtitle">Real-time tracking of citizen reports</p>
+        <h1 class="header-title">{{ 'MAP.HEADER.TITLE' | translate }}</h1>
+        <p class="header-subtitle">{{ 'MAP.HEADER.SUBTITLE' | translate }}</p>
       </div>
       <div class="header-actions">
         <button mat-raised-button
                 color="primary"
                 (click)="loadComplaintsFromAPI()"
                 [disabled]="loading"
-                aria-label="Refresh data">
+                [attr.aria-label]="'MAP.HEADER.ARIA_LABELS.REFRESH' | translate">
           <mat-icon>refresh</mat-icon>
-          {{ loading ? 'Loading...' : 'Refresh Data' }}
+          {{ loading ? ('MAP.LOADING.REFRESHING_BUTTON' | translate) : ('MAP.HEADER.ACTIONS.REFRESH' | translate) }}
         </button>
         <button mat-stroked-button
                 color="warn"
                 (click)="resetFilters()"
-                aria-label="Clear all filters">
+                [attr.aria-label]="'MAP.HEADER.ARIA_LABELS.CLEAR_FILTERS' | translate">
           <mat-icon>clear_all</mat-icon>
-          Clear Filters
+          {{ 'MAP.HEADER.ACTIONS.CLEAR_FILTERS' | translate }}
         </button>
       </div>
     </div>
@@ -34,17 +34,17 @@
     <mat-card-header>
       <mat-card-title>
         <mat-icon>filter_list</mat-icon>
-        Search Filters
+        {{ 'MAP.FILTERS.TITLE' | translate }}
       </mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <div class="filters-grid">
         <mat-form-field appearance="outline" class="filter-field">
-          <mat-label>Category</mat-label>
+          <mat-label>{{ 'MAP.FILTERS.CATEGORY.LABEL' | translate }}</mat-label>
           <mat-select [(ngModel)]="selectedCategory"
                       (ngModelChange)="filterComplaints()"
-                      aria-label="Select complaint category">
-            <mat-option value="">All Categories</mat-option>
+                      [attr.aria-label]="'MAP.FILTERS.CATEGORY.ARIA_LABEL' | translate">
+            <mat-option value="">{{ 'MAP.FILTERS.CATEGORY.ALL' | translate }}</mat-option>
             <mat-option *ngFor="let category of categories"
                         [value]="category">
               {{ category }}
@@ -54,11 +54,11 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="filter-field">
-          <mat-label>District</mat-label>
+          <mat-label>{{ 'MAP.FILTERS.DISTRICT.LABEL' | translate }}</mat-label>
           <mat-select [(ngModel)]="selectedDistrict"
                       (ngModelChange)="filterComplaints()"
-                      aria-label="Select district">
-            <mat-option value="">All Districts</mat-option>
+                      [attr.aria-label]="'MAP.FILTERS.DISTRICT.ARIA_LABEL' | translate">
+            <mat-option value="">{{ 'MAP.FILTERS.DISTRICT.ALL' | translate }}</mat-option>
             <mat-option *ngFor="let district of districts"
                         [value]="district">
               {{ district }}
@@ -68,11 +68,11 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="filter-field">
-          <mat-label>Status</mat-label>
+          <mat-label>{{ 'MAP.FILTERS.STATUS.LABEL' | translate }}</mat-label>
           <mat-select [(ngModel)]="selectedStatus"
                       (ngModelChange)="filterComplaints()"
-                      aria-label="Select complaint status">
-            <mat-option value="">All Statuses</mat-option>
+                      [attr.aria-label]="'MAP.FILTERS.STATUS.ARIA_LABEL' | translate">
+            <mat-option value="">{{ 'MAP.FILTERS.STATUS.ALL' | translate }}</mat-option>
             <mat-option *ngFor="let status of statuses"
                         [value]="status">
               {{ status }}
@@ -88,22 +88,22 @@
     <div class="info-stats">
       <div class="stat-item">
         <mat-icon>place</mat-icon>
-        <span class="stat-label">Visible Markers:</span>
+        <span class="stat-label">{{ 'MAP.STATS.VISIBLE_MARKERS' | translate }}</span>
         <span class="stat-value">{{ filteredMarkers.length }}</span>
       </div>
       <div class="stat-item" *ngIf="selectedCategory">
         <mat-icon>category</mat-icon>
-        <span class="stat-label">Category:</span>
+        <span class="stat-label">{{ 'MAP.STATS.CATEGORY' | translate }}</span>
         <span class="stat-value">{{ selectedCategory }}</span>
       </div>
       <div class="stat-item" *ngIf="selectedDistrict">
         <mat-icon>location_on</mat-icon>
-        <span class="stat-label">District:</span>
+        <span class="stat-label">{{ 'MAP.STATS.DISTRICT' | translate }}</span>
         <span class="stat-value">{{ selectedDistrict }}</span>
       </div>
       <div class="stat-item" *ngIf="selectedStatus">
         <mat-icon>status</mat-icon>
-        <span class="stat-label">Status:</span>
+        <span class="stat-label">{{ 'MAP.STATS.STATUS' | translate }}</span>
         <span class="stat-value">{{ selectedStatus }}</span>
       </div>
     </div>
@@ -121,7 +121,7 @@
         fullscreenControl: true,
         styles: mapStyles
       }"
-      aria-label="Interactive map showing citizen complaints">
+      [attr.aria-label]="'MAP.MAP.ARIA_LABEL' | translate">
 
       <map-marker
         *ngFor="let marker of filteredMarkers; trackBy: trackByMarkerId"
@@ -130,7 +130,7 @@
         [options]="{
           icon: getMarkerIcon(marker.status)
         }"
-        aria-label="Complaint marker for {{ marker.complaintData.category }}">
+        [attr.aria-label]="'MAP.MAP.MARKER_ARIA_LABEL' | translate: { category: marker.complaintData.category }">
 
         <map-info-window>
           <div class="info-window-content">
@@ -150,19 +150,19 @@
             <div class="info-section">
               <div class="info-row">
                 <mat-icon>fingerprint</mat-icon>
-                <span><strong>ID:</strong> {{ marker.complaintData.id }}</span>
+                <span><strong>{{ 'MAP.INFO_WINDOW.FIELDS.ID' | translate }}</strong> {{ marker.complaintData.id }}</span>
               </div>
               <div class="info-row">
                 <mat-icon>location_on</mat-icon>
-                <span><strong>District:</strong> {{ marker.complaintData.district }}</span>
+                <span><strong>{{ 'MAP.INFO_WINDOW.FIELDS.DISTRICT' | translate }}</strong> {{ marker.complaintData.district }}</span>
               </div>
               <div class="info-row">
                 <mat-icon>place</mat-icon>
-                <span><strong>Location:</strong> {{ marker.complaintData.location }}</span>
+                <span><strong>{{ 'MAP.INFO_WINDOW.FIELDS.LOCATION' | translate }}</strong> {{ marker.complaintData.location }}</span>
               </div>
               <div class="info-row">
                 <mat-icon>description</mat-icon>
-                <span><strong>Description:</strong> {{ marker.complaintData.description }}</span>
+                <span><strong>{{ 'MAP.INFO_WINDOW.FIELDS.DESCRIPTION' | translate }}</strong> {{ marker.complaintData.description }}</span>
               </div>
             </div>
 
@@ -170,15 +170,15 @@
             <div class="info-section">
               <div class="info-row">
                 <mat-icon>person</mat-icon>
-                <span><strong>Assigned to:</strong> {{ marker.complaintData.assignedTo }}</span>
+                <span><strong>{{ 'MAP.INFO_WINDOW.FIELDS.ASSIGNED_TO' | translate }}</strong> {{ marker.complaintData.assignedTo }}</span>
               </div>
               <div class="info-row">
                 <mat-icon>schedule</mat-icon>
-                <span><strong>Last update:</strong> {{ marker.complaintData.updateDate | date:'medium' }}</span>
+                <span><strong>{{ 'MAP.INFO_WINDOW.FIELDS.LAST_UPDATE' | translate }}</strong> {{ marker.complaintData.updateDate | date:'medium' }}</span>
               </div>
               <div class="info-row">
                 <mat-icon>message</mat-icon>
-                <span><strong>Message:</strong> {{ marker.complaintData.updateMessage }}</span>
+                <span><strong>{{ 'MAP.INFO_WINDOW.FIELDS.MESSAGE' | translate }}</strong> {{ marker.complaintData.updateMessage }}</span>
               </div>
             </div>
 
@@ -187,12 +187,12 @@
               <mat-divider></mat-divider>
               <div class="section-title">
                 <mat-icon>photo_library</mat-icon>
-                <span>Evidence ({{ marker.complaintData.evidence.length }})</span>
+                <span>{{ 'MAP.INFO_WINDOW.FIELDS.EVIDENCE' | translate: { count: marker.complaintData.evidence.length } }}</span>
               </div>
               <div class="evidence-grid">
                 <img *ngFor="let img of marker.complaintData.evidence; let i = index"
                      [src]="img"
-                     [alt]="'Evidence image ' + (i + 1)"
+                     [alt]="'MAP.INFO_WINDOW.EVIDENCE_ALT' | translate: { number: i + 1 }"
                      class="evidence-image"
                      (click)="openImage(img)">
               </div>
@@ -207,30 +207,30 @@
     <mat-card-header>
       <mat-card-title>
         <mat-icon>legend_toggle</mat-icon>
-        Status Legend
+        {{ 'MAP.LEGEND.TITLE' | translate }}
       </mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <div class="legend-items">
         <div class="legend-item">
           <div class="legend-color completed"></div>
-          <span>Completed</span>
+          <span>{{ 'MAP.LEGEND.ITEMS.COMPLETED' | translate }}</span>
         </div>
         <div class="legend-item">
           <div class="legend-color pending"></div>
-          <span>Pending</span>
+          <span>{{ 'MAP.LEGEND.ITEMS.PENDING' | translate }}</span>
         </div>
         <div class="legend-item">
           <div class="legend-color awaiting-response"></div>
-          <span>Awaiting Response</span>
+          <span>{{ 'MAP.LEGEND.ITEMS.AWAITING_RESPONSE' | translate }}</span>
         </div>
         <div class="legend-item">
           <div class="legend-color rejected"></div>
-          <span>Rejected</span>
+          <span>{{ 'MAP.LEGEND.ITEMS.REJECTED' | translate }}</span>
         </div>
         <div class="legend-item">
           <div class="legend-color in-process"></div>
-          <span>In Process</span>
+          <span>{{ 'MAP.LEGEND.ITEMS.IN_PROCESS' | translate }}</span>
         </div>
       </div>
     </mat-card-content>

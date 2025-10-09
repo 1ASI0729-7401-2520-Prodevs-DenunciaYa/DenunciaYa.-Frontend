@@ -9,6 +9,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import {ConfirmDialogComponent} from '../../component/confirm-dialog.component';
+import {TranslatePipe} from '@ngx-translate/core';
 
 /** @class ConfigurationView
  * @constructor
@@ -33,7 +34,8 @@ import {ConfirmDialogComponent} from '../../component/confirm-dialog.component';
     MatOptionModule,
     MatDialogModule,
     MatSnackBarModule,
-    TitleCasePipe
+    TitleCasePipe,
+    TranslatePipe
   ],
   templateUrl: './configuration-view.html',
   styleUrls: ['./configuration-view.css']

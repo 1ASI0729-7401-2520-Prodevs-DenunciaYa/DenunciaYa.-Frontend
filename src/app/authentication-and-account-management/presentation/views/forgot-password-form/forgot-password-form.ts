@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import {SnackbarService} from '../../component/snackbar-component/snackbar.service';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-forgot-password-form',
@@ -23,7 +24,8 @@ import {SnackbarService} from '../../component/snackbar-component/snackbar.servi
     MatInputModule,
     MatCheckboxModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    TranslatePipe
   ]
 })
 /** @class ForgotPasswordForm

@@ -1,16 +1,25 @@
 <div class="plan-container">
   <div class="plan-card">
 
-    <button mat-button class="back-link" (click)="navigateToLogin()" aria-label="Go back to login">← Back</button>
+    <button
+      mat-button
+      class="back-link"
+      (click)="navigateToLogin()"
+      [attr.aria-label]="'PLANS.ARIA_LABELS.BACK_BUTTON' | translate"
+    >
+      {{ 'PLANS.BACK_BUTTON' | translate }}
+    </button>
 
-    <h1 class="app-title" aria-label="DenunciaYa application logo">
+    <h1 class="app-title" [attr.aria-label]="'PLANS.ARIA_LABELS.APP_LOGO' | translate">
       <img src="/assets/images/Logo_1.jpg" alt="Citizen" class="logoImage" />
-      DenunciaYa
+      {{ 'PLANS.APP_TITLE' | translate }}
     </h1>
 
-    <p aria-label="Select your plan">Please select a plan</p>
+    <p [attr.aria-label]="'PLANS.ARIA_LABELS.SELECT_PLAN' | translate">
+      {{ 'PLANS.SELECT_PLAN_TITLE' | translate }}
+    </p>
 
-    <div class="plans-section" role="radiogroup" aria-label="Available plans">
+    <div class="plans-section" role="radiogroup" [attr.aria-label]="'PLANS.ARIA_LABELS.PLANS_GROUP' | translate">
       <div
         class="plan-option"
         [class.active]="selectedPlan === 'basic'"
@@ -18,17 +27,17 @@
         tabindex="0"
         role="radio"
         [attr.aria-checked]="selectedPlan === 'basic'"
-        aria-label="Select Basic plan"
+        [attr.aria-label]="'PLANS.ARIA_LABELS.BASIC_PLAN' | translate"
       >
-        <h2 class="plan-title">Basic Plan</h2>
+        <h2 class="plan-title">{{ 'PLANS.BASIC_PLAN.TITLE' | translate }}</h2>
         <p class="plan-desc">
-          Perfect to get started, simple access, and an affordable cost.
+          {{ 'PLANS.BASIC_PLAN.DESCRIPTION' | translate }}
         </p>
-        <p class="plan-price">S/. 99.00</p>
+        <p class="plan-price">{{ 'PLANS.BASIC_PLAN.PRICE' | translate }}</p>
         <ul class="plan-features">
-          <li>Access to received reports</li>
-          <li>Simple table view</li>
-          <li>Basic notifications</li>
+          <li *ngFor="let feature of 'PLANS.BASIC_PLAN.FEATURES' | translate | keyvalue">
+            {{ feature.value }}
+          </li>
         </ul>
         <button
           mat-flat-button
@@ -37,7 +46,7 @@
           type="button"
           [disabled]="selectedPlan !== 'basic'"
         >
-          Selected
+          {{ 'PLANS.BUTTONS.SELECTED' | translate }}
         </button>
       </div>
 
@@ -48,20 +57,17 @@
         tabindex="0"
         role="radio"
         [attr.aria-checked]="selectedPlan === 'premium'"
-        aria-label="Select Premium plan"
+        [attr.aria-label]="'PLANS.ARIA_LABELS.PREMIUM_PLAN' | translate"
       >
-        <h2 class="plan-title">Premium Plan</h2>
+        <h2 class="plan-title">{{ 'PLANS.PREMIUM_PLAN.TITLE' | translate }}</h2>
         <p class="plan-desc">
-          Unlock advanced features for complete case management.
+          {{ 'PLANS.PREMIUM_PLAN.DESCRIPTION' | translate }}
         </p>
-        <p class="plan-price">S/. 249.00</p>
+        <p class="plan-price">{{ 'PLANS.PREMIUM_PLAN.PRICE' | translate }}</p>
         <ul class="plan-features">
-          <li>Everything from the Basic Plan</li>
-          <li>Advanced metrics dashboard</li>
-          <li>Incident map</li>
-          <li>Team management</li>
-          <li>PDF/Excel export</li>
-          <li>Urgent alerts</li>
+          <li *ngFor="let feature of 'PLANS.PREMIUM_PLAN.FEATURES' | translate | keyvalue">
+            {{ feature.value }}
+          </li>
         </ul>
         <button
           mat-flat-button
@@ -70,7 +76,7 @@
           type="button"
           [disabled]="selectedPlan !== 'premium'"
         >
-          Selected
+          {{ 'PLANS.BUTTONS.SELECTED' | translate }}
         </button>
       </div>
     </div>
@@ -83,7 +89,7 @@
         [disabled]="!selectedPlan"
         (click)="continueToRegister()"
       >
-        Continue
+        {{ 'PLANS.BUTTONS.CONTINUE' | translate }}
       </button>
     </div>
   </div>

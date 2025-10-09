@@ -1,13 +1,19 @@
 <div class="login-container">
   <div class="login-card">
-    <button mat-button (click)="navigateToHome()" aria-label="Go back to home">← Return</button>
+    <button
+      mat-button
+      (click)="navigateToHome()"
+      [attr.aria-label]="'LOGIN.ARIA_LABELS.BACK_BUTTON' | translate"
+    >
+      {{ 'LOGIN.BACK_BUTTON' | translate }}
+    </button>
 
-    <h1 class="app-title" aria-label="DenunciaYa application logo">
+    <h1 class="app-title" [attr.aria-label]="'LOGIN.ARIA_LABELS.APP_LOGO' | translate">
       <img src="/assets/images/Logo_1.jpg" alt="Citizen" class="logoImage" />
-      DenunciaYa
+      {{ 'LOGIN.APP_TITLE' | translate }}
     </h1>
 
-    <div class="role-selection" role="radiogroup" aria-label="Select your role">
+    <div class="role-selection" role="radiogroup" [attr.aria-label]="'LOGIN.ARIA_LABELS.ROLE_SELECTION' | translate">
       <div
         class="role-card"
         [class.active]="selectedRole === 'citizen'"
@@ -15,10 +21,10 @@
         tabindex="0"
         role="radio"
         [attr.aria-checked]="selectedRole === 'citizen'"
-        aria-label="Select citizen role"
+        [attr.aria-label]="'LOGIN.ARIA_LABELS.CITIZEN_ROLE' | translate"
       >
-        <img src="/assets/images/citizen.png" alt="Citizen icon" />
-        <p>Citizen</p>
+        <img src="/assets/images/citizen.png" [alt]="'LOGIN.CITIZEN_ROLE' | translate" />
+        <p>{{ 'LOGIN.CITIZEN_ROLE' | translate }}</p>
       </div>
 
       <div
@@ -28,62 +34,74 @@
         tabindex="0"
         role="radio"
         [attr.aria-checked]="selectedRole === 'authority'"
-        aria-label="Select authority role"
+        [attr.aria-label]="'LOGIN.ARIA_LABELS.AUTHORITY_ROLE' | translate"
       >
-        <img src="/assets/images/authority.png" alt="Authority icon" />
-        <p>Authority</p>
+        <img src="/assets/images/authority.png" [alt]="'LOGIN.AUTHORITY_ROLE' | translate" />
+        <p>{{ 'LOGIN.AUTHORITY_ROLE' | translate }}</p>
       </div>
     </div>
 
-    <div class="form-section" aria-label="Login form section">
-      <h3>Hello {{ selectedRole | titlecase }}</h3>
-      <p>Please fill out the form below to get started</p>
+    <div class="form-section" [attr.aria-label]="'LOGIN.ARIA_LABELS.FORM_SECTION' | translate">
+      <h3>{{ 'LOGIN.FORM_TITLE' | translate: { role: (selectedRole | titlecase) } }}</h3>
+      <p>{{ 'LOGIN.FORM_SUBTITLE' | translate }}</p>
 
-      <form [formGroup]="loginForm" (ngSubmit)="onLogin()" aria-label="Login form">
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()" [attr.aria-label]="'LOGIN.ARIA_LABELS.LOGIN_FORM' | translate">
         <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Email*</mat-label>
+          <mat-label>{{ 'LOGIN.EMAIL_LABEL' | translate }}</mat-label>
           <input
             matInput
-            placeholder="Enter your email"
+            [placeholder]="'LOGIN.EMAIL_PLACEHOLDER' | translate"
             formControlName="email"
             aria-required="true"
-            aria-label="Email address"
+            [attr.aria-label]="'LOGIN.ARIA_LABELS.EMAIL_FIELD' | translate"
           />
           <mat-icon matPrefix>email</mat-icon>
-          <mat-error *ngIf="loginForm.get('email')?.hasError('required')">Email is required</mat-error>
-          <mat-error *ngIf="loginForm.get('email')?.hasError('email')">Please enter a valid email address</mat-error>
+          <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+            {{ 'LOGIN.ERRORS.EMAIL_REQUIRED' | translate }}
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
+            {{ 'LOGIN.ERRORS.EMAIL_INVALID' | translate }}
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Password*</mat-label>
+          <mat-label>{{ 'LOGIN.PASSWORD_LABEL' | translate }}</mat-label>
           <input
             matInput
             [type]="hidePassword ? 'password' : 'text'"
             formControlName="password"
             aria-required="true"
-            aria-label="Password"
+            [attr.aria-label]="'LOGIN.ARIA_LABELS.PASSWORD_FIELD' | translate"
           />
           <button
             mat-icon-button
             matSuffix
             type="button"
             (click)="hidePassword = !hidePassword"
-            [attr.aria-label]="hidePassword ? 'Show password' : 'Hide password'"
+            [attr.aria-label]="(hidePassword ? 'LOGIN.ARIA_LABELS.SHOW_PASSWORD' : 'LOGIN.ARIA_LABELS.HIDE_PASSWORD') | translate"
             [attr.aria-pressed]="!hidePassword"
           >
             <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
           </button>
-          <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Password is required</mat-error>
+          <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+            {{ 'LOGIN.ERRORS.PASSWORD_REQUIRED' | translate }}
+          </mat-error>
         </mat-form-field>
+
         <div class="options">
-          <mat-checkbox formControlName="remember" aria-label="Remember me">Remember me</mat-checkbox>
+          <mat-checkbox
+            formControlName="remember"
+            [attr.aria-label]="'LOGIN.ARIA_LABELS.REMEMBER_ME' | translate"
+          >
+            {{ 'LOGIN.REMEMBER_ME' | translate }}
+          </mat-checkbox>
           <button
             type="button"
             class="forgot-link"
             (click)="navigateToForgotAccount()"
-            aria-label="Forgot password link"
+            [attr.aria-label]="'LOGIN.ARIA_LABELS.FORGOT_PASSWORD' | translate"
           >
-            Forgot password?
+            {{ 'LOGIN.FORGOT_PASSWORD' | translate }}
           </button>
         </div>
 
@@ -94,21 +112,21 @@
             class="login-btn"
             type="submit"
             [disabled]="loginForm.invalid"
-            aria-label="Log in button"
+            [attr.aria-label]="'LOGIN.ARIA_LABELS.LOGIN_BUTTON' | translate"
           >
-            Log In
+            {{ 'LOGIN.LOGIN_BUTTON' | translate }}
           </button>
         </div>
 
         <p class="register-text">
-          Not a member yet?
+          {{ 'LOGIN.REGISTER_TEXT' | translate }}
           <button
             type="button"
             class="register-link"
             (click)="navigateToRegister()"
-            aria-label="Register link"
+            [attr.aria-label]="'LOGIN.ARIA_LABELS.REGISTER_LINK' | translate"
           >
-            Register
+            {{ 'LOGIN.REGISTER_LINK' | translate }}
           </button>
         </p>
       </form>

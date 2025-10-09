@@ -1,16 +1,21 @@
 <div class="login-container">
   <div class="login-card">
-    <button mat-button color="primary" (click)="navigateToLogin()" aria-label="Go back to login">
-      ← Back
+    <button
+      mat-button
+      color="primary"
+      (click)="navigateToLogin()"
+      [attr.aria-label]="'REGISTER.ARIA_LABELS.BACK_BUTTON' | translate"
+    >
+      {{ 'REGISTER.BACK_BUTTON' | translate }}
     </button>
 
-    <h1 class="app-title" aria-label="DenunciaYa application logo">
+    <h1 class="app-title" [attr.aria-label]="'REGISTER.ARIA_LABELS.APP_LOGO' | translate">
       <img src="/assets/images/Logo_1.jpg" alt="Citizen" class="logoImage" />
-      DenunciaYa
+      {{ 'REGISTER.APP_TITLE' | translate }}
     </h1>
-    <h2>Register</h2>
+    <h2>{{ 'REGISTER.PAGE_TITLE' | translate }}</h2>
 
-    <div class="role-selection" role="radiogroup" aria-label="Select your role">
+    <div class="role-selection" role="radiogroup" [attr.aria-label]="'REGISTER.ARIA_LABELS.ROLE_SELECTION' | translate">
       <div
         class="role-card"
         [class.active]="selectedRole === 'citizen'"
@@ -18,10 +23,10 @@
         tabindex="0"
         role="radio"
         [attr.aria-checked]="selectedRole === 'citizen'"
-        aria-label="Select citizen role"
+        [attr.aria-label]="'REGISTER.ARIA_LABELS.CITIZEN_ROLE' | translate"
       >
-        <img src="/assets/images/citizen.png" alt="Citizen icon" />
-        <p>Citizen</p>
+        <img src="/assets/images/citizen.png" [alt]="'REGISTER.CITIZEN_ROLE' | translate" />
+        <p>{{ 'REGISTER.CITIZEN_ROLE' | translate }}</p>
       </div>
 
       <div
@@ -31,62 +36,76 @@
         tabindex="0"
         role="radio"
         [attr.aria-checked]="selectedRole === 'authority'"
-        aria-label="Select authority role"
+        [attr.aria-label]="'REGISTER.ARIA_LABELS.AUTHORITY_ROLE' | translate"
       >
-        <img src="/assets/images/authority.png" alt="Authority icon" />
-        <p>Authority</p>
+        <img src="/assets/images/authority.png" [alt]="'REGISTER.AUTHORITY_ROLE' | translate" />
+        <p>{{ 'REGISTER.AUTHORITY_ROLE' | translate }}</p>
       </div>
     </div>
 
-    <div class="form-section" aria-label="Register form section">
-      <h3>Hello, please choose the type of person you are.</h3>
-      <p>Complete the forms to sign up</p>
+    <div class="form-section" [attr.aria-label]="'REGISTER.ARIA_LABELS.FORM_SECTION' | translate">
+      <h3>{{ 'REGISTER.FORM_TITLE' | translate }}</h3>
+      <p>{{ 'REGISTER.FORM_SUBTITLE' | translate }}</p>
 
-      <form [formGroup]="registerForm" (ngSubmit)="onRegister()" aria-label="Register form">
+      <form [formGroup]="registerForm" (ngSubmit)="onRegister()" [attr.aria-label]="'REGISTER.ARIA_LABELS.REGISTER_FORM' | translate">
 
         <div class="name-row">
           <mat-form-field appearance="fill" class="half-width">
-            <mat-label>First Name*</mat-label>
-            <input matInput placeholder="Enter first name" formControlName="firstName" aria-required="true" />
+            <mat-label>{{ 'REGISTER.FIELDS.FIRST_NAME' | translate }}</mat-label>
+            <input
+              matInput
+              [placeholder]="'REGISTER.FIELDS.FIRST_NAME_PLACEHOLDER' | translate"
+              formControlName="firstName"
+              aria-required="true"
+            />
             <mat-error *ngIf="registerForm.get('firstName')?.hasError('required')">
-              First name is required
+              {{ 'REGISTER.ERRORS.FIRST_NAME_REQUIRED' | translate }}
             </mat-error>
             <mat-error *ngIf="registerForm.get('firstName')?.hasError('pattern')">
-              Only letters and spaces are allowed
+              {{ 'REGISTER.ERRORS.FIRST_NAME_PATTERN' | translate }}
             </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="half-width">
-            <mat-label>Last Name*</mat-label>
-            <input matInput placeholder="Enter last name" formControlName="lastName" aria-required="true" />
+            <mat-label>{{ 'REGISTER.FIELDS.LAST_NAME' | translate }}</mat-label>
+            <input
+              matInput
+              [placeholder]="'REGISTER.FIELDS.LAST_NAME_PLACEHOLDER' | translate"
+              formControlName="lastName"
+              aria-required="true"
+            />
             <mat-error *ngIf="registerForm.get('lastName')?.hasError('required')">
-              Last name is required
+              {{ 'REGISTER.ERRORS.LAST_NAME_REQUIRED' | translate }}
             </mat-error>
             <mat-error *ngIf="registerForm.get('lastName')?.hasError('pattern')">
-              Only letters and spaces are allowed
+              {{ 'REGISTER.ERRORS.LAST_NAME_PATTERN' | translate }}
             </mat-error>
           </mat-form-field>
         </div>
 
-
         <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Email*</mat-label>
-          <input matInput placeholder="Enter your email" formControlName="email" aria-required="true" />
+          <mat-label>{{ 'REGISTER.FIELDS.EMAIL' | translate }}</mat-label>
+          <input
+            matInput
+            [placeholder]="'REGISTER.FIELDS.EMAIL_PLACEHOLDER' | translate"
+            formControlName="email"
+            aria-required="true"
+          />
           <mat-icon matPrefix>email</mat-icon>
           <mat-error *ngIf="registerForm.get('email')?.hasError('required')">
-            Email is required
+            {{ 'REGISTER.ERRORS.EMAIL_REQUIRED' | translate }}
           </mat-error>
           <mat-error *ngIf="registerForm.get('email')?.hasError('email')">
-            Please enter a valid email address
+            {{ 'REGISTER.ERRORS.EMAIL_INVALID' | translate }}
           </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Password*</mat-label>
+          <mat-label>{{ 'REGISTER.FIELDS.PASSWORD' | translate }}</mat-label>
           <input
             matInput
             [type]="hidePassword ? 'password' : 'text'"
-            placeholder="Enter password"
+            [placeholder]="'REGISTER.FIELDS.PASSWORD_PLACEHOLDER' | translate"
             formControlName="password"
             aria-required="true"
           />
@@ -95,39 +114,47 @@
             matSuffix
             type="button"
             (click)="hidePassword = !hidePassword"
-            [attr.aria-label]="hidePassword ? 'Show password' : 'Hide password'"
+            [attr.aria-label]="(hidePassword ? 'REGISTER.ARIA_LABELS.SHOW_PASSWORD' : 'REGISTER.ARIA_LABELS.HIDE_PASSWORD') | translate"
             [attr.aria-pressed]="!hidePassword"
           >
             <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
           </button>
           <mat-error *ngIf="registerForm.get('password')?.hasError('required')">
-            Password is required
+            {{ 'REGISTER.ERRORS.PASSWORD_REQUIRED' | translate }}
           </mat-error>
           <mat-error *ngIf="registerForm.get('password')?.hasError('minlength')">
-            Password must be at least 6 characters
+            {{ 'REGISTER.ERRORS.PASSWORD_MINLENGTH' | translate }}
           </mat-error>
           <mat-error *ngIf="registerForm.get('password')?.hasError('maxlength')">
-            Password cannot exceed 20 characters
+            {{ 'REGISTER.ERRORS.PASSWORD_MAXLENGTH' | translate }}
           </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Phone (optional)</mat-label>
-          <input matInput type="number" placeholder="Enter your phone number" formControlName="phone" />
+          <mat-label>{{ 'REGISTER.FIELDS.PHONE' | translate }}</mat-label>
+          <input
+            matInput
+            type="number"
+            [placeholder]="'REGISTER.FIELDS.PHONE_PLACEHOLDER' | translate"
+            formControlName="phone"
+          />
           <mat-icon matPrefix>phone</mat-icon>
           <mat-error *ngIf="registerForm.get('phone')?.hasError('min')">
-            The number must start from 900000000
+            {{ 'REGISTER.ERRORS.PHONE_MIN' | translate }}
           </mat-error>
           <mat-error *ngIf="registerForm.get('phone')?.hasError('max')">
-            The number cannot exceed 999999999
+            {{ 'REGISTER.ERRORS.PHONE_MAX' | translate }}
           </mat-error>
         </mat-form-field>
 
-        <mat-checkbox formControlName="terms" aria-label="Accept terms and conditions">
-          Accept Terms and Conditions
+        <mat-checkbox
+          formControlName="terms"
+          [attr.aria-label]="'REGISTER.ARIA_LABELS.TERMS_CHECKBOX' | translate"
+        >
+          {{ 'REGISTER.TERMS_CHECKBOX' | translate }}
         </mat-checkbox>
         <mat-error *ngIf="registerForm.get('terms')?.hasError('required')">
-          You must accept the terms
+          {{ 'REGISTER.ERRORS.TERMS_REQUIRED' | translate }}
         </mat-error>
 
         <div class="btn-container">
@@ -137,9 +164,9 @@
             class="login-btn"
             type="submit"
             [disabled]="registerForm.invalid"
-            aria-label="Register button"
+            [attr.aria-label]="'REGISTER.ARIA_LABELS.REGISTER_BUTTON' | translate"
           >
-            Register
+            {{ 'REGISTER.REGISTER_BUTTON' | translate }}
           </button>
         </div>
       </form>

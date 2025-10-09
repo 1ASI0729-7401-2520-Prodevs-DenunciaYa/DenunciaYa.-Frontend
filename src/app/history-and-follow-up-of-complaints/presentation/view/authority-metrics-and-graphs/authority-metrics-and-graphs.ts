@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ChartModule } from 'primeng/chart';
 import { ComplaintsApiService } from '../../../infrastructure/complaint-api';
 import { Complaint } from '../../../model/domain/complaint.entity';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-authority-metrics-and-graphs',
   standalone: true,
-  imports: [CommonModule, ChartModule],
+  imports: [CommonModule, ChartModule, TranslatePipe],
   templateUrl: './authority-metrics-and-graphs.html',
   styleUrls: ['./authority-metrics-and-graphs.css']
 })

@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { TitleCasePipe } from '@angular/common';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profile-view',
@@ -15,7 +16,8 @@ import { TitleCasePipe } from '@angular/common';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    TitleCasePipe
+    TitleCasePipe,
+    TranslatePipe
   ],
   templateUrl: './profile-view.html',
   styleUrls: ['./profile-view.css']

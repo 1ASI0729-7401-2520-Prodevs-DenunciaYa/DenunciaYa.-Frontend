@@ -11,6 +11,7 @@ import { MatRadioButton } from '@angular/material/radio';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from '../../../infrastructure/auth.service';
 import {SnackbarService} from '../../component/snackbar-component/snackbar.service';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login-form',
@@ -28,6 +29,7 @@ import {SnackbarService} from '../../component/snackbar-component/snackbar.servi
     MatIconButton,
     MatInput,
     MatIcon,
+    TranslatePipe,
 
   ],
   templateUrl: './login-form.html',

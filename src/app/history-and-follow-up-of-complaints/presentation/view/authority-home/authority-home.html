@@ -1,94 +1,110 @@
-<div class="authority-home" role="main" aria-label="Authority Dashboard">
+<div class="authority-home" role="main" [attr.aria-label]="'DASHBOARD.MAIN_LABEL' | translate">
   <header class="welcome-header" aria-labelledby="welcome-title">
-    <h1 id="welcome-title" class="welcome-title">Welcome</h1>
+    <h1 id="welcome-title" class="welcome-title">{{ 'DASHBOARD.WELCOME.TITLE' | translate }}</h1>
     <p class="welcome-subtitle">
-      Hello <span class="user-name">{{ userName }}</span>, here is the summary of citizen complaints
+      {{ 'DASHBOARD.WELCOME.SUBTITLE' | translate: { userName: userName } }}
     </p>
   </header>
 
   <div *ngIf="isLoading" class="loading-state" role="status" aria-live="polite">
-    <p>Loading data...</p>
+    <p>{{ 'DASHBOARD.STATES.LOADING' | translate }}</p>
   </div>
 
   <div *ngIf="errorMessage && !isLoading" class="error-state" role="alert" aria-live="assertive">
     <p>{{ errorMessage }}</p>
-    <button (click)="loadComplaintsData()" class="retry-button" aria-label="Retry loading complaints">Retry</button>
+    <button
+      (click)="loadComplaintsData()"
+      class="retry-button"
+      [attr.aria-label]="'DASHBOARD.STATES.RETRY' | translate"
+    >
+      {{ 'DASHBOARD.STATES.RETRY' | translate }}
+    </button>
   </div>
 
-  <section *ngIf="!isLoading && !errorMessage" class="stats-grid" aria-label="Complaints summary statistics">
-    <div class="stat-card" role="group" aria-label="Total complaints">
+  <section *ngIf="!isLoading && !errorMessage" class="stats-grid" [attr.aria-label]="'DASHBOARD.STATS.SECTION_LABEL' | translate">
+    <div class="stat-card" role="group" [attr.aria-label]="'DASHBOARD.STATS.TOTAL_COMPLAINTS.ARIA_LABEL' | translate">
       <div class="stat-icon total-icon">
         <span class="icon" aria-hidden="true">📊</span>
       </div>
       <div class="stat-content">
-        <h3 class="stat-title">Total Complaints</h3>
-        <p class="stat-number" aria-label="Total number of complaints">{{ totalComplaints }}</p>
+        <h3 class="stat-title">{{ 'DASHBOARD.STATS.TOTAL_COMPLAINTS.TITLE' | translate }}</h3>
+        <p class="stat-number" [attr.aria-label]="'DASHBOARD.STATS.TOTAL_COMPLAINTS.ARIA_LABEL' | translate">
+          {{ totalComplaints }}
+        </p>
       </div>
     </div>
 
-    <div class="stat-card" role="group" aria-label="Pending complaints">
+    <div class="stat-card" role="group" [attr.aria-label]="'DASHBOARD.STATS.PENDING.ARIA_LABEL' | translate">
       <div class="stat-icon pending-icon">
         <span class="icon" aria-hidden="true">⏳</span>
       </div>
       <div class="stat-content">
-        <h3 class="stat-title">Pending</h3>
-        <p class="stat-number" aria-label="Number of pending complaints">{{ pendingComplaints }}</p>
+        <h3 class="stat-title">{{ 'DASHBOARD.STATS.PENDING.TITLE' | translate }}</h3>
+        <p class="stat-number" [attr.aria-label]="'DASHBOARD.STATS.PENDING.ARIA_LABEL' | translate">
+          {{ pendingComplaints }}
+        </p>
       </div>
     </div>
 
-    <div class="stat-card" role="group" aria-label="Resolved complaints">
+    <div class="stat-card" role="group" [attr.aria-label]="'DASHBOARD.STATS.RESOLVED.ARIA_LABEL' | translate">
       <div class="stat-icon resolved-icon">
         <span class="icon" aria-hidden="true">✅</span>
       </div>
       <div class="stat-content">
-        <h3 class="stat-title">Resolved</h3>
-        <p class="stat-number" aria-label="Number of resolved complaints">{{ resolvedComplaints }}</p>
+        <h3 class="stat-title">{{ 'DASHBOARD.STATS.RESOLVED.TITLE' | translate }}</h3>
+        <p class="stat-number" [attr.aria-label]="'DASHBOARD.STATS.RESOLVED.ARIA_LABEL' | translate">
+          {{ resolvedComplaints }}
+        </p>
       </div>
     </div>
 
-    <div class="stat-card" role="group" aria-label="District with the most complaints">
+    <div class="stat-card" role="group" [attr.aria-label]="'DASHBOARD.STATS.DISTRICT_MOST_COMPLAINTS.ARIA_LABEL' | translate">
       <div class="stat-icon district-icon">
         <span class="icon" aria-hidden="true">🏙️</span>
       </div>
       <div class="stat-content">
-        <h3 class="stat-title">District with Most Complaints</h3>
-        <p class="stat-district" aria-label="District with the most complaints">{{ districtWithMostComplaints }}</p>
+        <h3 class="stat-title">{{ 'DASHBOARD.STATS.DISTRICT_MOST_COMPLAINTS.TITLE' | translate }}</h3>
+        <p class="stat-district" [attr.aria-label]="'DASHBOARD.STATS.DISTRICT_MOST_COMPLAINTS.ARIA_LABEL' | translate">
+          {{ districtWithMostComplaints }}
+        </p>
       </div>
     </div>
 
-    <div class="stat-card" role="group" aria-label="Most common complaint category">
+    <div class="stat-card" role="group" [attr.aria-label]="'DASHBOARD.STATS.MOST_COMMON_CATEGORY.ARIA_LABEL' | translate">
       <div class="stat-icon category-icon">
         <span class="icon" aria-hidden="true">📑</span>
       </div>
       <div class="stat-content">
-        <h3 class="stat-title">Most Common Category</h3>
-        <p class="stat-district" aria-label="Most common category">{{ mostCommonCategory }}</p>
+        <h3 class="stat-title">{{ 'DASHBOARD.STATS.MOST_COMMON_CATEGORY.TITLE' | translate }}</h3>
+        <p class="stat-district" [attr.aria-label]="'DASHBOARD.STATS.MOST_COMMON_CATEGORY.ARIA_LABEL' | translate">
+          {{ mostCommonCategory }}
+        </p>
       </div>
     </div>
   </section>
 </div>
 
-<div class="charts-container" *ngIf="!isLoading && !errorMessage" role="region" aria-label="Complaints analytics charts">
-  <div class="chart-card" role="group" aria-label="Complaint status distribution">
+<div class="charts-container" *ngIf="!isLoading && !errorMessage" role="region" [attr.aria-label]="'DASHBOARD.CHARTS.SECTION_LABEL' | translate">
+  <div class="chart-card" role="group" [attr.aria-label]="'DASHBOARD.CHARTS.STATUS_DISTRIBUTION.LABEL' | translate">
     <div class="chart-wrapper">
       <p-chart
         type="pie"
         [data]="statusChartData"
         [options]="statusChartOptions"
         [style]="{'width': '100%', 'height': '300px'}"
-        aria-label="Pie chart showing the proportion of complaints by status"
+        [attr.aria-label]="'DASHBOARD.CHARTS.STATUS_DISTRIBUTION.ARIA_LABEL' | translate"
       ></p-chart>
     </div>
   </div>
 
-  <div class="chart-card" role="group" aria-label="Complaints by category">
+  <div class="chart-card" role="group" [attr.aria-label]="'DASHBOARD.CHARTS.BY_CATEGORY.LABEL' | translate">
     <div class="chart-wrapper">
       <p-chart
         type="bar"
         [data]="categoryChartData"
         [options]="categoryChartOptions"
         [style]="{'width': '100%', 'height': '300px'}"
-        aria-label="Bar chart showing the number of complaints by category"
+        [attr.aria-label]="'DASHBOARD.CHARTS.BY_CATEGORY.ARIA_LABEL' | translate"
       ></p-chart>
     </div>
   </div>
