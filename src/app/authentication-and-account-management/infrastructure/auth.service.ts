@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private baseUrl = 'https://denunciaya-fakeapi.onrender.com';
+  private readonly baseUrl = environment.platformProviderApiBaseUrl;
 
   constructor(private http: HttpClient) {}
 
-  async login(email: string, password: string, role: string): Promise<any | null> {
+  async login(email: string, password: string, role: 'citizen' | 'authority' | 'responsibles'): Promise<any | null> {
     const url = `${this.baseUrl}/${role}?email=${email}&password=${password}`;
     const response = await firstValueFrom(this.http.get<any[]>(url));
     return response.length > 0 ? response[0] : null;

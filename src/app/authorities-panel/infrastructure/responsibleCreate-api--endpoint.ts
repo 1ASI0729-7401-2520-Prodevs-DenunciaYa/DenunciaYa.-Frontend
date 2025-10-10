@@ -8,8 +8,7 @@ import {
   ResponsiblesResponse,
 } from './responsibleCreate.response';
 import { BaseApiEndpoint } from '../../shared/infrastructure/base-api-endpoint';
-
-const responsibleEndpointUrl = 'https://denunciaya-fakeapi.onrender.com/responsibles';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class ResponsibleApiEndpoint extends BaseApiEndpoint<
@@ -18,10 +17,18 @@ export class ResponsibleApiEndpoint extends BaseApiEndpoint<
   ResponsiblesResponse,
   ResponsibleAssembler
 > {
+  // ✅ Usa override (la clase base ya tiene esta propiedad)
+  override readonly endpointUrl = `${environment.platformProviderApiBaseUrl}${environment.platformProviderResponsiblesEndpointPath}`;
+
   constructor(http: HttpClient) {
-    super(http, responsibleEndpointUrl, new ResponsibleAssembler());
+    super(
+      http,
+      `${environment.platformProviderApiBaseUrl}${environment.platformProviderResponsiblesEndpointPath}`,
+      new ResponsibleAssembler()
+    );
   }
 
+  // 👇 Este método no necesita override, porque no existe en la base
   patch(id: number, partial: Partial<Responsible>): Observable<Responsible> {
     return this.http.patch<Responsible>(`${this.endpointUrl}/${id}`, partial);
   }

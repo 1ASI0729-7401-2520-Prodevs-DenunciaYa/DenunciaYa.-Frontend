@@ -4,7 +4,7 @@ import { environment } from '../../../environments/environment';
 import { Responsible } from '../domain/model/responsibleCreate.entity';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
-import {ResponsibleAssembler} from '../infrastructure/responsibleCreate.assembler';
+import { ResponsibleAssembler } from '../infrastructure/responsibleCreate.assembler';
 
 interface ApiResponsible {
   id: number;
@@ -21,7 +21,8 @@ interface ApiResponsible {
 
 @Injectable({ providedIn: 'root' })
 export class ResponsibleCreateStore {
-  private readonly apiUrl = 'https://denunciaya-fakeapi.onrender.com/responsibles';
+  // ✅ Usa la URL del environment, no una hardcodeada
+  private readonly apiUrl = `${environment.platformProviderApiBaseUrl}${environment.platformProviderResponsiblesEndpointPath}`;
   private assembler = new ResponsibleAssembler();
 
   private readonly _responsibles = signal<Responsible[]>([]);
@@ -50,7 +51,6 @@ export class ResponsibleCreateStore {
       })
     ).subscribe({
       next: (data: ApiResponsible[]) => {
-        // ✅ Usar el assembler para transformar los datos
         const responsibles = data.map(item =>
           this.assembler.toEntityFromResource({
             id: item.id,
@@ -81,7 +81,7 @@ export class ResponsibleCreateStore {
     this._error.set(null);
 
     const newResponsible = new Responsible({
-      id: Date.now(), // ID temporal
+      id: Date.now(), // ID temporal local
       ...responsibleData,
       createdAt: new Date()
     });
@@ -110,7 +110,7 @@ export class ResponsibleCreateStore {
     });
   }
 
-  // ✅ Nuevo método para obtener responsables formateados para la UI
+  // ✅ Responsables adaptados para la UI
   getResponsiblesForUI() {
     return this.responsibles().map(responsible => ({
       id: responsible.id,
@@ -119,7 +119,7 @@ export class ResponsibleCreateStore {
       email: responsible.email,
       phone: responsible.phone,
       category: responsible.role,
-      caseCount: 0, // Puedes agregar lógica para calcular esto
+      caseCount: 0,
       role: responsible.role,
       description: responsible.description,
       accessLevel: responsible.accessLevel,
