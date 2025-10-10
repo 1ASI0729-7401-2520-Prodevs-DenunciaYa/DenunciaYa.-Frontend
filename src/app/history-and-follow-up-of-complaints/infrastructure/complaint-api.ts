@@ -11,7 +11,7 @@ import { of } from 'rxjs';
   providedIn: 'root'
 })
 export class ComplaintsApiService {
-  private baseUrl = environment.apiBaseUrl;
+  private baseUrl = environment.platformProviderApiBaseUrl;
   private endpoint = environment.apiEndpoints.complaints;
 
   constructor(private http: HttpClient) {}
