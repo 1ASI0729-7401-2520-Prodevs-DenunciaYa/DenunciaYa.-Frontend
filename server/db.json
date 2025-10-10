@@ -216,14 +216,14 @@
         },
         {
           "status": "Accepted",
-          "date": "2025-10-08T03:16:51.825Z",
+          "date": "",
           "completed": true,
           "current": false,
           "waitingDecision": false
         },
         {
           "status": "Completed",
-          "date": "2025-10-08T03:16:51.825Z",
+          "date": "",
           "completed": true,
           "current": true,
           "waitingDecision": false
@@ -251,21 +251,21 @@
       "timeline": [
         {
           "status": "Complaint registered",
-          "date": "2025-10-07T20:09:00",
+          "date": "",
           "completed": true,
           "current": true,
           "waitingDecision": false
         },
         {
           "status": "Under review",
-          "date": "2025-10-07T18:44:00",
+          "date": "",
           "completed": false,
           "current": false,
           "waitingDecision": false
         },
         {
           "status": "Awaiting response",
-          "date": "2025-10-07T18:44:00",
+          "date": "",
           "completed": false,
           "current": false,
           "waitingDecision": false
@@ -279,7 +279,7 @@
         },
         {
           "status": "Completed",
-          "date": "2025-10-07T18:44:00",
+          "date": "",
           "completed": false,
           "current": false,
           "waitingDecision": false

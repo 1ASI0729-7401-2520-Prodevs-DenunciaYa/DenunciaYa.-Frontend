@@ -9,7 +9,7 @@ import {
 } from './responsibleCreate.response';
 import { BaseApiEndpoint } from '../../shared/infrastructure/base-api-endpoint';
 
-const responsibleEndpointUrl = 'http://localhost:3000/responsibles';
+const responsibleEndpointUrl = 'https://denunciaya-fakeapi.onrender.com/responsibles';
 
 @Injectable({ providedIn: 'root' })
 export class ResponsibleApiEndpoint extends BaseApiEndpoint<

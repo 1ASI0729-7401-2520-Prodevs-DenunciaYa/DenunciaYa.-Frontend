@@ -8,6 +8,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ResponsibleCreateStore } from '../../application/responsibleCreate.store';
 import { Responsible } from '../../domain/model/responsibleCreate.entity';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-responsible-create',
@@ -19,7 +20,8 @@ import { Responsible } from '../../domain/model/responsibleCreate.entity';
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    TranslatePipe
   ],
   templateUrl: './responsible-create.component.html',
   styleUrls: ['./responsible-create.component.css']

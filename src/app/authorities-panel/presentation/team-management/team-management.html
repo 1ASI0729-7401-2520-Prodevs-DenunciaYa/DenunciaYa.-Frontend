@@ -1,27 +1,26 @@
 <div class="team-container">
-  <h2>Gestión de equipos</h2>
+  <h2>{{ 'Team Management' | translate }}</h2>
 
-
+  <!-- ✅ Agregar indicador de carga -->
   @if (filteredResponsibles.length > 0) {
     <table class="team-table">
       <thead>
       <tr>
-        <th>Responsable</th>
-        <th>N° de Casos</th>
-        <th>Categoría</th>
-        <th>Asignación</th>
+        <th>{{ 'Responsible' | translate }}</th>
+        <th>{{ 'Case Number' | translate }}</th>
+        <th>{{ 'Category' | translate }}</th>
+        <th>{{ 'Assignment' | translate }}</th>
       </tr>
       </thead>
-
       <tbody>
         @for (r of filteredResponsibles; track r.id) {
           <tr>
             <td>{{ r.firstName }} {{ r.lastName }}</td>
-            <td>{{ r.caseCount || '-' }}</td>
-            <td>{{ r.category || '-' }}</td>
+            <td>{{ r.caseCount || '0' }}</td>
+            <td>{{ r.category || ('Unassigned' | translate) }}</td>
             <td>
               <button class="assign-btn" (click)="assignComplaint(r)">
-                Asignar denuncia
+                {{ 'Assign complaint' | translate }}
               </button>
             </td>
           </tr>
@@ -29,6 +28,6 @@
       </tbody>
     </table>
   } @else {
-    <p class="empty-text">No hay responsables registrados.</p>
+    <p class="empty-text">{{ 'No registered responsible' | translate }}</p>
   }
 </div>

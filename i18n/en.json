@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "SIDENAV": {
     "HOME": "Home",
     "REPORTS": "Reports",
@@ -12,7 +11,6 @@
     "SETTINGS": "Settings",
     "LOGOUT": "Log Out"
   }
-=======
->>>>>>> origin/feature/authorities-panel
+
 
 }

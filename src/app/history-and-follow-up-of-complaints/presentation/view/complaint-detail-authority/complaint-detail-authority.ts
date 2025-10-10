@@ -369,7 +369,7 @@ export class ComplaintDetailAuthority implements OnInit {
 
   viewResponsibleInfo(): void {
     if (this.complaint) {
-      this.router.navigate([`/responsible-info/${this.complaint.id}`]);
+      this.router.navigate([`/complaint-detail/${this.complaint.id}$/responsible`]);
     }
   }
 

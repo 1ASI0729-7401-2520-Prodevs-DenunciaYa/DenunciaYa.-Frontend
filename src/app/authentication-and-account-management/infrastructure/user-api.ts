@@ -15,7 +15,7 @@ import { User } from '../domain/model/user.entity';
  */
 @Injectable({ providedIn: 'root' })
 export class UserApi {
-  private readonly baseUrl = 'http://localhost:3000/users'; // tu json-server
+  private readonly baseUrl = 'https://denunciaya-fakeapi.onrender.com'; // tu json-server
 
   constructor(private http: HttpClient) {}
 

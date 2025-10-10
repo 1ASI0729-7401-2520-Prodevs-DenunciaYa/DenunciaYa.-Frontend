@@ -123,7 +123,7 @@ export class MapTrackingComponent implements OnInit, OnDestroy {
 
   loadComplaintsFromAPI(): void {
     this.loading = true;
-    this.http.get<any>('http://localhost:3000/complaints')
+    this.http.get<any>('https://denunciaya-fakeapi.onrender.com/complaints')
       .subscribe({
         next: (response) => {
           console.log('✅ Data loaded successfully');

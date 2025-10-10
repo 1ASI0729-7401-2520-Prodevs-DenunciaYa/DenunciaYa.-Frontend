@@ -3,11 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-complaints-table',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatButtonModule],
+  imports: [CommonModule, MatTableModule, MatButtonModule, TranslatePipe],
   templateUrl: './complaints-table.component.html',
   styleUrls: ['./complaints-table.component.css']
 })
@@ -22,7 +23,7 @@ export class ComplaintsTableComponent implements OnInit {
   }
 
   loadComplaints(): void {
-    this.http.get<any[]>('http://localhost:3000/api/v1/complaints').subscribe({
+    this.http.get<any[]>('https://denunciaya-fakeapi.onrender.com/complaints').subscribe({
       next: (data) => {
         // En este caso "data" ya es el array de denuncias
         this.dataSource = data.map((c, index) => ({

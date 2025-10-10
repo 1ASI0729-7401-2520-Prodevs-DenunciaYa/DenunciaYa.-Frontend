@@ -61,19 +61,39 @@ export class ComplaintDetailCitizen implements OnInit {
     if (id) {
       this.complaintsService.getComplaintById(id).subscribe({
         next: (data) => {
+          console.log('🔍 COMPLAINT DATA:', data);
+          console.log('📊 Timeline data:', data.timeline);
+          console.log('📋 Timeline type:', typeof data.timeline);
+          console.log('🔢 Timeline length:', data.timeline?.length);
+          console.log('📝 Timeline items:', data.timeline);
+
           this.complaint = data;
           this.generateTimeline();
           this.checkDecisionState();
         },
-        error: () => console.error('Complaint not found')
+        error: (error) => {
+          console.error('❌ Error loading complaint:', error);
+          console.error('Complaint not found');
+        }
       });
     }
   }
 
   generateTimeline(): void {
-    if (!this.complaint || !this.complaint.timeline) return;
+    console.log('🔄 Generating timeline...');
+    console.log('Complaint:', this.complaint);
+    console.log('Timeline:', this.complaint?.timeline);
+
+    if (!this.complaint || !this.complaint.timeline) {
+      console.log('❌ No complaint or timeline data');
+      return;
+    }
+
+    console.log('📋 Timeline items to process:', this.complaint.timeline);
 
     this.orderStatus = this.complaint.timeline.map(item => {
+      console.log('📝 Processing timeline item:', item);
+
       let cssClass = 'state-default';
 
       if (item.completed) {
@@ -88,12 +108,20 @@ export class ComplaintDetailCitizen implements OnInit {
 
       const formattedDate = this.formatTimelineDate(new Date(item.date));
 
+      console.log('✅ Final timeline item:', {
+        content: item.status,
+        oppositeContent: formattedDate,
+        cssClass: cssClass
+      });
+
       return {
         content: item.status,
         oppositeContent: formattedDate,
         cssClass: cssClass
       };
     });
+
+    console.log('🎯 Final orderStatus:', this.orderStatus);
   }
 
   private checkDecisionState(): void {
@@ -377,7 +405,7 @@ export class ComplaintDetailCitizen implements OnInit {
 
   viewResponsibleInfo(): void {
     if (this.complaint) {
-      this.router.navigate([`/responsible-info/${this.complaint.id}`]);
+      this.router.navigate([`/complaint-detail/${this.complaint.id}$/responsible`]);
     }
   }
 

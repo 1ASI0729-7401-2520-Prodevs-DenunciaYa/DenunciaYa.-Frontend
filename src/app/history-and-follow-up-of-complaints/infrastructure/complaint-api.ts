@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map, catchError } from 'rxjs';
+import {Observable, map, catchError, tap} from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Complaint } from '../model/domain/complaint.entity';
 import { ComplaintsResponse, ComplaintResource } from './complaint-response';
@@ -11,37 +11,92 @@ import { of } from 'rxjs';
   providedIn: 'root'
 })
 export class ComplaintsApiService {
-  private baseUrl = environment.apiBaseUrl || 'https://denunciaya-fakeapi.onrender.com/';
-  private endpoint = '/complaints';
+  private baseUrl = environment.apiBaseUrl;
+  private endpoint = environment.apiEndpoints.complaints;
 
   constructor(private http: HttpClient) {}
 
+// En complaint-api.ts
   getComplaints(): Observable<Complaint[]> {
-    return this.http.get<Complaint[]>(`${this.baseUrl}${this.endpoint}`)
-      .pipe(
-        map((complaints: Complaint[]) => {
-          console.log('Complaints from API for Store:', complaints);
-          return complaints || [];
-        }),
-        catchError(error => {
-          console.error('Error fetching complaints for store:', error);
-          return of([]);
-        })
-      );
+    return this.http.get<any>(`${this.baseUrl}${this.endpoint}`).pipe(
+      tap(response => {
+        console.log('🔍 RAW API RESPONSE STRUCTURE:', response);
+        console.log('📊 Response keys:', Object.keys(response));
+        if (Array.isArray(response)) {
+          console.log('📋 First complaint item:', response[0]);
+          console.log('🔑 First item keys:', response[0] ? Object.keys(response[0]) : 'No items');
+        }
+      }),
+      map(response => {
+        let complaintsArray: any[] = [];
+
+        if (Array.isArray(response)) {
+          complaintsArray = response;
+        } else if (response.complaints && Array.isArray(response.complaints)) {
+          complaintsArray = response.complaints;
+        } else if (response.data && Array.isArray(response.data)) {
+          complaintsArray = response.data;
+        } else if (response) {
+          complaintsArray = [response];
+        }
+
+        console.log('🔄 Processed complaints array:', complaintsArray);
+
+        // Mapear cada item
+        const mappedComplaints = complaintsArray.map(item => {
+          console.log('📝 Mapping item:', item);
+          try {
+            const mapped = ComplaintAssembler.toEntityFromResource(item);
+            console.log('✅ Successfully mapped:', mapped);
+            return mapped;
+          } catch (error) {
+            console.error('❌ Error mapping item:', error, item);
+            return null;
+          }
+        }).filter(item => item !== null);
+
+        console.log('🎯 Final mapped complaints:', mappedComplaints);
+        return mappedComplaints;
+      }),
+      catchError(error => {
+        console.error('🚨 Error in getComplaints:', error);
+        return of([]);
+      })
+    );
   }
 
   getAllComplaints(): Observable<{ status: string; complaints: Complaint[] }> {
-    return this.http.get<Complaint[]>(`${this.baseUrl}${this.endpoint}`)
+    return this.http.get<any>(`${this.baseUrl}${this.endpoint}`)
       .pipe(
-        map((complaints: Complaint[]) => {
-          console.log('Complaints from API for Metrics:', complaints);
-          return {
-            status: 'success',
-            complaints: complaints || []
-          };
+        tap(response => {
+          console.log('RAW API RESPONSE:', response);
+          console.log('Response type:', typeof response);
+          console.log('Is array?:', Array.isArray(response));
+        }),
+        map((response: any) => {
+          if (Array.isArray(response)) {
+            return {
+              status: 'success',
+              complaints: response
+            };
+          }
+          // Si tiene la estructura esperada
+          else if (response.complaints) {
+            return {
+              status: response.status || 'success',
+              complaints: response.complaints
+            };
+          }
+          // Si es un objeto con datos de complaint
+          else {
+            return {
+              status: 'success',
+              complaints: [response] // convierte a array
+            };
+          }
         }),
         catchError(error => {
-          console.error('Error fetching complaints for metrics:', error);
+          console.error('Error fetching complaints:', error);
           return of({
             status: 'error',
             complaints: []
@@ -49,6 +104,7 @@ export class ComplaintsApiService {
         })
       );
   }
+
 
   getComplaintById(id: string): Observable<Complaint> {
     return this.http.get<ComplaintResource>(`${this.baseUrl}${this.endpoint}/${id}`)

@@ -4,7 +4,7 @@ import { firstValueFrom } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private baseUrl = 'http://localhost:3000';
+  private baseUrl = 'https://denunciaya-fakeapi.onrender.com';
 
   constructor(private http: HttpClient) {}
 

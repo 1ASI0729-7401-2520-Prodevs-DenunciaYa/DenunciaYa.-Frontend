@@ -4,10 +4,25 @@ import { environment } from '../../../environments/environment';
 import { Responsible } from '../domain/model/responsibleCreate.entity';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import {ResponsibleAssembler} from '../infrastructure/responsibleCreate.assembler';
+
+interface ApiResponsible {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  role: string;
+  description: string[];
+  accessLevel: string;
+  createdAt: string;
+  caseCount?: number;
+}
 
 @Injectable({ providedIn: 'root' })
 export class ResponsibleCreateStore {
-  private readonly apiUrl = `${environment.platformProviderApiBaseUrl}${environment.platformProviderResponsiblesEndpointPath}`;
+  private readonly apiUrl = 'https://denunciaya-fakeapi.onrender.com/responsibles';
+  private assembler = new ResponsibleAssembler();
 
   private readonly _responsibles = signal<Responsible[]>([]);
   private readonly _loading = signal<boolean>(false);
@@ -25,16 +40,32 @@ export class ResponsibleCreateStore {
 
   loadResponsibles(): void {
     this._loading.set(true);
+    this._error.set(null);
 
-    this.http.get<Responsible[]>(this.apiUrl).pipe(
+    this.http.get<ApiResponsible[]>(this.apiUrl).pipe(
       catchError((err: unknown) => {
         this._error.set('Error loading responsibles');
         console.error('❌ Error loading responsibles:', err);
-        return of([] as Responsible[]);
+        return of([] as ApiResponsible[]);
       })
     ).subscribe({
-      next: (data: Responsible[]) => {
-        this._responsibles.set(data);
+      next: (data: ApiResponsible[]) => {
+        // ✅ Usar el assembler para transformar los datos
+        const responsibles = data.map(item =>
+          this.assembler.toEntityFromResource({
+            id: item.id,
+            firstName: item.firstName,
+            lastName: item.lastName,
+            email: item.email,
+            phone: item.phone,
+            role: item.role,
+            description: item.description || [],
+            accessLevel: item.accessLevel,
+            createdAt: item.createdAt
+          })
+        );
+
+        this._responsibles.set(responsibles);
         this._loading.set(false);
       },
       error: (err: unknown) => {
@@ -45,23 +76,29 @@ export class ResponsibleCreateStore {
     });
   }
 
-  addResponsible(responsible: Responsible): void {
+  addResponsible(responsibleData: Omit<Responsible, 'id' | 'createdAt'>): void {
     this._loading.set(true);
+    this._error.set(null);
 
-    this.http.post<Responsible>(this.apiUrl, responsible).pipe(
+    const newResponsible = new Responsible({
+      id: Date.now(), // ID temporal
+      ...responsibleData,
+      createdAt: new Date()
+    });
+
+    const resource = this.assembler.toResourceFromEntity(newResponsible);
+
+    this.http.post<ApiResponsible>(this.apiUrl, resource).pipe(
       catchError((err: unknown) => {
         this._error.set('Error creating responsible');
         console.error('❌ Error creating responsible:', err);
-        return of(null as Responsible | null);
+        return of(null);
       })
     ).subscribe({
-      next: (newResponsible: Responsible | null) => {
-        if (newResponsible) {
-          // 👇 Aquí se tipa explícitamente la lista
-          this._responsibles.update((list: Responsible[]): Responsible[] => [
-            ...list,
-            newResponsible
-          ]);
+      next: (response: ApiResponsible | null) => {
+        if (response) {
+          const newResponsible = this.assembler.toEntityFromResource(response);
+          this._responsibles.update((list: Responsible[]) => [...list, newResponsible]);
         }
         this._loading.set(false);
       },
@@ -71,5 +108,22 @@ export class ResponsibleCreateStore {
         this._loading.set(false);
       }
     });
+  }
+
+  // ✅ Nuevo método para obtener responsables formateados para la UI
+  getResponsiblesForUI() {
+    return this.responsibles().map(responsible => ({
+      id: responsible.id,
+      firstName: responsible.firstName,
+      lastName: responsible.lastName,
+      email: responsible.email,
+      phone: responsible.phone,
+      category: responsible.role,
+      caseCount: 0, // Puedes agregar lógica para calcular esto
+      role: responsible.role,
+      description: responsible.description,
+      accessLevel: responsible.accessLevel,
+      createdAt: responsible.createdAt
+    }));
   }
 }

@@ -40,7 +40,6 @@ export class ComplaintsStore {
     return this._complaints.getValue().find(c => c.id === id);
   }
 
-  // Método opcional para obtener el estado actual
   getCurrentComplaints(): Complaint[] {
     return this._complaints.getValue();
   }

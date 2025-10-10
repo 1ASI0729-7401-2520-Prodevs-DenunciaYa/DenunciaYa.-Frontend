@@ -1,98 +1,200 @@
-<div style="display: flex; flex-direction: row; align-items: flex-start;">
+<div style="display: flex; flex-direction: row; align-items: flex-start; gap: 2rem; padding: 2rem;">
   <form [formGroup]="form" (ngSubmit)="submitComplaint()" style="flex: 1; max-width: 600px;">
     <h1 style="font-size: 3rem; font-weight: bold; margin-bottom: 1rem;">Denunciar Ahora</h1>
 
+    <!-- Categoría -->
     <div style="margin-bottom: 1.5rem;">
-      <label style="font-weight: bold;">Categoría</label><br>
-      <input type="text" formControlName="category" placeholder="Categoría" style="width: 180px; height: 40px; background: #e6e6ee; border: none; border-radius: 4px; padding-left: 10px;">
-    </div>
-
-    <div style="margin-bottom: 1.5rem;">
-      <label style="font-weight: bold;">Ubicación</label><br>
-      <div style="display: flex; gap: 1rem;">
-        <select formControlName="department" style="width: 180px; height: 40px; background: #e6e6ee; border: none; border-radius: 4px;">
-          <option value="">Seleccione el depart.</option>
-          <option value="Lima">Lima</option>
-          <option value="Cusco">Cusco</option>
-          <option value="Arequipa">Arequipa</option>
-          <option value="Trujillo">Trujillo</option>
-          <option value="La Paz">La Paz</option>
-          <option value="Ica">Ica</option>
-          <option value="Puno">Puno</option>
-          <option value="Tumbes">Tumbes</option>
-          <option value="Huanuco">Huanuco</option>
-          <option value="Piura">Piura</option>
-          <option value="Lambayeque">Lambayeque</option>
-          <option value="Moquegua">Moquegua</option>
-          <option value="Loreto">Loreto</option>
-        </select>
-        <select formControlName="city" style="width: 180px; height: 40px; background: #e6e6ee; border: none; border-radius: 4px;">
-          <option value="">Seleccione la ciudad</option>
-          <option value="Lima">Lima</option>
-          <option value="Chiclayo">Chiclayo</option>
-          <option value="Chimbote">Chimbote</option>
-          <option value="Cotopaxi">Cotopaxi</option>
-          <option value="El Progreso">El Progreso</option>
-          <option value="El Tambo">El Tambo</option>
-          <option value="El Trinidad">El Trinidad</option>
-          <option value="Esmeraldas">Esmeraldas</option>
-          <option value="Guayas">Guayas</option>
-          <option value="Imbabura">Imbabura</option>
-          <option value="Loja">Loja</option>
-        </select>
-        <select formControlName="district" style="width: 180px; height: 40px; background: #e6e6ee; border: none; border-radius: 4px;">
-          <option value="" >Seleccione el distrito</option>
-          <option value="Breña">Breña</option>
-          <option value="Jesus Maria">Jesus Maria</option>
-          <option value="Magdalena">Magdalena</option>
-          <option value="Comas">Comas</option>
-          <option value="Ate Vitarte">Ate Vitarte</option>
-        </select>
+      <label style="font-weight: bold;">Categoría *</label><br>
+      <input
+        type="text"
+        formControlName="category"
+        placeholder="Ej: Basura, Vialidad, Seguridad..."
+        style="width: 300px; height: 40px; background: #e6e6ee; border: none; border-radius: 4px; padding-left: 10px;"
+        [class.error]="form.get('category')?.invalid && form.get('category')?.touched"
+      >
+      <div *ngIf="form.get('category')?.invalid && form.get('category')?.touched" style="color: red; font-size: 12px; margin-top: 5px;">
+        La categoría es requerida
       </div>
     </div>
 
+    <!-- Ubicación -->
     <div style="margin-bottom: 1.5rem;">
-      <input type="text" formControlName="referenceInfo" placeholder="Referencia" style="width: 300px; height: 40px; background: #e6e6ee; border: none; border-radius: 4px; padding-left: 10px;">
+      <label style="font-weight: bold;">Ubicación *</label><br>
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <div>
+          <select
+            formControlName="department"
+            style="width: 180px; height: 40px; background: #e6e6ee; border: none; border-radius: 4px;"
+            [class.error]="form.get('department')?.invalid && form.get('department')?.touched"
+          >
+            <option value="">Seleccione el depart.</option>
+            <option value="Lima">Lima</option>
+            <option value="Cusco">Cusco</option>
+            <option value="Arequipa">Arequipa</option>
+            <option value="Trujillo">Trujillo</option>
+            <option value="La Paz">La Paz</option>
+            <option value="Ica">Ica</option>
+            <option value="Puno">Puno</option>
+            <option value="Tumbes">Tumbes</option>
+            <option value="Huanuco">Huanuco</option>
+            <option value="Piura">Piura</option>
+            <option value="Lambayeque">Lambayeque</option>
+            <option value="Moquegua">Moquegua</option>
+            <option value="Loreto">Loreto</option>
+          </select>
+          <div *ngIf="form.get('department')?.invalid && form.get('department')?.touched" style="color: red; font-size: 12px; margin-top: 5px;">
+            El departamento es requerido
+          </div>
+        </div>
+
+        <div>
+          <select
+            formControlName="city"
+            style="width: 180px; height: 40px; background: #e6e6ee; border: none; border-radius: 4px;"
+            [class.error]="form.get('city')?.invalid && form.get('city')?.touched"
+          >
+            <option value="">Seleccione la ciudad</option>
+            <option value="Lima">Lima</option>
+            <option value="Chiclayo">Chiclayo</option>
+            <option value="Chimbote">Chimbote</option>
+            <option value="Cotopaxi">Cotopaxi</option>
+            <option value="El Progreso">El Progreso</option>
+            <option value="El Tambo">El Tambo</option>
+            <option value="El Trinidad">El Trinidad</option>
+            <option value="Esmeraldas">Esmeraldas</option>
+            <option value="Guayas">Guayas</option>
+            <option value="Imbabura">Imbabura</option>
+            <option value="Loja">Loja</option>
+          </select>
+          <div *ngIf="form.get('city')?.invalid && form.get('city')?.touched" style="color: red; font-size: 12px; margin-top: 5px;">
+            La ciudad es requerida
+          </div>
+        </div>
+
+        <div>
+          <select
+            formControlName="district"
+            style="width: 180px; height: 40px; background: #e6e6ee; border: none; border-radius: 4px;"
+            [class.error]="form.get('district')?.invalid && form.get('district')?.touched"
+          >
+            <option value="">Seleccione el distrito</option>
+            <option value="Breña">Breña</option>
+            <option value="Jesus Maria">Jesus Maria</option>
+            <option value="Magdalena">Magdalena</option>
+            <option value="Comas">Comas</option>
+            <option value="Ate Vitarte">Ate Vitarte</option>
+          </select>
+          <div *ngIf="form.get('district')?.invalid && form.get('district')?.touched" style="color: red; font-size: 12px; margin-top: 5px;">
+            El distrito es requerido
+          </div>
+        </div>
+      </div>
     </div>
 
+    <!-- Referencia -->
     <div style="margin-bottom: 1.5rem;">
-      <label style="font-weight: bold;">Descripcion</label><br>
-      <textarea formControlName="description" placeholder="Informacion de la denuncia" style="width: 300px; height: 60px; background: #e6e6ee; border: none; border-radius: 4px; padding-left: 10px;"></textarea>
+      <label style="font-weight: bold;">Referencia</label><br>
+      <input
+        type="text"
+        formControlName="referenceInfo"
+        placeholder="Información adicional de referencia"
+        style="width: 300px; height: 40px; background: #e6e6ee; border: none; border-radius: 4px; padding-left: 10px;"
+      >
     </div>
 
+    <!-- Descripción -->
+    <div style="margin-bottom: 1.5rem;">
+      <label style="font-weight: bold;">Descripción *</label><br>
+      <textarea
+        formControlName="description"
+        placeholder="Describa detalladamente el problema..."
+        style="width: 300px; height: 80px; background: #e6e6ee; border: none; border-radius: 4px; padding: 10px; resize: vertical;"
+        [class.error]="form.get('description')?.invalid && form.get('description')?.touched"
+      ></textarea>
+      <div *ngIf="form.get('description')?.invalid && form.get('description')?.touched" style="color: red; font-size: 12px; margin-top: 5px;">
+        <div *ngIf="form.get('description')?.hasError('required')">La descripción es requerida</div>
+        <div *ngIf="form.get('description')?.hasError('minlength')">La descripción debe tener al menos 10 caracteres</div>
+      </div>
+    </div>
+
+    <!-- Evidencias -->
     <div style="margin-bottom: 1.5rem;">
       <label style="font-weight: bold;">Evidencias</label><br>
-      <!-- Aquí podrías agregar un input para subir archivos y vincularlo a evidence si lo implementas -->
-      <input type="text" formControlName="evidence" placeholder="URLs de evidencias (separadas por coma)" style="width: 300px; height: 40px; background: #e6e6ee; border: none; border-radius: 4px; padding-left: 10px;">
+      <input
+        type="text"
+        formControlName="evidence"
+        placeholder="URLs de evidencias (separadas por coma)"
+        style="width: 300px; height: 40px; background: #e6e6ee; border: none; border-radius: 4px; padding-left: 10px;"
+      >
+      <div style="color: #666; font-size: 12px; margin-top: 5px;">
+        Ej: https://ejemplo.com/foto1.jpg, https://ejemplo.com/foto2.jpg
+      </div>
     </div>
 
+    <!-- Prioridad -->
     <div style="margin-bottom: 1.5rem;">
-      <label style="font-weight: bold;">Tipo de Prioridad</label><br>
-      <select formControlName="priority" style="width: 300px; height: 40px; background: #e6e6ee; border: none; border-radius: 4px;">
+      <label style="font-weight: bold;">Tipo de Prioridad *</label><br>
+      <select
+        formControlName="priority"
+        style="width: 300px; height: 40px; background: #e6e6ee; border: none; border-radius: 4px;"
+        [class.error]="form.get('priority')?.invalid && form.get('priority')?.touched"
+      >
         <option value="">Seleccione su prioridad</option>
         <option value="Standard">Standard</option>
         <option value="Urgent">Urgent</option>
         <option value="Critical">Critical</option>
       </select>
+      <div *ngIf="form.get('priority')?.invalid && form.get('priority')?.touched" style="color: red; font-size: 12px; margin-top: 5px;">
+        La prioridad es requerida
+      </div>
     </div>
 
+    <!-- Checkboxes -->
     <div style="margin-bottom: 0.5rem;">
       <input type="checkbox" id="anonimo" formControlName="anonymous">
       <label for="anonimo">Desea enviar la denuncia anonimamente</label>
     </div>
+
     <div style="margin-bottom: 2rem;">
-      <input type="checkbox" id="terminos" formControlName="termsAccepted">
-      <label for="terminos">Aceptar términos y condiciones.</label>
+      <input
+        type="checkbox"
+        id="terminos"
+        formControlName="termsAccepted"
+        [class.error]="form.get('termsAccepted')?.invalid && form.get('termsAccepted')?.touched"
+      >
+      <label for="terminos">Aceptar términos y condiciones. *</label>
+      <div *ngIf="form.get('termsAccepted')?.invalid && form.get('termsAccepted')?.touched" style="color: red; font-size: 12px; margin-top: 5px;">
+        Debe aceptar los términos y condiciones
+      </div>
     </div>
 
+    <!-- Botones -->
     <div style="display: flex; gap: 1rem;">
-      <button type="submit" [disabled]="form.invalid" style="border: 1px solid #1a1a1a; background: white; color: #1a1a1a; border-radius: 20px; padding: 8px 24px;">Enviar denuncia</button>
-      <button type="button" (click)="saveDraft()" style="border: 1px solid #1a1a1a; background: white; color: #1a1a1a; border-radius: 20px; padding: 8px 24px;">Guardar Borrador</button>
+      <button
+        type="submit"
+        [disabled]="form.invalid"
+        style="border: 1px solid #1a1a1a; background: #1a1a1a; color: white; border-radius: 20px; padding: 10px 24px; cursor: pointer;"
+        [style.opacity]="form.invalid ? '0.5' : '1'"
+        [style.cursor]="form.invalid ? 'not-allowed' : 'pointer'"
+      >
+        Enviar denuncia
+      </button>
+      <button
+        type="button"
+        (click)="saveDraft()"
+        style="border: 1px solid #1a1a1a; background: white; color: #1a1a1a; border-radius: 20px; padding: 10px 24px; cursor: pointer;"
+      >
+        Guardar Borrador
+      </button>
+    </div>
+
+    <!-- Información del estado del formulario -->
+    <div *ngIf="form.invalid" style="margin-top: 1rem; padding: 10px; background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 4px;">
+      <strong>⚠️ Complete todos los campos requeridos (*) para enviar la denuncia</strong>
     </div>
   </form>
+
   <div class="imagen-container">
     <img src="/secret-image.png" alt="Ilustración" style="max-width: 350px;">
   </div>
-
 </div>
-

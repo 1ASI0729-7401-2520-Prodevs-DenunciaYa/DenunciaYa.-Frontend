@@ -55,9 +55,10 @@ export class AuthorityHomeComponent implements OnInit {
     this.isLoading = true;
     this.errorMessage = '';
 
-    this.complaintsService.getAllComplaints().subscribe({
-      next: (response) => {
-        this.complaints = response.complaints || [];
+    this.complaintsService.getComplaints().subscribe({
+      next: (complaints) => {
+        console.log('Complaints loaded in component:', complaints);
+        this.complaints = complaints;
         this.calculateStatistics();
         this.generateStatusChart();
         this.generateCategoryChart();
@@ -65,13 +66,12 @@ export class AuthorityHomeComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error loading complaints:', error);
-        this.errorMessage = 'Error loading data';
+        this.errorMessage = 'Error loading data: ' + error.message;
         this.isLoading = false;
         this.setEmptyData();
       }
     });
   }
-
   private calculateStatistics(): void {
     this.totalComplaints = this.complaints.length;
 

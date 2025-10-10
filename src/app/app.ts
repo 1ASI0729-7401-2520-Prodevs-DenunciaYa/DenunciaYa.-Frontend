@@ -3,11 +3,12 @@ import { RouterOutlet } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import {CommunityPage} from './community/presentation/community-page/community-page';
 import {LayoutComponent} from './shared/presentation/components/layout/layout';
+import { TimelineModule } from '@syncfusion/ej2-angular-layouts';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ LayoutComponent],
+  imports: [ LayoutComponent, TimelineModule],
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })

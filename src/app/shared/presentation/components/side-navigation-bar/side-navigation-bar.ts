@@ -36,24 +36,19 @@ export class SideNavigationBarComponent {
   sidenavItems: SideNavigationItem[] = [
 
     { label: 'SIDENAV.HOME', icon: 'home', route: '/authority/home' },
-    { label: 'SIDENAV.REPORTS', icon: 'report_problem', route: '/denuncias' },
+    { label: 'SIDENAV.REPORTS', icon: 'report_problem', route: '/pages/complainList' },
     { label: 'SIDENAV.MAP', icon: 'map', route: '/pages/map' },
     { label: 'SIDENAV.METRICS', icon: 'bar_chart', route: 'pages/metrics' },
-    { label: 'SIDENAV.TEAMS', icon: 'groups', route: '/equipos' },
+    { label: 'SIDENAV.TEAMS', icon: 'groups', route: '/pages/teamManagment' },
     { label: 'SIDENAV.SUPPORT', icon: 'help_outline', route: '/soporte' },
     { label: 'SIDENAV.DIRECTORY', icon: 'menu_book', route: '/directorio' },
-    { label: 'SIDENAV.TEAM', icon: 'menu_book', route: '/pages/teamManagment' },
-
-
-
-
-    { label: 'SIDENAV.COMPLAINFORM', icon: 'forum', route: '/pages/complainForm' },
-    { label: 'SIDENAV.COMPLAINLIST', icon: 'forum', route: '/pages/complainList' },
 
     { label: 'SIDENAV.COMMUNITY', icon: 'forum', route: '/pages/community' },
-    { label: 'SIDENAV.RESPONSIBLECREATE', icon: 'forum', route: 'pages/responsibleCreate' },
+    { label: 'SIDENAV.CREATERESPONSIBLE', icon: 'star', route: 'pages/responsibleCreate' },
+    { label: 'SIDENAV.SETTINGS', icon: 'settings', route: '/pages/settings' },
     { label: 'SIDENAV.PROFILE', icon: 'person', route: '/pages/profile' },
     { label: 'SIDENAV.LOGOUT', icon: 'logout', route: '/cerrar-cuenta' }
+
   ];
 
   constructor(private translate: TranslateService) {

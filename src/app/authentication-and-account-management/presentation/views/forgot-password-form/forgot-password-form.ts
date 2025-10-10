@@ -58,8 +58,8 @@ export class ForgotPasswordForm {
 
     try {
       const [citizens, authorities]: any = await Promise.all([
-        this.http.get<any[]>('http://localhost:3000/citizen').toPromise(),
-        this.http.get<any[]>('http://localhost:3000/authority').toPromise()
+        this.http.get<any[]>('https://denunciaya-fakeapi.onrender.com/citizen').toPromise(),
+        this.http.get<any[]>('https://denunciaya-fakeapi.onrender.com/authority').toPromise()
       ]);
 
       const foundUser =

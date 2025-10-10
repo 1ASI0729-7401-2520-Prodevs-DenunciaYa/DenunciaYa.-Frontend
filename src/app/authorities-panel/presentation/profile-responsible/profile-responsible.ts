@@ -7,6 +7,7 @@ import { ResponsibleCreateStore } from '../../application/responsibleCreate.stor
 import { Responsible } from '../../domain/model/responsibleCreate.entity';
 import {MatFormField, MatFormFieldModule} from '@angular/material/form-field';
 import {MatInput, MatInputModule} from '@angular/material/input';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profile-responsible',
@@ -15,7 +16,8 @@ import {MatInput, MatInputModule} from '@angular/material/input';
     CommonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    TranslatePipe
   ],
   templateUrl: './profile-responsible.html',
   styleUrls: ['./profile-responsible.css']

@@ -59,8 +59,8 @@ export class PaymentForm {
 
       const endpoint =
         user.role === 'authority'
-          ? 'http://localhost:3000/authority'
-          : 'http://localhost:3000/citizen';
+          ? 'https://denunciaya-fakeapi.onrender.com/authority'
+          : 'https://denunciaya-fakeapi.onrender.com/citizen';
 
       this.http.post(endpoint, user).subscribe({
         next: () => {
