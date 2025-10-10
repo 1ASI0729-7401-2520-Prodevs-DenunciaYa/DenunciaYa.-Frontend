@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommunityStore } from '../../application/community.store';
 import { Community, Comment } from '../../domain/model/community.entity';
-import {TranslatePipe} from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-community-list',
@@ -29,7 +29,20 @@ export class CommunityList {
   showComments: Record<number, boolean> = {};
   showAllComments: Record<number, boolean> = {};
 
-  constructor(public communityStore: CommunityStore) {}
+  userName: string = 'Usuario'; // 👈 añadimos esto
+
+  constructor(public communityStore: CommunityStore) {
+    this.loadUserName();
+  }
+
+  /** Carga el nombre del usuario logueado desde localStorage */
+  private loadUserName(): void {
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      const user = JSON.parse(userData);
+      this.userName = `${user.firstName || ''} ${user.lastName || ''}`.trim() || 'Usuario';
+    }
+  }
 
   onToggleLike(post: Community): void {
     this.communityStore.toggleLike(post.id);
@@ -53,7 +66,8 @@ export class CommunityList {
     const content = this.newComments[post.id]?.trim();
     if (!content) return;
 
-    this.communityStore.addComment(post.id, 'Usuario', content);
+    this.communityStore.addComment(post.id, this.userName, content);
+
     this.newComments[post.id] = '';
     this.showComments[post.id] = true;
   }

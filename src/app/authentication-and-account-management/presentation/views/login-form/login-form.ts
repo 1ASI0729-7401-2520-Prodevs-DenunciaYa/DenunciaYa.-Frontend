@@ -92,25 +92,22 @@ export class LoginForm {
       }
 
       this.snackbar.show(`Welcome, ${user.firstName}!`, 'green', 3000);
-
       localStorage.setItem('user', JSON.stringify(user));
 
-      if (user.role === 'autoridad') {
-        this.router.navigate(['/authority/dashboard']);
-      } else {
-        this.router.navigate(['/citizen/home']);
-      }
+      // 👇 Aquí hacemos la redirección fija
+      this.router.navigate(['/authority/home']);
+
     } catch (err) {
       console.error('Login error:', err);
       this.snackbar.show('Server error, please try again later.', 'red');
     }
+  }
+  navigateToForgotAccount() {
+    this.router.navigate(['/authentication/forgot-account']);
   }
 
   navigateToRegister() {
     this.router.navigate(['/authentication/register']);
   }
 
-  navigateToForgotAccount() {
-    this.router.navigate(['/authentication/forgot-password']);
-  }
 }

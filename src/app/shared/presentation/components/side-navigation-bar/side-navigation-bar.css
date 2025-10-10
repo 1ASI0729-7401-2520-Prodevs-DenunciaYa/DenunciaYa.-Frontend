@@ -2,12 +2,26 @@
 .sidenav-container {
   width: 240px;
   height: 100vh;
-  background-color: #0c2233; /* Azul marino */
+  background-color: #0c2233;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  color: #f8eed9; /* Texto color crema */
+  color: #f8eed9;
   font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
+  transition: width 0.3s ease; /* animación suave */
+  overflow: hidden; /* evita overflow del contenido */
+}
+
+/* Colapsado */
+.sidenav-container.collapsed {
+  width: 70px;
+}
+
+/* Oculta texto cuando colapsa */
+.sidenav-container.collapsed .logo-text,
+.sidenav-container.collapsed .nav-item span {
+  display: none;
 }
 
 /* === Logo y encabezado === */
@@ -26,12 +40,12 @@
 .logo-text {
   font-weight: 600;
   font-size: 18px;
-  color: #f8eed9; /* Asegura color crema */
+  color: #f8eed9;
 }
 
 /* === Íconos y texto === */
 mat-icon {
-  color: #f8eed9; /* Color crema para los íconos */
+  color: #f8eed9;
   margin-right: 12px;
   font-size: 20px;
   transition: color 0.2s ease;
@@ -42,54 +56,39 @@ mat-icon {
   border-radius: 8px;
   margin: 2px 8px;
   transition: background-color 0.2s ease, color 0.2s ease;
+  display: flex;
+  align-items: center;
+  padding: 6px 8px;
 }
 
-/* Hover y link activo */
 .nav-item:hover,
 .active-link {
-  background-color: rgba(248, 238, 217, 0.15); /* crema semitransparente */
+  background-color: rgba(248, 238, 217, 0.15);
 }
 
 .nav-item:hover mat-icon,
 .nav-item:hover span {
-  color: #fff9e6; /* un tono más claro */
+  color: #fff9e6;
 }
 
-/* === Parte inferior === */
+.mat-mdc-list-item,
+.mat-mdc-list-item * {
+  color: #f8eed9;
+}
+
+mat-nav-list {
+  padding: 0;
+}
+
+mat-list-item {
+  min-height: 40px;
+  height: auto;
+  padding: 4px 16px;
+}
+
 .bottom-section {
   margin-top: auto;
   background-color: rgba(255, 255, 255, 0.05);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding-top: 8px;
-}
-
-/* === Refuerzo por si Angular Material sobrescribe === */
-.mat-mdc-list-item,
-.mat-mdc-list-item * {
-  color: #f8eed9 !important;
-}
-.nav-item {
-  display: flex;
-  align-items: center;
-  color: white;
-}
-
-.active-link {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-/* Mantener todos tus estilos existentes */
-
-/* Transición para colapsar */
-.sidenav-container {
-  transition: width 0.3s;
-}
-
-.sidenav-container.collapsed {
-  width: 70px; /* solo iconos */
-}
-
-/* Ocultar textos al colapsar */
-.sidenav-container.collapsed .logo-text,
-.sidenav-container.collapsed .nav-item span {
-  display: none;
 }

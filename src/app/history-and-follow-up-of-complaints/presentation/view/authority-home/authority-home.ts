@@ -29,7 +29,7 @@ import {TranslatePipe} from '@ngx-translate/core';
  * @author Omar Harold Rivera Ticllacuri
  */
 export class AuthorityHomeComponent implements OnInit {
-  userName: string = 'Juan Pérez';
+  userName: string = 'Carlos Ramirez';
   totalComplaints = 0;
   pendingComplaints = 0;
   resolvedComplaints = 0;

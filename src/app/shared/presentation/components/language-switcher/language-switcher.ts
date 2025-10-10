@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { Output, EventEmitter } from '@angular/core';
 
 interface LanguageOption {
   code: string;
@@ -37,15 +38,18 @@ export class LanguageSwitcher {
     this.translate.setDefaultLang(defaultLang);
     this.translate.use(defaultLang);
     this.currentLang = defaultLang;
+
   }
 
   /** Método que devuelve el idioma actual (usado en el template) */
   get currentLanguage(): LanguageOption {
     return this.languages.find(lang => lang.code === this.currentLang)!;
   }
+  @Output() languageChanged = new EventEmitter<string>();
 
   useLanguage(langCode: string) {
     this.translate.use(langCode);
     this.currentLang = langCode;
+    this.languageChanged.emit(langCode);
   }
 }

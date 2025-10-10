@@ -13,6 +13,9 @@
     "COMMUNITY": "Community",
     "CREATERESPONSIBLE": "Create Responsible"
   },
+  "COMMUNITY": {
+    "TITLE": "Community"
+  },
   "CONFIGURATION": {
     "TITLE": "Configuration",
     "SUBTITLE": "Manage your preferences and notification settings",
@@ -21,6 +24,9 @@
     "EMAIL_NOTIFICATIONS": {
       "TITLE": "Email Notifications",
       "DESCRIPTION": "Receive alerts via email"
+
+
+
     },
 
     "SMS_NOTIFICATIONS": {
@@ -30,7 +36,9 @@
 
     "LANGUAGE": {
       "TITLE": "Language",
-      "DESCRIPTION": "Select your interface language"
+      "DESCRIPTION": "Select your preferred language",
+      "EN": "English",
+      "ES": "Spanish"
     },
 
     "PLANS": {

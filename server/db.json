@@ -80,6 +80,17 @@
       "phone": "987654321",
       "terms": true
     },
+
+      {
+        "id": "1",
+        "firstName": "Juan ",
+        "lastName": "Perez",
+        "email": "ciudadano1@gmail.com",
+        "password": "password123",
+        "role": "citizen",
+        "phone": "987654321",
+        "terms": true
+      },
     {
       "id": "2",
       "firstName": "Lucia",

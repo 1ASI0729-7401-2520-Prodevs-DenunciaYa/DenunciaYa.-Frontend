@@ -3,11 +3,12 @@ export const environment = {
   platformProviderApiBaseUrl: 'https://denunciaya-fakeapi.onrender.com',
   platformProviderCommunitiesEndpointPath: '/communities',
   platformProviderResponsiblesEndpointPath: '/responsibles',
-  apiBaseUrl: 'https://denunciaya-fakeapi.onrender.com',
+  apiBaseUrl: 'http://localhost:3000/api/v1',
   apiEndpoints: {
     complaints: '/complaints',
     citizens: '/citizen',
     authorities: '/authority'
+
   },
   googleMapsApiKey: 'AIzaSyDRrq_VcuuezEAhyUIBhkAV7iZOVqNDnqA',
   mapConfig: {
@@ -18,5 +19,7 @@ export const environment = {
     clusterEnabled: true,
     clusterMaxZoom: 14,
     clusterRadius: 50
-  }
+  },
+
+
 };

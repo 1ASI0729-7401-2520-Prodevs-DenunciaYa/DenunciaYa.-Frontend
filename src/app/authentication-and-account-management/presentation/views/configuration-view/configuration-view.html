@@ -39,19 +39,8 @@
             <h3>{{ 'CONFIGURATION.LANGUAGE.TITLE' | translate }}</h3>
             <p>{{ 'CONFIGURATION.LANGUAGE.DESCRIPTION' | translate }}</p>
           </div>
-          <mat-form-field
-            appearance="fill"
-            class="language-field"
-            [attr.aria-label]="'CONFIGURATION.ARIA_LABELS.LANGUAGE_FIELD' | translate"
-          >
-            <mat-select
-              formControlName="language"
-              [attr.aria-label]="'CONFIGURATION.ARIA_LABELS.LANGUAGE_SELECT' | translate"
-            >
-              <mat-option value="en">{{ 'CONFIGURATION.LANGUAGE.EN' | translate }}</mat-option>
-              <mat-option value="es">{{ 'CONFIGURATION.LANGUAGE.ES' | translate }}</mat-option>
-            </mat-select>
-          </mat-form-field>
+          <app-language-switcher></app-language-switcher>
+
         </div>
 
         <button

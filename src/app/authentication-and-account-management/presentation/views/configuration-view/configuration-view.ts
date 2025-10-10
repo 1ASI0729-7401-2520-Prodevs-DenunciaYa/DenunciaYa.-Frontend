@@ -10,6 +10,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import {ConfirmDialogComponent} from '../../component/confirm-dialog.component';
 import {TranslatePipe} from '@ngx-translate/core';
+import {LanguageSwitcher} from '../../../../shared/presentation/components/language-switcher/language-switcher';
 
 /** @class ConfigurationView
  * @constructor
@@ -34,7 +35,8 @@ import {TranslatePipe} from '@ngx-translate/core';
     MatOptionModule,
     MatDialogModule,
     MatSnackBarModule,
-    TranslatePipe
+    TranslatePipe,
+    LanguageSwitcher
   ],
   templateUrl: './configuration-view.html',
   styleUrls: ['./configuration-view.css']

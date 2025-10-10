@@ -51,15 +51,27 @@ export class CommunityForm {
   submitPost(): void {
     if (!this.content.trim() && !this.imageUrl) return;
 
+    // 🔹 Obtener usuario desde localStorage
+    const userData = localStorage.getItem('user');
+    let authorName = 'Usuario';
+    let userId = 1;
+
+    if (userData) {
+      const user = JSON.parse(userData);
+      authorName = `${user.firstName || ''} ${user.lastName || ''}`.trim() || 'Usuario';
+      userId = user.id || 1;
+    }
+
     const newPost = new Community({
       id: Date.now(),
-      userId: 1, // temporal
-      author: 'Usuario',
+      userId: userId,
+      author: authorName,
       content: this.content,
       imageUrl: this.imageUrl || undefined,
       likes: 0,
-      createdAt: new Date()
+      createdAt: new Date(),
     });
+
 
     this.communityStore.addCommunity(newPost);
     this.resetForm();

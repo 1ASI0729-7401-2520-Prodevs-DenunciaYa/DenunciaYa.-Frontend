@@ -40,9 +40,8 @@ export class SideNavigationBarComponent {
     { label: 'SIDENAV.MAP', icon: 'map', route: '/pages/map' },
     { label: 'SIDENAV.METRICS', icon: 'bar_chart', route: 'pages/metrics' },
     { label: 'SIDENAV.TEAMS', icon: 'groups', route: '/pages/teamManagment' },
-    { label: 'SIDENAV.SUPPORT', icon: 'help_outline', route: '/soporte' },
-    { label: 'SIDENAV.DIRECTORY', icon: 'menu_book', route: '/directorio' },
-
+    //{ label: 'SIDENAV.SUPPORT', icon: 'help_outline', route: '/soporte' },
+    //{ label: 'SIDENAV.DIRECTORY', icon: 'menu_book', route: '/directorio' },
     { label: 'SIDENAV.COMMUNITY', icon: 'forum', route: '/pages/community' },
     { label: 'SIDENAV.CREATERESPONSIBLE', icon: 'star', route: 'pages/responsibleCreate' },
     { label: 'SIDENAV.SETTINGS', icon: 'settings', route: '/pages/settings' },
