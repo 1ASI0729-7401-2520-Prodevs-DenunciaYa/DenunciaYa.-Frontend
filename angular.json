@@ -13,6 +13,7 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
+            "outputPath": "dist/denunciaya-frontend",
             "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
@@ -29,7 +30,8 @@
               "src/styles.css"
             ]
           },
-          "configurations": {
+
+      "configurations": {
             "production": {
               "budgets": [
                 {
