@@ -8,7 +8,7 @@ import { TimelineModule } from '@syncfusion/ej2-angular-layouts';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [LayoutComponent, TimelineModule, RouterOutlet],
+  imports: [TimelineModule, RouterOutlet],
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
