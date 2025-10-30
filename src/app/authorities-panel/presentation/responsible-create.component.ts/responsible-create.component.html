@@ -3,54 +3,159 @@
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="responsible-form">
 
+    <!-- Nombre y Apellido -->
     <div class="row">
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" class="form-field">
         <mat-label>{{ 'First Name' | translate }}</mat-label>
-        <input matInput [placeholder]="'Enter your first name' | translate" formControlName="firstName">
+        <input matInput
+               [placeholder]="'Enter first name' | translate"
+               formControlName="firstName"
+               maxlength="50">
+        <mat-error *ngIf="form.get('firstName')?.invalid && form.get('firstName')?.touched">
+          {{ getFirstNameErrorMessage() | translate }}
+        </mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" class="form-field">
         <mat-label>{{ 'Last Name' | translate }}</mat-label>
-        <input matInput [placeholder]="'Enter your last name' | translate" formControlName="lastName">
+        <input matInput
+               [placeholder]="'Enter last name' | translate"
+               formControlName="lastName"
+               maxlength="50">
+        <mat-error *ngIf="form.get('lastName')?.invalid && form.get('lastName')?.touched">
+          {{ getLastNameErrorMessage() | translate }}
+        </mat-error>
       </mat-form-field>
     </div>
 
-    <mat-form-field appearance="outline">
-      <mat-label>{{ 'Email' | translate }}</mat-label>
-      <input matInput [placeholder]="'Enter your email' | translate" formControlName="email">
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>{{ 'Phone' | translate }}</mat-label>
-      <input matInput [placeholder]="'Enter your phone number' | translate" formControlName="phone">
-    </mat-form-field>
-
+    <!-- Email y Teléfono -->
     <div class="row">
-      <mat-form-field appearance="outline">
-        <mat-label>{{ 'Role' | translate }}</mat-label>
-        <input matInput [placeholder]="'Enter your role' | translate" formControlName="role">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>{{ 'Email' | translate }}</mat-label>
+        <input matInput
+               type="email"
+               [placeholder]="'Enter email address' | translate"
+               formControlName="email"
+               maxlength="100">
+        <mat-error *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+          {{ getEmailErrorMessage() | translate }}
+        </mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>{{ 'Description / Area' | translate }}</mat-label>
-        <mat-select formControlName="description">
-          <mat-option *ngFor="let area of areas" [value]="area.value">{{ area.label | translate }}</mat-option>
-        </mat-select>
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>{{ 'Phone' | translate }}</mat-label>
+        <input matInput
+               [placeholder]="'Enter phone number' | translate"
+               formControlName="phone"
+               maxlength="20">
+        <mat-error *ngIf="form.get('phone')?.invalid && form.get('phone')?.touched">
+          {{ getPhoneErrorMessage() | translate }}
+        </mat-error>
       </mat-form-field>
     </div>
 
-    <mat-form-field appearance="outline">
-      <mat-label>{{ 'Access Level' | translate }}</mat-label>
-      <mat-select formControlName="accessLevel">
-        <mat-option *ngFor="let level of accessLevels" [value]="level.value">{{ level.label | translate }}</mat-option>
-      </mat-select>
+    <!-- Posición y Departamento -->
+    <div class="row">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>{{ 'Position' | translate }}</mat-label>
+        <input matInput
+               [placeholder]="'Enter position title' | translate"
+               formControlName="position"
+               maxlength="100">
+        <mat-error *ngIf="form.get('position')?.invalid && form.get('position')?.touched">
+          Position is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>{{ 'Department' | translate }}</mat-label>
+        <mat-select formControlName="department">
+          <mat-option value="">Select Department</mat-option>
+          <mat-option *ngFor="let department of departments" [value]="department.value">
+            {{ department.label }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('department')?.invalid && form.get('department')?.touched">
+          Department is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Rol y Nivel de Acceso -->
+    <div class="row">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>{{ 'Role' | translate }}</mat-label>
+        <mat-select formControlName="role">
+          <mat-option value="">Select Role</mat-option>
+          <mat-option *ngFor="let role of roles" [value]="role.value">
+            {{ role.label }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('role')?.invalid && form.get('role')?.touched">
+          Role is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>{{ 'Access Level' | translate }}</mat-label>
+        <mat-select formControlName="accessLevel">
+          <mat-option value="">Select Access Level</mat-option>
+          <mat-option *ngFor="let level of accessLevels" [value]="level.value">
+            {{ level.label }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('accessLevel')?.invalid && form.get('accessLevel')?.touched">
+          Access level is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Descripción -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>{{ 'Description' | translate }}</mat-label>
+      <textarea matInput
+                [placeholder]="'Enter role description and responsibilities' | translate"
+                formControlName="description"
+                rows="3"
+                maxlength="500"></textarea>
+      <mat-hint>{{ form.get('description')?.value?.length || 0 }}/500</mat-hint>
+      <mat-error *ngIf="form.get('description')?.invalid && form.get('description')?.touched">
+        {{ getDescriptionErrorMessage() | translate }}
+      </mat-error>
     </mat-form-field>
 
+    <!-- Botones -->
     <div class="button-group">
-      <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">{{ 'Add Responsible' | translate }}</button>
-      <button mat-stroked-button color="warn" type="button" (click)="onCancel()">{{ 'Discard Responsible' | translate }}</button>
+      <button mat-flat-button
+              color="primary"
+              type="submit"
+              [disabled]="form.invalid || store.loading()"
+              class="submit-button">
+        <mat-icon *ngIf="!store.loading()">person_add</mat-icon>
+        {{ 'Add Responsible' | translate }}
+      </button>
+
+      <button mat-stroked-button
+              color="warn"
+              type="button"
+              (click)="onCancel()"
+              [disabled]="store.loading()"
+              class="cancel-button">
+        <mat-icon>clear</mat-icon>
+        {{ 'Cancel' | translate }}
+      </button>
     </div>
   </form>
 
-  <mat-spinner *ngIf="store.loading()" diameter="40"></mat-spinner>
+  <!-- Spinner de carga -->
+  <div *ngIf="store.loading()" class="loading-overlay">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>{{ 'Adding responsible...' | translate }}</p>
+  </div>
+
+  <!-- Mensaje de error -->
+  <div *ngIf="store.error()" class="error-message">
+    <mat-icon color="warn">error</mat-icon>
+    <span>{{ store.error() }}</span>
+  </div>
 </div>

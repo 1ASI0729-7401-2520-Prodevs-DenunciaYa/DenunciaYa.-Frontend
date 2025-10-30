@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ChartModule } from 'primeng/chart';
-import { ComplaintsApiService } from '../../../infrastructure/complaint-api';
-import { Complaint } from '../../../model/domain/complaint.entity';
+
 import {TranslatePipe} from '@ngx-translate/core';
+import {ComplaintsApiService} from '../../../../complaint-creation/infrastructure/complaint-api';
+import {Complaint} from '../../../../complaint-creation/domain/model/complaint.entity';
 
 /**
  * Component for the authority's home dashboard.

@@ -1,72 +1,436 @@
 {
   "communities": [
     {
-      "id": 1759882715903,
-      "userId": 1,
-      "author": "Usuario",
-      "content": "wdadawedwad",
-      "likes": 1,
-      "createdAt": "2025-10-08T00:18:35.903Z",
+      "id": "1759882734501",
+      "userId": 2,
+      "author": "Carlos Ruiz",
+      "content": "¡Increíble concierto en el parque central esta noche! La banda local tocó excelente.",
+      "likes": 15,
+      "createdAt": "2025-10-08T00:22:14.501Z",
       "comments": []
     },
     {
-      "id": 1759882721608,
-      "userId": 1,
-      "author": "Usuario",
-      "content": "dawdadwadasdwadwadqwad",
-      "likes": 0,
-      "createdAt": "2025-10-08T00:18:41.608Z",
+      "id": "1759882748203",
+      "userId": 3,
+      "author": "Ana Martínez",
+      "content": "Alguien sabe cuándo abrirá la nueva biblioteca municipal? Estoy ansiosa por visitarla.",
+      "likes": 8,
+      "createdAt": "2025-10-08T00:25:48.203Z",
+      "comments": []
+    },
+    {
+      "id": "1759882761934",
+      "userId": 4,
+      "author": "Miguel Torres",
+      "content": "Problema con el suministro de agua en el barrio norte desde esta mañana, ¿alguien más afectado?",
+      "likes": 12,
+      "createdAt": "2025-10-08T00:29:21.934Z",
+      "comments": []
+    },
+    {
+      "id": "1759882775647",
+      "userId": 5,
+      "author": "Laura Díaz",
+      "content": "Organizando limpieza comunitaria para el sábado. ¡Todos están invitados a participar!",
+      "likes": 25,
+      "createdAt": "2025-10-08T00:32:55.647Z",
+      "comments": []
+    },
+    {
+      "id": "1759882789359",
+      "userId": 6,
+      "author": "Roberto Sánchez",
+      "content": "Se perdió perro labrador negro con collar rojo en zona centro. Responder por favor si lo ven.",
+      "likes": 5,
+      "createdAt": "2025-10-08T00:36:29.359Z",
+      "comments": []
+    },
+    {
+      "id": "1759882803072",
+      "userId": 7,
+      "author": "Elena Vargas",
+      "content": "Recomendaciones para clases de yoga en el área? Preferiblemente por las mañanas.",
+      "likes": 3,
+      "createdAt": "2025-10-08T00:40:03.072Z",
+      "comments": []
+    },
+    {
+      "id": "1759882816784",
+      "userId": 8,
+      "author": "David Chen",
+      "content": "Feria de emprendedores este fin de semana en la plaza mayor. Productos locales y artesanías.",
+      "likes": 18,
+      "createdAt": "2025-10-08T00:43:36.784Z",
       "comments": []
     }
   ],
   "responsibles": [
     {
-      "id": 1,
-      "name": "Juan Pérez",
+      "id": "101",
+      "firstName": "Carlos",
+      "lastName": "Méndez",
+      "fullName": "Carlos Méndez",
+      "email": "carlos.mendez@example.com",
+      "position": "Jefe de Mantenimiento",
+      "department": "Infrastructure and Public Spaces",
+      "phone": "+51 977 666 555",
+      "role": "Jefe",
+      "description": "Responsable del mantenimiento de espacios públicos",
+      "accessLevel": "Supervisor",
+      "status": "Activo",
+      "assignedComplaints": [
+        "100237"
+      ]
+    },
+    {
+      "id": "102",
+      "firstName": "Lucía",
+      "lastName": "Ramírez",
+      "fullName": "Lucía Ramírez",
+      "email": "lucia.ramirez@example.com",
+      "position": "Ingeniera Civil",
+      "department": "Infrastructure and Public Spaces",
+      "phone": "+51 988 777 111",
+      "role": "Especialista",
+      "description": "Supervisión de obras y mantenimiento",
+      "accessLevel": "Técnico",
+      "status": "Activo",
+      "assignedComplaints": []
+    },
+    {
+      "id": "103",
+      "firstName": "José",
+      "lastName": "Vargas",
+      "fullName": "José Vargas",
+      "email": "jose.vargas@example.com",
+      "position": "Coordinador de Parques",
+      "department": "Infrastructure and Public Spaces",
+      "phone": "+51 956 444 222",
+      "role": "Coordinador",
+      "description": "Gestión de parques y jardines públicos",
+      "accessLevel": "Supervisor",
+      "status": "Activo",
+      "assignedComplaints": []
+    },
+    {
+      "id": "201",
+      "firstName": "Mariana",
+      "lastName": "Salazar",
+      "fullName": "Mariana Salazar",
+      "email": "mariana.salazar@example.com",
+      "position": "Inspectora Ambiental",
+      "department": "Environment",
+      "phone": "+51 987 555 123",
+      "role": "Supervisora",
+      "description": "Supervisión de residuos y contaminación",
+      "accessLevel": "Supervisor",
+      "status": "Activo",
+      "assignedComplaints": []
+    },
+    {
+      "id": "202",
+      "firstName": "Luis",
+      "lastName": "Torres",
+      "fullName": "Luis Torres",
+      "email": "luis.torres@example.com",
+      "position": "Analista de Impacto Ambiental",
+      "department": "Environment",
+      "phone": "+51 955 888 777",
+      "role": "Analista",
+      "description": "Evaluación de impacto ambiental",
+      "accessLevel": "Técnico",
+      "status": "Activo",
+      "assignedComplaints": []
+    },
+    {
+      "id": "203",
+      "firstName": "Andrea",
+      "lastName": "Huamán",
+      "fullName": "Andrea Huamán",
+      "email": "andrea.huaman@example.com",
+      "position": "Jefa de Medio Ambiente",
+      "department": "Environment",
+      "phone": "+51 911 777 888",
+      "role": "Jefa",
+      "description": "Coordinación general de temas ambientales",
+      "accessLevel": "Administrador",
+      "status": "Activo",
+      "assignedComplaints": [
+        "612345"
+      ]
+    },
+    {
+      "id": "301",
+      "firstName": "Juan",
+      "lastName": "Pérez",
+      "fullName": "Juan Pérez",
       "email": "juan.perez@example.com",
       "position": "Coordinador de Seguridad",
-      "department": "Seguridad",
+      "department": "Citizen Security",
       "phone": "+51 999 888 777",
-      "status": "Activo"
+      "role": "Coordinador",
+      "description": "Gestión de patrullas y reportes ciudadanos",
+      "accessLevel": "Supervisor",
+      "status": "Activo",
+      "assignedComplaints": [
+        "100237",
+        "612345"
+      ]
     },
     {
-      "id": 2,
-      "name": "María Rodríguez",
+      "id": "302",
+      "firstName": "Sofía",
+      "lastName": "Reyes",
+      "fullName": "Sofía Reyes",
+      "email": "sofia.reyes@example.com",
+      "position": "Supervisora de Seguridad Nocturna",
+      "department": "Citizen Security",
+      "phone": "+51 987 654 321",
+      "role": "Supervisora",
+      "description": "Supervisión de rondas nocturnas",
+      "accessLevel": "Supervisor",
+      "status": "Activo",
+      "assignedComplaints": []
+    },
+    {
+      "id": "303",
+      "firstName": "Miguel",
+      "lastName": "Gonzales",
+      "fullName": "Miguel Gonzales",
+      "email": "miguel.gonzales@example.com",
+      "position": "Oficial de Prevención",
+      "department": "Citizen Security",
+      "phone": "+51 955 444 333",
+      "role": "Oficial",
+      "description": "Apoyo en la prevención del delito",
+      "accessLevel": "Técnico",
+      "status": "Activo",
+      "assignedComplaints": []
+    },
+    {
+      "id": "401",
+      "firstName": "Pedro",
+      "lastName": "Ramos",
+      "fullName": "Pedro Ramos",
+      "email": "pedro.ramos@example.com",
+      "position": "Jefe de Tránsito",
+      "department": "Transport and Mobility",
+      "phone": "+51 912 333 444",
+      "role": "Jefe",
+      "description": "Gestión de tránsito y señalización vial",
+      "accessLevel": "Supervisor",
+      "status": "Activo",
+      "assignedComplaints": []
+    },
+    {
+      "id": "402",
+      "firstName": "Ana",
+      "lastName": "Flores",
+      "fullName": "Ana Flores",
+      "email": "ana.flores@example.com",
+      "position": "Inspectora de Transporte",
+      "department": "Transport and Mobility",
+      "phone": "+51 977 222 111",
+      "role": "Inspectora",
+      "description": "Supervisión de rutas y transporte urbano",
+      "accessLevel": "Técnico",
+      "status": "Activo",
+      "assignedComplaints": []
+    },
+    {
+      "id": "403",
+      "firstName": "Raúl",
+      "lastName": "Castillo",
+      "fullName": "Raúl Castillo",
+      "email": "raul.castillo@example.com",
+      "position": "Coordinador de Movilidad",
+      "department": "Transport and Mobility",
+      "phone": "+51 933 222 555",
+      "role": "Coordinador",
+      "description": "Planificación de movilidad sostenible",
+      "accessLevel": "Supervisor",
+      "status": "Activo",
+      "assignedComplaints": []
+    },
+    {
+      "id": "501",
+      "firstName": "Valeria",
+      "lastName": "Campos",
+      "fullName": "Valeria Campos",
+      "email": "valeria.campos@example.com",
+      "position": "Doctora",
+      "department": "Public Health",
+      "phone": "+51 944 222 999",
+      "role": "Médico",
+      "description": "Supervisión sanitaria general",
+      "accessLevel": "Supervisor",
+      "status": "Activo",
+      "assignedComplaints": []
+    },
+    {
+      "id": "502",
+      "firstName": "Ricardo",
+      "lastName": "Silva",
+      "fullName": "Ricardo Silva",
+      "email": "ricardo.silva@example.com",
+      "position": "Inspector Sanitario",
+      "department": "Public Health",
+      "phone": "+51 933 555 111",
+      "role": "Inspector",
+      "description": "Control de establecimientos públicos",
+      "accessLevel": "Técnico",
+      "status": "Activo",
+      "assignedComplaints": []
+    },
+    {
+      "id": "503",
+      "firstName": "Elena",
+      "lastName": "Paredes",
+      "fullName": "Elena Paredes",
+      "email": "elena.paredes@example.com",
+      "position": "Enfermera Supervisora",
+      "department": "Public Health",
+      "phone": "+51 955 777 888",
+      "role": "Supervisora",
+      "description": "Supervisión de campañas de salud",
+      "accessLevel": "Supervisor",
+      "status": "Activo",
+      "assignedComplaints": []
+    },
+    {
+      "id": "601",
+      "firstName": "Mario",
+      "lastName": "Gutiérrez",
+      "fullName": "Mario Gutiérrez",
+      "email": "mario.gutierrez@example.com",
+      "position": "Jefe de Limpieza Urbana",
+      "department": "Urban Cleaning",
+      "phone": "+51 977 888 444",
+      "role": "Jefe",
+      "description": "Gestión del recojo de residuos sólidos",
+      "accessLevel": "Supervisor",
+      "status": "Activo",
+      "assignedComplaints": []
+    },
+    {
+      "id": "602",
+      "firstName": "Patricia",
+      "lastName": "Morales",
+      "fullName": "Patricia Morales",
+      "email": "patricia.morales@example.com",
+      "position": "Supervisora de Barrido",
+      "department": "Urban Cleaning",
+      "phone": "+51 922 444 333",
+      "role": "Supervisora",
+      "description": "Supervisión del personal de limpieza",
+      "accessLevel": "Supervisor",
+      "status": "Activo",
+      "assignedComplaints": []
+    },
+    {
+      "id": "603",
+      "firstName": "Diego",
+      "lastName": "Alarcón",
+      "fullName": "Diego Alarcón",
+      "email": "diego.alarcon@example.com",
+      "position": "Operario de Limpieza",
+      "department": "Urban Cleaning",
+      "phone": "+51 966 111 777",
+      "role": "Operario",
+      "description": "Limpieza de calles y avenidas",
+      "accessLevel": "Técnico",
+      "status": "Activo",
+      "assignedComplaints": []
+    },
+    {
+      "id": "701",
+      "firstName": "Gabriela",
+      "lastName": "Ortega",
+      "fullName": "Gabriela Ortega",
+      "email": "gabriela.ortega@example.com",
+      "position": "Inspectora de Transporte Público",
+      "department": "Public Transportation",
+      "phone": "+51 955 666 333",
+      "role": "Inspectora",
+      "description": "Supervisión de paraderos y rutas",
+      "accessLevel": "Técnico",
+      "status": "Activo",
+      "assignedComplaints": []
+    },
+    {
+      "id": "702",
+      "firstName": "Fernando",
+      "lastName": "Cruz",
+      "fullName": "Fernando Cruz",
+      "email": "fernando.cruz@example.com",
+      "position": "Coordinador de Rutas",
+      "department": "Public Transportation",
+      "phone": "+51 933 444 222",
+      "role": "Coordinador",
+      "description": "Planificación y monitoreo de rutas",
+      "accessLevel": "Supervisor",
+      "status": "Activo",
+      "assignedComplaints": []
+    },
+    {
+      "id": "703",
+      "firstName": "Diana",
+      "lastName": "Herrera",
+      "fullName": "Diana Herrera",
+      "email": "diana.herrera@example.com",
+      "position": "Jefa de Transporte Público",
+      "department": "Public Transportation",
+      "phone": "+51 911 555 444",
+      "role": "Jefa",
+      "description": "Gestión de concesiones y supervisión de flota",
+      "accessLevel": "Administrador",
+      "status": "Activo",
+      "assignedComplaints": []
+    },
+    {
+      "id": "801",
+      "firstName": "María",
+      "lastName": "Rodríguez",
+      "fullName": "María Rodríguez",
       "email": "maria.rodriguez@example.com",
       "position": "Supervisora de Atención al Cliente",
-      "department": "Atención al Cliente",
+      "department": "Others",
       "phone": "+51 988 777 666",
-      "status": "Activo"
+      "role": "Supervisora",
+      "description": "Gestión de reclamos ciudadanos",
+      "accessLevel": "Supervisor",
+      "status": "Activo",
+      "assignedComplaints": []
     },
     {
-      "id": 3,
-      "firstName": "aaaa",
-      "lastName": "aaaa",
-      "email": "dadw@gmail.com",
-      "phone": "121121121",
-      "role": "as",
-      "description": "Infraestructura",
-      "accessLevel": "Supervisor"
+      "id": "802",
+      "firstName": "Julio",
+      "lastName": "Poma",
+      "fullName": "Julio Poma",
+      "email": "julio.poma@example.com",
+      "position": "Administrador de Sistemas",
+      "department": "Others",
+      "phone": "+51 966 555 222",
+      "role": "Administrador",
+      "description": "Soporte técnico y sistemas municipales",
+      "accessLevel": "Administrador",
+      "status": "Activo",
+      "assignedComplaints": []
     },
     {
-      "id": 4,
-      "firstName": "addawdwad",
-      "lastName": "dwadawd",
-      "email": "dadadaw@gmail.com",
-      "phone": "121212112",
-      "role": "adwadwa",
-      "description": "Seguridad Ciudadana",
-      "accessLevel": "Supervisor"
-    },
-    {
-      "id": 5,
-      "firstName": "gabriel",
-      "lastName": "mamani",
-      "email": "dawdawd@gmail.com",
-      "phone": "122222222",
-      "role": "dwadwad",
-      "description": "Infraestructura",
-      "accessLevel": "Supervisor"
+      "id": "803",
+      "firstName": "Daniela",
+      "lastName": "Quispe",
+      "fullName": "Daniela Quispe",
+      "email": "daniela.quispe@example.com",
+      "position": "Asistente General",
+      "department": "Others",
+      "phone": "+51 911 333 111",
+      "role": "Asistente",
+      "description": "Apoyo administrativo general",
+      "accessLevel": "Técnico",
+      "status": "Activo",
+      "assignedComplaints": []
     }
   ],
   "citizen": [
@@ -80,17 +444,16 @@
       "phone": "987654321",
       "terms": true
     },
-
-      {
-        "id": "1",
-        "firstName": "Juan ",
-        "lastName": "Perez",
-        "email": "ciudadano1@gmail.com",
-        "password": "password123",
-        "role": "citizen",
-        "phone": "987654321",
-        "terms": true
-      },
+    {
+      "id": "1",
+      "firstName": "Juan ",
+      "lastName": "Perez",
+      "email": "ciudadano1@gmail.com",
+      "password": "password123",
+      "role": "citizen",
+      "phone": "987654321",
+      "terms": true
+    },
     {
       "id": "2",
       "firstName": "Lucia",
@@ -160,7 +523,7 @@
       "terms": true
     },
     {
-      "id": 506949,
+      "id": "506949",
       "firstName": "Om",
       "lastName": "Rs",
       "email": "a@gmail.com",
@@ -172,7 +535,7 @@
       "terms": true
     },
     {
-      "id": 422613,
+      "id": "422613",
       "firstName": "Diegro",
       "lastName": "Franco",
       "email": "diego@gmail.com",
@@ -186,7 +549,7 @@
   ],
   "complaints": [
     {
-      "id": "000237",
+      "id": "100237",
       "category": "Infrastructure and Public Spaces",
       "department": "Lima",
       "city": "Lima",
@@ -200,9 +563,9 @@
         "https://picsum.photos/200/200?random=1",
         "https://picsum.photos/200/200?random=2"
       ],
-      "assignedTo": "Carlos Méndez - Maintenance Chief",
+      "assignedTo": "Roberto Silva - Security Coordinator",
       "updateMessage": "Your complaint has been accepted and is being processed.",
-      "updateDate": "2025-10-08T03:16:51.825Z",
+      "updateDate": "2025-10-30T06:17:36.929Z",
       "timeline": [
         {
           "status": "Complaint registered",
@@ -239,66 +602,27 @@
           "current": true,
           "waitingDecision": false
         }
-      ]
-    },
-    {
-      "id": "004851",
-      "category": "Infrastructure and Public Spaces",
-      "department": "Arequipa",
-      "city": "Arequipa",
-      "district": "Cerro Colorado",
-      "location": "123 Arequipa Avenue, Office 4B",
-      "referenceInfo": "Half block from the industrial park",
-      "description": "Irregular water supply reported in residential zone",
-      "status": "Pending",
-      "priority": "Standard",
-      "evidence": [
-        "https://picsum.photos/200/200?random=6",
-        "https://picsum.photos/200/200?random=7"
       ],
-      "assignedTo": "Not assigned",
-      "updateMessage": "Awareness has been taken of the problem and preventive actions will begin.",
-      "updateDate": "2025-10-08T02:37:26.514Z",
-      "timeline": [
-        {
-          "status": "Complaint registered",
-          "date": "",
-          "completed": true,
-          "current": true,
-          "waitingDecision": false
-        },
-        {
-          "status": "Under review",
-          "date": "",
-          "completed": false,
-          "current": false,
-          "waitingDecision": false
-        },
-        {
-          "status": "Awaiting response",
-          "date": "",
-          "completed": false,
-          "current": false,
-          "waitingDecision": false
-        },
-        {
-          "status": "Decision pending",
-          "date": "2025-10-07T20:19:00",
-          "completed": false,
-          "current": false,
-          "waitingDecision": true
-        },
-        {
-          "status": "Completed",
-          "date": "",
-          "completed": false,
-          "current": false,
-          "waitingDecision": false
-        }
-      ]
+      "responsibleId": "103"
     },
     {
-      "id": "007892",
+      "id": "204851",
+      "title": "Case #204851",
+      "description": "Irregular water supply reported in residential zone",
+      "category": "Infrastructure and Public Spaces",
+      "priority": "medium",
+      "status": "assigned",
+      "assignedTo": "Lucía Ramírez - Infrastructure and Public Spaces",
+      "createdAt": "2025-10-08T02:37:26.514Z",
+      "updatedAt": "2025-10-30T06:00:14.873Z",
+      "tags": [
+        "Infrastructure and Public Spaces",
+        "Standard"
+      ],
+      "responsibleId": "102"
+    },
+    {
+      "id": "407892",
       "category": "Environment",
       "department": "Cusco",
       "city": "Cusco",
@@ -313,7 +637,7 @@
         "https://picsum.photos/200/200?random=10",
         "https://picsum.photos/200/200?random=11"
       ],
-      "assignedTo": "María Torres - Environmental Inspector",
+      "assignedTo": "Andrea Huamán - Environment",
       "updateMessage": "Your complaint is being processed, you will have a response soon",
       "updateDate": "2025-10-08T10:15:22.123Z",
       "timeline": [
@@ -348,10 +672,11 @@
           "completed": false,
           "current": false
         }
-      ]
+      ],
+      "responsibleId": "203"
     },
     {
-      "id": "012345",
+      "id": "612345",
       "category": "Citizen Security",
       "department": "Trujillo",
       "city": "Trujillo",
@@ -365,7 +690,7 @@
         "https://picsum.photos/200/200?random=12",
         "https://picsum.photos/200/200?random=13"
       ],
-      "assignedTo": "Roberto Silva - Security Coordinator",
+      "assignedTo": "Miguel Gonzales - Citizen Security",
       "updateMessage": "Your case is in the final evaluation process",
       "updateDate": "2025-10-08T15:45:33.789Z",
       "timeline": [
@@ -400,10 +725,11 @@
           "completed": false,
           "current": false
         }
-      ]
+      ],
+      "responsibleId": "303"
     },
     {
-      "id": "015678",
+      "id": "315678",
       "category": "Transport and Mobility",
       "department": "Lima",
       "city": "Lima",
@@ -418,7 +744,7 @@
         "https://picsum.photos/200/200?random=15",
         "https://picsum.photos/200/200?random=16"
       ],
-      "assignedTo": "Juan Pérez - Traffic Engineer",
+      "assignedTo": "Pedro Ramos - Transport and Mobility",
       "updateMessage": "Your complaint has been completed. Thank you for your support",
       "updateDate": "2025-10-08T18:20:45.321Z",
       "timeline": [
@@ -453,10 +779,11 @@
           "completed": true,
           "current": true
         }
-      ]
+      ],
+      "responsibleId": "401"
     },
     {
-      "id": "019876",
+      "id": "319876",
       "category": "Public Health",
       "department": "Piura",
       "city": "Piura",
@@ -469,7 +796,7 @@
       "evidence": [
         "https://picsum.photos/200/200?random=17"
       ],
-      "assignedTo": "Laura Gutierrez - Health Inspector",
+      "assignedTo": "Valeria Campos - Public Health",
       "updateMessage": "We apologize for the inconvenience, but your complaint will be rejected due to lack of evidence",
       "updateDate": "2025-10-08T12:10:15.654Z",
       "timeline": [
@@ -504,11 +831,12 @@
           "completed": false,
           "current": false
         }
-      ]
+      ],
+      "responsibleId": "501"
     },
     {
-      "id": "023456",
-      "category": "Informal Commerce",
+      "id": "423456",
+      "category": "Others",
       "department": "Lima",
       "city": "Lima",
       "district": "Surco",
@@ -522,7 +850,7 @@
         "https://picsum.photos/200/200?random=19",
         "https://picsum.photos/200/200?random=20"
       ],
-      "assignedTo": "Not assigned",
+      "assignedTo": "Daniela Quispe - Others",
       "updateMessage": "Awareness has been taken of the problem and preventive actions will begin",
       "updateDate": "2025-10-08T07:30:12.987Z",
       "timeline": [
@@ -561,11 +889,12 @@
           "current": false,
           "waitingDecision": false
         }
-      ]
+      ],
+      "responsibleId": "803"
     },
     {
-      "id": "028741",
-      "category": "Public Services",
+      "id": "428741",
+      "category": "Citizen Security",
       "department": "Lambayeque",
       "city": "Chiclayo",
       "district": "Pimentel",
@@ -578,7 +907,7 @@
         "https://picsum.photos/200/200?random=21",
         "https://picsum.photos/200/200?random=22"
       ],
-      "assignedTo": "Pedro Ruiz - Water Services",
+      "assignedTo": "Juan Pérez - Citizen Security",
       "updateMessage": "Technical team has been dispatched to assess the situation",
       "updateDate": "2025-10-08T14:20:33.456Z",
       "timeline": [
@@ -617,10 +946,11 @@
           "current": false,
           "waitingDecision": false
         }
-      ]
+      ],
+      "responsibleId": "301"
     },
     {
-      "id": "032569",
+      "id": "432564",
       "category": "Urban Cleaning",
       "department": "La Libertad",
       "city": "Trujillo",
@@ -633,7 +963,7 @@
       "evidence": [
         "https://picsum.photos/200/200?random=23"
       ],
-      "assignedTo": "Ana Mendoza - Cleaning Supervisor",
+      "assignedTo": "Mario Gutiérrez - Urban Cleaning",
       "updateMessage": "Area has been cleaned and sanitation protocol implemented",
       "updateDate": "2025-10-08T16:45:22.111Z",
       "timeline": [
@@ -672,10 +1002,11 @@
           "current": true,
           "waitingDecision": false
         }
-      ]
+      ],
+      "responsibleId": "601"
     },
     {
-      "id": "036985",
+      "id": "836988",
       "category": "Public Transportation",
       "department": "Lima",
       "city": "Lima",
@@ -690,7 +1021,7 @@
         "https://picsum.photos/200/200?random=25",
         "https://picsum.photos/200/200?random=26"
       ],
-      "assignedTo": "Luis Ramirez - Metro Maintenance",
+      "assignedTo": "Diana Herrera - Public Transportation",
       "updateMessage": "Waiting for replacement parts from international supplier",
       "updateDate": "2025-10-08T13:10:45.789Z",
       "timeline": [
@@ -729,11 +1060,12 @@
           "current": false,
           "waitingDecision": false
         }
-      ]
+      ],
+      "responsibleId": "703"
     },
     {
-      "id": "041237",
-      "category": "Parks and Recreation",
+      "id": "141237",
+      "category": "Environment",
       "department": "Arequipa",
       "city": "Arequipa",
       "district": "Yanahuara",
@@ -746,7 +1078,7 @@
         "https://picsum.photos/200/200?random=27",
         "https://picsum.photos/200/200?random=28"
       ],
-      "assignedTo": "Carmen Vargas - Parks Department",
+      "assignedTo": "Luis Torres - Environment",
       "updateMessage": "Budget approval pending for equipment replacement",
       "updateDate": "2025-10-08T11:25:18.333Z",
       "timeline": [
@@ -785,11 +1117,12 @@
           "current": false,
           "waitingDecision": false
         }
-      ]
+      ],
+      "responsibleId": "202"
     },
     {
-      "id": "045678",
-      "category": "Road Infrastructure",
+      "id": "345673",
+      "category": "Infrastructure and Public Spaces",
       "department": "Piura",
       "city": "Piura",
       "district": "Piura",
@@ -803,7 +1136,7 @@
         "https://picsum.photos/200/200?random=30",
         "https://picsum.photos/200/200?random=31"
       ],
-      "assignedTo": "Jorge Herrera - Road Maintenance",
+      "assignedTo": "Carlos Méndez - Infrastructure and Public Spaces",
       "updateMessage": "Emergency repair completed ahead of schedule",
       "updateDate": "2025-10-08T17:50:12.666Z",
       "timeline": [
@@ -842,11 +1175,12 @@
           "current": true,
           "waitingDecision": false
         }
-      ]
+      ],
+      "responsibleId": "101"
     },
     {
-      "id": "049632",
-      "category": "Noise Pollution",
+      "id": "549632",
+      "category": "Others",
       "department": "Lima",
       "city": "Lima",
       "district": "Barranco",
@@ -858,7 +1192,7 @@
       "evidence": [
         "https://picsum.photos/200/200?random=32"
       ],
-      "assignedTo": "Not assigned",
+      "assignedTo": "María Rodríguez - Others",
       "updateMessage": "Complaint received and awaiting initial review",
       "updateDate": "2025-10-08T09:15:27.444Z",
       "timeline": [
@@ -897,11 +1231,12 @@
           "current": false,
           "waitingDecision": false
         }
-      ]
+      ],
+      "responsibleId": "801"
     },
     {
-      "id": "053214",
-      "category": "Public Lighting",
+      "id": "353214",
+      "category": "Others",
       "department": "Cusco",
       "city": "Cusco",
       "district": "Cusco Historic Center",
@@ -914,7 +1249,7 @@
         "https://picsum.photos/200/200?random=33",
         "https://picsum.photos/200/200?random=34"
       ],
-      "assignedTo": "Miguel Santos - Electrical Services",
+      "assignedTo": "Daniela Quispe - Others",
       "updateMessage": "Technical assessment in progress to determine repair scope",
       "updateDate": "2025-10-08T15:40:19.777Z",
       "timeline": [
@@ -953,11 +1288,12 @@
           "current": false,
           "waitingDecision": false
         }
-      ]
+      ],
+      "responsibleId": "803"
     },
     {
-      "id": "057896",
-      "category": "Drainage Systems",
+      "id": "157896",
+      "category": "Others",
       "department": "Lambayeque",
       "city": "Chiclayo",
       "district": "José Leonardo Ortiz",
@@ -969,7 +1305,7 @@
       "evidence": [
         "https://picsum.photos/200/200?random=35"
       ],
-      "assignedTo": "Raul Fernandez - Drainage Maintenance",
+      "assignedTo": "María Rodríguez - Others",
       "updateMessage": "Drainage system cleaned and fully functional",
       "updateDate": "2025-10-08T12:30:45.888Z",
       "timeline": [
@@ -1008,10 +1344,11 @@
           "current": true,
           "waitingDecision": false
         }
-      ]
+      ],
+      "responsibleId": "801"
     },
     {
-      "id": "061234",
+      "id": "161234",
       "category": "Public Transportation",
       "department": "La Libertad",
       "city": "Trujillo",
@@ -1025,7 +1362,7 @@
         "https://picsum.photos/200/200?random=36",
         "https://picsum.photos/200/200?random=37"
       ],
-      "assignedTo": "Sofia Rios - Transport Regulation",
+      "assignedTo": "Fernando Cruz - Public Transportation",
       "updateMessage": "Complaint falls outside municipal jurisdiction",
       "updateDate": "2025-10-08T10:55:33.222Z",
       "timeline": [
@@ -1064,11 +1401,12 @@
           "current": false,
           "waitingDecision": false
         }
-      ]
+      ],
+      "responsibleId": "702"
     },
     {
-      "id": "065478",
-      "category": "Public Safety",
+      "id": "365473",
+      "category": "Citizen Security",
       "department": "Arequipa",
       "city": "Arequipa",
       "district": "Cayma",
@@ -1082,7 +1420,7 @@
         "https://picsum.photos/200/200?random=39",
         "https://picsum.photos/200/200?random=40"
       ],
-      "assignedTo": "Carlos Rodriguez - Infrastructure Safety",
+      "assignedTo": "Sofía Reyes - Citizen Security",
       "updateMessage": "Engineering department analyzing optimal safety solution",
       "updateDate": "2025-10-08T14:15:28.999Z",
       "timeline": [
@@ -1121,10 +1459,11 @@
           "current": false,
           "waitingDecision": false
         }
-      ]
+      ],
+      "responsibleId": "302"
     },
     {
-      "id": "069123",
+      "id": "369123",
       "category": "Public Health",
       "department": "Lima",
       "city": "Lima",
@@ -1138,7 +1477,7 @@
         "https://picsum.photos/200/200?random=41",
         "https://picsum.photos/200/200?random=42"
       ],
-      "assignedTo": "Dr. Elena Morales - Health Inspector",
+      "assignedTo": "Valeria Campos - Public Health",
       "updateMessage": "Emergency containment measures implemented",
       "updateDate": "2025-10-08T16:20:15.123Z",
       "timeline": [
@@ -1163,11 +1502,12 @@
           "current": false,
           "waitingDecision": false
         }
-      ]
+      ],
+      "responsibleId": "501"
     },
     {
-      "id": "072456",
-      "category": "Education",
+      "id": "072452",
+      "category": "Others",
       "department": "Callao",
       "city": "Callao",
       "district": "Bellavista",
@@ -1180,7 +1520,7 @@
         "https://picsum.photos/200/200?random=43",
         "https://picsum.photos/200/200?random=44"
       ],
-      "assignedTo": "Not assigned",
+      "assignedTo": "María Rodríguez - Others",
       "updateMessage": "Emergency assessment required",
       "updateDate": "2025-10-08T14:45:33.456Z",
       "timeline": [
@@ -1191,10 +1531,11 @@
           "current": true,
           "waitingDecision": false
         }
-      ]
+      ],
+      "responsibleId": "801"
     },
     {
-      "id": "075789",
+      "id": "175785",
       "category": "Infrastructure and Public Spaces",
       "department": "Ica",
       "city": "Ica",
@@ -1207,7 +1548,7 @@
       "evidence": [
         "https://picsum.photos/200/200?random=45"
       ],
-      "assignedTo": "Ing. Marco Flores - Public Works",
+      "assignedTo": "Lucía Ramírez - Infrastructure and Public Spaces",
       "updateMessage": "Fountain repaired and operational",
       "updateDate": "2025-10-08T18:30:22.789Z",
       "timeline": [
@@ -1232,10 +1573,11 @@
           "current": true,
           "waitingDecision": false
         }
-      ]
+      ],
+      "responsibleId": "102"
     },
     {
-      "id": "078901",
+      "id": "478901",
       "category": "Environment",
       "department": "Loreto",
       "city": "Iquitos",
@@ -1249,7 +1591,7 @@
         "https://picsum.photos/200/200?random=46",
         "https://picsum.photos/200/200?random=47"
       ],
-      "assignedTo": "Dra. Isabel Quispe - Environmental Agency",
+      "assignedTo": "Luis Torres - Environment",
       "updateMessage": "Environmental impact assessment in progress",
       "updateDate": "2025-10-08T15:10:44.321Z",
       "timeline": [
@@ -1281,10 +1623,11 @@
           "current": true,
           "waitingDecision": true
         }
-      ]
+      ],
+      "responsibleId": "202"
     },
     {
-      "id": "082345",
+      "id": "382341",
       "category": "Transport and Mobility",
       "department": "Ancash",
       "city": "Huaraz",
@@ -1298,7 +1641,7 @@
         "https://picsum.photos/200/200?random=48",
         "https://picsum.photos/200/200?random=49"
       ],
-      "assignedTo": "Ing. Roberto Silva - Civil Defense",
+      "assignedTo": "Raúl Castillo - Transport and Mobility",
       "updateMessage": "Geological team dispatched for assessment",
       "updateDate": "2025-10-08T17:25:18.654Z",
       "timeline": [
@@ -1316,11 +1659,12 @@
           "current": true,
           "waitingDecision": false
         }
-      ]
+      ],
+      "responsibleId": "403"
     },
     {
-      "id": "085678",
-      "category": "Public Services",
+      "id": "285678",
+      "category": "Citizen Security",
       "department": "Tacna",
       "city": "Tacna",
       "district": "Tacna",
@@ -1332,7 +1676,7 @@
       "evidence": [
         "https://picsum.photos/200/200?random=50"
       ],
-      "assignedTo": "Ing. Patricia Navarro - Water Services",
+      "assignedTo": "Sofía Reyes - Citizen Security",
       "updateMessage": "Emergency water trucks deployed",
       "updateDate": "2025-10-08T19:15:27.987Z",
       "timeline": [
@@ -1357,10 +1701,11 @@
           "current": true,
           "waitingDecision": false
         }
-      ]
+      ],
+      "responsibleId": "302"
     },
     {
-      "id": "088901",
+      "id": "188912",
       "category": "Urban Cleaning",
       "department": "Moquegua",
       "city": "Moquegua",
@@ -1374,7 +1719,7 @@
         "https://picsum.photos/200/200?random=51",
         "https://picsum.photos/200/200?random=52"
       ],
-      "assignedTo": "Sr. Manuel Ortiz - Sanitation Dept",
+      "assignedTo": "Patricia Morales - Urban Cleaning",
       "updateMessage": "Area completely cleaned and secured",
       "updateDate": "2025-10-08T20:40:33.111Z",
       "timeline": [
@@ -1399,11 +1744,12 @@
           "current": true,
           "waitingDecision": false
         }
-      ]
+      ],
+      "responsibleId": "602"
     },
     {
-      "id": "092234",
-      "category": "Public Safety",
+      "id": "592234",
+      "category": "Citizen Security",
       "department": "Puno",
       "city": "Puno",
       "district": "Puno",
@@ -1415,7 +1761,7 @@
       "evidence": [
         "https://picsum.photos/200/200?random=53"
       ],
-      "assignedTo": "Not assigned",
+      "assignedTo": "Juan Pérez - Citizen Security",
       "updateMessage": "Initial safety inspection scheduled",
       "updateDate": "2025-10-08T21:25:44.222Z",
       "timeline": [
@@ -1426,11 +1772,12 @@
           "current": true,
           "waitingDecision": false
         }
-      ]
+      ],
+      "responsibleId": "301"
     },
     {
-      "id": "095567",
-      "category": "Road Infrastructure",
+      "id": "395567",
+      "category": "Transport and Mobility",
       "department": "Madre de Dios",
       "city": "Puerto Maldonado",
       "district": "Puerto Maldonado",
@@ -1443,7 +1790,7 @@
         "https://picsum.photos/200/200?random=54",
         "https://picsum.photos/200/200?random=55"
       ],
-      "assignedTo": "Ing. Fernando Rios - Infrastructure",
+      "assignedTo": "Raúl Castillo - Transport and Mobility",
       "updateMessage": "Structural engineers evaluating repair options",
       "updateDate": "2025-10-08T22:30:55.333Z",
       "timeline": [
@@ -1468,11 +1815,12 @@
           "current": true,
           "waitingDecision": true
         }
-      ]
+      ],
+      "responsibleId": "403"
     },
     {
-      "id": "098890",
-      "category": "Public Lighting",
+      "id": "198890",
+      "category": "Others",
       "department": "San Martín",
       "city": "Moyobamba",
       "district": "Moyobamba",
@@ -1484,7 +1832,7 @@
       "evidence": [
         "https://picsum.photos/200/200?random=56"
       ],
-      "assignedTo": "Téc. Luis Gomez - Electrical Grid",
+      "assignedTo": "Julio Poma - Others",
       "updateMessage": "Power restored with backup generators",
       "updateDate": "2025-10-08T23:15:66.444Z",
       "timeline": [
@@ -1509,11 +1857,12 @@
           "current": true,
           "waitingDecision": false
         }
-      ]
+      ],
+      "responsibleId": "802"
     },
     {
       "id": "102123",
-      "category": "Drainage Systems",
+      "category": "Others",
       "department": "Ucayali",
       "city": "Pucallpa",
       "district": "Pucallpa",
@@ -1526,7 +1875,7 @@
         "https://picsum.photos/200/200?random=57",
         "https://picsum.photos/200/200?random=58"
       ],
-      "assignedTo": "Ing. Carlos Mendoza - Drainage Dept",
+      "assignedTo": "María Rodríguez - Others",
       "updateMessage": "Emergency pumps deployed to control flooding",
       "updateDate": "2025-10-08T23:45:77.555Z",
       "timeline": [
@@ -1544,7 +1893,8 @@
           "current": true,
           "waitingDecision": false
         }
-      ]
+      ],
+      "responsibleId": "801"
     },
     {
       "id": "105456",
@@ -1560,7 +1910,7 @@
       "evidence": [
         "https://picsum.photos/200/200?random=59"
       ],
-      "assignedTo": "Lic. Maria Lopez - Transport Authority",
+      "assignedTo": "Fernando Cruz - Public Transportation",
       "updateMessage": "Complaint redirected to regional health authority",
       "updateDate": "2025-10-08T23:55:88.666Z",
       "timeline": [
@@ -1585,11 +1935,12 @@
           "current": true,
           "waitingDecision": false
         }
-      ]
+      ],
+      "responsibleId": "702"
     },
     {
       "id": "108789",
-      "category": "Parks and Recreation",
+      "category": "Environment",
       "department": "Amazonas",
       "city": "Chachapoyas",
       "district": "Chachapoyas",
@@ -1602,7 +1953,7 @@
         "https://picsum.photos/200/200?random=60",
         "https://picsum.photos/200/200?random=61"
       ],
-      "assignedTo": "Biól. Ana Torres - Parks Management",
+      "assignedTo": "Mariana Salazar - Environment",
       "updateMessage": "Trail closure implemented pending repairs",
       "updateDate": "2025-10-08T23:59:99.777Z",
       "timeline": [
@@ -1627,11 +1978,12 @@
           "current": true,
           "waitingDecision": false
         }
-      ]
+      ],
+      "responsibleId": "201"
     },
     {
       "id": "112122",
-      "category": "Noise Pollution",
+      "category": "Citizen Security",
       "department": "Cajamarca",
       "city": "Cajamarca",
       "district": "Cajamarca",
@@ -1643,7 +1995,7 @@
       "evidence": [
         "https://picsum.photos/200/200?random=62"
       ],
-      "assignedTo": "Not assigned",
+      "assignedTo": "Juan Pérez - Citizen Security",
       "updateMessage": "Noise level monitoring initiated",
       "updateDate": "2025-10-09T00:15:11.888Z",
       "timeline": [
@@ -1654,7 +2006,8 @@
           "current": true,
           "waitingDecision": false
         }
-      ]
+      ],
+      "responsibleId": "301"
     },
     {
       "id": "115455",
@@ -1670,7 +2023,7 @@
       "evidence": [
         "https://picsum.photos/200/200?random=63"
       ],
-      "assignedTo": "Cpt. Jorge Herrera - Police Coordination",
+      "assignedTo": "Miguel Gonzales - Citizen Security",
       "updateMessage": "Additional police patrols deployed",
       "updateDate": "2025-10-09T00:25:22.999Z",
       "timeline": [
@@ -1688,11 +2041,12 @@
           "current": true,
           "waitingDecision": false
         }
-      ]
+      ],
+      "responsibleId": "303"
     },
     {
       "id": "118788",
-      "category": "Informal Commerce",
+      "category": "Others",
       "department": "Junín",
       "city": "Huancayo",
       "district": "Huancayo",
@@ -1705,7 +2059,7 @@
         "https://picsum.photos/200/200?random=64",
         "https://picsum.photos/200/200?random=65"
       ],
-      "assignedTo": "Lic. Rosa Fernandez - Commerce Regulation",
+      "assignedTo": "María Rodríguez - Others",
       "updateMessage": "Vendors relocated to designated areas",
       "updateDate": "2025-10-09T00:35:33.111Z",
       "timeline": [
@@ -1730,7 +2084,8 @@
           "current": true,
           "waitingDecision": false
         }
-      ]
+      ],
+      "responsibleId": "801"
     },
     {
       "id": "122121",
@@ -1746,7 +2101,7 @@
       "evidence": [
         "https://picsum.photos/200/200?random=66"
       ],
-      "assignedTo": "Dra. Carmen Ruiz - Health Inspection",
+      "assignedTo": "Valeria Campos - Public Health",
       "updateMessage": "Environmental contamination assessment required",
       "updateDate": "2025-10-09T00:45:44.222Z",
       "timeline": [
@@ -1771,11 +2126,507 @@
           "current": true,
           "waitingDecision": true
         }
-      ]
+      ],
+      "responsibleId": "501"
+    },
+    {
+      "id": "156398",
+      "category": "Public Transportation",
+      "department": "Lima",
+      "city": "Lima",
+      "district": "Ate Vitarte",
+      "location": "Lima, Lima, Ate Vitarte",
+      "referenceInfo": "Av.Mexico",
+      "description": "El senor de los anillos",
+      "status": "Pending",
+      "priority": "Urgent",
+      "evidence": [],
+      "assignedTo": "Fernando Cruz - Public Transportation",
+      "updateMessage": "",
+      "updateDate": "2025-10-29T23:29:27.462Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-29T23:29:27.462Z",
+          "completed": true,
+          "current": true,
+          "waitingDecision": false
+        },
+        {
+          "status": "Under review",
+          "date": "",
+          "completed": false,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Awaiting response",
+          "date": "",
+          "completed": false,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Decision pending",
+          "date": "2025-10-07T20:19:00",
+          "completed": false,
+          "current": false,
+          "waitingDecision": true
+        },
+        {
+          "status": "Completed",
+          "date": "",
+          "completed": false,
+          "current": false,
+          "waitingDecision": false
+        }
+      ],
+      "responsibleId": "702"
+    },
+    {
+      "id": "759126",
+      "category": "Urban Cleaning",
+      "department": "Lima",
+      "city": "Chimbote",
+      "district": "Comas",
+      "location": "Lima, Chimbote, Comas",
+      "referenceInfo": "Limpieza Urbana",
+      "description": "OPOPOPOPOPadasd",
+      "status": "Pending",
+      "priority": "Urgent",
+      "evidence": [],
+      "assignedTo": "Diego Alarcón - Urban Cleaning",
+      "updateMessage": "",
+      "updateDate": "2025-10-29T23:30:35.634Z",
+      "timeline": [
+        {
+          "status": "Complaint registered",
+          "date": "2025-10-29T23:30:35.634Z",
+          "completed": true,
+          "current": true,
+          "waitingDecision": false
+        },
+        {
+          "status": "Under review",
+          "date": "",
+          "completed": false,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Awaiting response",
+          "date": "",
+          "completed": false,
+          "current": false,
+          "waitingDecision": false
+        },
+        {
+          "status": "Decision pending",
+          "date": "2025-10-07T20:19:00",
+          "completed": false,
+          "current": false,
+          "waitingDecision": true
+        },
+        {
+          "status": "Completed",
+          "date": "",
+          "completed": false,
+          "current": false,
+          "waitingDecision": false
+        }
+      ],
+      "responsibleId": "603"
+    },
+    {
+      "id": "979261",
+      "title": "Case #979261",
+      "description": "asdasdasdasdasd",
+      "category": "Citizen Security",
+      "priority": "high",
+      "status": "assigned",
+      "assignedTo": "Juan Pérez - Citizen Security",
+      "createdAt": "2025-10-30T06:19:56.846Z",
+      "updatedAt": "2025-10-30T06:20:41.696Z",
+      "tags": [
+        "Citizen Security",
+        "Urgent"
+      ],
+      "responsibleId": "301"
     }
+  ],
+  "complaintAssignments": [
+    {
+      "id": "assign-1",
+      "complaintId": "100237",
+      "responsibleId": "1",
+      "assignedDate": "2025-10-07T10:00:00Z",
+      "assignedBy": "admin-001",
+      "status": "reassigned"
+    },
+    {
+      "id": "assign-2",
+      "complaintId": "612345",
+      "responsibleId": "1",
+      "assignedDate": "2025-10-08T09:30:00Z",
+      "assignedBy": "admin-001",
+      "status": "removed"
+    },
 
+    {
+      "id": "3686",
+      "complaintId": "204851",
+      "responsibleId": "2",
+      "assignedDate": "2025-10-30T05:18:59.157Z",
+      "assignedBy": "admin",
+      "status": "reassigned"
+    },
+    {
+      "id": "a30f",
+      "complaintId": "612345",
+      "responsibleId": "3",
+      "assignedDate": "2025-10-30T05:19:18.701Z",
+      "assignedBy": "admin",
+      "status": "removed"
+    },
+    {
+      "id": "8534",
+      "complaintId": "432564",
+      "responsibleId": "3",
+      "assignedDate": "2025-10-30T05:20:42.918Z",
+      "assignedBy": "admin",
+      "status": "reassigned"
+    },
+    {
+      "status": "completed",
+      "id": "5c77"
+    },
+    {
+      "id": "ee72",
+      "complaintId": "100237",
+      "responsibleId": "101",
+      "assignedDate": "2025-10-30T05:39:06.236Z",
+      "assignedBy": "admin",
+      "status": "reassigned"
+    },
+    {
+      "status": "completed",
+      "id": "d0b3"
+    },
+    {
+      "id": "b52f",
+      "complaintId": "157896",
+      "responsibleId": "801",
+      "assignedDate": "2025-10-30T05:41:02.176Z",
+      "assignedBy": "admin",
+      "status": "active"
+    },
+    {
+      "id": "fbfa",
+      "complaintId": "315678",
+      "responsibleId": "401",
+      "assignedDate": "2025-10-30T05:41:09.508Z",
+      "assignedBy": "admin",
+      "status": "removed"
+    },
+    {
+      "id": "7f71",
+      "complaintId": "100237",
+      "responsibleId": "103",
+      "assignedDate": "2025-10-30T05:41:15.852Z",
+      "assignedBy": "admin",
+      "status": "active"
+    },
+    {
+      "id": "b603",
+      "complaintId": "100237",
+      "responsibleId": "103",
+      "assignedDate": "2025-10-30T05:41:18.545Z",
+      "assignedBy": "admin",
+      "status": "active"
+    },
+    {
+      "id": "0315",
+      "complaintId": "432564",
+      "responsibleId": "602",
+      "assignedDate": "2025-10-30T05:43:39.722Z",
+      "assignedBy": "admin",
+      "status": "reassigned"
+    },
+    {
+      "id": "6fe6",
+      "complaintId": "428741",
+      "responsibleId": "301",
+      "assignedDate": "2025-10-30T05:43:40.491Z",
+      "assignedBy": "admin",
+      "status": "active"
+    },
+    {
+      "id": "e26a",
+      "complaintId": "423456",
+      "responsibleId": "803",
+      "assignedDate": "2025-10-30T05:43:40.829Z",
+      "assignedBy": "admin",
+      "status": "active"
+    },
+    {
+      "id": "3424",
+      "complaintId": "319876",
+      "responsibleId": "501",
+      "assignedDate": "2025-10-30T05:43:41.415Z",
+      "assignedBy": "admin",
+      "status": "removed"
+    },
+    {
+      "id": "db40",
+      "complaintId": "319876",
+      "responsibleId": "501",
+      "assignedDate": "2025-10-30T05:43:56.480Z",
+      "assignedBy": "admin",
+      "status": "active"
+    },
+    {
+      "id": "9a2f",
+      "complaintId": "315678",
+      "responsibleId": "401",
+      "assignedDate": "2025-10-30T05:43:58.695Z",
+      "assignedBy": "admin",
+      "status": "active"
+    },
+    {
+      "id": "ea5e",
+      "complaintId": "407892",
+      "responsibleId": "203",
+      "assignedDate": "2025-10-30T05:44:12.184Z",
+      "assignedBy": "admin",
+      "status": "active"
+    },
+    {
+      "id": "b08e",
+      "complaintId": "432564",
+      "responsibleId": "601",
+      "assignedDate": "2025-10-30T05:44:16.226Z",
+      "assignedBy": "admin",
+      "status": "active"
+    },
+    {
+      "id": "0886",
+      "complaintId": "836988",
+      "responsibleId": "703",
+      "assignedDate": "2025-10-30T05:44:18.780Z",
+      "assignedBy": "admin",
+      "status": "active"
+    },
+    {
+      "id": "2371",
+      "complaintId": "353214",
+      "responsibleId": "803",
+      "assignedDate": "2025-10-30T05:44:23.443Z",
+      "assignedBy": "admin",
+      "status": "active"
+    },
+    {
+      "id": "d524",
+      "complaintId": "549632",
+      "responsibleId": "801",
+      "assignedDate": "2025-10-30T05:44:25.481Z",
+      "assignedBy": "admin",
+      "status": "active"
+    },
+    {
+      "id": "8c97",
+      "complaintId": "161234",
+      "responsibleId": "702",
+      "assignedDate": "2025-10-30T05:44:28.771Z",
+      "assignedBy": "admin",
+      "status": "active"
+    },
+    {
+      "id": "4408",
+      "complaintId": "365473",
+      "responsibleId": "302",
+      "assignedDate": "2025-10-30T05:44:30.865Z",
+      "assignedBy": "admin",
+      "status": "active"
+    },
+    {
+      "id": "dab5",
+      "complaintId": "369123",
+      "responsibleId": "501",
+      "assignedDate": "2025-10-30T05:44:33.870Z",
+      "assignedBy": "admin",
+      "status": "active"
+    },
+    {
+      "id": "c28b",
+      "complaintId": "759126",
+      "responsibleId": "603",
+      "assignedDate": "2025-10-30T05:44:40.396Z",
+      "assignedBy": "admin",
+      "status": "active"
+    },
+    {
+      "id": "88a7",
+      "complaintId": "156398",
+      "responsibleId": "702",
+      "assignedDate": "2025-10-30T05:44:42.564Z",
+      "assignedBy": "admin",
+      "status": "active"
+    },
+    {
+      "id": "5a58",
+      "complaintId": "122121",
+      "responsibleId": "501",
+      "assignedDate": "2025-10-30T05:44:44.404Z",
+      "assignedBy": "admin",
+      "status": "active"
+    },
+    {
+      "id": "7178",
+      "complaintId": "118788",
+      "responsibleId": "801",
+      "assignedDate": "2025-10-30T05:44:46.204Z",
+      "assignedBy": "admin",
+      "status": "active"
+    },
+    {
+      "id": "f7c9",
+      "complaintId": "115455",
+      "responsibleId": "303",
+      "assignedDate": "2025-10-30T05:44:48.912Z",
+      "assignedBy": "admin",
+      "status": "active"
+    },
+    {
+      "id": "005c",
+      "complaintId": "112122",
+      "responsibleId": "301",
+      "assignedDate": "2025-10-30T05:44:50.849Z",
+      "assignedBy": "admin",
+      "status": "active"
+    },
+    {
+      "id": "22d3",
+      "complaintId": "108789",
+      "responsibleId": "201",
+      "assignedDate": "2025-10-30T05:44:53.856Z",
+      "assignedBy": "admin",
+      "status": "active"
+    },
+    {
+      "id": "5593",
+      "complaintId": "141237",
+      "responsibleId": "202",
+      "assignedDate": "2025-10-30T05:44:59.068Z",
+      "assignedBy": "admin",
+      "status": "active"
+    },
+    {
+      "id": "0c0d",
+      "complaintId": "072452",
+      "responsibleId": "801",
+      "assignedDate": "2025-10-30T05:45:01.582Z",
+      "assignedBy": "admin",
+      "status": "active"
+    },
+    {
+      "status": "completed",
+      "id": "7bd3"
+    },
+    {
+      "id": "951b",
+      "complaintId": "478901",
+      "responsibleId": "202",
+      "assignedDate": "2025-10-30T05:45:07.718Z",
+      "assignedBy": "admin",
+      "status": "active"
+    },
+    {
+      "id": "c788",
+      "complaintId": "382341",
+      "responsibleId": "403",
+      "assignedDate": "2025-10-30T05:45:10.044Z",
+      "assignedBy": "admin",
+      "status": "active"
+    },
+    {
+      "id": "ce1a",
+      "complaintId": "285678",
+      "responsibleId": "302",
+      "assignedDate": "2025-10-30T05:45:12.119Z",
+      "assignedBy": "admin",
+      "status": "active"
+    },
+    {
+      "id": "c554",
+      "complaintId": "188912",
+      "responsibleId": "602",
+      "assignedDate": "2025-10-30T05:45:14.985Z",
+      "assignedBy": "admin",
+      "status": "active"
+    },
+    {
+      "id": "3aaa",
+      "complaintId": "592234",
+      "responsibleId": "301",
+      "assignedDate": "2025-10-30T05:45:16.836Z",
+      "assignedBy": "admin",
+      "status": "active"
+    },
+    {
+      "id": "5802",
+      "complaintId": "395567",
+      "responsibleId": "403",
+      "assignedDate": "2025-10-30T05:45:19.401Z",
+      "assignedBy": "admin",
+      "status": "active"
+    },
+    {
+      "id": "03f5",
+      "complaintId": "198890",
+      "responsibleId": "802",
+      "assignedDate": "2025-10-30T05:45:21.726Z",
+      "assignedBy": "admin",
+      "status": "active"
+    },
+    {
+      "id": "c9d5",
+      "complaintId": "102123",
+      "responsibleId": "801",
+      "assignedDate": "2025-10-30T05:45:24.936Z",
+      "assignedBy": "admin",
+      "status": "active"
+    },
+    {
+      "id": "4b94",
+      "complaintId": "105456",
+      "responsibleId": "702",
+      "assignedDate": "2025-10-30T05:45:27.850Z",
+      "assignedBy": "admin",
+      "status": "active"
+    },
+    {
+      "id": "1564",
+      "complaintId": "612345",
+      "responsibleId": "303",
+      "assignedDate": "2025-10-30T05:45:34.043Z",
+      "assignedBy": "admin",
+      "status": "active"
+    },
+    {
+      "id": "1040",
+      "complaintId": "204851",
+      "responsibleId": "102",
+      "assignedDate": "2025-10-30T06:00:14.788Z",
+      "assignedBy": "manager",
+      "status": "active"
+    },
+    {
+      "id": "b03a",
+      "complaintId": "979261",
+      "responsibleId": "301",
+      "assignedDate": "2025-10-30T06:20:41.634Z",
+      "assignedBy": "manager",
+      "status": "active"
+    }
   ]
-
 }
-
-

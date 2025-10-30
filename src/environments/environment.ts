@@ -2,16 +2,18 @@ export const environment = {
   production: false,
 
   // === Fake API (Render) ===
-  platformProviderApiBaseUrl: 'https://denunciaya-fakeapi-xf50.onrender.com',
+  platformProviderApiBaseUrl: 'http://localhost:3000',
 
   platformProviderCommunitiesEndpointPath: '/communities',
   platformProviderResponsiblesEndpointPath: '/responsibles',
   platformProviderCitizensEndpointPath: '/citizen',
   platformProviderAuthoritiesEndpointPath: '/authority',
   platformProviderComplaintsEndpointPath: '/complaints',
+  platformProviderAssignmentsEndpointPath: '/complaintAssignments',
+
 
   // === Backend real local (Spring Boot o similar) ===
-  apiBaseUrl: 'http://localhost:3000/api/v1',
+  apiBaseUrl: 'http://localhost:3000',
   apiEndpoints: {
     complaints: '/complaints',
     citizens: '/citizen',

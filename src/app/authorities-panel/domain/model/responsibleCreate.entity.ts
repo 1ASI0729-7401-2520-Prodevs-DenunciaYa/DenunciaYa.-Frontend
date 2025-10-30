@@ -1,90 +1,104 @@
-import { BaseEntity } from '../../../shared/domain/model/base-entity';
-
-export class Responsible implements BaseEntity {
-  private _id: number;
+export class Responsible {
+  private _id: string;
   private _firstName: string;
   private _lastName: string;
+  private _fullName: string;
   private _email: string;
+  private _position: string;
+  private _department: string;
   private _phone: string;
   private _role: string;
-  private _description: string[];
+  private _description: string;
   private _accessLevel: string;
+  private _status: 'active' | 'inactive';
+  private _assignedComplaints: string[];
   private _createdAt: Date;
 
-  constructor(responsible: {
-    id: number;
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
-    role: string;
-    description: string[];
-    accessLevel: string;
-    createdAt?: Date;
-  })
-  {
-    this._id = responsible.id;
-    this._firstName = responsible.firstName;
-    this._lastName = responsible.lastName;
-    this._email = responsible.email;
-    this._phone = responsible.phone;
-    this._role = responsible.role;
-    this._description = responsible.description ?? [];
-    this._accessLevel = responsible.accessLevel;
+  constructor(responsible: Partial<Responsible> = {}) {
+    this._id = responsible.id ?? '';
+    this._firstName = responsible.firstName ?? '';
+    this._lastName = responsible.lastName ?? '';
+    this._fullName = responsible.fullName ?? `${this._firstName} ${this._lastName}`;
+    this._email = responsible.email ?? '';
+    this._position = responsible.position ?? '';
+    this._department = responsible.department ?? '';
+    this._phone = responsible.phone ?? '';
+    this._role = responsible.role ?? '';
+    this._description = responsible.description ?? '';
+    this._accessLevel = responsible.accessLevel ?? '';
+    this._status = 'active';
+    this._assignedComplaints = responsible.assignedComplaints ?? [];
     this._createdAt = responsible.createdAt ?? new Date();
   }
 
-  // --- Getters ---
-  get id(): number {
-    return this._id;
+  // --- Getters y setters ---
+  get id(): string { return this._id; }
+  set id(value: string) { this._id = value; }
+
+  get firstName(): string { return this._firstName; }
+  set firstName(value: string) {
+    this._firstName = value;
+    this.updateFullName();
   }
 
-  get firstName(): string {
-    return this._firstName;
+  get lastName(): string { return this._lastName; }
+  set lastName(value: string) {
+    this._lastName = value;
+    this.updateFullName();
   }
 
-  get lastName(): string {
-    return this._lastName;
+  get fullName(): string { return this._fullName; }
+
+  get email(): string { return this._email; }
+  set email(value: string) { this._email = value; }
+
+  get position(): string { return this._position; }
+  set position(value: string) { this._position = value; }
+
+  get department(): string { return this._department; }
+  set department(value: string) { this._department = value; }
+
+  get phone(): string { return this._phone; }
+  set phone(value: string) { this._phone = value; }
+
+  get role(): string { return this._role; }
+  set role(value: string) { this._role = value; }
+
+  get description(): string { return this._description; }
+  set description(value: string) { this._description = value; }
+
+  get accessLevel(): string { return this._accessLevel; }
+  set accessLevel(value: string) { this._accessLevel = value; }
+
+  get status(): 'active' | 'inactive' {
+    return this._status;
   }
 
-  get email(): string {
-    return this._email;
+  set status(value: string) {
+    this._status = value === 'inactive' ? 'inactive' : 'active';
+  }
+  get assignedComplaints(): string[] { return this._assignedComplaints; }
+  set assignedComplaints(value: string[]) { this._assignedComplaints = value; }
+
+  get createdAt(): Date { return this._createdAt; }
+  set createdAt(value: Date) { this._createdAt = value; }
+
+  private updateFullName(): void {
+    const names = [this._firstName, this._lastName].filter(Boolean);
+    this._fullName = names.join(' ') || 'Sin nombre';
   }
 
-  get phone(): string {
-    return this._phone;
+  addComplaint(complaintId: string): void {
+    if (!this._assignedComplaints.includes(complaintId)) {
+      this._assignedComplaints.push(complaintId);
+    }
   }
 
-  get role(): string {
-    return this._role;
+  removeComplaint(complaintId: string): void {
+    this._assignedComplaints = this._assignedComplaints.filter(id => id !== complaintId);
   }
 
-  get description(): string[] {
-    return this._description;
-  }
-
-  get accessLevel(): string {
-    return this._accessLevel;
-  }
-
-  get createdAt(): Date {
-    return this._createdAt;
-  }
-
-  updateContact(email: string, phone: string): void {
-    this._email = email;
-    this._phone = phone;
-  }
-
-  updateAccessLevel(level: string): void {
-    this._accessLevel = level;
-  }
-
-  assignDepartments(departments: string[]): void {
-    this._description = [...departments];
-  }
-
-  changeRole(newRole: string): void {
-    this._role = newRole;
+  getComplaintCount(): number {
+    return this._assignedComplaints.length;
   }
 }

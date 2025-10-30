@@ -27,7 +27,6 @@ export class ComplaintsStore {
     this.errorSignal.set(null);
     this.api.getComplaints().pipe(retry(2)).subscribe({
       next: data => {
-        console.log('Denuncias recibidas:', data); // quitar luego
         this.complaintsSignal.set(data);
         this.loadingSignal.set(false);
       },
@@ -38,7 +37,7 @@ export class ComplaintsStore {
     });
   }
 
-  getComplaintById(id: number | string | null | undefined): Signal<Complaint | undefined> {
+  getComplaintById(id: string  | null | undefined): Signal<Complaint | undefined> {
     return computed(() => id ? this.complaints().find(c => c.id === id) : undefined);
   }
 
@@ -60,6 +59,7 @@ export class ComplaintsStore {
   updateComplaint(complaint: Complaint) {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
+
     this.api.updateComplaint(complaint).pipe(retry(2)).subscribe({
       next: updatedComplaint => {
         this.complaintsSignal.update(list =>
@@ -69,9 +69,19 @@ export class ComplaintsStore {
       },
       error: err => {
         this.errorSignal.set('Error al actualizar denuncia');
+        console.error('❌ Error updating complaint:', err);
+
+        // ✅ ACTUALIZACIÓN LOCAL SI LA API FALLA
+        this.updateComplaintInStore(complaint);
         this.loadingSignal.set(false);
       }
     });
+  }
+
+  updateComplaintInStore(complaint: Complaint): void {
+    this.complaintsSignal.update(list =>
+      list.map(c => c.id === complaint.id ? complaint : c)
+    );
   }
 
   deleteComplaint(id: string) {

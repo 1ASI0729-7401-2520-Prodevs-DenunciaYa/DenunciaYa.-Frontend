@@ -765,13 +765,186 @@
   "Date": "Date",
 
   "Details": "Details",
-  "View Complaint": "View Complaint"
+  "View Complaint": "View Complaint",
 
 
 
 
 
+  "COMPLAINT_FORM": {
+    "TITLE": "Report Now",
+    "SUBTITLE": "Report problems in your community quickly and safely",
+    "SECTIONS": {
+      "CATEGORY_LOCATION": "Category and Location",
+      "REFERENCE": "Reference",
+      "DESCRIPTION": "Description",
+      "EVIDENCE": "Evidence",
+      "OPTIONS": "Options"
+    },
+    "FIELDS": {
+      "CATEGORY": {
+        "LABEL": "Category *",
+        "PLACEHOLDER": "Select category",
+        "OPTIONS": {
+          "INFRASTRUCTURE": "Infrastructure and Public Spaces",
+          "ENVIRONMENT": "Environment",
+          "SECURITY": "Citizen Security",
+          "TRANSPORT": "Transport and Mobility",
+          "HEALTH": "Public Health",
+          "CLEANING": "Urban Cleaning",
+          "PUBLIC_TRANSPORT": "Public Transportation",
+          "OTHERS": "Others"
+        }
+      },
+      "PRIORITY": {
+        "LABEL": "Priority Type *",
+        "PLACEHOLDER": "Select priority",
+        "OPTIONS": {
+          "STANDARD": "Standard",
+          "URGENT": "Urgent",
+          "CRITICAL": "Critical"
+        }
+      },
+      "LOCATION": {
+        "TITLE": "Geographic Location",
+        "DEPARTMENT": {
+          "LABEL": "Department",
+          "PLACEHOLDER": "Select department"
+        },
+        "PROVINCE": {
+          "LABEL": "Province",
+          "PLACEHOLDER": "Select province"
+        },
+        "DISTRICT": {
+          "LABEL": "District",
+          "PLACEHOLDER": "Select district"
+        },
+        "CITY": {
+          "LABEL": "City",
+          "PLACEHOLDER": "Select city"
+        }
 
+
+
+      },
+      "REFERENCE": {
+        "LABEL": "Additional reference information",
+        "PLACEHOLDER": "Example: In front of the park, next to the municipal market..."
+      },
+      "DESCRIPTION": {
+        "LABEL": "Complaint information *",
+        "PLACEHOLDER": "Describe in detail the problem you want to report...",
+        "HINT": "Minimum 10 characters. Be specific and clear in your description."
+      },
+      "EVIDENCE": {
+        "LABEL": "Evidence URLs (optional)",
+        "PLACEHOLDER": "https://example.com/photo1.jpg, https://example.com/photo2.jpg",
+        "HINT": "Separate multiple URLs with commas"
+      }
+    },
+    "OPTIONS": {
+      "ANONYMOUS": {
+        "LABEL": "Do you want to submit the complaint anonymously",
+        "DESCRIPTION": "Your identity will not be revealed"
+      },
+      "TERMS": {
+        "LABEL": "Accept terms and conditions *",
+        "DESCRIPTION": "I have read and accept the service terms"
+      },
+      "TERMS_ERROR": "You must accept the terms and conditions to submit the complaint"
+    },
+    "BUTTONS": {
+      "SUBMIT": "Submit complaint",
+      "SAVE_DRAFT": "Save Draft"
+    },
+    "VALIDATION": {
+      "REQUIRED_FIELDS": "Complete all required fields (*) to submit the complaint"
+    },
+    "SIDEBAR": {
+      "TITLE": "Your voice matters",
+      "DESCRIPTION": "By reporting problems, you help improve the quality of life in your community and help authorities identify and solve important issues.",
+      "BENEFITS": {
+        "SECURITY": "Safe and confidential reporting",
+        "SPEED": "Quick and simple process",
+        "COMMUNITY": "Positive impact on the community"
+      }
+    }
+  },
+  "COMPLAINT_DETAIL": {
+    "LOADING": "Loading complaint details...",
+    "TITLE": "Complaint Details",
+    "TIMELINE": {
+      "SECTION_LABEL": "Complaint Status Timeline",
+      "ARIA_LABEL": "Timeline showing the current status and progress of the complaint"
+    },
+    "INFO_SECTION": {
+      "LABEL": "Complaint Information",
+      "FIELDS": {
+        "CATEGORY": "Category",
+        "DEPARTMENT": "Department",
+        "CITY": "City",
+        "DISTRICT": "District",
+        "LOCATION": "Location",
+        "REFERENCE_INFO": "Reference Information",
+        "DESCRIPTION": "Description",
+        "STATUS": "Status",
+        "PRIORITY": "Priority",
+        "EVIDENCE": "Evidence",
+        "ASSIGNED_TO": "Assigned To"
+      },
+      "ARIA_LABELS": {
+        "CURRENT_STATUS": "Current status: {{ status }}",
+        "PRIORITY_LEVEL": "Priority level: {{ priority }}",
+        "EVIDENCE_IMAGES": "Evidence images gallery",
+        "EVIDENCE_IMAGE_ALT": "Evidence image {{ number }}"
+      }
+    },
+    "RESPONSIBLE_SECTION": {
+      "LABEL": "Responsible Information",
+      "BUTTON": {
+        "ARIA_LABEL": "View responsible person information",
+        "TEXT": "View Responsible"
+      }
+    },
+    "UPDATE_CHANNEL": {
+      "LABEL": "Update Channel",
+      "TITLE": "Latest Update",
+      "LAST_UPDATE": "Last update date and time"
+    },
+    "CONTROLS": {
+      "TIMELINE_CONTROLS": "Timeline Control Buttons",
+      "ADVANCE_STATUS": {
+        "ARIA_LABEL": "Advance complaint to next status",
+        "BUTTON": "Advance Status"
+      },
+      "DECISION_BUTTONS": {
+        "LABEL": "Decision Options",
+        "ACCEPT": {
+          "ARIA_LABEL": "Accept and complete complaint",
+          "BUTTON": "Accept"
+        },
+        "REJECT": {
+          "ARIA_LABEL": "Reject complaint",
+          "BUTTON": "Reject"
+        }
+      },
+      "RESET_TIMELINE": {
+        "ARIA_LABEL": "Reset complaint timeline to initial state",
+        "BUTTON": "Reset Timeline"
+      }
+    },
+    "MANAGEMENT": {
+      "LABEL": "Complaint Management",
+      "EDIT": {
+        "ARIA_LABEL": "Edit this complaint",
+        "BUTTON": "Edit Complaint"
+      },
+      "DELETE": {
+        "ARIA_LABEL": "Delete this complaint",
+        "BUTTON": "Delete Complaint"
+      }
+    }
+  }
 
 
 

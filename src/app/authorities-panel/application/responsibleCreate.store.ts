@@ -5,23 +5,10 @@ import { Responsible } from '../domain/model/responsibleCreate.entity';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { ResponsibleAssembler } from '../infrastructure/responsibleCreate.assembler';
-
-interface ApiResponsible {
-  id: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  role: string;
-  description: string[];
-  accessLevel: string;
-  createdAt: string;
-  caseCount?: number;
-}
+import { ResponsibleResource } from '../infrastructure/responsibleCreate.response';
 
 @Injectable({ providedIn: 'root' })
 export class ResponsibleCreateStore {
-  // ✅ Usa la URL del environment, no una hardcodeada
   private readonly apiUrl = `${environment.platformProviderApiBaseUrl}${environment.platformProviderResponsiblesEndpointPath}`;
   private assembler = new ResponsibleAssembler();
 
@@ -33,7 +20,7 @@ export class ResponsibleCreateStore {
   readonly loading: Signal<boolean> = this._loading.asReadonly();
   readonly error: Signal<string | null> = this._error.asReadonly();
 
-  readonly count = computed<number>(() => this.responsibles().length);
+  readonly count = computed(() => this._responsibles().length);
 
   constructor(private readonly http: HttpClient) {
     this.loadResponsibles();
@@ -43,37 +30,18 @@ export class ResponsibleCreateStore {
     this._loading.set(true);
     this._error.set(null);
 
-    this.http.get<ApiResponsible[]>(this.apiUrl).pipe(
-      catchError((err: unknown) => {
-        this._error.set('Error loading responsibles');
-        console.error('❌ Error loading responsibles:', err);
-        return of([] as ApiResponsible[]);
-      })
-    ).subscribe({
-      next: (data: ApiResponsible[]) => {
-        const responsibles = data.map(item =>
-          this.assembler.toEntityFromResource({
-            id: item.id,
-            firstName: item.firstName,
-            lastName: item.lastName,
-            email: item.email,
-            phone: item.phone,
-            role: item.role,
-            description: item.description || [],
-            accessLevel: item.accessLevel,
-            createdAt: item.createdAt
-          })
-        );
-
+    this.http.get<ResponsibleResource[]>(this.apiUrl)
+      .pipe(
+        catchError(err => {
+          this._error.set('Error loading responsibles');
+          return of([] as ResponsibleResource[]);
+        })
+      )
+      .subscribe(data => {
+        const responsibles = data.map(r => this.assembler.toEntityFromResource(r));
         this._responsibles.set(responsibles);
         this._loading.set(false);
-      },
-      error: (err: unknown) => {
-        this._error.set('Unexpected error loading responsibles');
-        console.error(err);
-        this._loading.set(false);
-      }
-    });
+      });
   }
 
   addResponsible(responsibleData: Omit<Responsible, 'id' | 'createdAt'>): void {
@@ -81,49 +49,75 @@ export class ResponsibleCreateStore {
     this._error.set(null);
 
     const newResponsible = new Responsible({
-      id: Date.now(), // ID temporal local
+      id: Date.now().toString(),
       ...responsibleData,
-      createdAt: new Date()
+      createdAt: new Date(),
     });
 
     const resource = this.assembler.toResourceFromEntity(newResponsible);
 
-    this.http.post<ApiResponsible>(this.apiUrl, resource).pipe(
-      catchError((err: unknown) => {
-        this._error.set('Error creating responsible');
-        console.error('❌ Error creating responsible:', err);
-        return of(null);
-      })
-    ).subscribe({
-      next: (response: ApiResponsible | null) => {
+    this.http.post<ResponsibleResource>(this.apiUrl, resource)
+      .pipe(
+        catchError(err => {
+          this._error.set('Error creating responsible');
+          return of(null);
+        })
+      )
+      .subscribe(response => {
         if (response) {
-          const newResponsible = this.assembler.toEntityFromResource(response);
-          this._responsibles.update((list: Responsible[]) => [...list, newResponsible]);
+          const added = this.assembler.toEntityFromResource(response);
+          this._responsibles.update(list => [...list, added]);
         }
         this._loading.set(false);
-      },
-      error: (err: unknown) => {
-        this._error.set('Unexpected error creating responsible');
-        console.error(err);
-        this._loading.set(false);
-      }
-    });
+      });
   }
 
-  // ✅ Responsables adaptados para la UI
   getResponsiblesForUI() {
-    return this.responsibles().map(responsible => ({
-      id: responsible.id,
-      firstName: responsible.firstName,
-      lastName: responsible.lastName,
-      email: responsible.email,
-      phone: responsible.phone,
-      category: responsible.role,
-      caseCount: 0,
-      role: responsible.role,
-      description: responsible.description,
-      accessLevel: responsible.accessLevel,
-      createdAt: responsible.createdAt
+    return this._responsibles().map(r => ({
+      id: r.id,
+      fullName: r.fullName,
+      email: r.email,
+      phone: r.phone,
+      role: r.role,
+      description: r.description,
+      accessLevel: r.accessLevel,
+      status: r.status,
+      caseCount: r.getComplaintCount(),
+      createdAt: r.createdAt,
     }));
+  }
+
+  updateResponsible(responsible: Responsible): void {
+    this._loading.set(true);
+    this._error.set(null);
+
+    const resource = this.assembler.toResourceFromEntity(responsible);
+
+    this.http.put<ResponsibleResource>(`${this.apiUrl}/${responsible.id}`, resource)
+      .pipe(
+        catchError(err => {
+          this._error.set('Error updating responsible');
+          this._responsibles.update(list =>
+            list.map(r => r.id === responsible.id ? responsible : r)
+          );
+          this._loading.set(false);
+          return of(null);
+        })
+      )
+      .subscribe(response => {
+        if (response) {
+          const updated = this.assembler.toEntityFromResource(response);
+          this._responsibles.update(list =>
+            list.map(r => r.id === updated.id ? updated : r)
+          );
+        }
+        this._loading.set(false);
+      });
+  }
+
+  updateResponsibleInStore(responsible: Responsible): void {
+    this._responsibles.update(list =>
+      list.map(r => r.id === responsible.id ? responsible : r)
+    );
   }
 }

@@ -1,3 +1,27 @@
+/**
+ * Complaint entity representing a complaint record.
+ * This class encapsulates all relevant details of a complaint.
+ *
+ * @class Complaint
+ * @property {number} id - Unique identifier for the complaint.
+ * @property {string} category - Category of the complaint.
+ * @property {string} department - Department where the complaint occurred.
+ * @property {string} city - City of the complaint.
+ * @property {string} district - District of the complaint.
+ * @property {string} location - Specific address or location.
+ * @property {string} referenceInfo - Additional reference information from the user.
+ * @property {string} description - Detailed description of the complaint.
+ * @property {'Pending' | 'Accepted' | 'In Process' | 'Completed' | 'Rejected' | 'Draft' | 'Awaiting response'} status - Current status of the complaint.
+ * @property {'Standard' | 'Urgent' | 'Critical'} priority - Priority level of the complaint.
+ * @property {string[]} evidence - Array of evidence URLs.
+ * @property {string} assignedTo - Responsible authority or person.
+ * @property {string} updateMessage - Latest update message.
+ * @property {string} updateDate - ISO date string for the last update.
+ * @property {TimelineItem[]} timeline - Timeline of status changes.
+ *
+ * @author
+ * Omar Harold Rivera Ticllacuri
+ */
 export class Complaint {
   private _id: string;
   private _category: string;
@@ -11,6 +35,7 @@ export class Complaint {
   private _priority: 'Standard' | 'Urgent' | 'Critical';
   private _evidence: string[];
   private _assignedTo: string;
+  private _responsibleId: string | null;
   private _updateMessage: string;
   private _updateDate: string;
   private _timeline: TimelineItem[];
@@ -28,16 +53,17 @@ export class Complaint {
     this._priority = complaint.priority ?? 'Standard';
     this._evidence = complaint.evidence ?? [];
     this._assignedTo = complaint.assignedTo ?? 'Not assigned';
+    this._responsibleId = complaint.responsibleId ?? null;
     this._updateMessage = complaint.updateMessage ?? '';
     this._updateDate = complaint.updateDate ?? new Date().toISOString();
     this._timeline = complaint.timeline ?? [];
   }
 
 
-  get id(): string {
+  get id(): string  {
     return this._id;
   }
-  set id(value: string) {
+  set id(value: string ) {
     this._id = value;
   }
   get category(): string {
@@ -124,7 +150,12 @@ export class Complaint {
   set timeline(value: TimelineItem[]) {
     this._timeline = value;
   }
-
+  get responsibleId(): string | null {
+    return this._responsibleId;
+  }
+  set responsibleId(value: string | null) {
+    this._responsibleId = value;
+  }
 }
 
 export interface TimelineItem {
@@ -133,6 +164,7 @@ export interface TimelineItem {
   completed: boolean;
   current: boolean;
   waitingDecision?: boolean;
+  updateMessage?: string;
 }
 
 

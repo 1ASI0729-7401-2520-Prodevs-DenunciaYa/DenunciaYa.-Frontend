@@ -1,14 +1,11 @@
-import { BaseAssembler } from '../../shared/infrastructure/base-assembler';
-import {Responsible} from '../domain/model/responsibleCreate.entity';
-import { ResponsibleResponse, ResponsiblesResponse, ResponsibleResource } from './responsibleCreate.response';
+import { Responsible } from '../domain/model/responsibleCreate.entity';
+import { ResponsibleResource, ResponsiblesResponse } from './responsibleCreate.response';
 
-export class ResponsibleAssembler
-  implements BaseAssembler<Responsible, ResponsibleResource, ResponsiblesResponse>
-{
+export class ResponsibleAssembler {
+
   toEntitiesFromResponse(response: ResponsiblesResponse): Responsible[] {
-    return response.responsibles.map(resource =>
-      this.toEntityFromResource(resource as ResponsibleResource)
-    );
+    if (!response || !response.responsibles) return [];
+    return response.responsibles.map(resource => this.toEntityFromResource(resource));
   }
 
   toEntityFromResource(resource: ResponsibleResource): Responsible {
@@ -17,11 +14,15 @@ export class ResponsibleAssembler
       firstName: resource.firstName,
       lastName: resource.lastName,
       email: resource.email,
+      position: resource.position,
+      department: resource.department,
       phone: resource.phone,
       role: resource.role,
-      description: resource.description ?? [],
+      description: resource.description,
       accessLevel: resource.accessLevel,
-      createdAt: new Date(resource.createdAt),
+      status:resource.status,
+      assignedComplaints: resource.assignedComplaints ?? [],
+      createdAt: resource.createdAt ? new Date(resource.createdAt) : new Date(),
     });
   }
 
@@ -30,12 +31,21 @@ export class ResponsibleAssembler
       id: entity.id,
       firstName: entity.firstName,
       lastName: entity.lastName,
+      fullName: entity.fullName,
       email: entity.email,
+      position: entity.position,
+      department: entity.department,
       phone: entity.phone,
       role: entity.role,
       description: entity.description,
       accessLevel: entity.accessLevel,
+      status: this.formatStatus(entity.status),
+      assignedComplaints: entity.assignedComplaints,
       createdAt: entity.createdAt.toISOString(),
-    } as ResponsibleResource;
+    };
+  }
+
+  private formatStatus(status: string): 'active' | 'inactive' {
+    return status === 'inactive' ? 'inactive' : 'active';
   }
 }

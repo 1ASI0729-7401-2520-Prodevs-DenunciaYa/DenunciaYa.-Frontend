@@ -1,0 +1,128 @@
+<div class="support-container">
+  <h1 class="support-title">Soporte y Ayuda</h1>
+
+  <h2 class="section-title">Preguntas Frecuentes</h2>
+
+  <!-- Expansion Panels para FAQs -->
+  <mat-accordion class="faq-accordion">
+    <!-- Pregunta 1 -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          ¿Cómo realizo una nueva denuncia?
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <p>Para realizar una nueva denuncia, dirígete a la sección "Denuncias" en el menú principal y haz clic en el botón "Nueva Denuncia". Completa el formulario con la información requerida y haz clic en "Enviar".</p>
+    </mat-expansion-panel>
+
+    <!-- Pregunta 2 -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          ¿Cómo puedo ver el estado de mis denuncias?
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <p>En la sección "Denuncias" encontrarás un listado de todas tus denuncias con su estado actual. Puedes hacer clic en cualquier denuncia para ver información detallada y el historial de actualizaciones.</p>
+    </mat-expansion-panel>
+
+    <!-- Pregunta 3 -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          ¿Puedo editar una denuncia después de enviarla?
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <p>Solo es posible editar una denuncia mientras esté en estado "Pendiente de revisión". Una vez que ha sido aceptada y cambia a "En proceso", no es posible modificarla. En ese caso, contacta a soporte para cualquier actualización.</p>
+    </mat-expansion-panel>
+
+    <!-- Pregunta 4 -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          ¿Cómo cambio mis preferencias de notificación?
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <p>Ve a la sección "Configuración" y luego a "Preferencias de Notificación". Allí podrás activar o desactivar las notificaciones por correo electrónico y push, según tus preferencias.</p>
+    </mat-expansion-panel>
+
+    <!-- Pregunta 5 -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          ¿Qué hago si olvidé mi contraseña?
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <p>En la página de inicio de sesión, haz clic en "¿Olvidaste tu contraseña?". Ingresa tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.</p>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <div class="contact-section">
+
+    <h2 class="section-title">Contacto de Soporte</h2>
+    <h3>Soporte Tecnico Primario:</h3>
+    <p>soporte-tecnico@plataformadenuncias.dy.pe</p>
+    <h3>Soporte para Emergencias del Sistema:</h3>
+    <p>soporte-urgente@plataformadenuncias.dy.pe</p>
+    <p class="contact-description">
+      Si no encontraste respuesta a tu pregunta en las FAQs, completa el siguiente formulario y nuestro equipo te responderá a la brevedad.
+    </p>
+
+
+    <!-- Formulario de Contacto -->
+    <form [formGroup]="supportForm" (ngSubmit)="submitSupportRequest()" class="support-form">
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Asunto</mat-label>
+          <mat-select formControlName="subject">
+            <mat-option value="">Seleccione una opción</mat-option>
+            <mat-option value="technical">Problema técnico</mat-option>
+            <mat-option value="complaint">Consulta sobre denuncia</mat-option>
+            <mat-option value="account">Problema con mi cuenta</mat-option>
+            <mat-option value="other">Otro</mat-option>
+          </mat-select>
+          <mat-error *ngIf="supportForm.get('subject')?.hasError('required')">
+            El asunto es requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Número de denuncia</mat-label>
+          <input matInput formControlName="complaintNumber" placeholder="Ej: #12345">
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="form-field full-width">
+          <mat-label>Mensaje</mat-label>
+          <textarea
+            matInput
+            formControlName="message"
+            placeholder="Describe tu consulta o problema en detalle"
+            rows="5">
+          </textarea>
+          <mat-error *ngIf="supportForm.get('message')?.hasError('required')">
+            El mensaje es requerido
+          </mat-error>
+          <mat-error *ngIf="supportForm.get('message')?.hasError('minlength')">
+            El mensaje debe tener al menos 10 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-actions">
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="supportForm.invalid"
+          class="submit-button">
+          Enviar Problema
+        </button>
+      </div>
+
+
+    </form>
+  </div>
+</div>

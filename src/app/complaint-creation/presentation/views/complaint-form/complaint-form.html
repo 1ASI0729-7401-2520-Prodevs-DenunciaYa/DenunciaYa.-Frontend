@@ -1,200 +1,293 @@
-<div style="display: flex; flex-direction: row; align-items: flex-start; gap: 2rem; padding: 2rem;">
-  <form [formGroup]="form" (ngSubmit)="submitComplaint()" style="flex: 1; max-width: 600px;">
-    <h1 style="font-size: 3rem; font-weight: bold; margin-bottom: 1rem;">Denunciar Ahora</h1>
+<div class="complaint-container">
+  <!-- Header -->
+  <div class="header">
+    <h1 class="title">{{ 'COMPLAINT_FORM.TITLE' | translate }}</h1>
+    <p class="subtitle">{{ 'COMPLAINT_FORM.SUBTITLE' | translate }}</p>
+  </div>
 
-    <!-- Categoría -->
-    <div style="margin-bottom: 1.5rem;">
-      <label style="font-weight: bold;">Categoría *</label><br>
-      <input
-        type="text"
-        formControlName="category"
-        placeholder="Ej: Basura, Vialidad, Seguridad..."
-        style="width: 300px; height: 40px; background: #e6e6ee; border: none; border-radius: 4px; padding-left: 10px;"
-        [class.error]="form.get('category')?.invalid && form.get('category')?.touched"
-      >
-      <div *ngIf="form.get('category')?.invalid && form.get('category')?.touched" style="color: red; font-size: 12px; margin-top: 5px;">
-        La categoría es requerida
-      </div>
-    </div>
+  <div class="content-wrapper">
+    <!-- Formulario Principal -->
+    <form [formGroup]="form" (ngSubmit)="submitComplaint()" class="complaint-form">
 
-    <!-- Ubicación -->
-    <div style="margin-bottom: 1.5rem;">
-      <label style="font-weight: bold;">Ubicación *</label><br>
-      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-        <div>
-          <select
-            formControlName="department"
-            style="width: 180px; height: 40px; background: #e6e6ee; border: none; border-radius: 4px;"
-            [class.error]="form.get('department')?.invalid && form.get('department')?.touched"
-          >
-            <option value="">Seleccione el depart.</option>
-            <option value="Lima">Lima</option>
-            <option value="Cusco">Cusco</option>
-            <option value="Arequipa">Arequipa</option>
-            <option value="Trujillo">Trujillo</option>
-            <option value="La Paz">La Paz</option>
-            <option value="Ica">Ica</option>
-            <option value="Puno">Puno</option>
-            <option value="Tumbes">Tumbes</option>
-            <option value="Huanuco">Huanuco</option>
-            <option value="Piura">Piura</option>
-            <option value="Lambayeque">Lambayeque</option>
-            <option value="Moquegua">Moquegua</option>
-            <option value="Loreto">Loreto</option>
-          </select>
-          <div *ngIf="form.get('department')?.invalid && form.get('department')?.touched" style="color: red; font-size: 12px; margin-top: 5px;">
-            El departamento es requerido
-          </div>
+      <!-- Sección 1: Categoría y Ubicación -->
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-number">1</div>
+          <h2 class="section-title">{{ 'COMPLAINT_FORM.SECTIONS.CATEGORY_LOCATION' | translate }}</h2>
         </div>
 
-        <div>
-          <select
-            formControlName="city"
-            style="width: 180px; height: 40px; background: #e6e6ee; border: none; border-radius: 4px;"
-            [class.error]="form.get('city')?.invalid && form.get('city')?.touched"
-          >
-            <option value="">Seleccione la ciudad</option>
-            <option value="Lima">Lima</option>
-            <option value="Chiclayo">Chiclayo</option>
-            <option value="Chimbote">Chimbote</option>
-            <option value="Cotopaxi">Cotopaxi</option>
-            <option value="El Progreso">El Progreso</option>
-            <option value="El Tambo">El Tambo</option>
-            <option value="El Trinidad">El Trinidad</option>
-            <option value="Esmeraldas">Esmeraldas</option>
-            <option value="Guayas">Guayas</option>
-            <option value="Imbabura">Imbabura</option>
-            <option value="Loja">Loja</option>
-          </select>
-          <div *ngIf="form.get('city')?.invalid && form.get('city')?.touched" style="color: red; font-size: 12px; margin-top: 5px;">
-            La ciudad es requerida
-          </div>
+        <div class="form-row">
+          <!-- Categoría -->
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>{{ 'COMPLAINT_FORM.FIELDS.CATEGORY.LABEL' | translate }}</mat-label>
+            <mat-select formControlName="category">
+              <mat-option value="">{{ 'COMPLAINT_FORM.FIELDS.CATEGORY.PLACEHOLDER' | translate }}</mat-option>
+              <mat-option value="Infrastructure and Public Spaces">
+                {{ 'COMPLAINT_FORM.FIELDS.CATEGORY.OPTIONS.INFRASTRUCTURE' | translate }}
+              </mat-option>
+              <mat-option value="Environment">
+                {{ 'COMPLAINT_FORM.FIELDS.CATEGORY.OPTIONS.ENVIRONMENT' | translate }}
+              </mat-option>
+              <mat-option value="Citizen Security">
+                {{ 'COMPLAINT_FORM.FIELDS.CATEGORY.OPTIONS.SECURITY' | translate }}
+              </mat-option>
+              <mat-option value="Transport and Mobility">
+                {{ 'COMPLAINT_FORM.FIELDS.CATEGORY.OPTIONS.TRANSPORT' | translate }}
+              </mat-option>
+              <mat-option value="Public Health">
+                {{ 'COMPLAINT_FORM.FIELDS.CATEGORY.OPTIONS.HEALTH' | translate }}
+              </mat-option>
+              <mat-option value="Urban Cleaning">
+                {{ 'COMPLAINT_FORM.FIELDS.CATEGORY.OPTIONS.CLEANING' | translate }}
+              </mat-option>
+              <mat-option value="Public Transportation">
+                {{ 'COMPLAINT_FORM.FIELDS.CATEGORY.OPTIONS.PUBLIC_TRANSPORT' | translate }}
+              </mat-option>
+              <mat-option value="Others">
+                {{ 'COMPLAINT_FORM.FIELDS.CATEGORY.OPTIONS.OTHERS' | translate }}
+              </mat-option>
+            </mat-select>
+            <mat-icon matSuffix>category</mat-icon>
+          </mat-form-field>
+
+          <!-- Prioridad -->
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>{{ 'COMPLAINT_FORM.FIELDS.PRIORITY.LABEL' | translate }}</mat-label>
+            <mat-select formControlName="priority">
+              <mat-option value="">{{ 'COMPLAINT_FORM.FIELDS.PRIORITY.PLACEHOLDER' | translate }}</mat-option>
+              <mat-option value="Standard">
+                <div class="priority-option">
+                  <span class="priority-indicator standard"></span>
+                  {{ 'COMPLAINT_FORM.FIELDS.PRIORITY.OPTIONS.STANDARD' | translate }}
+                </div>
+              </mat-option>
+              <mat-option value="Urgent">
+                <div class="priority-option">
+                  <span class="priority-indicator urgent"></span>
+                  {{ 'COMPLAINT_FORM.FIELDS.PRIORITY.OPTIONS.URGENT' | translate }}
+                </div>
+              </mat-option>
+              <mat-option value="Critical">
+                <div class="priority-option">
+                  <span class="priority-indicator critical"></span>
+                  {{ 'COMPLAINT_FORM.FIELDS.PRIORITY.OPTIONS.CRITICAL' | translate }}
+                </div>
+              </mat-option>
+            </mat-select>
+            <mat-icon matSuffix>flag</mat-icon>
+          </mat-form-field>
         </div>
 
-        <div>
-          <select
-            formControlName="district"
-            style="width: 180px; height: 40px; background: #e6e6ee; border: none; border-radius: 4px;"
-            [class.error]="form.get('district')?.invalid && form.get('district')?.touched"
+        <!-- Ubicación -->
+        <div class="location-section">
+          <h3 class="location-title">{{ 'COMPLAINT_FORM.FIELDS.LOCATION.TITLE' | translate }}</h3>
+          <div class="location-grid">
+            <!-- Departamento -->
+            <mat-form-field appearance="outline">
+              <mat-label>{{ 'COMPLAINT_FORM.FIELDS.LOCATION.DEPARTMENT.LABEL' | translate }}</mat-label>
+              <mat-select formControlName="department">
+                <mat-option value="">{{ 'COMPLAINT_FORM.FIELDS.LOCATION.DEPARTMENT.PLACEHOLDER' | translate }}</mat-option>
+                <mat-option *ngFor="let departamento of departamentos" [value]="departamento.codigo">
+                  {{ departamento.nombre }}
+                </mat-option>
+              </mat-select>
+              <mat-icon matSuffix>map</mat-icon>
+            </mat-form-field>
+
+            <!-- Provincia -->
+            <mat-form-field appearance="outline">
+              <mat-label>{{ 'COMPLAINT_FORM.FIELDS.LOCATION.PROVINCE.LABEL' | translate }}</mat-label>
+              <mat-select formControlName="province" [disabled]="!provincias.length">
+                <mat-option value="">{{ 'COMPLAINT_FORM.FIELDS.LOCATION.PROVINCE.PLACEHOLDER' | translate }}</mat-option>
+                <mat-option *ngFor="let provincia of provincias" [value]="provincia.codigo">
+                  {{ provincia.nombre }}
+                </mat-option>
+              </mat-select>
+              <mat-icon matSuffix>location_city</mat-icon>
+            </mat-form-field>
+
+            <!-- Distrito -->
+            <mat-form-field appearance="outline">
+              <mat-label>{{ 'COMPLAINT_FORM.FIELDS.LOCATION.DISTRICT.LABEL' | translate }}</mat-label>
+              <mat-select formControlName="district" [disabled]="!distritos.length">
+                <mat-option value="">{{ 'COMPLAINT_FORM.FIELDS.LOCATION.DISTRICT.PLACEHOLDER' | translate }}</mat-option>
+                <mat-option *ngFor="let distrito of distritos" [value]="distrito.codigo">
+                  {{ distrito.nombre }}
+                </mat-option>
+              </mat-select>
+              <mat-icon matSuffix>place</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <!-- Línea divisoria -->
+      <div class="divider"></div>
+
+      <!-- Sección 2: Referencia -->
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-number">2</div>
+          <h2 class="section-title">{{ 'COMPLAINT_FORM.SECTIONS.REFERENCE' | translate }}</h2>
+        </div>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'COMPLAINT_FORM.FIELDS.REFERENCE.LABEL' | translate }}</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="referenceInfo"
+            [placeholder]="'COMPLAINT_FORM.FIELDS.REFERENCE.PLACEHOLDER' | translate"
           >
-            <option value="">Seleccione el distrito</option>
-            <option value="Breña">Breña</option>
-            <option value="Jesus Maria">Jesus Maria</option>
-            <option value="Magdalena">Magdalena</option>
-            <option value="Comas">Comas</option>
-            <option value="Ate Vitarte">Ate Vitarte</option>
-          </select>
-          <div *ngIf="form.get('district')?.invalid && form.get('district')?.touched" style="color: red; font-size: 12px; margin-top: 5px;">
-            El distrito es requerido
+          <mat-icon matSuffix>location_on</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <!-- Línea divisoria -->
+      <div class="divider"></div>
+
+      <!-- Sección 3: Descripción -->
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-number">3</div>
+          <h2 class="section-title">{{ 'COMPLAINT_FORM.SECTIONS.DESCRIPTION' | translate }}</h2>
+        </div>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'COMPLAINT_FORM.FIELDS.DESCRIPTION.LABEL' | translate }}</mat-label>
+          <textarea
+            matInput
+            formControlName="description"
+            [placeholder]="'COMPLAINT_FORM.FIELDS.DESCRIPTION.PLACEHOLDER' | translate"
+            rows="5"
+          ></textarea>
+          <mat-icon matSuffix>description</mat-icon>
+          <mat-hint>{{ 'COMPLAINT_FORM.FIELDS.DESCRIPTION.HINT' | translate }}</mat-hint>
+        </mat-form-field>
+      </div>
+
+      <!-- Línea divisoria -->
+      <div class="divider"></div>
+
+      <!-- Sección 4: Evidencias -->
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-number">4</div>
+          <h2 class="section-title">{{ 'COMPLAINT_FORM.SECTIONS.EVIDENCE' | translate }}</h2>
+        </div>
+
+        <div class="evidence-section">
+          <!-- URLs de evidencias -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>{{ 'COMPLAINT_FORM.FIELDS.EVIDENCE.LABEL' | translate }}</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="evidence"
+              [placeholder]="'COMPLAINT_FORM.FIELDS.EVIDENCE.PLACEHOLDER' | translate"
+            >
+            <mat-icon matSuffix>link</mat-icon>
+            <mat-hint>{{ 'COMPLAINT_FORM.FIELDS.EVIDENCE.HINT' | translate }}</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Línea divisoria -->
+      <div class="divider"></div>
+
+      <!-- Sección 5: Opciones -->
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-number">5</div>
+          <h2 class="section-title">{{ 'COMPLAINT_FORM.SECTIONS.OPTIONS' | translate }}</h2>
+        </div>
+
+        <div class="options-section">
+          <!-- Checkboxes -->
+          <div class="checkbox-group">
+            <mat-checkbox formControlName="anonymous" class="option-checkbox">
+              <div class="checkbox-content">
+                <mat-icon>visibility_off</mat-icon>
+                <div class="checkbox-text">
+                  <div class="checkbox-label">{{ 'COMPLAINT_FORM.OPTIONS.ANONYMOUS.LABEL' | translate }}</div>
+                  <div class="checkbox-description">{{ 'COMPLAINT_FORM.OPTIONS.ANONYMOUS.DESCRIPTION' | translate }}</div>
+                </div>
+              </div>
+            </mat-checkbox>
+
+            <mat-checkbox formControlName="termsAccepted" class="option-checkbox terms-checkbox">
+              <div class="checkbox-content">
+                <mat-icon>verified_user</mat-icon>
+                <div class="checkbox-text">
+                  <div class="checkbox-label">{{ 'COMPLAINT_FORM.OPTIONS.TERMS.LABEL' | translate }}</div>
+                  <div class="checkbox-description">{{ 'COMPLAINT_FORM.OPTIONS.TERMS.DESCRIPTION' | translate }}</div>
+                </div>
+              </div>
+            </mat-checkbox>
+          </div>
+
+          <!-- Mensaje de error para términos -->
+          <mat-error *ngIf="form.get('termsAccepted')?.invalid && form.get('termsAccepted')?.touched"
+                     class="terms-error">
+            {{ 'COMPLAINT_FORM.OPTIONS.TERMS_ERROR' | translate }}
+          </mat-error>
+        </div>
+      </div>
+
+      <!-- Botones de acción -->
+      <div class="action-buttons">
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="form.invalid"
+          class="submit-btn"
+        >
+          <mat-icon>send</mat-icon>
+          {{ 'COMPLAINT_FORM.BUTTONS.SUBMIT' | translate }}
+        </button>
+
+        <button
+          mat-stroked-button
+          type="button"
+          (click)="saveDraft()"
+          class="draft-btn"
+        >
+          <mat-icon>save</mat-icon>
+          {{ 'COMPLAINT_FORM.BUTTONS.SAVE_DRAFT' | translate }}
+        </button>
+      </div>
+
+      <!-- Estado del formulario -->
+      <div *ngIf="form.invalid" class="form-status">
+        <mat-icon>info</mat-icon>
+        <span>{{ 'COMPLAINT_FORM.VALIDATION.REQUIRED_FIELDS' | translate }}</span>
+      </div>
+    </form>
+
+    <!-- Panel lateral de imagen -->
+    <div class="image-panel">
+      <div class="image-content">
+        <img src="/secret-image.png" alt="Ilustración de denuncia" class="side-image">
+        <div class="image-info">
+          <h3>{{ 'COMPLAINT_FORM.SIDEBAR.TITLE' | translate }}</h3>
+          <p>{{ 'COMPLAINT_FORM.SIDEBAR.DESCRIPTION' | translate }}</p>
+          <div class="benefits">
+            <div class="benefit-item">
+              <mat-icon>security</mat-icon>
+              <span>{{ 'COMPLAINT_FORM.SIDEBAR.BENEFITS.SECURITY' | translate }}</span>
+            </div>
+            <div class="benefit-item">
+              <mat-icon>speed</mat-icon>
+              <span>{{ 'COMPLAINT_FORM.SIDEBAR.BENEFITS.SPEED' | translate }}</span>
+            </div>
+            <div class="benefit-item">
+              <mat-icon>groups</mat-icon>
+              <span>{{ 'COMPLAINT_FORM.SIDEBAR.BENEFITS.COMMUNITY' | translate }}</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- Referencia -->
-    <div style="margin-bottom: 1.5rem;">
-      <label style="font-weight: bold;">Referencia</label><br>
-      <input
-        type="text"
-        formControlName="referenceInfo"
-        placeholder="Información adicional de referencia"
-        style="width: 300px; height: 40px; background: #e6e6ee; border: none; border-radius: 4px; padding-left: 10px;"
-      >
-    </div>
-
-    <!-- Descripción -->
-    <div style="margin-bottom: 1.5rem;">
-      <label style="font-weight: bold;">Descripción *</label><br>
-      <textarea
-        formControlName="description"
-        placeholder="Describa detalladamente el problema..."
-        style="width: 300px; height: 80px; background: #e6e6ee; border: none; border-radius: 4px; padding: 10px; resize: vertical;"
-        [class.error]="form.get('description')?.invalid && form.get('description')?.touched"
-      ></textarea>
-      <div *ngIf="form.get('description')?.invalid && form.get('description')?.touched" style="color: red; font-size: 12px; margin-top: 5px;">
-        <div *ngIf="form.get('description')?.hasError('required')">La descripción es requerida</div>
-        <div *ngIf="form.get('description')?.hasError('minlength')">La descripción debe tener al menos 10 caracteres</div>
-      </div>
-    </div>
-
-    <!-- Evidencias -->
-    <div style="margin-bottom: 1.5rem;">
-      <label style="font-weight: bold;">Evidencias</label><br>
-      <input
-        type="text"
-        formControlName="evidence"
-        placeholder="URLs de evidencias (separadas por coma)"
-        style="width: 300px; height: 40px; background: #e6e6ee; border: none; border-radius: 4px; padding-left: 10px;"
-      >
-      <div style="color: #666; font-size: 12px; margin-top: 5px;">
-        Ej: https://ejemplo.com/foto1.jpg, https://ejemplo.com/foto2.jpg
-      </div>
-    </div>
-
-    <!-- Prioridad -->
-    <div style="margin-bottom: 1.5rem;">
-      <label style="font-weight: bold;">Tipo de Prioridad *</label><br>
-      <select
-        formControlName="priority"
-        style="width: 300px; height: 40px; background: #e6e6ee; border: none; border-radius: 4px;"
-        [class.error]="form.get('priority')?.invalid && form.get('priority')?.touched"
-      >
-        <option value="">Seleccione su prioridad</option>
-        <option value="Standard">Standard</option>
-        <option value="Urgent">Urgent</option>
-        <option value="Critical">Critical</option>
-      </select>
-      <div *ngIf="form.get('priority')?.invalid && form.get('priority')?.touched" style="color: red; font-size: 12px; margin-top: 5px;">
-        La prioridad es requerida
-      </div>
-    </div>
-
-    <!-- Checkboxes -->
-    <div style="margin-bottom: 0.5rem;">
-      <input type="checkbox" id="anonimo" formControlName="anonymous">
-      <label for="anonimo">Desea enviar la denuncia anonimamente</label>
-    </div>
-
-    <div style="margin-bottom: 2rem;">
-      <input
-        type="checkbox"
-        id="terminos"
-        formControlName="termsAccepted"
-        [class.error]="form.get('termsAccepted')?.invalid && form.get('termsAccepted')?.touched"
-      >
-      <label for="terminos">Aceptar términos y condiciones. *</label>
-      <div *ngIf="form.get('termsAccepted')?.invalid && form.get('termsAccepted')?.touched" style="color: red; font-size: 12px; margin-top: 5px;">
-        Debe aceptar los términos y condiciones
-      </div>
-    </div>
-
-    <!-- Botones -->
-    <div style="display: flex; gap: 1rem;">
-      <button
-        type="submit"
-        [disabled]="form.invalid"
-        style="border: 1px solid #1a1a1a; background: #1a1a1a; color: white; border-radius: 20px; padding: 10px 24px; cursor: pointer;"
-        [style.opacity]="form.invalid ? '0.5' : '1'"
-        [style.cursor]="form.invalid ? 'not-allowed' : 'pointer'"
-      >
-        Enviar denuncia
-      </button>
-      <button
-        type="button"
-        (click)="saveDraft()"
-        style="border: 1px solid #1a1a1a; background: white; color: #1a1a1a; border-radius: 20px; padding: 10px 24px; cursor: pointer;"
-      >
-        Guardar Borrador
-      </button>
-    </div>
-
-    <!-- Información del estado del formulario -->
-    <div *ngIf="form.invalid" style="margin-top: 1rem; padding: 10px; background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 4px;">
-      <strong>⚠️ Complete todos los campos requeridos (*) para enviar la denuncia</strong>
-    </div>
-  </form>
-
-  <div class="imagen-container">
-    <img src="/secret-image.png" alt="Ilustración" style="max-width: 350px;">
   </div>
 </div>

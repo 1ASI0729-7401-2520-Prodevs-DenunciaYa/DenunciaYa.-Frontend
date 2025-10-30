@@ -115,7 +115,6 @@ export class EditComplaintComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error loading complaint:', err);
-        alert('Error al cargar la denuncia');
       }
     });
   }

@@ -1,9 +1,10 @@
 import { Component, OnInit, ChangeDetectorRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChartModule } from 'primeng/chart';
-import { ComplaintsApiService } from '../../../infrastructure/complaint-api';
-import { Complaint } from '../../../model/domain/complaint.entity';
+
 import {TranslatePipe} from '@ngx-translate/core';
+import {Complaint} from '../../../../complaint-creation/domain/model/complaint.entity';
+import {ComplaintsApiService} from '../../../../complaint-creation/infrastructure/complaint-api';
 
 @Component({
   selector: 'app-authority-metrics-and-graphs',

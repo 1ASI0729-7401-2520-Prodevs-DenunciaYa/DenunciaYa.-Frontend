@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import {Observable, map, tap, catchError, of} from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Complaint } from '../domain/model/complaint.entity';
 import { ComplaintResource } from './complaint-response';
@@ -10,7 +10,6 @@ import { ComplaintAssembler } from './complaint-assembler';
   providedIn: 'root'
 })
 export class ComplaintsApiService {
-  // ✅ Usa el base URL correcto desde environment
   private readonly baseUrl = environment.platformProviderApiBaseUrl;
   private readonly endpoint = environment.platformProviderComplaintsEndpointPath;
 
@@ -23,6 +22,43 @@ export class ComplaintsApiService {
     return this.http
       .get<ComplaintResource[]>(`${this.baseUrl}${this.endpoint}`)
       .pipe(map(resources => resources.map(resource => ComplaintAssembler.toEntityFromResource(resource))));
+  }
+
+  getAllComplaints(): Observable<{ status: string; complaints: Complaint[] }> {
+    return this.http.get<any>(`${this.baseUrl}${this.endpoint}`)
+      .pipe(
+        tap(response => {
+        }),
+        map((response: any) => {
+          if (Array.isArray(response)) {
+            return {
+              status: 'success',
+              complaints: response
+            };
+          }
+          // Si tiene la estructura esperada
+          else if (response.complaints) {
+            return {
+              status: response.status || 'success',
+              complaints: response.complaints
+            };
+          }
+          // Si es un objeto con datos de complaint
+          else {
+            return {
+              status: 'success',
+              complaints: [response] // convierte a array
+            };
+          }
+        }),
+        catchError(error => {
+          console.error('Error fetching complaints:', error);
+          return of({
+            status: 'error',
+            complaints: []
+          });
+        })
+      );
   }
 
   /**
@@ -41,7 +77,13 @@ export class ComplaintsApiService {
   getComplaintById(id: string): Observable<Complaint> {
     return this.http
       .get<ComplaintResource>(`${this.baseUrl}${this.endpoint}/${id}`)
-      .pipe(map(resource => ComplaintAssembler.toEntityFromResource(resource)));
+      .pipe(
+        catchError(error => {
+          console.error('API Error for ID:', id, error);
+          throw error;
+        }),
+        map(resource => ComplaintAssembler.toEntityFromResource(resource))
+      );
   }
 
   /**

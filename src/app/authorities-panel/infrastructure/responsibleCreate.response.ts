@@ -1,21 +1,25 @@
-import { BaseResource, BaseResponse } from '../../shared/infrastructure/base-response';
 
-export interface ResponsibleResource extends BaseResource {
-  id: number;
+export interface ResponsibleResource{
+  id: string;
   firstName: string;
   lastName: string;
+  fullName?: string;
   email: string;
+  position?: string;
+  department?: string;
   phone: string;
   role: string;
-  description: string[];
+  description: string;
   accessLevel: string;
+  status: 'active' | 'inactive';
+  assignedComplaints?: string[];
   createdAt: string;
 }
 
-export interface ResponsibleResponse extends BaseResponse {
+export interface ResponsibleResponse{
   responsible: ResponsibleResource;
 }
 
-export interface ResponsiblesResponse extends BaseResponse {
+export interface ResponsiblesResponse{
   responsibles: ResponsibleResource[];
 }

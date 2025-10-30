@@ -1,0 +1,273 @@
+<!-- complaint-assignment.component.html -->
+<div class="team-management-container">
+  <div class="header-section">
+    <h2>Team Management & Case Assignment</h2>
+    <p>Manage your team members and assign cases efficiently</p>
+  </div>
+
+  <!-- Team Statistics -->
+  <div class="stats-grid">
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <div class="stat-item">
+          <mat-icon class="stat-icon">groups</mat-icon>
+          <div class="stat-info">
+            <span class="stat-number">{{ teamStats().totalMembers }}</span>
+            <span class="stat-label">Team Members</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <div class="stat-item">
+          <mat-icon class="stat-icon">check_circle</mat-icon>
+          <div class="stat-info">
+            <span class="stat-number">{{ teamStats().availableMembers }}</span>
+            <span class="stat-label">Available</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <div class="stat-item">
+          <mat-icon class="stat-icon">assignment</mat-icon>
+          <div class="stat-info">
+            <span class="stat-number">{{ teamStats().activeCases }}</span>
+            <span class="stat-label">Active Cases</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <div class="stat-item">
+          <mat-icon class="stat-icon">inventory</mat-icon>
+          <div class="stat-info">
+            <span class="stat-number">{{ teamStats().totalCases }}</span>
+            <span class="stat-label">Total Cases</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <button mat-raised-button color="primary" (click)="reloadData()" [disabled]="loading()">
+      <mat-icon>refresh</mat-icon>
+      Refresh Data
+    </button>
+
+    <div class="spacer"></div>
+
+    <button mat-button color="warn" (click)="clearFilters()">
+      <mat-icon>clear_all</mat-icon>
+      Clear Filters
+    </button>
+  </div>
+
+  <!-- Filters -->
+  <mat-card class="filters-card">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>filter_list</mat-icon>
+        Filters
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="filterForm" class="filters-form">
+        <div class="filter-row">
+          <mat-form-field appearance="outline" class="filter-field">
+            <mat-label>Department</mat-label>
+            <mat-select formControlName="department">
+              <mat-option value="">All Departments</mat-option>
+              <mat-option *ngFor="let department of departments()" [value]="department">
+                {{ department }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="filter-field">
+            <mat-label>Case Status</mat-label>
+            <mat-select formControlName="status">
+              <mat-option value="">All Statuses</mat-option>
+              <mat-option *ngFor="let status of statuses()" [value]="status">
+                {{ status }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="filter-field">
+            <mat-label>Priority</mat-label>
+            <mat-select formControlName="priority">
+              <mat-option value="">All Priorities</mat-option>
+              <mat-option *ngFor="let priority of priorities()" [value]="priority">
+                {{ priority }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Team Members Table -->
+  <div class="team-table">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Team Members & Assignments</mat-card-title>
+        <mat-card-subtitle>
+          Showing {{ teamMembersWithAssignments().length }} team members
+          <span *ngIf="departmentFilter()"> • Department: {{ departmentFilter() }}</span>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <table mat-table [dataSource]="teamMembersWithAssignments()" class="mat-elevation-z1">
+          <!-- Team Member -->
+          <ng-container matColumnDef="teamMember">
+            <th mat-header-cell *matHeaderCellDef>Team Member</th>
+            <td mat-cell *matCellDef="let member">
+              <div class="member-info">
+                <div class="member-avatar">
+                  <mat-icon>person</mat-icon>
+                </div>
+                <div class="member-details">
+                  <strong>{{ member.firstName }} {{ member.lastName }}</strong>
+                  <small>{{ member.position }} • {{ member.department }}</small>
+                  <div class="contact-info">
+                    <mat-icon class="contact-icon">email</mat-icon>
+                    <span>{{ member.email }}</span>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Status -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let member">
+              <div class="status-indicator">
+                <mat-icon [class]="member.status">{{ getStatusIcon(member.status) }}</mat-icon>
+                <span [class]="member.status">{{ member.status | titlecase }}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Workload -->
+          <ng-container matColumnDef="workload">
+            <th mat-header-cell *matHeaderCellDef>Workload</th>
+            <td mat-cell *matCellDef="let member">
+              <div class="workload-container">
+                <mat-progress-bar
+                  [value]="member.workload"
+                  [color]="getWorkloadColor(member.workload)"
+                  mode="determinate">
+                </mat-progress-bar>
+                <span class="workload-text">{{ member.workload.toFixed(0) }}%</span>
+              </div>
+              <small>{{ member.assignedCases.length }} assigned cases</small>
+            </td>
+          </ng-container>
+
+          <!-- Assigned Cases -->
+          <ng-container matColumnDef="assignedCases">
+            <th mat-header-cell *matHeaderCellDef>Assigned Cases</th>
+            <td mat-cell *matCellDef="let member">
+              <div class="cases-list" *ngIf="member.assignedCases.length > 0; else noAssignedCases">
+                <div *ngFor="let caseItem of member.assignedCases" class="case-item">
+                  <div class="case-header">
+                    <span class="case-id">#{{ caseItem.id }}</span>
+                    <mat-icon
+                      [class]="caseItem.priority"
+                      [matTooltip]="caseItem.priority | titlecase"
+                      class="priority-icon">
+                      {{ getPriorityIcon(caseItem.priority) }}
+                    </mat-icon>
+                  </div>
+                  <span class="case-title">{{ caseItem.title }}</span>
+                  <button
+                    mat-icon-button
+                    color="warn"
+                    (click)="unassignCase(getAssignmentIdForCase(member, caseItem.id))"
+                    [disabled]="loading()"
+                    class="unassign-btn">
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </div>
+              </div>
+              <ng-template #noAssignedCases>
+                <span class="no-cases">No assigned cases</span>
+              </ng-template>
+            </td>
+          </ng-container>
+
+          <!-- Available Cases -->
+          <ng-container matColumnDef="availableCases">
+            <th mat-header-cell *matHeaderCellDef>Assign New Case</th>
+            <td mat-cell *matCellDef="let member">
+              <mat-form-field appearance="outline" class="case-select">
+                <mat-label>Select Case</mat-label>
+                <mat-select
+                  [value]="getSelectedCase(member.id) || ''"
+                  (selectionChange)="onCaseAssignment(member.id, $event.value)">
+                  <mat-option value="">No case selected</mat-option>
+                  <mat-option
+                    *ngFor="let caseItem of member.availableCases"
+                    [value]="caseItem.id"
+                    [disabled]="member.status === 'offline'">
+                    <div class="case-option">
+                      <span class="case-id">#{{ caseItem.id }}</span>
+                      <span class="case-priority" [class]="caseItem.priority">
+                        {{ caseItem.priority }}
+                      </span>
+                      <span class="case-category">{{ caseItem.category }}</span>
+                    </div>
+                  </mat-option>
+                  <mat-option *ngIf="member.availableCases.length === 0" disabled>
+                    No available cases for this department
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+          </ng-container>
+
+          <!-- Actions -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let member">
+              <button
+                mat-raised-button
+                color="primary"
+                (click)="assignCase(member.id)"
+                [disabled]="!hasPendingChanges(member.id) || loading() || member.status === 'offline'"
+                class="assign-btn">
+                <mat-icon>assignment</mat-icon>
+                Assign Case
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <div *ngIf="teamMembersWithAssignments().length === 0 && !loading()" class="empty-state">
+          <mat-icon>group_off</mat-icon>
+          <p>No team members found with the applied filters</p>
+          <button mat-button color="primary" (click)="clearFilters()">Clear filters</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div *ngIf="loading()" class="loading-overlay">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>Loading team data...</p>
+  </div>
+</div>

@@ -1,0 +1,74 @@
+.empty-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+.empty-state-content {
+  max-width: 500px;
+}
+
+.empty-state h2 {
+  color: #666;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.empty-image {
+  margin: 2rem 0;
+}
+
+.empty-message {
+  color: #888;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.empty-action-button {
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+}
+
+/* Estilos para los estados de las denuncias */
+.status-pending {
+  color: #ff9800;
+  font-weight: 500;
+}
+
+.status-inprocess {
+  color: #2196f3;
+  font-weight: 500;
+}
+
+.status-resolved {
+  color: #4caf50;
+  font-weight: 500;
+}
+
+.status-rejected {
+  color: #f44336;
+  font-weight: 500;
+}
+
+table {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .empty-state {
+    padding: 2rem 1rem;
+  }
+
+  .empty-state h2 {
+    font-size: 1.3rem;
+  }
+
+  .empty-message {
+    font-size: 1rem;
+  }
+}

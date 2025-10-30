@@ -3,9 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {DatePipe, NgClass, NgForOf, NgIf} from '@angular/common';
 import { TimelineModule, TimelineItemModel } from '@syncfusion/ej2-angular-layouts';
 import { MatButtonModule } from '@angular/material/button';
-import {ComplaintsApiService} from '../../../infrastructure/complaint-api';
-import {Complaint, TimelineItem} from '../../../model/domain/complaint.entity';
+
 import {TranslatePipe} from '@ngx-translate/core';
+import {Complaint} from '../../../../complaint-creation/domain/model/complaint.entity';
+import {ComplaintsApiService} from '../../../../complaint-creation/infrastructure/complaint-api';
 
 @Component({
   selector: 'app-complaint-detail-citizen',

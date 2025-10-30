@@ -1,5 +1,4 @@
 export interface ComplaintsResponse {
-  //status: string;
   complaints: ComplaintResource[];
 }
 

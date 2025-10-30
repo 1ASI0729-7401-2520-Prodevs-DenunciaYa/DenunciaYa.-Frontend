@@ -1,6 +1,22 @@
 import {Complaint, TimelineItem} from '../domain/model/complaint.entity';
 import {ComplaintResource, ComplaintsResponse, TimelineItemResource} from './complaint-response';
-
+/**
+ * This class is responsible for converting between Complaint entities and their corresponding resources.
+ * It provides methods to transform data received from the API into domain entities and vice versa.
+ * @class ComplaintAssembler
+ * @summary Converts between Complaint entities and resources.
+ * @param {ComplaintResource} resource - The resource representation of a complaint.
+ * @param {ComplaintsResponse} response - The response containing multiple complaint resources.
+ * @param {TimelineItemResource} resource - The resource representation of a timeline item.
+ * @param {Complaint} entity - The domain entity representation of a complaint.
+ * @param {TimelineItem} item - The domain entity representation of a timeline item.
+ * @returns {Complaint} The domain entity representation of the complaint.
+ * @returns {Complaint[]} An array of domain entity representations of complaints.
+ * @returns {TimelineItem} The domain entity representation of the timeline item.
+ * @returns {ComplaintResource} The resource representation of the complaint.
+ * @returns {TimelineItemResource} The resource representation of the timeline item.
+ * @author Omar Harold Rivera Ticllacuri
+ */
 export class ComplaintAssembler {
 
   static toEntityFromResource(resource: ComplaintResource): Complaint {
@@ -39,7 +55,7 @@ export class ComplaintAssembler {
 
   static toResourceFromEntity(entity: Complaint): ComplaintResource {
     return {
-      id: String(entity.id),
+      id: entity.id,
       category: entity.category,
       department: entity.department,
       city: entity.city,

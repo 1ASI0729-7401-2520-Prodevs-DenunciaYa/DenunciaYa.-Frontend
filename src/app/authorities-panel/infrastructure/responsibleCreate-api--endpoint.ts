@@ -3,33 +3,52 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Responsible } from '../domain/model/responsibleCreate.entity';
 import { ResponsibleAssembler } from './responsibleCreate.assembler';
-import {
-  ResponsibleResource,
-  ResponsiblesResponse,
-} from './responsibleCreate.response';
-import { BaseApiEndpoint } from '../../shared/infrastructure/base-api-endpoint';
+import { ResponsibleResource, ResponsiblesResponse } from './responsibleCreate.response';
 import { environment } from '../../../environments/environment';
+import {map} from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
-export class ResponsibleApiEndpoint extends BaseApiEndpoint<
-  Responsible,
-  ResponsibleResource,
-  ResponsiblesResponse,
-  ResponsibleAssembler
-> {
-  // ✅ Usa override (la clase base ya tiene esta propiedad)
-  override readonly endpointUrl = `${environment.platformProviderApiBaseUrl}${environment.platformProviderResponsiblesEndpointPath}`;
+export class ResponsibleApiEndpoint {
+  private readonly endpointUrl = `${environment.platformProviderApiBaseUrl}${environment.platformProviderResponsiblesEndpointPath}`;
+  private assembler = new ResponsibleAssembler();
 
-  constructor(http: HttpClient) {
-    super(
-      http,
-      `${environment.platformProviderApiBaseUrl}${environment.platformProviderResponsiblesEndpointPath}`,
-      new ResponsibleAssembler()
-    );
+  constructor(private http: HttpClient) {}
+
+  getAll(): Observable<Responsible[]> {
+    return this.http.get<ResponsibleResource[]>(this.endpointUrl)
+      .pipe(
+        map(resources => resources.map(resource => this.assembler.toEntityFromResource(resource)))
+      );
   }
 
-  // 👇 Este método no necesita override, porque no existe en la base
-  patch(id: number, partial: Partial<Responsible>): Observable<Responsible> {
+  getById(id: string): Observable<Responsible> {
+    return this.http.get<ResponsibleResource>(`${this.endpointUrl}/${id}`)
+      .pipe(
+        map(resource => this.assembler.toEntityFromResource(resource))
+      );
+  }
+
+  create(responsible: Responsible): Observable<Responsible> {
+    const resource = this.assembler.toResourceFromEntity(responsible);
+    return this.http.post<ResponsibleResource>(this.endpointUrl, resource)
+      .pipe(
+        map(response => this.assembler.toEntityFromResource(response))
+      );
+  }
+
+  patch(id: string, partial: Partial<Responsible>): Observable<Responsible> {
     return this.http.patch<Responsible>(`${this.endpointUrl}/${id}`, partial);
+  }
+
+  update(id: string, responsible: Responsible): Observable<Responsible> {
+    const resource = this.assembler.toResourceFromEntity(responsible);
+    return this.http.put<ResponsibleResource>(`${this.endpointUrl}/${id}`, resource)
+      .pipe(
+        map(response => this.assembler.toEntityFromResource(response))
+      );
+  }
+
+  delete(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.endpointUrl}/${id}`);
   }
 }

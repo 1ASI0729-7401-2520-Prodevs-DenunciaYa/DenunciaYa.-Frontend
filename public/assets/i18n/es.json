@@ -756,7 +756,178 @@
   "Complaints": "Denuncias",
   "Date": "Fecha",
   "Details": "Detalles",
-  "View Complaint": "Ver Denuncia"
-
+  "View Complaint": "Ver Denuncia",
+  "COMPLAINT_FORM": {
+    "TITLE": "Denunciar Ahora",
+    "SUBTITLE": "Reporte problemas en su comunidad de manera rápida y segura",
+    "SECTIONS": {
+      "CATEGORY_LOCATION": "Categoría y Ubicación",
+      "REFERENCE": "Referencia",
+      "DESCRIPTION": "Descripción",
+      "EVIDENCE": "Evidencias",
+      "OPTIONS": "Opciones"
+    },
+    "FIELDS": {
+      "CATEGORY": {
+        "LABEL": "Categoría *",
+        "PLACEHOLDER": "Seleccione categoría",
+        "OPTIONS": {
+          "INFRASTRUCTURE": "Infraestructura y Espacios Públicos",
+          "ENVIRONMENT": "Medio Ambiente",
+          "SECURITY": "Seguridad Ciudadana",
+          "TRANSPORT": "Transporte y Movilidad",
+          "HEALTH": "Salud Pública",
+          "CLEANING": "Limpieza Urbana",
+          "PUBLIC_TRANSPORT": "Transporte Público",
+          "OTHERS": "Otros"
+        }
+      },
+      "PRIORITY": {
+        "LABEL": "Tipo de Prioridad *",
+        "PLACEHOLDER": "Seleccione prioridad",
+        "OPTIONS": {
+          "STANDARD": "Standard",
+          "URGENT": "Urgent",
+          "CRITICAL": "Critical"
+        }
+      },
+      "LOCATION": {
+        "TITLE": "Ubicación Geográfica",
+        "DEPARTMENT": {
+          "LABEL": "Departamento",
+          "PLACEHOLDER": "Seleccione departamento"
+        },
+        "PROVINCE": {
+          "LABEL": "Provincia",
+          "PLACEHOLDER": "Seleccione provincia"
+        },
+        "DISTRICT": {
+          "LABEL": "Distrito",
+          "PLACEHOLDER": "Seleccione distrito"
+        },
+        "CITY": {
+          "LABEL": "Ciudad",
+          "PLACEHOLDER": "Seleccione ciudad"
+        }
+      }
+    ,
+      "REFERENCE": {
+        "LABEL": "Información adicional de referencia",
+        "PLACEHOLDER": "Ej: Frente al parque, al lado del mercado municipal..."
+      },
+      "DESCRIPTION": {
+        "LABEL": "Información de la denuncia *",
+        "PLACEHOLDER": "Describa detalladamente el problema que desea reportar...",
+        "HINT": "Mínimo 10 caracteres. Sea específico y claro en su descripción."
+      },
+      "EVIDENCE": {
+        "LABEL": "URLs de evidencias (opcional)",
+        "PLACEHOLDER": "https://ejemplo.com/foto1.jpg, https://ejemplo.com/foto2.jpg",
+        "HINT": "Separe múltiples URLs con comas"
+      }
+    },
+    "OPTIONS": {
+      "ANONYMOUS": {
+        "LABEL": "Desea enviar la denuncia anonimamente",
+        "DESCRIPTION": "Su identidad no será revelada"
+      },
+      "TERMS": {
+        "LABEL": "Aceptar términos y condiciones *",
+        "DESCRIPTION": "He leído y acepto los términos del servicio"
+      },
+      "TERMS_ERROR": "Debe aceptar los términos y condiciones para enviar la denuncia"
+    },
+    "BUTTONS": {
+      "SUBMIT": "Enviar denuncia",
+      "SAVE_DRAFT": "Guardar Borrador"
+    },
+    "VALIDATION": {
+      "REQUIRED_FIELDS": "Complete todos los campos requeridos (*) para enviar la denuncia"
+    },
+    "SIDEBAR": {
+      "TITLE": "Su voz importa",
+      "DESCRIPTION": "Al reportar problemas, contribuye a mejorar la calidad de vida en su comunidad y ayuda a las autoridades a identificar y solucionar issues importantes.",
+      "BENEFITS": {
+        "SECURITY": "Reporte seguro y confidencial",
+        "SPEED": "Proceso rápido y sencillo",
+        "COMMUNITY": "Impacto positivo en la comunidad"
+      }
+    }
+  },
+  "COMPLAINT_DETAIL": {
+    "LOADING": "Cargando detalles de la denuncia...",
+    "TITLE": "Detalles de la Denuncia",
+    "TIMELINE": {
+      "SECTION_LABEL": "Línea de Tiempo del Estado de la Denuncia",
+      "ARIA_LABEL": "Línea de tiempo mostrando el estado actual y progreso de la denuncia"
+    },
+    "INFO_SECTION": {
+      "LABEL": "Información de la Denuncia",
+      "FIELDS": {
+        "CATEGORY": "Categoría",
+        "DEPARTMENT": "Departamento",
+        "CITY": "Ciudad",
+        "DISTRICT": "Distrito",
+        "LOCATION": "Ubicación",
+        "REFERENCE_INFO": "Información de Referencia",
+        "DESCRIPTION": "Descripción",
+        "STATUS": "Estado",
+        "PRIORITY": "Prioridad",
+        "EVIDENCE": "Evidencias",
+        "ASSIGNED_TO": "Asignado A"
+      },
+      "ARIA_LABELS": {
+        "CURRENT_STATUS": "Estado actual: {{ status }}",
+        "PRIORITY_LEVEL": "Nivel de prioridad: {{ priority }}",
+        "EVIDENCE_IMAGES": "Galería de imágenes de evidencia",
+        "EVIDENCE_IMAGE_ALT": "Imagen de evidencia {{ number }}"
+      }
+    },
+    "RESPONSIBLE_SECTION": {
+      "LABEL": "Información del Responsable",
+      "BUTTON": {
+        "ARIA_LABEL": "Ver información de la persona responsable",
+        "TEXT": "Ver Responsable"
+      }
+    },
+    "UPDATE_CHANNEL": {
+      "LABEL": "Canal de Actualizaciones",
+      "TITLE": "Última Actualización",
+      "LAST_UPDATE": "Fecha y hora de la última actualización"
+    },
+    "CONTROLS": {
+      "TIMELINE_CONTROLS": "Botones de Control de la Línea de Tiempo",
+      "ADVANCE_STATUS": {
+        "ARIA_LABEL": "Avanzar denuncia al siguiente estado",
+        "BUTTON": "Avanzar Estado"
+      },
+      "DECISION_BUTTONS": {
+        "LABEL": "Opciones de Decisión",
+        "ACCEPT": {
+          "ARIA_LABEL": "Aceptar y completar denuncia",
+          "BUTTON": "Aceptar"
+        },
+        "REJECT": {
+          "ARIA_LABEL": "Rechazar denuncia",
+          "BUTTON": "Rechazar"
+        }
+      },
+      "RESET_TIMELINE": {
+        "ARIA_LABEL": "Reiniciar línea de tiempo de la denuncia al estado inicial",
+        "BUTTON": "Reiniciar Línea de Tiempo"
+      }
+    },
+    "MANAGEMENT": {
+      "LABEL": "Gestión de Denuncia",
+      "EDIT": {
+        "ARIA_LABEL": "Editar esta denuncia",
+        "BUTTON": "Editar Denuncia"
+      },
+      "DELETE": {
+        "ARIA_LABEL": "Eliminar esta denuncia",
+        "BUTTON": "Eliminar Denuncia"
+      }
+    }
+  }
 
 }
