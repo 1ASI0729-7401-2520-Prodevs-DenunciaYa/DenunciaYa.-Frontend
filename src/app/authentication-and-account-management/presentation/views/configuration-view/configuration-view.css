@@ -99,7 +99,6 @@ h1 {
   background-color: #135ca0;
 }
 
-/* ======= RESPONSIVE DESIGN ======= */
 
 @media (max-width: 900px) {
   .config-content {
@@ -235,7 +234,6 @@ h1 {
   height: auto;
 }
 
-/* Botón para prueba de rol */
 .test-role-btn {
   display: block;
   margin: 40px auto;
@@ -251,7 +249,6 @@ h1 {
   background-color: #e89c00;
 }
 
-/* Responsive */
 @media (max-width: 900px) {
   .config-content {
     flex-direction: column-reverse;

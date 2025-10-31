@@ -92,13 +92,14 @@ export class LoginForm {
       }
 
       this.snackbar.show(`Welcome, ${user.firstName}!`, 'green', 3000);
-      localStorage.setItem('user', JSON.stringify(user));
 
-      // 👇 Aquí hacemos la redirección fija
-      this.router.navigate(['/authority/home']);
+      if (user.role === 'authority' || user.role === 'responsibles') {
+        this.router.navigate(['/home']);
+      } else {
+        this.router.navigate(['/home']);
+      }
 
     } catch (err) {
-      console.error('Login error:', err);
       this.snackbar.show('Server error, please try again later.', 'red');
     }
   }

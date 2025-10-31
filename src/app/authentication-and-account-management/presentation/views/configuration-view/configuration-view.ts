@@ -71,7 +71,6 @@ export class ConfigurationView implements OnInit {
 
     dialogRef.afterClosed().subscribe((confirmed) => {
       if (confirmed) {
-        console.log('Configuration saved:', this.configForm.value);
         this.snackBar.open('Changes saved successfully!', 'Close', { duration: 2500 });
         setTimeout(() => {
           this.configForm.markAsPristine();
@@ -99,6 +98,5 @@ export class ConfigurationView implements OnInit {
 
   toggleRole() {
     this.userRole = this.userRole === 'citizen' ? 'authority' : 'citizen';
-    console.log('Role changed to:', this.userRole);
   }
 }

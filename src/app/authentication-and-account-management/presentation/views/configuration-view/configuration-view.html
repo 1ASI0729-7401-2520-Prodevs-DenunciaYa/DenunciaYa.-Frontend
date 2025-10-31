@@ -58,7 +58,7 @@
     <div class="config-right" [attr.aria-label]="'CONFIGURATION.ARIA_LABELS.RIGHT_PANEL' | translate">
 
       <div *ngIf="userRole === 'authority'" class="selected-plan-card">
-        <h3>{{ selectedPlan === 'premium' ? ('CONFIGURATION.PLANS.PREMIUM' | translate) : ('CONFIGURATION.PLANS.BASIC' | translate) }} {{ 'CONFIGURATION.PLANS.PLAN' | translate }}</h3>
+        <h3>{{ selectedPlan === 'premium' ? ('CONFIGURATION.PLANS.PREMIUM' | translate) : ('CONFIGURATION.PLANS.BASIC' | translate) }} Plan</h3>
         <p class="plan-price">
           {{ selectedPlan === 'premium' ? ('CONFIGURATION.PLANS.PRICE_PREMIUM' | translate) : ('CONFIGURATION.PLANS.PRICE_BASIC' | translate) }}
         </p>

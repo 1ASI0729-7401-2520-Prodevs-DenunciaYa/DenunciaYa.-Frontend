@@ -136,7 +136,6 @@ body, html {
   height: 50px;
   object-fit: contain;
 }
-/* Botón deshabilitado con color tenue */
 .mat-mdc-button-base.mat-flat-button.mat-primary:disabled {
   background-color: #8abefc !important;
   color: white !important;

@@ -3,13 +3,14 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { Router } from '@angular/router';
 import {MatError, MatFormField, MatFormFieldModule, MatLabel} from '@angular/material/form-field';
 import {MatInput, MatInputModule} from '@angular/material/input';
-import { MatIcon } from '@angular/material/icon';
 import {MatButton, MatButtonModule, MatIconButton} from '@angular/material/button';
 import { MatCheckbox } from '@angular/material/checkbox';
 import {CommonModule} from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import {SnackbarService} from '../../component/snackbar-component/snackbar.service';
 import {TranslatePipe} from '@ngx-translate/core';
+import {MatIconModule} from '@angular/material/icon';
+import {AuthService} from '../../../infrastructure/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -21,7 +22,7 @@ import {TranslatePipe} from '@ngx-translate/core';
     MatFormField,
     MatLabel,
     MatInput,
-    MatIcon,
+    MatIconModule,
     MatIconButton,
     MatCheckbox,
     MatError,
@@ -51,7 +52,8 @@ export class RegisterComponent {
 
   namePattern = /^[a-zA-Z\s]+$/;
 
-  constructor(private fb: FormBuilder, private router: Router, private snackbar: SnackbarService,  private http: HttpClient) {
+  constructor(private fb: FormBuilder, private router: Router, private snackbar: SnackbarService,  private http: HttpClient,
+              private authService: AuthService ) {
     this.registerForm = this.fb.group({
       firstName: ['', [Validators.required, Validators.pattern(this.namePattern)]],
       lastName: ['', [Validators.required, Validators.pattern(this.namePattern)]],
@@ -69,7 +71,6 @@ export class RegisterComponent {
   navigateToLogin() {
     this.router.navigate(['/authentication/login']);
   }
-
   onRegister() {
     if (this.registerForm.invalid) {
       this.snackbar.show('Please correct the errors in the form!', 'red', 7000);
@@ -81,14 +82,20 @@ export class RegisterComponent {
       ...this.registerForm.value,
       id: Math.floor(Math.random() * 1000000),
       role: this.selectedRole,
-      plan: '',
-      paymentStatus: 'pending'
+      plan: this.selectedRole === 'citizen' ? '' : '',
+      paymentStatus: this.selectedRole === 'citizen' ? 'completed' : 'pending'
     };
 
+    this.authService.setCurrentUser(user);
     localStorage.setItem('pendingUser', JSON.stringify(user));
 
-    this.snackbar.show('User registered! Continue selecting a plan.', 'green', 4000);
-    this.router.navigate(['/authentication/plan']);
+    if (this.selectedRole === 'citizen') {
+      this.snackbar.show('User registered successfully!', 'green', 4000);
+      this.router.navigate(['/home']);
+    } else {
+      this.snackbar.show('User registered! Continue selecting a plan.', 'green', 4000);
+      this.router.navigate(['/authentication/plan']);
+    }
   }
 
 

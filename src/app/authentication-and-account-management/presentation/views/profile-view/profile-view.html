@@ -5,7 +5,14 @@
       <h1>{{ 'PROFILE.TITLE' | translate }}</h1>
       <p class="subtitle">
         {{ 'PROFILE.SUBTITLE' | translate }}
+        <span class="user-role-badge">{{ userRole | titlecase }}</span>
       </p>
+
+      <div class="user-info-summary" *ngIf="currentUser">
+        <p><strong>User ID:</strong> {{ currentUser.id }}</p>
+        <p><strong>Plan:</strong> {{ currentUser.plan || 'No plan selected' }}</p>
+        <p><strong>Payment Status:</strong> {{ currentUser.paymentStatus }}</p>
+      </div>
 
       <form [formGroup]="profileForm" [attr.aria-label]="'PROFILE.ARIA_LABELS.FORM' | translate">
         <mat-form-field appearance="fill" class="input-field">

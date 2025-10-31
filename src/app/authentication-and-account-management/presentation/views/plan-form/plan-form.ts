@@ -32,21 +32,25 @@ export class PlanForm {
   }
 
   navigateToLogin() {
-    this.router.navigate(['/login']);
+    this.router.navigate(['authentication/register']);
   }
-
   continueToRegister() {
     if (this.selectedPlan) {
       const pendingUser = localStorage.getItem('pendingUser');
       if (pendingUser) {
         const user = JSON.parse(pendingUser);
-        user.plan = this.selectedPlan;
-        localStorage.setItem('pendingUser', JSON.stringify(user));
-      }
 
-      this.router.navigate(['authentication/payment'], {
-        queryParams: { plan: this.selectedPlan },
-      });
+        if (user.role === 'authority') {
+          user.plan = this.selectedPlan;
+          localStorage.setItem('pendingUser', JSON.stringify(user));
+
+          this.router.navigate(['/authentication/payment'], {
+            queryParams: { plan: this.selectedPlan },
+          });
+        } else {
+          this.router.navigate(['/home']);
+        }
+      }
     }
   }
 

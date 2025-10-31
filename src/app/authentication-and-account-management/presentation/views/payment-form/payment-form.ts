@@ -11,6 +11,7 @@ import { MatButton } from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import {TranslatePipe} from '@ngx-translate/core';
+import {AuthService} from '../../../infrastructure/auth.service';
 
 @Component({
   selector: 'app-payment-form',
@@ -44,10 +45,10 @@ import {TranslatePipe} from '@ngx-translate/core';
  *  @author Omar Harold Rivera Ticllacuri
  */
 export class PaymentForm {
-  constructor(private router: Router, private http: HttpClient) {}
+  constructor(private router: Router, private http: HttpClient,private authService: AuthService ) {}
 
   navigateToPlans() {
-    this.router.navigate(['/authentication/plans']);
+    this.router.navigate(['/authentication/plan']);
   }
 
   confirmPayment() {
@@ -57,16 +58,20 @@ export class PaymentForm {
       const user = JSON.parse(pendingUser);
       user.paymentStatus = 'completed';
 
-      const endpoint =
-        user.role === 'authority'
-          ? 'https://denunciaya-fakeapi.onrender.com/authority'
-          : 'https://denunciaya-fakeapi.onrender.com/citizen';
+      const endpoint = `${this.authService['baseUrl']}/${user.role}`;
 
       this.http.post(endpoint, user).subscribe({
         next: () => {
+          this.authService.setCurrentUser(user);
           localStorage.removeItem('pendingUser');
+
           alert('Payment completed successfully!');
-          this.router.navigate(['/home']);
+
+          if (user.role === 'authority' || user.role === 'responsibles') {
+            this.router.navigate(['/home']);
+          } else {
+            this.router.navigate(['/home']);
+          }
         },
         error: () => {
           alert('Error saving user data.');
@@ -74,4 +79,5 @@ export class PaymentForm {
       });
     }
   }
+
 }

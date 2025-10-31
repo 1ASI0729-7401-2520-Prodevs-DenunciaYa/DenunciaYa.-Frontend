@@ -118,7 +118,6 @@ mat-flat-button:hover {
   background-color: #e89c00;
 }
 
-/* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
   .profile-content {
     flex-direction: column-reverse;

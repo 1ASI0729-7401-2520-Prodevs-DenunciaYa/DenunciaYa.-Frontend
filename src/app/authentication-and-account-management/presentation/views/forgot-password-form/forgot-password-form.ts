@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import {SnackbarService} from '../../component/snackbar-component/snackbar.service';
 import {TranslatePipe} from '@ngx-translate/core';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-forgot-password-form',
@@ -47,7 +48,7 @@ export class ForgotPasswordForm {
   ) {}
 
   navigateToHome() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/authentication/login']);
   }
 
   async onRecover() {
@@ -57,9 +58,12 @@ export class ForgotPasswordForm {
     }
 
     try {
+      const citizensUrl = `${environment.platformProviderApiBaseUrl}${environment.platformProviderCitizensEndpointPath}`;
+      const authoritiesUrl = `${environment.platformProviderApiBaseUrl}${environment.platformProviderAuthoritiesEndpointPath}`;
+
       const [citizens, authorities]: any = await Promise.all([
-        this.http.get<any[]>('https://denunciaya-fakeapi.onrender.com/citizen').toPromise(),
-        this.http.get<any[]>('https://denunciaya-fakeapi.onrender.com/authority').toPromise()
+        this.http.get<any[]>(citizensUrl).toPromise(),
+        this.http.get<any[]>(authoritiesUrl).toPromise()
       ]);
 
       const foundUser =
@@ -72,7 +76,6 @@ export class ForgotPasswordForm {
         this.snackbar.show('This email is not registered in our system.', 'red', 5000);
       }
     } catch (err) {
-      console.error('Error checking user:', err);
       this.snackbar.show('Server error. Please try again later.', 'red', 5000);
     }
   }
