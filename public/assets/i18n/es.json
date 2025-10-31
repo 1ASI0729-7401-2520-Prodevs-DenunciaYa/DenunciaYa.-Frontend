@@ -11,7 +11,8 @@
     "SETTINGS": "Configuración",
     "LOGOUT": "Cerrar cuenta",
     "COMMUNITY": "Comunidad",
-    "CREATERESPONSIBLE": "Crear Responsable"
+    "CREATERESPONSIBLE": "Crear Responsable",
+    "PROFILERESPONSIBLE": "Persona Responsable"
   },
 
   "CONFIGURATION": {
@@ -142,6 +143,166 @@
       "REGISTER_LINK": "Enlace para registrarse"
     }
   },
+
+  "SUPPORT": {
+    "TITLE": "Soporte y Ayuda",
+    "FAQS": "Preguntas Frecuentes",
+    "FAQ_ITEMS": {
+      "HOW_TO_COMPLAIN": {
+        "QUESTION": "¿Cómo realizo una nueva denuncia?",
+        "ANSWER": "Para realizar una nueva denuncia, dirígete a la sección \"Denuncias\" en el menú principal y haz clic en el botón \"Nueva Denuncia\". Completa el formulario con la información requerida y haz clic en \"Enviar\"."
+      },
+      "VIEW_STATUS": {
+        "QUESTION": "¿Cómo puedo ver el estado de mis denuncias?",
+        "ANSWER": "En la sección \"Denuncias\" encontrarás un listado de todas tus denuncias con su estado actual. Puedes hacer clic en cualquier denuncia para ver información detallada y el historial de actualizaciones."
+      },
+      "EDIT_COMPLAINT": {
+        "QUESTION": "¿Puedo editar una denuncia después de enviarla?",
+        "ANSWER": "Solo es posible editar una denuncia mientras esté en estado \"Pendiente de revisión\". Una vez que ha sido aceptada y cambia a \"En proceso\", no es posible modificarla. En ese caso, contacta a soporte para cualquier actualización."
+      },
+      "NOTIFICATION_PREFERENCES": {
+        "QUESTION": "¿Cómo cambio mis preferencias de notificación?",
+        "ANSWER": "Ve a la sección \"Configuración\" y luego a \"Preferencias de Notificación\". Allí podrás activar o desactivar las notificaciones por correo electrónico y push, según tus preferencias."
+      },
+      "FORGOT_PASSWORD": {
+        "QUESTION": "¿Qué hago si olvidé mi contraseña?",
+        "ANSWER": "En la página de inicio de sesión, haz clic en \"¿Olvidaste tu contraseña?\". Ingresa tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña."
+      }
+    },
+    "CONTACT": {
+      "TITLE": "Contacto de Soporte",
+      "PRIMARY_TECH_SUPPORT": "Soporte Técnico Primario:",
+      "EMERGENCY_SUPPORT": "Soporte para Emergencias del Sistema:",
+      "DESCRIPTION": "Si no encontraste respuesta a tu pregunta en las FAQs, completa el siguiente formulario y nuestro equipo te responderá a la brevedad."
+    },
+    "FORM": {
+      "SUBJECT": {
+        "LABEL": "Asunto",
+        "PLACEHOLDER": "Seleccione una opción",
+        "OPTIONS": {
+          "TECHNICAL": "Problema técnico",
+          "COMPLAINT": "Consulta sobre denuncia",
+          "ACCOUNT": "Problema con mi cuenta",
+          "OTHER": "Otro"
+        },
+        "ERRORS": {
+          "REQUIRED": "El asunto es requerido"
+        }
+      },
+      "COMPLAINT_NUMBER": {
+        "LABEL": "Número de denuncia",
+        "PLACEHOLDER": "Ej: #12345"
+      },
+      "MESSAGE": {
+        "LABEL": "Mensaje",
+        "PLACEHOLDER": "Describe tu consulta o problema en detalle",
+        "ERRORS": {
+          "REQUIRED": "El mensaje es requerido",
+          "MINLENGTH": "El mensaje debe tener al menos 10 caracteres"
+        }
+      },
+      "SUBMIT_BUTTON": "Enviar Problema"
+    }
+  }
+  ,
+  "TEAM_MANAGEMENT": {
+    "TITLE": "Gestión de Equipo y Asignación de Casos",
+    "SUBTITLE": "Gestiona los miembros de tu equipo y asigna casos eficientemente",
+    "STATS": {
+      "TEAM_MEMBERS": "Miembros del Equipo",
+      "AVAILABLE": "Disponibles",
+      "ACTIVE_CASES": "Casos Activos",
+      "TOTAL_CASES": "Casos Totales"
+    },
+    "ACTIONS": {
+      "REFRESH_DATA": "Actualizar Datos",
+      "CLEAR_FILTERS": "Limpiar Filtros",
+      "ASSIGN_CASE": "Asignar Caso",
+      "UNASSIGN": "Desasignar"
+    },
+    "FILTERS": {
+      "TITLE": "Filtros",
+      "DEPARTMENT": {
+        "LABEL": "Departamento",
+        "ALL": "Todos los Departamentos"
+      },
+      "STATUS": {
+        "LABEL": "Estado del Caso",
+        "ALL": "Todos los Estados"
+      },
+      "PRIORITY": {
+        "LABEL": "Prioridad",
+        "ALL": "Todas las Prioridades"
+      }
+    },
+    "TABLE": {
+      "TITLE": "Miembros del Equipo y Asignaciones",
+      "SUBTITLE": "Mostrando {{count}} miembros del equipo",
+      "DEPARTMENT_FILTER": "Departamento: {{department}}",
+      "COLUMNS": {
+        "TEAM_MEMBER": "Miembro del Equipo",
+        "STATUS": "Estado",
+        "WORKLOAD": "Carga de Trabajo",
+        "ASSIGNED_CASES": "Casos Asignados",
+        "ASSIGN_NEW_CASE": "Asignar Nuevo Caso",
+        "ACTIONS": "Acciones"
+      },
+      "MEMBERS": {
+        "CONTACT": "Contacto",
+        "ASSIGNED_CASES_COUNT": "casos asignados",
+        "NO_ASSIGNED_CASES": "No hay casos asignados",
+        "SELECT_CASE": "Seleccionar Caso",
+        "NO_CASE_SELECTED": "No se seleccionó caso",
+        "NO_AVAILABLE_CASES": "No hay casos disponibles para este departamento",
+        "CASE_OPTION": {
+          "ID": "#{{id}}",
+          "CATEGORY": "Categoría"
+        }
+      },
+      "STATUS": {
+        "ONLINE": "En Línea",
+        "OFFLINE": "Desconectado",
+        "BUSY": "Ocupado",
+        "AWAY": "Ausente"
+      },
+      "EMPTY_STATE": {
+        "TITLE": "No se encontraron miembros",
+        "MESSAGE": "No se encontraron miembros del equipo con los filtros aplicados",
+        "ACTION": "Limpiar filtros"
+      },
+      "LOADING": "Cargando datos del equipo..."
+    }
+  },
+  "COMPLAINT_EDIT_CITIZEN": {
+    "TITLE": "Editar Denuncia",
+    "SUBTITLE": "Modifica los detalles de tu denuncia",
+    "FIELDS": {
+      "CATEGORY": "Categoría",
+      "DEPARTMENT": "Departamento",
+      "CITY": "Ciudad",
+      "DISTRICT": "Distrito",
+      "LOCATION": "Ubicación específica",
+      "REFERENCE_INFO": "Información de referencia",
+      "DESCRIPTION": "Descripción detallada",
+      "PRIORITY": "Prioridad"
+    },
+    "ERRORS": {
+      "CATEGORY_REQUIRED": "La categoría es requerida",
+      "DEPARTMENT_REQUIRED": "El departamento es requerido",
+      "CITY_REQUIRED": "La ciudad es requerida",
+      "DISTRICT_REQUIRED": "El distrito es requerido",
+      "LOCATION_REQUIRED": "La ubicación es requerida",
+      "DESCRIPTION_REQUIRED": "La descripción es requerida",
+      "DESCRIPTION_MIN_LENGTH": "La descripción debe tener al menos 10 caracteres",
+      "PRIORITY_REQUIRED": "La prioridad es requerida"
+    },
+    "BUTTONS": {
+      "CANCEL": "Cancelar",
+      "SAVE": "Guardar Cambios",
+      "SAVING": "Guardando..."
+    }
+  }
+  ,
 
   "PAYMENT": {
     "BACK_BUTTON": "← Volver",

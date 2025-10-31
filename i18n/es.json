@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "SIDENAV": {
     "HOME": "Inicio",
     "REPORTS": "Denuncias",
@@ -10,9 +9,8 @@
     "DIRECTORY": "Directorio",
     "PROFILE": "Mi Perfil",
     "SETTINGS": "Configuración",
-    "LOGOUT": "Cerrar cuenta"
-  }
-=======
+    "LOGOUT": "Cerrar cuenta",
+    "PROFILERESPONSIBLE": "Persona Responsable"
 
->>>>>>> origin/feature/authorities-panel
+  }
 }

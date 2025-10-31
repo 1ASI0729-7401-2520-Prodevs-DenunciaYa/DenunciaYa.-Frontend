@@ -11,7 +11,8 @@
     "SETTINGS": "Settings",
     "LOGOUT": "Log Out",
     "COMMUNITY": "Community",
-    "CREATERESPONSIBLE": "Create Responsible"
+    "CREATERESPONSIBLE": "Create Responsible",
+    "PROFILERESPONSIBLE": "Responsible Person"
   },
   "COMMUNITY": {
     "TITLE": "Community"
@@ -103,6 +104,166 @@
     }
 
 },
+  "SUPPORT": {
+    "TITLE": "Support and Help",
+    "FAQS": "Frequently Asked Questions",
+    "FAQ_ITEMS": {
+      "HOW_TO_COMPLAIN": {
+        "QUESTION": "How do I file a new complaint?",
+        "ANSWER": "To file a new complaint, go to the \"Complaints\" section in the main menu and click on the \"New Complaint\" button. Complete the form with the required information and click \"Submit\"."
+      },
+      "VIEW_STATUS": {
+        "QUESTION": "How can I view the status of my complaints?",
+        "ANSWER": "In the \"Complaints\" section you will find a list of all your complaints with their current status. You can click on any complaint to view detailed information and update history."
+      },
+      "EDIT_COMPLAINT": {
+        "QUESTION": "Can I edit a complaint after submitting it?",
+        "ANSWER": "It is only possible to edit a complaint while it is in \"Pending review\" status. Once it has been accepted and changes to \"In process\", it cannot be modified. In that case, contact support for any updates."
+      },
+      "NOTIFICATION_PREFERENCES": {
+        "QUESTION": "How do I change my notification preferences?",
+        "ANSWER": "Go to the \"Settings\" section and then to \"Notification Preferences\". There you can enable or disable email and push notifications according to your preferences."
+      },
+      "FORGOT_PASSWORD": {
+        "QUESTION": "What should I do if I forgot my password?",
+        "ANSWER": "On the login page, click \"Forgot your password?\". Enter your email address and we will send you a link to reset your password."
+      }
+    },
+    "CONTACT": {
+      "TITLE": "Support Contact",
+      "PRIMARY_TECH_SUPPORT": "Primary Technical Support:",
+      "EMERGENCY_SUPPORT": "System Emergency Support:",
+      "DESCRIPTION": "If you didn't find an answer to your question in the FAQs, complete the following form and our team will respond as soon as possible."
+    },
+    "FORM": {
+      "SUBJECT": {
+        "LABEL": "Subject",
+        "PLACEHOLDER": "Select an option",
+        "OPTIONS": {
+          "TECHNICAL": "Technical problem",
+          "COMPLAINT": "Complaint inquiry",
+          "ACCOUNT": "Account problem",
+          "OTHER": "Other"
+        },
+        "ERRORS": {
+          "REQUIRED": "Subject is required"
+        }
+      },
+      "COMPLAINT_NUMBER": {
+        "LABEL": "Complaint number",
+        "PLACEHOLDER": "Ex: #12345"
+      },
+      "MESSAGE": {
+        "LABEL": "Message",
+        "PLACEHOLDER": "Describe your inquiry or problem in detail",
+        "ERRORS": {
+          "REQUIRED": "Message is required",
+          "MINLENGTH": "Message must be at least 10 characters long"
+        }
+      },
+      "SUBMIT_BUTTON": "Submit Problem"
+    }
+  }
+,
+
+  "TEAM_MANAGEMENT": {
+    "TITLE": "Team Management & Case Assignment",
+    "SUBTITLE": "Manage your team members and assign cases efficiently",
+    "STATS": {
+      "TEAM_MEMBERS": "Team Members",
+      "AVAILABLE": "Available",
+      "ACTIVE_CASES": "Active Cases",
+      "TOTAL_CASES": "Total Cases"
+    },
+    "ACTIONS": {
+      "REFRESH_DATA": "Refresh Data",
+      "CLEAR_FILTERS": "Clear Filters",
+      "ASSIGN_CASE": "Assign Case",
+      "UNASSIGN": "Unassign"
+    },
+    "FILTERS": {
+      "TITLE": "Filters",
+      "DEPARTMENT": {
+        "LABEL": "Department",
+        "ALL": "All Departments"
+      },
+      "STATUS": {
+        "LABEL": "Case Status",
+        "ALL": "All Statuses"
+      },
+      "PRIORITY": {
+        "LABEL": "Priority",
+        "ALL": "All Priorities"
+      }
+    },
+    "TABLE": {
+      "TITLE": "Team Members & Assignments",
+      "SUBTITLE": "Showing {{count}} team members",
+      "DEPARTMENT_FILTER": "Department: {{department}}",
+      "COLUMNS": {
+        "TEAM_MEMBER": "Team Member",
+        "STATUS": "Status",
+        "WORKLOAD": "Workload",
+        "ASSIGNED_CASES": "Assigned Cases",
+        "ASSIGN_NEW_CASE": "Assign New Case",
+        "ACTIONS": "Actions"
+      },
+      "MEMBERS": {
+        "CONTACT": "Contact",
+        "ASSIGNED_CASES_COUNT": "assigned cases",
+        "NO_ASSIGNED_CASES": "No assigned cases",
+        "SELECT_CASE": "Select Case",
+        "NO_CASE_SELECTED": "No case selected",
+        "NO_AVAILABLE_CASES": "No available cases for this department",
+        "CASE_OPTION": {
+          "ID": "#{{id}}",
+          "CATEGORY": "Category"
+        }
+      },
+      "STATUS": {
+        "ONLINE": "Online",
+        "OFFLINE": "Offline",
+        "BUSY": "Busy",
+        "AWAY": "Away"
+      },
+      "EMPTY_STATE": {
+        "TITLE": "No team members found",
+        "MESSAGE": "No team members found with the applied filters",
+        "ACTION": "Clear filters"
+      },
+      "LOADING": "Loading team data..."
+    }
+  },
+  "COMPLAINT_EDIT_CITIZEN": {
+    "TITLE": "Edit Complaint",
+    "SUBTITLE": "Modify the details of your complaint",
+    "FIELDS": {
+      "CATEGORY": "Category",
+      "DEPARTMENT": "Department",
+      "CITY": "City",
+      "DISTRICT": "District",
+      "LOCATION": "Specific location",
+      "REFERENCE_INFO": "Reference information",
+      "DESCRIPTION": "Detailed description",
+      "PRIORITY": "Priority"
+    },
+    "ERRORS": {
+      "CATEGORY_REQUIRED": "Category is required",
+      "DEPARTMENT_REQUIRED": "Department is required",
+      "CITY_REQUIRED": "City is required",
+      "DISTRICT_REQUIRED": "District is required",
+      "LOCATION_REQUIRED": "Location is required",
+      "DESCRIPTION_REQUIRED": "Description is required",
+      "DESCRIPTION_MIN_LENGTH": "Description must be at least 10 characters long",
+      "PRIORITY_REQUIRED": "Priority is required"
+    },
+    "BUTTONS": {
+      "CANCEL": "Cancel",
+      "SAVE": "Save Changes",
+      "SAVING": "Saving..."
+    }
+  }
+,
 
   "LOGIN": {
     "BACK_BUTTON": "← Return",
