@@ -45,13 +45,13 @@ export class SideNavigationBarComponent implements OnInit {
     { label: 'SIDENAV.TEAMS', icon: 'groups', route: '/team-managment', roles: ['authority', 'responsibles'] },
     { label: 'SIDENAV.SUPPORT', icon: 'help_outline', route: '/support', roles: ['citizen', 'authority', 'responsibles'] },
     { label: 'SIDENAV.COMMUNITY', icon: 'forum', route: '/community', roles: ['citizen', 'authority', 'responsibles'] },
-    { label: 'SIDENAV.SETTINGS', icon: 'settings', route: '/settings', roles: ['citizen', 'authority', 'responsibles'] },
     { label: 'SIDENAV.PROFILE', icon: 'person', route: '/profile', roles: ['citizen', 'authority', 'responsibles'] },
+    { label: 'SIDENAV.SETTINGS', icon: 'settings', route: '/settings', roles: ['citizen', 'authority', 'responsibles'] },
     { label: 'SIDENAV.LOGOUT', icon: 'logout', route: '/cerrar-cuenta', roles: ['citizen', 'authority', 'responsibles'] },
-
   ];
 
-  sidenavItems: SideNavigationItem[] = [];
+  mainNavItems: SideNavigationItem[] = [];
+  bottomNavItems: SideNavigationItem[] = [];
 
   constructor(
     private translate: TranslateService,
@@ -79,16 +79,20 @@ export class SideNavigationBarComponent implements OnInit {
 
   private filterSidenavItems(): void {
     if (this.currentUserRole) {
-      this.sidenavItems = this.allSidenavItems.filter(item =>
+      const filteredItems = this.allSidenavItems.filter(item =>
         item.roles.includes(this.currentUserRole!)
       );
+
+      this.bottomNavItems = filteredItems.slice(-3);
+      this.mainNavItems = filteredItems.slice(0, -3);
     } else {
-      this.sidenavItems = this.allSidenavItems.filter(item =>
+      const filteredItems = this.allSidenavItems.filter(item =>
         item.roles.includes('citizen')
       );
+      this.bottomNavItems = filteredItems.slice(-3);
+      this.mainNavItems = filteredItems.slice(0, -3);
     }
   }
-
 
 
   navigateToHome() {
@@ -102,4 +106,5 @@ export class SideNavigationBarComponent implements OnInit {
       this.navItemClicked.emit();
     }
   }
+
 }

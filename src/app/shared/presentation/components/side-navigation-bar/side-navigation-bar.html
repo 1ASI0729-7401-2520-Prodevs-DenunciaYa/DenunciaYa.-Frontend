@@ -6,12 +6,24 @@
     <span class="logo-text" *ngIf="!collapsed">DenunciaYa</span>
   </div>
 
-  <mat-nav-list>
+  <mat-nav-list class="main-nav-section">
     <a mat-list-item
-       *ngFor="let item of sidenavItems"
+       *ngFor="let item of mainNavItems"
        [routerLink]="item.route"
        routerLinkActive="active-link"
        class="nav-item"
+       (click)="onNavItemClick()">
+      <mat-icon>{{ item.icon }}</mat-icon>
+      <span *ngIf="!collapsed">{{ item.label | translate }}</span>
+    </a>
+  </mat-nav-list>
+
+  <mat-nav-list class="bottom-nav-section">
+    <a mat-list-item
+       *ngFor="let item of bottomNavItems"
+       [routerLink]="item.route"
+       routerLinkActive="active-link"
+       class="nav-item bottom-item"
        (click)="onNavItemClick()">
       <mat-icon>{{ item.icon }}</mat-icon>
       <span *ngIf="!collapsed">{{ item.label | translate }}</span>

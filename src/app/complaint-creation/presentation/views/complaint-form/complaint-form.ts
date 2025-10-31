@@ -424,7 +424,7 @@ export class ComplaintForm implements OnInit {
       this.form.patchValue({
         category: complaint.category,
         department: complaint.department,
-        province: complaint.city || '', // Aquí complaint.city se asigna al campo province del formulario
+        province: complaint.city || '',
         district: complaint.district,
         location: complaint.location,
         referenceInfo: complaint.referenceInfo,
@@ -458,16 +458,13 @@ export class ComplaintForm implements OnInit {
       const provinciaNombre = this.getProvinciaNombre(this.form.value.province!);
       const distritoNombre = this.getDistritoNombre(this.form.value.district!);
 
-      // DEBUG: Verificar los valores
-      console.log('Departamento:', departamentoNombre);
-      console.log('Provincia:', provinciaNombre);
-      console.log('Distrito:', distritoNombre);
+
 
       const complaintData = {
         id: this.complaintId || this.generateId(),
         category: this.form.value.category!,
         department: departamentoNombre,
-        city: provinciaNombre, // ESTA ES LA LÍNEA CLAVE - provinciaNombre va a city
+        city: provinciaNombre,
         district: distritoNombre,
         location: this.form.value.location || `${departamentoNombre}, ${provinciaNombre}, ${distritoNombre}`,
         referenceInfo: this.form.value.referenceInfo!,
@@ -517,8 +514,7 @@ export class ComplaintForm implements OnInit {
         ]
       };
 
-      // DEBUG: Verificar el objeto completo antes de crear la Complaint
-      console.log('Complaint data:', complaintData);
+
 
       const complaint = new Complaint(complaintData);
 
@@ -533,7 +529,6 @@ export class ComplaintForm implements OnInit {
       });
 
     } catch (error) {
-      console.error('Error creating complaint:', error);
       alert('Error al procesar la denuncia. Por favor, intente nuevamente.');
     }
   }
