@@ -1,3 +1,21 @@
+/**
+ * @class Responsible
+ * @summary Entity representing a responsible authority in the complaint management system.
+ * @property {string} id - Unique identifier for the responsible.
+ * @property {string} firstName - First name of the responsible.
+ * @property {string} lastName - Last name of the responsible.
+ * @property {string} fullName - Full name of the responsible (computed from first and last name).
+ * @property {string} email - Email address of the responsible.
+ * @property {string} position - Position or job title of the responsible.
+ * @property {string} department - Department the responsible belongs to.
+ * @property {string} phone - Contact phone number of the responsible.
+ * @property {string} role - Role of the responsible within the organization.
+ * @property {string} description - Description or notes about the responsible.
+ * @property {string} accessLevel - Access level assigned to the responsible.
+ * @property {'active' | 'inactive'} status - Current status of the responsible.
+ * @property {string[]} assignedComplaints - List of complaint IDs assigned to the responsible.
+ * @property {Date} createdAt - Timestamp of when the responsible was created.
+ */
 export class Responsible {
   private _id: string;
   private _firstName: string;
@@ -31,7 +49,6 @@ export class Responsible {
     this._createdAt = responsible.createdAt ?? new Date();
   }
 
-  // --- Getters y setters ---
   get id(): string { return this._id; }
   set id(value: string) { this._id = value; }
 
@@ -74,8 +91,8 @@ export class Responsible {
     return this._status;
   }
 
-  set status(value: string) {
-    this._status = value === 'inactive' ? 'inactive' : 'active';
+  set status(value: 'active' | 'inactive') {
+    this._status = value;
   }
   get assignedComplaints(): string[] { return this._assignedComplaints; }
   set assignedComplaints(value: string[]) { this._assignedComplaints = value; }

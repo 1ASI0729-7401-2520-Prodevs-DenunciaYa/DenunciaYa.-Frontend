@@ -11,6 +11,18 @@ export interface Assignment {
   status: 'active' | 'reassigned' | 'removed';
 }
 
+/**
+ * @class AssignmentStore
+ * @summary Manages the state of assignments for complaints to responsible parties.
+ * @method loadAssignments - Loads all assignments from the API.
+ * @method assignComplaint - Assigns a complaint to a responsible party.
+ * @method reassignComplaint - Reassigns a complaint to a new responsible party.
+ * @method removeAssignment - Removes an assignment for a complaint.
+ * @property assignments - Readonly signal of all assignments.
+ * @property loading - Readonly signal indicating loading state.
+ * @property error - Readonly signal for error messages.
+ * @property activeAssignments - Computed property for active assignments.
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -75,7 +87,6 @@ export class AssignmentStore {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
 
-    // Marcar la asignación anterior como reassigned
     this.assignmentsSignal.update(assignments =>
       assignments.map(a =>
         a.complaintId === complaintId && a.status === 'active'
@@ -84,7 +95,6 @@ export class AssignmentStore {
       )
     );
 
-    // Crear nueva asignación
     const newAssignment: Omit<Assignment, 'id'> = {
       complaintId,
       responsibleId: newResponsibleId,

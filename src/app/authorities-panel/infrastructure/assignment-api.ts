@@ -4,6 +4,15 @@ import { Observable, map } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Assignment } from '../application/assignment.store';
 
+/**
+ * @class AssignmentApiService
+ * @summary Service for managing assignments through API calls, including fetching, creating, updating, and deleting assignments.
+ * @constructor @param {HttpClient} http - The HTTP client for making API requests.
+ * @method getAssignments - Fetches all assignments.
+ * @method createAssignment - Creates a new assignment.
+ * @method updateAssignmentStatus - Updates the status of an assignment based on complaint ID.
+ * @method deleteAssignment - Deletes an assignment by its ID.
+ */
 @Injectable({
   providedIn: 'root'
 })

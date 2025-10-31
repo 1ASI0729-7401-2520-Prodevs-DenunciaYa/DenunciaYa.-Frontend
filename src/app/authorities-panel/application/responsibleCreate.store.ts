@@ -7,6 +7,17 @@ import { of } from 'rxjs';
 import { ResponsibleAssembler } from '../infrastructure/responsibleCreate.assembler';
 import { ResponsibleResource } from '../infrastructure/responsibleCreate.response';
 
+/**
+ * @class Responsible
+ * @summary Manages the state and operations related to Responsible entities, including loading, adding, and updating responsibles.
+ * @method loadResponsibles - Loads the list of responsibles from the API.
+ * @method addResponsible - Adds a new responsible to the store and API.
+ * @method updateResponsible - Updates an existing responsible in the store and API.
+ * @property responsibles - Readonly signal of the list of responsibles.
+ * @property loading - Readonly signal indicating loading state.
+ * @property error - Readonly signal for error messages.
+ * @property count - Computed property for the number of responsibles.
+ */
 @Injectable({ providedIn: 'root' })
 export class ResponsibleCreateStore {
   private readonly apiUrl = `${environment.platformProviderApiBaseUrl}${environment.platformProviderResponsiblesEndpointPath}`;
@@ -29,6 +40,7 @@ export class ResponsibleCreateStore {
   loadResponsibles(): void {
     this._loading.set(true);
     this._error.set(null);
+
 
     this.http.get<ResponsibleResource[]>(this.apiUrl)
       .pipe(

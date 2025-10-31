@@ -1,6 +1,14 @@
 import { Responsible } from '../domain/model/responsibleCreate.entity';
 import { ResponsibleResource, ResponsiblesResponse } from './responsibleCreate.response';
 
+/**
+ * @class Responsible
+ * @summary Handles the transformation between Responsible entities and ResponsibleResource / ResponsiblesResponse objects.
+ * It provides methods to convert from response objects to entities and vice versa.
+ * @method toEntitiesFromResponse - Converts a ResponsiblesResponse into an array of Responsible entities.
+ * @method toEntityFromResource - Converts a ResponsibleResource into a Responsible entity.
+ * @method toResourceFromEntity - Converts a Responsible entity into a ResponsibleResource.
+ */
 export class ResponsibleAssembler {
 
   toEntitiesFromResponse(response: ResponsiblesResponse): Responsible[] {
@@ -46,6 +54,7 @@ export class ResponsibleAssembler {
   }
 
   private formatStatus(status: string): 'active' | 'inactive' {
-    return status === 'inactive' ? 'inactive' : 'active';
+    if (status === 'inactive') return 'inactive';
+    return 'active';
   }
 }
