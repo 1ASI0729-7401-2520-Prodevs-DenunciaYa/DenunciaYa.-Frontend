@@ -31,7 +31,6 @@ export class MapStore {
   loadComplaintsAsMarkers(complaints: any[]): void {
     this.loadingSubject.next(true);
 
-    console.log('Converting complaints to markers:', complaints.length);
 
     const markers: MapMarker[] = complaints.map(complaint => {
       let coordinates;
@@ -71,7 +70,6 @@ export class MapStore {
       return marker;
     });
 
-    console.log('Markers created:', markers.length);
     this.markersSubject.next(markers);
     this.filteredMarkersSubject.next(markers);
     this.loadingSubject.next(false);
@@ -100,7 +98,6 @@ export class MapStore {
       return true;
     });
 
-    console.log('Markers after filtering:', filtered.length);
     this.filteredMarkersSubject.next(filtered);
   }
 

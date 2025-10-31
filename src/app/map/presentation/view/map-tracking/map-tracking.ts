@@ -16,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatChipsModule } from '@angular/material/chips';
 import {TranslatePipe} from '@ngx-translate/core';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-map-tracking',
@@ -87,7 +88,6 @@ export class MapTrackingComponent implements OnInit, OnDestroy {
     private districtService: DistrictCoordinatesService,
     @Inject('googleMapsApiKey') private googleMapsApiKey: string
   ) {
-    console.log('Google Maps API Key:', this.googleMapsApiKey ? 'Present' : 'Missing');
   }
 
   ngOnInit(): void {
@@ -108,7 +108,6 @@ export class MapTrackingComponent implements OnInit, OnDestroy {
   private subscribeToStore(): void {
     this.subscriptions.add(
       this.mapStore.filteredMarkers$.subscribe(markers => {
-        console.log('Filtered markers received:', markers.length);
         this.filteredMarkers = markers;
         this.updateMapView();
       })
@@ -123,21 +122,20 @@ export class MapTrackingComponent implements OnInit, OnDestroy {
 
   loadComplaintsFromAPI(): void {
     this.loading = true;
-    this.http.get<any>('https://denunciaya-fakeapi.onrender.com/complaints')
+    const apiUrl = `${environment.platformProviderApiBaseUrl}${environment.platformProviderComplaintsEndpointPath}`;
+
+    this.http.get<any>(apiUrl)
       .subscribe({
         next: (response) => {
-          console.log('✅ Data loaded successfully');
           const complaints = Array.isArray(response) ? response : response.complaints;
           if (complaints && complaints.length > 0) {
             this.mapStore.loadComplaintsAsMarkers(complaints);
             this.loadFilterOptions();
           } else {
-            console.error('No valid complaints found');
           }
           this.loading = false;
         },
         error: (error) => {
-          console.error('Error loading complaints:', error);
           this.loading = false;
         }
       });
@@ -148,15 +146,11 @@ export class MapTrackingComponent implements OnInit, OnDestroy {
     this.districts = this.mapStore.getUniqueDistricts();
     this.statuses = this.mapStore.getUniqueStatuses();
 
-    console.log(' Filter options loaded:');
-    console.log('  - Categories:', this.categories);
-    console.log('  - Districts:', this.districts);
-    console.log('  - Statuses:', this.statuses);
+
   }
 
   private updateMapView(): void {
     if (this.filteredMarkers.length === 0) {
-      console.log('⚠No markers to display');
       this.center = { lat: -12.0464, lng: -77.0428 };
       this.zoom = 6;
       return;
@@ -167,7 +161,6 @@ export class MapTrackingComponent implements OnInit, OnDestroy {
     );
 
     if (validMarkers.length === 0) {
-      console.log('No markers with valid coordinates');
       return;
     }
 
@@ -179,7 +172,6 @@ export class MapTrackingComponent implements OnInit, OnDestroy {
       lng: parseFloat(avgLng.toFixed(6))
     };
 
-    console.log('Map center updated:', this.center);
 
     if (this.filteredMarkers.length === 1) {
       this.zoom = 15;
@@ -193,7 +185,6 @@ export class MapTrackingComponent implements OnInit, OnDestroy {
       this.zoom = 6;
     }
 
-    console.log('🔍 Zoom updated:', this.zoom);
   }
 
   getMarkerIcon(status: string): google.maps.Icon {
@@ -235,11 +226,7 @@ export class MapTrackingComponent implements OnInit, OnDestroy {
       filters.statuses = [this.selectedStatus];
     }
 
-    console.log('🎯 Applying filters:', {
-      category: this.selectedCategory,
-      district: this.selectedDistrict,
-      status: this.selectedStatus
-    });
+
 
     this.mapStore.applyFilters(filters);
   }

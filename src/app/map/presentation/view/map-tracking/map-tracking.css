@@ -239,11 +239,6 @@
   font-weight: 500;
 }
 
-.map-styles {
-  featureType: "poi",
-  elementType: "labels",
-  stylers: [{ visibility: "off" }]
-}
 
 @media (max-width: 768px) {
   .map-container {
