@@ -1,12 +1,15 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {DatePipe, NgClass, NgForOf, NgIf} from '@angular/common';
+import { DatePipe, NgClass, NgForOf, NgIf } from '@angular/common';
 import { TimelineModule, TimelineItemModel } from '@syncfusion/ej2-angular-layouts';
-import {MatButton, MatButtonModule} from '@angular/material/button';
+import { MatButton, MatButtonModule } from '@angular/material/button';
+import { TranslatePipe } from '@ngx-translate/core';
+import { ComplaintsApiService } from '../../../../complaint-creation/infrastructure/complaint-api';
+import { Complaint } from '../../../../complaint-creation/domain/model/complaint.entity';
+import { ResponsibleApiEndpoint } from '../../../../authorities-panel/infrastructure/responsibleCreate-api--endpoint';
+import { Responsible } from '../../../../authorities-panel/domain/model/responsibleCreate.entity';
+import {MatIconModule} from '@angular/material/icon';
 
-import {TranslatePipe} from '@ngx-translate/core';
-import {ComplaintsApiService} from '../../../../complaint-creation/infrastructure/complaint-api';
-import {Complaint} from '../../../../complaint-creation/domain/model/complaint.entity';
 @Component({
   selector: 'app-complaint-detail-authority',
   imports: [
@@ -16,32 +19,16 @@ import {Complaint} from '../../../../complaint-creation/domain/model/complaint.e
     MatButton,
     NgIf,
     NgClass,
-    TranslatePipe
+    TranslatePipe,
+    MatButtonModule,
+    MatIconModule
   ],
   templateUrl: './complaint-detail-authority.html',
   styleUrl: './complaint-detail-authority.css'
 })
-/**
- * @class ComplaintDetailAuthority
- * @summary Component to display detailed information about a complaint for authorities.
- * @description This component fetches and displays detailed information about a specific complaint,
- * @method ngOnInit Initializes the component and loads complaint data.
- * @method loadComplaint Loads complaint data from the API based on the route parameter.
- * @method generateTimeline Generates the timeline of status updates for the complaint.
- * @method acceptComplaint Accepts the complaint, updating its status and timeline.
- * @method rejectComplaint Rejects the complaint, updating its status and timeline.
- * @method advanceStatus Advances the complaint to the next status in the timeline.
- * @method resetComplaint Resets the complaint to its initial status.
- * @method deleteComplaint Deletes the complaint.
- * @method editComplaint Navigates to the edit page for the complaint.
- * @method canEditOrDelete Checks if the complaint can be edited or deleted based on its status.
- * @method canAdvanceStatus Checks if the complaint status can be advanced.
- * @method getStatusClass Returns the CSS class for the complaint status badge.
- * @method getPriorityClass Returns the
- * @author Omar Harold Rivera Ticllacuri
- */
 export class ComplaintDetailAuthority implements OnInit {
   complaint?: Complaint;
+  assignedResponsible: Responsible | null = null;
   protected readonly title = signal('denunciaya-frontend');
 
   public orderStatus: TimelineItemModel[] = [];
@@ -60,8 +47,47 @@ export class ComplaintDetailAuthority implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private complaintsService: ComplaintsApiService
+    private complaintsService: ComplaintsApiService,
+    private responsibleApi: ResponsibleApiEndpoint
   ) {}
+
+  ngOnInit(): void {
+    this.loadComplaint();
+  }
+
+  private loadComplaint(): void {
+    const complaintId = this.route.snapshot.paramMap.get('id');
+
+    if (complaintId) {
+      this.complaintsService.getComplaintById(complaintId).subscribe({
+        next: (complaint) => {
+          this.complaint = complaint;
+          this.generateTimeline();
+          this.checkDecisionState();
+          this.findAssignedResponsible();
+        },
+        error: (error) => {
+          alert('Error loading complaint details');
+          this.router.navigate(['/complaints']);
+        }
+      });
+    } else {
+      this.router.navigate(['/complaints']);
+    }
+  }
+
+  private findAssignedResponsible(): void {
+    if (!this.complaint || !this.complaint.assignedTo || this.complaint.assignedTo === 'Not assigned') {
+      this.assignedResponsible = null;
+      return;
+    }
+
+    this.assignedResponsible = this.responsibleApi.findResponsibleFromAssignedTo(this.complaint.assignedTo);
+
+    if (this.assignedResponsible) {
+    } else {
+    }
+  }
 
   generateTimeline(): void {
     if (!this.complaint || !this.complaint.timeline) return;
@@ -283,7 +309,6 @@ export class ComplaintDetailAuthority implements OnInit {
         alert('Status updated successfully!');
       },
       error: (error) => {
-        console.error('Error updating complaint:', error);
         alert('Error updating status');
       }
     });
@@ -295,14 +320,14 @@ export class ComplaintDetailAuthority implements OnInit {
     if (confirm('Are you sure you want to delete this complaint?')) {
       this.complaintsService.deleteComplaint(this.complaint.id).subscribe(() => {
         alert('Complaint deleted successfully');
-        this.router.navigate(['/complaints']);
+        this.router.navigate(['/complaint-list']);
       });
     }
   }
 
   editComplaint(): void {
     if (this.complaint) {
-      this.router.navigate([`/complaints/edit/${this.complaint.id}`]);
+      this.router.navigate([`/complaint-edit/${this.complaint.id}`]);
     }
   }
 
@@ -361,41 +386,17 @@ export class ComplaintDetailAuthority implements OnInit {
     return this.complaint.updateMessage || this.statusMessages[this.complaint.status] || '';
   }
 
-
   isAssigned(): boolean {
     return this.complaint?.assignedTo !== 'Not assigned' &&
       this.complaint?.assignedTo !== '' &&
       this.complaint?.assignedTo !== undefined;
   }
 
-  viewResponsibleInfo(): void {
-    if (this.complaint) {
-      this.router.navigate([`/complaint-detail/${this.complaint.id}$/responsible`]);
-    }
-  }
-
-  private loadComplaint(): void {
-    const complaintId = this.route.snapshot.paramMap.get('id');
-
-    if (complaintId) {
-      this.complaintsService.getComplaintById(complaintId).subscribe({
-        next: (complaint) => {
-          this.complaint = complaint;
-          this.generateTimeline();
-          this.checkDecisionState();
-        },
-        error: (error) => {
-          console.error('Error loading complaint:', error);
-          alert('Error loading complaint details');
-          this.router.navigate(['/complaints']);
-        }
-      });
+  viewResponsibleProfile(): void {
+    if (this.assignedResponsible && this.assignedResponsible.id) {
+      this.router.navigate(['/responsible-profile', this.assignedResponsible.id]);
     } else {
-      console.error('No complaint ID provided in route');
-      this.router.navigate(['/complaints']);
+      alert('No responsible assigned or responsible information is incomplete');
     }
-  }
-  ngOnInit(): void {
-    this.loadComplaint();
   }
 }

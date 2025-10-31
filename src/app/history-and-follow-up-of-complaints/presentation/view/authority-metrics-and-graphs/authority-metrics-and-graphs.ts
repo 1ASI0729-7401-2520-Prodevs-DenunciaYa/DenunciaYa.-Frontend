@@ -62,7 +62,6 @@ export class AuthorityMetricsAndGraphs implements OnInit {
         this.cd.detectChanges();
       },
       error: (error) => {
-        console.error('Error loading metrics data:', error);
         this.errorMessage = 'Error loading metrics data';
         this.isLoading = false;
         this.setEmptyData();

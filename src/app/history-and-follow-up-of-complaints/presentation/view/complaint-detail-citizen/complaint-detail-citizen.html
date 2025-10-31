@@ -69,16 +69,18 @@
     <h2>{{ 'CITIZEN_COMPLAINT_DETAIL.INFO_SECTION.FIELDS.ASSIGNED_TO' | translate }}</h2>
     <p>{{ complaint.assignedTo }}</p>
 
-    <div class="responsible-section" *ngIf="isAssigned()" [attr.aria-label]="'CITIZEN_COMPLAINT_DETAIL.RESPONSIBLE_SECTION.LABEL' | translate">
-      <button
-        mat-stroked-button
-        color="accent"
-        (click)="viewResponsibleInfo()"
-        class="responsible-button"
-        [attr.aria-label]="'CITIZEN_COMPLAINT_DETAIL.RESPONSIBLE_SECTION.BUTTON.ARIA_LABEL' | translate">
-        <span class="button-icon" aria-hidden="true">👤</span>
-        {{ 'CITIZEN_COMPLAINT_DETAIL.RESPONSIBLE_SECTION.BUTTON.TEXT' | translate }}
-      </button>
+    <div *ngIf="isAssigned()" class="responsible-section">
+      <h3>{{ 'Assigned Responsible' | translate }}</h3>
+      <div class="assigned-info">
+        <p><strong>{{ 'Assigned To' | translate }}:</strong> {{ complaint?.assignedTo }}</p>
+        <button
+          mat-stroked-button
+          color="primary"
+          (click)="viewResponsibleProfile()"
+          class="profile-button">
+          👤 {{ 'View Responsible Profile' | translate }}
+        </button>
+      </div>
     </div>
 
     <div class="update-channel" [attr.aria-label]="'CITIZEN_COMPLAINT_DETAIL.UPDATE_CHANNEL.LABEL' | translate">

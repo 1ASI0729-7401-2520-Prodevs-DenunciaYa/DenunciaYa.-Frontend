@@ -7,6 +7,8 @@ import { MatButtonModule } from '@angular/material/button';
 import {TranslatePipe} from '@ngx-translate/core';
 import {Complaint} from '../../../../complaint-creation/domain/model/complaint.entity';
 import {ComplaintsApiService} from '../../../../complaint-creation/infrastructure/complaint-api';
+import {Responsible} from '../../../../authorities-panel/domain/model/responsibleCreate.entity';
+import {ResponsibleApiEndpoint} from '../../../../authorities-panel/infrastructure/responsibleCreate-api--endpoint';
 
 @Component({
   selector: 'app-complaint-detail-citizen',
@@ -36,6 +38,7 @@ import {ComplaintsApiService} from '../../../../complaint-creation/infrastructur
  */
 export class ComplaintDetailCitizen implements OnInit {
   complaint?: Complaint;
+  assignedResponsible: Responsible | null = null;
   protected readonly title = signal('denunciaya-frontend');
 
   public orderStatus: TimelineItemModel[] = [];
@@ -54,7 +57,9 @@ export class ComplaintDetailCitizen implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private complaintsService: ComplaintsApiService
+    private complaintsService: ComplaintsApiService,
+    private responsibleApi: ResponsibleApiEndpoint
+
   ) {}
 
   ngOnInit(): void {
@@ -62,38 +67,30 @@ export class ComplaintDetailCitizen implements OnInit {
     if (id) {
       this.complaintsService.getComplaintById(id).subscribe({
         next: (data) => {
-          console.log('🔍 COMPLAINT DATA:', data);
-          console.log('📊 Timeline data:', data.timeline);
-          console.log('📋 Timeline type:', typeof data.timeline);
-          console.log('🔢 Timeline length:', data.timeline?.length);
-          console.log('📝 Timeline items:', data.timeline);
+
 
           this.complaint = data;
           this.generateTimeline();
           this.checkDecisionState();
+          this.findAssignedResponsible();
+
         },
         error: (error) => {
-          console.error('❌ Error loading complaint:', error);
-          console.error('Complaint not found');
+
         }
       });
     }
   }
 
   generateTimeline(): void {
-    console.log('🔄 Generating timeline...');
-    console.log('Complaint:', this.complaint);
-    console.log('Timeline:', this.complaint?.timeline);
+
 
     if (!this.complaint || !this.complaint.timeline) {
-      console.log('❌ No complaint or timeline data');
       return;
     }
 
-    console.log('📋 Timeline items to process:', this.complaint.timeline);
 
     this.orderStatus = this.complaint.timeline.map(item => {
-      console.log('📝 Processing timeline item:', item);
 
       let cssClass = 'state-default';
 
@@ -109,11 +106,7 @@ export class ComplaintDetailCitizen implements OnInit {
 
       const formattedDate = this.formatTimelineDate(new Date(item.date));
 
-      console.log('✅ Final timeline item:', {
-        content: item.status,
-        oppositeContent: formattedDate,
-        cssClass: cssClass
-      });
+
 
       return {
         content: item.status,
@@ -122,7 +115,6 @@ export class ComplaintDetailCitizen implements OnInit {
       };
     });
 
-    console.log('🎯 Final orderStatus:', this.orderStatus);
   }
 
   private checkDecisionState(): void {
@@ -319,7 +311,6 @@ export class ComplaintDetailCitizen implements OnInit {
         alert('Status updated successfully!');
       },
       error: (error) => {
-        console.error('Error updating complaint:', error);
         alert('Error updating status');
       }
     });
@@ -385,7 +376,26 @@ export class ComplaintDetailCitizen implements OnInit {
       default: return 'priority standard';
     }
   }
+  private findAssignedResponsible(): void {
+    if (!this.complaint || !this.complaint.assignedTo || this.complaint.assignedTo === 'Not assigned') {
+      this.assignedResponsible = null;
+      return;
+    }
 
+    this.assignedResponsible = this.responsibleApi.findResponsibleFromAssignedTo(this.complaint.assignedTo);
+
+    if (this.assignedResponsible) {
+    } else {
+    }
+  }
+
+  viewResponsibleProfile(): void {
+    if (this.assignedResponsible && this.assignedResponsible.id) {
+      this.router.navigate(['/responsible-profile', this.assignedResponsible.id]);
+    } else {
+      alert('No responsible assigned or responsible information is incomplete');
+    }
+  }
   getCurrentStatusMessage(): string {
     if (!this.complaint) return '';
 
@@ -405,8 +415,10 @@ export class ComplaintDetailCitizen implements OnInit {
   }
 
   viewResponsibleInfo(): void {
-    if (this.complaint) {
-      this.router.navigate([`/complaint-detail/${this.complaint.id}$/responsible`]);
+    if (this.assignedResponsible && this.assignedResponsible.id) {
+      this.router.navigate(['/responsible-profile', this.assignedResponsible.id]);
+    } else {
+      alert('No responsible assigned or responsible information is incomplete');
     }
   }
 

@@ -6,6 +6,7 @@ import { ChartModule } from 'primeng/chart';
 import {TranslatePipe} from '@ngx-translate/core';
 import {ComplaintsApiService} from '../../../../complaint-creation/infrastructure/complaint-api';
 import {Complaint} from '../../../../complaint-creation/domain/model/complaint.entity';
+import {AuthService} from '../../../../authentication-and-account-management/infrastructure/auth.service';
 
 /**
  * Component for the authority's home dashboard.
@@ -30,7 +31,9 @@ import {Complaint} from '../../../../complaint-creation/domain/model/complaint.e
  * @author Omar Harold Rivera Ticllacuri
  */
 export class AuthorityHomeComponent implements OnInit {
-  userName: string = 'Carlos Ramirez';
+  userName: string = '';
+  userRole: string = '';
+  userEmail: string = '';
   totalComplaints = 0;
   pendingComplaints = 0;
   resolvedComplaints = 0;
@@ -46,19 +49,36 @@ export class AuthorityHomeComponent implements OnInit {
   categoryChartData: any;
   categoryChartOptions: any;
 
-  constructor(private complaintsService: ComplaintsApiService) {}
+  constructor(private complaintsService: ComplaintsApiService,
+              private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
+    this.loadUserData();
     this.loadComplaintsData();
   }
-
+  private loadUserData(): void {
+    const currentUser = this.authService.getCurrentUser();
+    if (currentUser) {
+      this.userName = `${currentUser.firstName} ${currentUser.lastName}`;
+      this.userRole = currentUser.role;
+      this.userEmail = currentUser.email;
+    } else {
+      const userData = localStorage.getItem('user');
+      if (userData) {
+        const user = JSON.parse(userData);
+        this.userName = `${user.firstName} ${user.lastName}`;
+        this.userRole = user.role;
+        this.userEmail = user.email;
+      }
+    }
+  }
   loadComplaintsData(): void {
     this.isLoading = true;
     this.errorMessage = '';
 
     this.complaintsService.getComplaints().subscribe({
       next: (complaints) => {
-        console.log('Complaints loaded in component:', complaints);
         this.complaints = complaints;
         this.calculateStatistics();
         this.generateStatusChart();
@@ -66,7 +86,6 @@ export class AuthorityHomeComponent implements OnInit {
         this.isLoading = false;
       },
       error: (error) => {
-        console.error('Error loading complaints:', error);
         this.errorMessage = 'Error loading data: ' + error.message;
         this.isLoading = false;
         this.setEmptyData();

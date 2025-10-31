@@ -1,5 +1,4 @@
 :root{--bg-color:#f8faff;--primary-text:#222;--title-color:#1a237e;--card-bg:#fff;--shadow:0 4px 12px rgba(0,0,0,.05)}body,html{margin:0;padding:0;background:var(--bg-color);color:var(--primary-text);font-family:'Roboto',sans-serif}h1,h2{color:var(--title-color);margin:.5rem 0}.title{font-size:clamp(1.6rem,2vw + 1rem,2.4rem);text-align:center;margin:1rem 0 2rem;font-weight:700}.subtitle{font-size:clamp(1.1rem,1vw + .6rem,1.4rem);margin-top:1.5rem;color:#0d47a1}.complaint-detail{max-width:900px;margin:2rem auto;background:var(--card-bg);border-radius:16px;padding:2.2rem;box-shadow:var(--shadow)}.complaint-info p{margin:.5rem 0;line-height:1.6}.status span,.priority span{display:inline-block;margin:.3rem;padding:.5rem .9rem;border-radius:8px;font-weight:600;color:#fff;font-size:.9rem}.status.pending{background:#f9a825}.status.accepted,.status.completed{background:#43a047}.status.in-process{background:#1e88e5}.status.draft{background:#9e9e9e}.status.rejected{background:#d32f2f}.priority.standard{background:#0288d1}.priority.urgent{background:#ef6c00}.priority.critical{background:#d32f2f}.image-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:.8rem;margin-top:1rem}.image-grid img,.image-grid .more{width:100%;max-width:120px;aspect-ratio:1;border-radius:12px;object-fit:cover}.image-grid .more{display:flex;justify-content:center;align-items:center;background:#e0e0e0;color:#555;font-weight:600}.dot-color .e-dot{width:25px!important;height:25px!important}.dot-color .state-success .e-dot{background:#28a745!important}.dot-color .state-info .e-dot{background:#007bff!important}.dot-color .state-warning .e-dot{background:#ffc107!important}.dot-color .state-error .e-dot{background:#dc3545!important}.dot-color .state-default .e-dot{background:#6c757d!important}.e-timeline-item .e-connector::before,.e-timeline-item .e-connector::after{border-color:#ddd!important}.update-channel{background:#fff;border-radius:16px;padding:2rem}.update-channel h3{font-size:1.2rem;font-weight:700;margin:0 0 1rem;text-align:center;color:#333}.channel-message{text-align:center;color:#333}.channel-message p{font-size:1.2rem;line-height:1.6;margin-bottom:1rem}.channel-message .message-date{display:inline-block;background:rgba(255,255,255,.2);padding:.5rem 1rem;border-radius:20px;font-size:.9rem;font-weight:600;color:#333}.responsible-section{margin:1.5rem 0;text-align:center}@media (max-width:992px){.complaint-detail{padding:1.8rem;margin:1.5rem}}@media (max-width:768px){.complaint-detail{padding:1.5rem}.image-grid{grid-template-columns:repeat(auto-fit,minmax(80px,1fr))}.status span,.priority span{font-size:.8rem;padding:.4rem .7rem}.responsible-button{width:100%;justify-content:center;padding:14px 24px}}@media (max-width:480px){.complaint-detail{padding:1rem;border-radius:10px}.title{font-size:1.6rem}.subtitle{font-size:1rem}.image-grid{grid-template-columns:repeat(2,1fr);gap:.6rem}}
-/* En complaint-detail-citizen.css - agrega al final */
 .no-timeline, .timeline-error {
   text-align: center;
   color: #666;
@@ -9,14 +8,12 @@
   margin: 20px 0;
 }
 
-/* Estilos de debug temporal */
 .timeline-debug {
   border: 2px solid red;
   padding: 10px;
   margin: 10px 0;
 }
 
-/* Forzar visibilidad del timeline */
 ejs-timeline {
   display: block !important;
   visibility: visible !important;

@@ -3,6 +3,10 @@
     <h1 id="welcome-title" class="welcome-title">{{ 'DASHBOARD.WELCOME.TITLE' | translate }}</h1>
     <p class="welcome-subtitle">
       {{ 'DASHBOARD.WELCOME.SUBTITLE' | translate: { userName: userName } }}
+      <span class="user-role">({{ userRole | titlecase }})</span>
+    </p>
+    <p class="user-email" *ngIf="userEmail">
+      <strong>Email:</strong> {{ userEmail }}
     </p>
   </header>
 
