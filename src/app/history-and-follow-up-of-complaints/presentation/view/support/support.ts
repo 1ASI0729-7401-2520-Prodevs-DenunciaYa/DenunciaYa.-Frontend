@@ -8,7 +8,20 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { TranslatePipe } from '@ngx-translate/core';
 
+/**
+ * @class SupportHelpComponent
+ * @summary Component for support and help form
+ *
+ * @classdesc
+ * Component that handles the technical support request form,
+ * allowing users to submit inquiries, report problems,
+ * or request assistance.
+ *
+ * @method submitSupportRequest - Submits the support request
+
+ */
 @Component({
   selector: 'app-support',
   standalone: true,
@@ -19,14 +32,22 @@ import { MatButtonModule } from '@angular/material/button';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatButtonModule
+    MatButtonModule,
+    TranslatePipe
   ],
   templateUrl: './support.html',
   styleUrl: './support.css'
 })
 export class SupportHelpComponent {
+  /**
+   * @property {FormGroup} supportForm - Reactive form for support request
+   */
   supportForm: FormGroup;
 
+  /**
+   * @constructor
+   * @param {FormBuilder} fb - Service for creating reactive forms
+   */
   constructor(private fb: FormBuilder) {
     this.supportForm = this.fb.group({
       subject: ['', Validators.required],
@@ -35,22 +56,39 @@ export class SupportHelpComponent {
     });
   }
 
+  /**
+   * @method submitSupportRequest
+   * @summary Submits the support request
+   * @description
+   * Validates and processes the support form. If valid, displays
+   * a confirmation message and resets the form. If invalid,
+   * marks all fields as touched to show validation errors.
+   *
+   * @returns {void}
+   */
   submitSupportRequest(): void {
     if (this.supportForm.valid) {
       const formData = this.supportForm.value;
-      console.log('Datos del formulario de soporte:', formData);
 
-      // Aquí iría la lógica para enviar el formulario al backend
-      alert('Su solicitud de soporte ha sido enviada. Nos pondremos en contacto pronto.');
+      alert('Your support request has been submitted. We will contact you soon.');
 
-      // Resetear el formulario
       this.supportForm.reset();
     } else {
-      // Marcar todos los campos como touched para mostrar errores
       this.markFormGroupTouched(this.supportForm);
     }
   }
 
+  /**
+   * @method markFormGroupTouched
+   * @summary Marks all form controls as touched
+   * @description
+   * Iterates through all form controls and marks them as touched
+   * to activate validation error messages display.
+   *
+   * @param {FormGroup} formGroup - Form to mark as touched
+   * @returns {void}
+   * @private
+   */
   private markFormGroupTouched(formGroup: FormGroup): void {
     Object.keys(formGroup.controls).forEach(key => {
       const control = formGroup.get(key);
