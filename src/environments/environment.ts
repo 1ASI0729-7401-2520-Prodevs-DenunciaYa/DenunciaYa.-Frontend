@@ -1,5 +1,5 @@
 export const environment = {
-  production: false,
+  production: true,
 
   // === Fake API (Render) ===
   platformProviderApiBaseUrl: 'http://localhost:3000',

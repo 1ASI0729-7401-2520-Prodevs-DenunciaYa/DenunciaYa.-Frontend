@@ -9,6 +9,7 @@ export const environment = {
   platformProviderCitizensEndpointPath: '/citizen',
   platformProviderAuthoritiesEndpointPath: '/authority',
   platformProviderComplaintsEndpointPath: '/complaints',
+  platformProviderAssignmentsEndpointPath: '/complaintAssignments',
 
   // === Backend real local (Spring Boot o similar) ===
   apiBaseUrl: 'http://localhost:3000/api/v1',
