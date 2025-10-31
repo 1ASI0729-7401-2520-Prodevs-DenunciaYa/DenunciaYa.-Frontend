@@ -34,6 +34,6 @@ export const authenticationRoutes: Routes = [
   { path: 'authentication/reset-password', loadComponent: resetPassword },
   {path: 'authentication/payment', loadComponent: payment },
   {path: 'authentication/plan', loadComponent: plan },
-  { path: '', redirectTo: '/authentication/login', pathMatch: 'full' },
-  { path: '**', redirectTo: '/authentication/login' }
+  { path: '', redirectTo: 'authentication/login', pathMatch: 'full' },
+  { path: '**', redirectTo: 'authentication/login' }
 ];
