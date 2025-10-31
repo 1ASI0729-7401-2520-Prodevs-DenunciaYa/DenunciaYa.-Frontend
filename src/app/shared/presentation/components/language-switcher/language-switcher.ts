@@ -41,8 +41,7 @@ export class LanguageSwitcher {
 
   }
 
-  /** Método que devuelve el idioma actual (usado en el template) */
-  get currentLanguage(): LanguageOption {
+ get currentLanguage(): LanguageOption {
     return this.languages.find(lang => lang.code === this.currentLang)!;
   }
   @Output() languageChanged = new EventEmitter<string>();
