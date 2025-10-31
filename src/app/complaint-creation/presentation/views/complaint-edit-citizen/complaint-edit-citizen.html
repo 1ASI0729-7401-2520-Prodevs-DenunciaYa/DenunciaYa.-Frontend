@@ -1,0 +1,118 @@
+<div class="edit-complaint-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <h1>{{ 'COMPLAINT_EDIT_CITIZEN.TITLE' | translate }}</h1>
+      </mat-card-title>
+      <mat-card-subtitle>
+        {{ 'COMPLAINT_EDIT_CITIZEN.SUBTITLE' | translate }}
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="complaintForm" (ngSubmit)="onSubmit()" class="complaint-form">
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'COMPLAINT_EDIT_CITIZEN.FIELDS.CATEGORY' | translate }}</mat-label>
+          <mat-select formControlName="category" required>
+            <mat-option *ngFor="let category of categories" [value]="category">
+              {{ category }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('category', 'required')">
+            {{ 'COMPLAINT_EDIT_CITIZEN.ERRORS.CATEGORY_REQUIRED' | translate }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'COMPLAINT_EDIT_CITIZEN.FIELDS.DEPARTMENT' | translate }}</mat-label>
+          <mat-select formControlName="department" required>
+            <mat-option *ngFor="let department of departments" [value]="department">
+              {{ department }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('department', 'required')">
+            {{ 'COMPLAINT_EDIT_CITIZEN.ERRORS.DEPARTMENT_REQUIRED' | translate }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'COMPLAINT_EDIT_CITIZEN.FIELDS.CITY' | translate }}</mat-label>
+          <input matInput formControlName="city" required>
+          <mat-error *ngIf="hasError('city', 'required')">
+            {{ 'COMPLAINT_EDIT_CITIZEN.ERRORS.CITY_REQUIRED' | translate }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'COMPLAINT_EDIT_CITIZEN.FIELDS.DISTRICT' | translate }}</mat-label>
+          <input matInput formControlName="district" required>
+          <mat-error *ngIf="hasError('district', 'required')">
+            {{ 'COMPLAINT_EDIT_CITIZEN.ERRORS.DISTRICT_REQUIRED' | translate }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'COMPLAINT_EDIT_CITIZEN.FIELDS.LOCATION' | translate }}</mat-label>
+          <input matInput formControlName="location" required>
+          <mat-error *ngIf="hasError('location', 'required')">
+            {{ 'COMPLAINT_EDIT_CITIZEN.ERRORS.LOCATION_REQUIRED' | translate }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'COMPLAINT_EDIT_CITIZEN.FIELDS.REFERENCE_INFO' | translate }}</mat-label>
+          <textarea matInput formControlName="referenceInfo" rows="3"></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'COMPLAINT_EDIT_CITIZEN.FIELDS.DESCRIPTION' | translate }}</mat-label>
+          <textarea matInput formControlName="description" rows="5" required></textarea>
+          <mat-error *ngIf="hasError('description', 'required')">
+            {{ 'COMPLAINT_EDIT_CITIZEN.ERRORS.DESCRIPTION_REQUIRED' | translate }}
+          </mat-error>
+          <mat-error *ngIf="hasError('description', 'minlength')">
+            {{ 'COMPLAINT_EDIT_CITIZEN.ERRORS.DESCRIPTION_MIN_LENGTH' | translate }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'COMPLAINT_EDIT_CITIZEN.FIELDS.PRIORITY' | translate }}</mat-label>
+          <mat-select formControlName="priority" required>
+            <mat-option *ngFor="let priority of priorities" [value]="priority">
+              {{ priority }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('priority', 'required')">
+            {{ 'COMPLAINT_EDIT_CITIZEN.ERRORS.PRIORITY_REQUIRED' | translate }}
+          </mat-error>
+        </mat-form-field>
+
+      </form>
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <button
+        mat-button
+        type="button"
+        (click)="onCancel()"
+        [disabled]="isSubmitting">
+        {{ 'COMPLAINT_EDIT_CITIZEN.BUTTONS.CANCEL' | translate }}
+      </button>
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        (click)="onSubmit()"
+        [disabled]="complaintForm.invalid || isSubmitting">
+        <span *ngIf="!isSubmitting">
+          {{ 'COMPLAINT_EDIT_CITIZEN.BUTTONS.SAVE' | translate }}
+        </span>
+        <span *ngIf="isSubmitting">
+          {{ 'COMPLAINT_EDIT_CITIZEN.BUTTONS.SAVING' | translate }}
+        </span>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

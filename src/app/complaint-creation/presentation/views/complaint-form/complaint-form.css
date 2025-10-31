@@ -1,4 +1,3 @@
-/* Variables de colores */
 :root {
   --primary-color: #2563eb;
   --primary-dark: #1d4ed8;
@@ -16,7 +15,6 @@
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
-/* Estilos generales */
 .complaint-container {
   min-height: 100vh;
   background: var(--background-color);
@@ -53,7 +51,6 @@
   min-height: calc(100vh - 200px);
 }
 
-/* Formulario principal */
 .complaint-form {
   background: var(--surface-color);
   padding: 2rem 3rem;
@@ -92,7 +89,6 @@
   margin: 0;
 }
 
-/* Filas del formulario */
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -108,7 +104,6 @@
   width: 100%;
 }
 
-/* Ubicación */
 .location-section {
   background: #f8fafc;
   padding: 1.5rem;
@@ -129,7 +124,6 @@
   gap: 1rem;
 }
 
-/* Indicadores de prioridad */
 .priority-option {
   display: flex;
   align-items: center;
@@ -156,14 +150,12 @@
   background: var(--error-color);
 }
 
-/* Línea divisoria */
 .divider {
   height: 1px;
   background: linear-gradient(90deg, transparent 0%, var(--border-color) 50%, transparent 100%);
   margin: 2rem 0;
 }
 
-/* Sección de evidencias */
 .evidence-section {
   display: flex;
   flex-direction: column;
@@ -216,7 +208,6 @@
   padding: 0.75rem 1.5rem;
 }
 
-/* Opciones y checkboxes */
 .options-section {
   display: flex;
   flex-direction: column;
@@ -284,7 +275,6 @@
   border-left: 4px solid var(--error-color);
 }
 
-/* Botones de acción */
 .action-buttons {
   display: flex;
   gap: 1rem;
@@ -333,7 +323,6 @@
   transform: translateY(-2px);
 }
 
-/* Estado del formulario */
 .form-status {
   display: flex;
   align-items: center;
@@ -349,7 +338,6 @@
   color: #f59e0b;
 }
 
-/* Panel lateral de imagen */
 .image-panel {
   background: var(--surface-color);
   border-left: 1px solid var(--border-color);
@@ -409,7 +397,6 @@
   color: var(--text-primary);
 }
 
-/* Mejoras para Material Design */
 mat-form-field {
   width: 100%;
 }
@@ -428,7 +415,6 @@ mat-error {
   font-size: 0.875rem;
 }
 
-/* Scroll personalizado */
 .complaint-form::-webkit-scrollbar {
   width: 8px;
 }
@@ -446,7 +432,6 @@ mat-error {
   background: #94a3b8;
 }
 
-/* Responsive */
 @media (max-width: 1024px) {
   .content-wrapper {
     grid-template-columns: 1fr;

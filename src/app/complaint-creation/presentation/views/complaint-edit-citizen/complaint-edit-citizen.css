@@ -1,0 +1,60 @@
+.edit-complaint-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.complaint-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.full-width {
+  width: 100%;
+}
+
+mat-card-header {
+  margin-bottom: 2rem;
+}
+
+mat-card-title h1 {
+  margin: 0;
+  color: #333;
+  font-size: 1.8rem;
+}
+
+mat-card-subtitle {
+  color: #666;
+  font-size: 1rem;
+}
+
+mat-card-actions {
+  padding: 1rem 0;
+  gap: 1rem;
+}
+
+mat-form-field {
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .edit-complaint-container {
+    margin: 1rem auto;
+    padding: 0 0.5rem;
+  }
+
+  mat-card-title h1 {
+    font-size: 1.5rem;
+  }
+}
+
+.success-snackbar {
+  background-color: #4caf50;
+  color: white;
+}
+
+.error-snackbar {
+  background-color: #f44336;
+  color: white;
+}

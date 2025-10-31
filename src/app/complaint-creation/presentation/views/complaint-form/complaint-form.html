@@ -1,15 +1,12 @@
 <div class="complaint-container">
-  <!-- Header -->
   <div class="header">
     <h1 class="title">{{ 'COMPLAINT_FORM.TITLE' | translate }}</h1>
     <p class="subtitle">{{ 'COMPLAINT_FORM.SUBTITLE' | translate }}</p>
   </div>
 
   <div class="content-wrapper">
-    <!-- Formulario Principal -->
     <form [formGroup]="form" (ngSubmit)="submitComplaint()" class="complaint-form">
 
-      <!-- Sección 1: Categoría y Ubicación -->
       <div class="form-section">
         <div class="section-header">
           <div class="section-number">1</div>
@@ -17,7 +14,6 @@
         </div>
 
         <div class="form-row">
-          <!-- Categoría -->
           <mat-form-field appearance="outline" class="form-field">
             <mat-label>{{ 'COMPLAINT_FORM.FIELDS.CATEGORY.LABEL' | translate }}</mat-label>
             <mat-select formControlName="category">
@@ -50,7 +46,6 @@
             <mat-icon matSuffix>category</mat-icon>
           </mat-form-field>
 
-          <!-- Prioridad -->
           <mat-form-field appearance="outline" class="form-field">
             <mat-label>{{ 'COMPLAINT_FORM.FIELDS.PRIORITY.LABEL' | translate }}</mat-label>
             <mat-select formControlName="priority">
@@ -78,11 +73,9 @@
           </mat-form-field>
         </div>
 
-        <!-- Ubicación -->
         <div class="location-section">
           <h3 class="location-title">{{ 'COMPLAINT_FORM.FIELDS.LOCATION.TITLE' | translate }}</h3>
           <div class="location-grid">
-            <!-- Departamento -->
             <mat-form-field appearance="outline">
               <mat-label>{{ 'COMPLAINT_FORM.FIELDS.LOCATION.DEPARTMENT.LABEL' | translate }}</mat-label>
               <mat-select formControlName="department">
@@ -94,7 +87,6 @@
               <mat-icon matSuffix>map</mat-icon>
             </mat-form-field>
 
-            <!-- Provincia -->
             <mat-form-field appearance="outline">
               <mat-label>{{ 'COMPLAINT_FORM.FIELDS.LOCATION.PROVINCE.LABEL' | translate }}</mat-label>
               <mat-select formControlName="province" [disabled]="!provincias.length">
@@ -106,7 +98,6 @@
               <mat-icon matSuffix>location_city</mat-icon>
             </mat-form-field>
 
-            <!-- Distrito -->
             <mat-form-field appearance="outline">
               <mat-label>{{ 'COMPLAINT_FORM.FIELDS.LOCATION.DISTRICT.LABEL' | translate }}</mat-label>
               <mat-select formControlName="district" [disabled]="!distritos.length">
@@ -121,10 +112,8 @@
         </div>
       </div>
 
-      <!-- Línea divisoria -->
       <div class="divider"></div>
 
-      <!-- Sección 2: Referencia -->
       <div class="form-section">
         <div class="section-header">
           <div class="section-number">2</div>
@@ -143,10 +132,8 @@
         </mat-form-field>
       </div>
 
-      <!-- Línea divisoria -->
       <div class="divider"></div>
 
-      <!-- Sección 3: Descripción -->
       <div class="form-section">
         <div class="section-header">
           <div class="section-number">3</div>
@@ -166,10 +153,8 @@
         </mat-form-field>
       </div>
 
-      <!-- Línea divisoria -->
       <div class="divider"></div>
 
-      <!-- Sección 4: Evidencias -->
       <div class="form-section">
         <div class="section-header">
           <div class="section-number">4</div>
@@ -177,7 +162,6 @@
         </div>
 
         <div class="evidence-section">
-          <!-- URLs de evidencias -->
           <mat-form-field appearance="outline" class="full-width">
             <mat-label>{{ 'COMPLAINT_FORM.FIELDS.EVIDENCE.LABEL' | translate }}</mat-label>
             <input
@@ -192,10 +176,8 @@
         </div>
       </div>
 
-      <!-- Línea divisoria -->
       <div class="divider"></div>
 
-      <!-- Sección 5: Opciones -->
       <div class="form-section">
         <div class="section-header">
           <div class="section-number">5</div>
@@ -203,7 +185,6 @@
         </div>
 
         <div class="options-section">
-          <!-- Checkboxes -->
           <div class="checkbox-group">
             <mat-checkbox formControlName="anonymous" class="option-checkbox">
               <div class="checkbox-content">
@@ -226,7 +207,6 @@
             </mat-checkbox>
           </div>
 
-          <!-- Mensaje de error para términos -->
           <mat-error *ngIf="form.get('termsAccepted')?.invalid && form.get('termsAccepted')?.touched"
                      class="terms-error">
             {{ 'COMPLAINT_FORM.OPTIONS.TERMS_ERROR' | translate }}
@@ -234,7 +214,6 @@
         </div>
       </div>
 
-      <!-- Botones de acción -->
       <div class="action-buttons">
         <button
           mat-raised-button
@@ -258,17 +237,15 @@
         </button>
       </div>
 
-      <!-- Estado del formulario -->
       <div *ngIf="form.invalid" class="form-status">
         <mat-icon>info</mat-icon>
         <span>{{ 'COMPLAINT_FORM.VALIDATION.REQUIRED_FIELDS' | translate }}</span>
       </div>
     </form>
 
-    <!-- Panel lateral de imagen -->
     <div class="image-panel">
       <div class="image-content">
-        <img src="/secret-image.png" alt="Ilustración de denuncia" class="side-image">
+        <img src="/public/assets/images/secret-image.png" alt="Ilustración de denuncia" class="side-image">
         <div class="image-info">
           <h3>{{ 'COMPLAINT_FORM.SIDEBAR.TITLE' | translate }}</h3>
           <p>{{ 'COMPLAINT_FORM.SIDEBAR.DESCRIPTION' | translate }}</p>

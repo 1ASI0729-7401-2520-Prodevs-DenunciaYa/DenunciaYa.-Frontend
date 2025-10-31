@@ -6,7 +6,6 @@ import { Complaint } from '../../../domain/model/complaint.entity';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
-// Angular Material imports
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
@@ -42,7 +41,6 @@ interface Distrito {
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    // Angular Material modules
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
@@ -53,6 +51,25 @@ interface Distrito {
     TranslatePipe
   ],
 })
+
+/**
+ * @class ComplaintForm
+ * @summary Component for creating and editing complaints.
+ * @constructor
+ * @param {FormBuilder} fb - FormBuilder for creating reactive forms.
+ * @param {ComplaintsStore} store - Store for managing complaints.
+ * @param {ActivatedRoute} route - ActivatedRoute for accessing route parameters.
+ * @param {Router} router - Router for navigation.
+ * @param {HttpClient} http - HttpClient for making HTTP requests.
+ * @method ngOnInit - Initializes the component and sets up form controls.
+ * @method onDepartmentChange - Updates provinces and districts based on selected department.
+ * @param {string | null} departmentCode - The selected department code.
+ * @method onProvinceChange - Updates districts based on selected province.
+ * @param {string | null} provinceCode - The selected province code.
+ * @method submitComplaint - Submits the complaint form, either creating a new complaint or updating an existing one.
+ * @method saveDraft - Saves the current form data as a draft in local storage.
+ * @method getFormErrors - Logs form validation errors for debugging purposes.
+ */
 export class ComplaintForm implements OnInit {
   private fb = inject(FormBuilder);
   private store = inject(ComplaintsStore);
@@ -71,7 +88,6 @@ export class ComplaintForm implements OnInit {
     'Others'
   ];
 
-  // Datos de Ubigeo del Perú
   departamentos: Ubigeo[] = [
     {
       codigo: '15',
@@ -349,12 +365,10 @@ export class ComplaintForm implements OnInit {
   }
 
   ngOnInit(): void {
-    // Suscribirse a cambios en el departamento
     this.form.get('department')?.valueChanges.subscribe(deptCode => {
       this.onDepartmentChange(deptCode);
     });
 
-    // Suscribirse a cambios en la provincia
     this.form.get('province')?.valueChanges.subscribe(provCode => {
       this.onProvinceChange(provCode);
     });
@@ -365,7 +379,6 @@ export class ComplaintForm implements OnInit {
       const departamento = this.departamentos.find(d => d.codigo === departmentCode);
       this.provincias = departamento?.provincias || [];
 
-      // Limpiar provincia y distrito cuando cambia el departamento
       this.form.patchValue({
         province: '',
         district: ''
@@ -382,7 +395,6 @@ export class ComplaintForm implements OnInit {
       const provincia = this.provincias.find(p => p.codigo === provinceCode);
       this.distritos = provincia?.distritos || [];
 
-      // Limpiar distrito cuando cambia la provincia
       this.form.patchValue({
         district: ''
       });
@@ -425,7 +437,6 @@ export class ComplaintForm implements OnInit {
         termsAccepted: true
       });
 
-      // Cargar provincias y distritos según el departamento seleccionado
       if (complaint.department) {
         this.onDepartmentChange(complaint.department);
         if (complaint.city) {
@@ -436,9 +447,7 @@ export class ComplaintForm implements OnInit {
   }
 
   submitComplaint() {
-    console.log('Form status:', this.form.status);
-    console.log('Form errors:', this.form.errors);
-    console.log('Form values:', this.form.value);
+;
 
     if (this.form.invalid) {
       this.markAllFieldsAsTouched();
@@ -447,20 +456,16 @@ export class ComplaintForm implements OnInit {
     }
 
     try {
-      // ✅ Convertir string de evidence a array
       const evidenceArray = this.form.value.evidence
         ? this.form.value.evidence.split(',').map(item => item.trim()).filter(item => item !== '')
         : [];
 
-      // ✅ Obtener nombres completos de ubicación
       const departamentoNombre = this.getDepartamentoNombre(this.form.value.department!);
       const provinciaNombre = this.getProvinciaNombre(this.form.value.province!);
       const distritoNombre = this.getDistritoNombre(this.form.value.district!);
 
-      // ✅ Crear una instancia de Complaint
       const complaint = new Complaint();
 
-      // ✅ Timeline inicial predefinido
       const initialTimeline = [
         {
           status: 'Complaint registered',
@@ -499,7 +504,6 @@ export class ComplaintForm implements OnInit {
         }
       ];
 
-      // ✅ Asignar los valores del formulario
       Object.assign(complaint, {
         id: this.complaintId || this.generateId(),
         category: this.form.value.category!,
@@ -518,22 +522,18 @@ export class ComplaintForm implements OnInit {
         timeline: initialTimeline
       });
 
-      console.log('Enviando denuncia:', complaint);
 
-      // ✅ Guardar la denuncia según el modo
       if (this.isEditMode) {
         this.store.updateComplaint(complaint);
       } else {
         this.store.addComplaint(complaint);
       }
 
-      // ✅ Navegar después de guardar
       this.router.navigate(['/complaints']).then(() => {
         alert('Denuncia ' + (this.isEditMode ? 'actualizada' : 'enviada') + ' correctamente ✅');
       });
 
     } catch (error) {
-      console.error('Error al procesar la denuncia:', error);
       alert('Error al procesar la denuncia. Por favor, intente nuevamente.');
     }
   }
@@ -559,7 +559,6 @@ export class ComplaintForm implements OnInit {
       savedAt: new Date().toISOString()
     };
 
-    console.log('Guardando borrador:', draftData);
     alert('Borrador guardado correctamente 📝');
 
     localStorage.setItem('complaintDraft', JSON.stringify(draftData));
@@ -569,7 +568,6 @@ export class ComplaintForm implements OnInit {
     Object.keys(this.form.controls).forEach(key => {
       const control = this.form.get(key);
       if (control?.errors) {
-        console.log(`Campo ${key}:`, control.errors);
       }
     });
   }
