@@ -1,19 +1,18 @@
 <div class="sidenav-container" [class.collapsed]="collapsed">
-  <!-- Logo -->
-  <div class="sidenav-header" (click)="toggleSidenav()">
+  <div class="sidenav-header" (click)="navigateToHome()">
     <img src="./assets/images/Logo.jpg"
          alt="DenunciaYa"
          class="logo" />
     <span class="logo-text" *ngIf="!collapsed">DenunciaYa</span>
   </div>
 
-  <!-- Menú principal -->
   <mat-nav-list>
     <a mat-list-item
        *ngFor="let item of sidenavItems"
        [routerLink]="item.route"
        routerLinkActive="active-link"
-       class="nav-item">
+       class="nav-item"
+       (click)="onNavItemClick()">
       <mat-icon>{{ item.icon }}</mat-icon>
       <span *ngIf="!collapsed">{{ item.label | translate }}</span>
     </a>

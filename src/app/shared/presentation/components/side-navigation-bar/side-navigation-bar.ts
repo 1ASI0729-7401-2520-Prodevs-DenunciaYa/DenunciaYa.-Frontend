@@ -1,15 +1,17 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { CommonModule, NgForOf } from '@angular/common';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule, MatNavList, MatListItem } from '@angular/material/list';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {AuthService} from '../../../../authentication-and-account-management/infrastructure/auth.service';
 
 interface SideNavigationItem {
   label: string;
   icon: string;
   route: string;
+  roles: ('citizen' | 'authority' | 'responsibles')[];
 }
 
 @Component({
@@ -30,32 +32,74 @@ interface SideNavigationItem {
     TranslateModule
   ]
 })
-export class SideNavigationBarComponent {
+export class SideNavigationBarComponent implements OnInit {
   collapsed = false;
+  currentUserRole: 'citizen' | 'authority' | 'responsibles' | null = null;
+  @Output() navItemClicked = new EventEmitter<void>();
 
-  sidenavItems: SideNavigationItem[] = [
-
-    { label: 'SIDENAV.HOME', icon: 'home', route: '/authority/home' },
-    { label: 'SIDENAV.REPORTS', icon: 'report_problem', route: '/pages/complainList' },
-    { label: 'SIDENAV.MAP', icon: 'map', route: '/pages/map' },
-    { label: 'SIDENAV.METRICS', icon: 'bar_chart', route: 'pages/metrics' },
-    { label: 'SIDENAV.TEAMS', icon: 'groups', route: '/pages/teamManagment' },
-    //{ label: 'SIDENAV.SUPPORT', icon: 'help_outline', route: '/soporte' },
-    //{ label: 'SIDENAV.DIRECTORY', icon: 'menu_book', route: '/directorio' },
-    { label: 'SIDENAV.COMMUNITY', icon: 'forum', route: '/pages/community' },
-    { label: 'SIDENAV.CREATERESPONSIBLE', icon: 'star', route: 'pages/responsibleCreate' },
-    { label: 'SIDENAV.SETTINGS', icon: 'settings', route: '/pages/settings' },
-    { label: 'SIDENAV.PROFILE', icon: 'person', route: '/pages/profile' },
-    { label: 'SIDENAV.LOGOUT', icon: 'logout', route: '/cerrar-cuenta' }
+  allSidenavItems: SideNavigationItem[] = [
+    { label: 'SIDENAV.HOME', icon: 'home', route: '/home', roles: ['citizen', 'authority', 'responsibles'] },
+    { label: 'SIDENAV.REPORTS', icon: 'report_problem', route: '/complaint-list', roles: ['citizen', 'authority', 'responsibles'] },
+    { label: 'SIDENAV.MAP', icon: 'map', route: '/map', roles: ['authority', 'responsibles'] },
+    { label: 'SIDENAV.METRICS', icon: 'bar_chart', route: '/metrics', roles: ['authority', 'responsibles'] },
+    { label: 'SIDENAV.TEAMS', icon: 'groups', route: '/team-managment', roles: ['authority', 'responsibles'] },
+    { label: 'SIDENAV.SUPPORT', icon: 'help_outline', route: '/support', roles: ['citizen', 'authority', 'responsibles'] },
+    { label: 'SIDENAV.COMMUNITY', icon: 'forum', route: '/community', roles: ['citizen', 'authority', 'responsibles'] },
+    { label: 'SIDENAV.SETTINGS', icon: 'settings', route: '/settings', roles: ['citizen', 'authority', 'responsibles'] },
+    { label: 'SIDENAV.PROFILE', icon: 'person', route: '/profile', roles: ['citizen', 'authority', 'responsibles'] },
+    { label: 'SIDENAV.LOGOUT', icon: 'logout', route: '/cerrar-cuenta', roles: ['citizen', 'authority', 'responsibles'] },
 
   ];
 
-  constructor(private translate: TranslateService) {
+  sidenavItems: SideNavigationItem[] = [];
+
+  constructor(
+    private translate: TranslateService,
+    private router: Router,
+    private authService: AuthService
+  ) {
     this.translate.setDefaultLang('es');
     this.translate.use('es');
   }
 
-  toggleSidenav() {
-    this.collapsed = !this.collapsed;
+  ngOnInit(): void {
+    this.loadUserRole();
+  }
+
+  private loadUserRole(): void {
+    const currentUser = this.authService.getCurrentUser();
+    if (currentUser) {
+      this.currentUserRole = currentUser.role;
+      this.filterSidenavItems();
+    } else {
+      this.currentUserRole = 'citizen';
+      this.filterSidenavItems();
+    }
+  }
+
+  private filterSidenavItems(): void {
+    if (this.currentUserRole) {
+      this.sidenavItems = this.allSidenavItems.filter(item =>
+        item.roles.includes(this.currentUserRole!)
+      );
+    } else {
+      this.sidenavItems = this.allSidenavItems.filter(item =>
+        item.roles.includes('citizen')
+      );
+    }
+  }
+
+
+
+  navigateToHome() {
+    this.router.navigate(['/home']);
+  }
+
+
+
+  onNavItemClick() {
+    if (window.innerWidth <= 768) {
+      this.navItemClicked.emit();
+    }
   }
 }

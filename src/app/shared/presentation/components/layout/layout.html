@@ -1,16 +1,19 @@
 <mat-sidenav-container class="layout-container">
-  <mat-sidenav mode="side" opened class="sidenav">
-    <app-side-navigation-bar></app-side-navigation-bar>
+  <mat-sidenav mode="side" opened class="sidenav" (closed)="onSidenavClosed()">
+    <app-side-navigation-bar
+      (navItemClicked)="sidenav.close()">
+      ></app-side-navigation-bar>
   </mat-sidenav>
 
   <mat-sidenav-content class="main-content">
-
     <div class="top-bar">
+      <button mat-icon-button class="menu-button" (click)="toggleSidenav()">
+        <mat-icon>menu</mat-icon>
+      </button>
+
       <span class="spacer"></span>
       <app-language-switcher></app-language-switcher>
     </div>
-
-
 
     <div class="page-content">
       <router-outlet></router-outlet>
