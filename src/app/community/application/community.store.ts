@@ -4,6 +4,19 @@ import { retry } from 'rxjs';
 import { Community } from '../domain/model/community.entity';
 import { CommunityApiEndpoint } from '../infrastructure/community-api-endpoint';
 
+/**
+ * @class CommunityStore
+ * @summary Manages the state and operations related to Community posts, including loading, adding, deleting, commenting, and liking posts.
+ * @method loadCommunities - Loads the list of community posts from the API.
+ * @method addCommunity - Adds a new community post to the store and API.
+ * @method addComment - Adds a comment to a specific community post.
+ * @method deleteCommunity - Deletes a community post from the store and API.
+ * @method toggleLike - Toggles the like status of a community post.
+ * @property communities - Readonly signal of the list of community posts.
+ * @property loading - Readonly signal indicating loading state.
+ * @property error - Readonly signal for error messages.
+ * @property communityCount - Computed property for the number of community posts.
+ */
 @Injectable({ providedIn: 'root' })
 export class CommunityStore {
   private readonly communitiesSignal = signal<Community[]>([]);
@@ -66,7 +79,7 @@ export class CommunityStore {
     if (postIndex !== -1) {
       const newComment = { author, content, date: new Date() };
       posts[postIndex].addComment(newComment);
-      this.communitiesSignal.set([...posts]); // ⚡ Actualiza la señal
+      this.communitiesSignal.set([...posts]);
     }
   }
 
@@ -97,7 +110,7 @@ export class CommunityStore {
     if (!post) return;
 
     if (likedSet.has(id)) {
-      post.unlike?.(); // si agregaste unlike() opcional
+      post.unlike?.();
       likedSet.delete(id);
     } else {
       post.like();

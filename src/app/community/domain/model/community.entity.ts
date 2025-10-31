@@ -1,11 +1,31 @@
 import { BaseEntity } from '../../../shared/domain/model/base-entity';
 
+/**
+ * @interface Comment
+ * @summary Represents a comment made on a community post, including the author, content, and date.
+ * @param {string} author - The name of the comment's author.
+ * @param {string} content - The content of the comment.
+ * @param {Date} date - The date the comment was made.
+ */
 export interface Comment {
   author: string;
   content: string;
   date: Date;
 }
 
+/**
+ * @class Community
+ * @summary Represents a community post with details such as author, content, image, likes, creation date, and comments.
+ * Implements the BaseEntity interface.
+ * @param {number} id - Unique identifier for the community post.
+ * @param {number} userId - Identifier of the user who created the post.
+ * @param {string} author - Name of the post's author.
+ * @param {string} content - Content of the community post.
+ * @param {string} [imageUrl] - Optional URL of an image associated with the post.
+ * @param {number} likes - Number of likes the post has received.
+ * @param {Date} createdAt - Date when the post was created.
+ * @param {Comment[]} comments - Array of comments associated with the post.
+ */
 export class Community implements BaseEntity {
   private _id: number;
   private _userId: number;
@@ -36,7 +56,6 @@ export class Community implements BaseEntity {
     this._comments = community.comments ?? [];
   }
 
-  // --- Getters ---
   get id(): number {
     return this._id;
   }

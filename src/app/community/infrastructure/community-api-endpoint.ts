@@ -9,7 +9,16 @@ import { Community } from '../domain/model/community.entity';
 
 const communitiesEndpointUrl = `${environment.platformProviderApiBaseUrl}${environment.platformProviderCommunitiesEndpointPath}`;
 
-@Injectable({ providedIn: 'root' }) // 👈 Añadir esto
+/**
+ * @class CommunityApiEndpoint
+ * @summary API endpoint for managing Community entities.
+ * @extends BaseApiEndpoint<Community, CommunityResource, CommunitiesResponse, CommunityAssembler>
+ *   * @method patch - Partially updates a Community entity by its ID.
+ *   @param {number} id - The ID of the Community to update.
+ *  @param {Partial<Community>} partial - The partial Community data to update.
+ *  @return {Observable<Community>} An observable of the updated Community entity.
+ */
+@Injectable({ providedIn: 'root' })
 export class CommunityApiEndpoint extends BaseApiEndpoint<
   Community,
   CommunityResource,

@@ -26,6 +26,15 @@ import {TranslatePipe} from '@ngx-translate/core';
   templateUrl: './community-form.html',
   styleUrls: ['./community-form.css']
 })
+/**
+ * @class CommunityForm
+ * @summary Component for creating and submitting community posts.
+ * @constructor
+ * @param {CommunityStore} communityStore - Store for managing community posts.
+ * @method handleImageUpload - Handles image file selection and preview.
+ * @param {Event} event - The file input change event.
+ * @method submitPost - Submits a new community post.
+ */
 export class CommunityForm {
   content: string = '';
   imageUrl: string | null = null;
@@ -51,7 +60,6 @@ export class CommunityForm {
   submitPost(): void {
     if (!this.content.trim() && !this.imageUrl) return;
 
-    // 🔹 Obtener usuario desde localStorage
     const userData = localStorage.getItem('user');
     let authorName = 'Usuario';
     let userId = 1;

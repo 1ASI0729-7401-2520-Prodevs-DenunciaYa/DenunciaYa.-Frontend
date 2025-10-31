@@ -2,6 +2,14 @@ import { BaseAssembler } from '../../shared/infrastructure/base-assembler';
 import { CommunitiesResponse, CommunityResource } from './community.response';
 import { Community } from '../domain/model/community.entity';
 
+/**
+ * @class CommunityAssembler
+ * @summary Converts between Community entities and Community resources.
+ * @implements {BaseAssembler<Community, CommunityResource, CommunitiesResponse>}
+ * @method toEntitiesFromResponse - Converts a CommunitiesResponse to an array of Community entities.
+ * @method toEntityFromResource - Converts a CommunityResource to a Community entity.
+ * @method toResourceFromEntity - Converts a Community entity to a CommunityResource.
+ */
 export class CommunityAssembler implements BaseAssembler<Community, CommunityResource, CommunitiesResponse> {
   toEntitiesFromResponse(response: CommunitiesResponse): Community[] {
     return response.communities.map(resource => this.toEntityFromResource(resource as CommunityResource));

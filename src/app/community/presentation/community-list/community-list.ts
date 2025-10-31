@@ -24,18 +24,40 @@ import { TranslatePipe } from '@ngx-translate/core';
   templateUrl: './community-list.html',
   styleUrls: ['./community-list.css']
 })
+/**
+ * @class CommunityList
+ * @summary Component for displaying a list of community posts with likes and comments functionality.
+ * @constructor
+ * @param {CommunityStore} communityStore - Store for managing community posts.
+ * @method onToggleLike - Toggles the like status of a post.
+ * @param {Community} post - The community post to like or unlike.
+ * @method toggleComments - Toggles the visibility of the comments section for a post.
+ * @param {Community} post - The community post to show or hide comments for.
+ * @method toggleShowComments - Toggles between showing all comments or a limited number for a post.
+ * @param {Community} post - The community post to toggle comment visibility for.
+ * @method getDisplayedComments - Retrieves the comments to be displayed for a post based on the current visibility settings.
+ * @param {Community} post - The community post to get comments for.
+ * @return {Comment[]} An array of comments to be displayed.
+ * @method addComment - Adds a new comment to a post.
+ * @param {Community} post - The community post to add a comment to.
+ * @method onDelete - Deletes a community post after user confirmation.
+ * @param {number} postId - The ID of the community post to delete.
+ * @method trackById - TrackBy function for optimizing ngFor rendering.
+ * @param {number} index - The index of the item in the ngFor loop.
+ * @param {Community} item - The community post item.
+ * @return {number} The unique identifier of the community post.
+ */
 export class CommunityList {
   newComments: Record<number, string> = {};
   showComments: Record<number, boolean> = {};
   showAllComments: Record<number, boolean> = {};
 
-  userName: string = 'Usuario'; // 👈 añadimos esto
+  userName: string = 'Usuario';
 
   constructor(public communityStore: CommunityStore) {
     this.loadUserName();
   }
 
-  /** Carga el nombre del usuario logueado desde localStorage */
   private loadUserName(): void {
     const userData = localStorage.getItem('user');
     if (userData) {
@@ -73,7 +95,7 @@ export class CommunityList {
   }
 
   onDelete(postId: number): void {
-    if (confirm('¿Seguro que deseas eliminar esta publicación?')) {
+    if (confirm('Do you want to delete this post?')) {
       this.communityStore.deleteCommunity(postId);
     }
   }
