@@ -1,13 +1,15 @@
-import { Component, inject, computed, Signal } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
-import { ResponsibleCreateStore } from '../../application/responsibleCreate.store';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { TranslatePipe } from '@ngx-translate/core';
+import { MatIconModule } from '@angular/material/icon';
+import { ResponsibleApiEndpoint } from '../../infrastructure/responsibleCreate-api--endpoint';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Responsible } from '../../domain/model/responsibleCreate.entity';
-import {MatFormField, MatFormFieldModule} from '@angular/material/form-field';
-import {MatInput, MatInputModule} from '@angular/material/input';
-import {TranslatePipe} from '@ngx-translate/core';
+import {MatButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-profile-responsible',
@@ -17,20 +19,52 @@ import {TranslatePipe} from '@ngx-translate/core';
     MatFormFieldModule,
     MatInputModule,
     MatProgressSpinnerModule,
-    TranslatePipe
+    TranslatePipe,
+    MatIconModule,
+    MatCardModule,
+    MatButton
   ],
   templateUrl: './profile-responsible.html',
   styleUrls: ['./profile-responsible.css']
 })
-export class ProfileResponsibleComponent {
-  private readonly store: ResponsibleCreateStore = inject(ResponsibleCreateStore);
+/**
+ * @class ProfileResponsibleComponent
+ * @constructor
+ * @implements OnInit
+ * @summary Component for displaying the profile of a responsible authority.
+ * @method ngOnInit - Initializes the component and loads responsible data based on route parameters.
+ * @method goBack - Navigates back to the complaint list view.
+ */
+export class ProfileResponsibleComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private responsibleApi = inject(ResponsibleApiEndpoint);
 
-  readonly responsibles: Signal<Responsible[]> = this.store.responsibles;
-  readonly loading: Signal<boolean> = this.store.loading;
-  readonly error: Signal<string | null> = this.store.error;
+  responsible: Responsible | null = null;
+  loading = true;
 
-  readonly latestResponsible = computed<Responsible | null>(() => {
-    const list = this.responsibles();
-    return list.length > 0 ? list[list.length - 1] : null;
-  });
+  ngOnInit(): void {
+    const responsibleId = this.route.snapshot.paramMap.get('id');
+
+
+
+    if (!responsibleId) {
+      this.loading = false;
+      this.router.navigate(['/complaint-list']);
+      return;
+    }
+
+    const cleanResponsibleId = responsibleId.replace('$', '').trim();
+
+    this.responsible = this.responsibleApi.getResponsibleById(cleanResponsibleId);
+
+    this.loading = false;
+
+    if (!this.responsible) {
+    }
+  }
+
+  goBack(): void {
+    this.router.navigate(['/complaint-list']);
+  }
 }

@@ -38,6 +38,21 @@ import {TranslatePipe} from '@ngx-translate/core';
   templateUrl: './edit-complaint.html',
   styleUrls: ['./edit-complaint.css']
 })
+/**
+ * @class EditComplaintComponent
+ * @constructor
+ * @param {FormBuilder} fb - FormBuilder for creating the complaint form.
+ * @param {ActivatedRoute} route - ActivatedRoute for accessing route parameters.
+ * @param {HttpClient} http - HttpClient for making HTTP requests.
+ * @param {Router} router - Angular Router for navigation.
+ * @method ngOnInit - Initializes the component and loads complaint data.
+ * @param {initForm} - Initializes the complaint form.
+ * @param {loadComplaintData} - Loads complaint data from the API.
+ * @param {saveChanges} - Saves changes made to the complaint.
+ * @param {discardChanges} - Discards changes and navigates back to the complaint list.
+ * @param {openImage} - Opens the selected image in a modal.
+ * @param {closeImage} - Closes the image modal.
+ */
 export class EditComplaintComponent implements OnInit {
   complaintForm!: FormGroup;
   complaintId!: string;
@@ -92,7 +107,6 @@ export class EditComplaintComponent implements OnInit {
     this.http.get<any>(apiUrl).subscribe({
       next: (data) => {
         this.complaintData = data;
-        console.log('Datos cargados:', data);
 
         this.complaintForm.patchValue({
           category: data.category || '',
@@ -105,16 +119,14 @@ export class EditComplaintComponent implements OnInit {
           updateMessage: data.updateMessage || ''
         });
 
-        // 🚫 Deshabilitar los campos que no deben editarse
         this.complaintForm.get('category')?.disable();
         this.complaintForm.get('location')?.disable();
         this.complaintForm.get('referenceInfo')?.disable();
         this.complaintForm.get('description')?.disable();
-        this.complaintForm.get('status')?.disable();
-        this.complaintForm.get('priority')?.disable();
+
+
       },
       error: (err) => {
-        console.error('Error loading complaint:', err);
       }
     });
   }
@@ -125,13 +137,14 @@ export class EditComplaintComponent implements OnInit {
       return;
     }
 
+    const formValue = this.complaintForm.getRawValue();
+
     const updatedComplaint = {
       ...this.complaintData,
-      ...this.complaintForm.value,
+      ...formValue,
       updateDate: new Date().toISOString()
     };
 
-    // ✅ Usar la URL de la API desde environment
     const apiUrl = `${environment.apiBaseUrl}${environment.apiEndpoints.complaints}/${this.complaintId}`;
 
     this.http
@@ -139,10 +152,9 @@ export class EditComplaintComponent implements OnInit {
       .subscribe({
         next: () => {
           alert('Denuncia actualizada correctamente ✅');
-          void this.router.navigate(['/pages/complainList']);
+          void this.router.navigate(['/complaint-list']);
         },
         error: (err) => {
-          console.error('Error updating complaint:', err);
           alert('Error al actualizar la denuncia');
         }
       });
@@ -150,7 +162,7 @@ export class EditComplaintComponent implements OnInit {
 
   discardChanges(): void {
     if (confirm('¿Está seguro de que desea descartar los cambios?')) {
-      this.complaintForm.reset(this.complaintData);
+      void this.router.navigate(['/complaint-list']);
     }
   }
 
@@ -161,5 +173,4 @@ export class EditComplaintComponent implements OnInit {
   closeImage(): void {
     this.selectedImage = null;
   }
-
 }

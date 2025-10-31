@@ -1,31 +1,106 @@
 <div class="profile-container">
-  <div class="profile-info">
-    <h1>{{ 'Responsible Profile' | translate }}</h1>
-    <div class="section-title">{{ 'Personal Information' | translate }}</div>
-    <div class="section-subtitle">
-      {{ 'Manage your contact information and personal details.' | translate }}
+  <div class="profile-card">
+    <div class="profile-header">
+
+      <h1 class="profile-title">{{ 'Responsible Profile' | translate }}</h1>
+      <div class="profile-subtitle">
+        {{ 'Assigned responsible details' | translate }}
+      </div>
     </div>
 
-    <div class="profile-fields">
-      <mat-form-field appearance="fill">
-        <mat-label>{{ 'First Name' | translate }}</mat-label>
-        <input matInput [value]="latestResponsible()?.firstName || ''" readonly />
-      </mat-form-field>
+    @if (loading) {
+      <div class="loading-spinner">
+        <mat-spinner></mat-spinner>
+      </div>
+    }
 
-      <mat-form-field appearance="fill">
-        <mat-label>{{ 'Last Name' | translate }}</mat-label>
-        <input matInput [value]="latestResponsible()?.lastName || ''" readonly />
-      </mat-form-field>
+    @if (responsible && !loading) {
+      <div class="info-section">
+        <div class="section-header">
+          <mat-icon class="section-icon">person</mat-icon>
+          <div class="section-title">{{ 'Personal Information' | translate }}</div>
+        </div>
 
-      <mat-form-field class="full-width" appearance="fill">
-        <mat-label>{{ 'Email' | translate }}</mat-label>
-        <input matInput [value]="latestResponsible()?.email || ''" readonly />
-      </mat-form-field>
+        <div class="profile-fields">
+          <div class="field-row">
+            <mat-form-field appearance="outline" class="field-half">
+              <mat-label>{{ 'First Name' | translate }}</mat-label>
+              <input matInput [value]="responsible.firstName" readonly />
+              <mat-icon matSuffix>badge</mat-icon>
+            </mat-form-field>
 
-      <mat-form-field class="full-width" appearance="fill">
-        <mat-label>{{ 'Phone' | translate }}</mat-label>
-        <input matInput [value]="latestResponsible()?.phone || ''" readonly />
-      </mat-form-field>
-    </div>
+            <mat-form-field appearance="outline" class="field-half">
+              <mat-label>{{ 'Last Name' | translate }}</mat-label>
+              <input matInput [value]="responsible.lastName" readonly />
+              <mat-icon matSuffix>badge</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>{{ 'Email' | translate }}</mat-label>
+            <input matInput [value]="responsible.email" readonly />
+            <mat-icon matSuffix>email</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>{{ 'Phone' | translate }}</mat-label>
+            <input matInput [value]="responsible.phone" readonly />
+            <mat-icon matSuffix>phone</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="info-section">
+        <div class="section-header">
+          <mat-icon class="section-icon">work</mat-icon>
+          <div class="section-title">{{ 'Professional Information' | translate }}</div>
+        </div>
+
+        <div class="profile-fields">
+          <div class="field-row">
+            @if (responsible.position) {
+              <mat-form-field appearance="outline" class="field-half">
+                <mat-label>{{ 'Position' | translate }}</mat-label>
+                <input matInput [value]="responsible.position" readonly />
+                <mat-icon matSuffix>work_outline</mat-icon>
+              </mat-form-field>
+            }
+
+            @if (responsible.department) {
+              <mat-form-field appearance="outline" class="field-half">
+                <mat-label>{{ 'Department' | translate }}</mat-label>
+                <input matInput [value]="responsible.department" readonly />
+                <mat-icon matSuffix>business</mat-icon>
+              </mat-form-field>
+            }
+          </div>
+
+          @if (responsible.role) {
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>{{ 'Role' | translate }}</mat-label>
+              <input matInput [value]="responsible.role" readonly />
+              <mat-icon matSuffix>admin_panel_settings</mat-icon>
+            </mat-form-field>
+          }
+
+          @if (responsible.description) {
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>{{ 'Description' | translate }}</mat-label>
+              <input matInput [value]="responsible.description" readonly />
+              <mat-icon matSuffix>description</mat-icon>
+            </mat-form-field>
+          }
+        </div>
+      </div>
+
+
+    }
+
+    @if (!responsible && !loading) {
+      <div class="error-message">
+        <mat-icon>error_outline</mat-icon>
+        <p>{{ 'Responsible not found' | translate }}</p>
+      </div>
+    }
   </div>
 </div>

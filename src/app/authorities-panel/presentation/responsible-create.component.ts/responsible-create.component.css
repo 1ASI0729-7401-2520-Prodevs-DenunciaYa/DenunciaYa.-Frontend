@@ -77,7 +77,6 @@ h2 {
   height: 20px;
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
   .container {
     padding: 15px;
@@ -100,23 +99,19 @@ h2 {
   }
 }
 
-/* Estilos para los campos del formulario */
 mat-form-field {
   width: 100%;
 }
 
-/* Mejora visual para los selects */
 mat-select {
   line-height: 1.5;
 }
 
-/* Estilos para los hints */
 mat-hint {
   font-size: 12px;
   color: #666;
 }
 
-/* Estilos para los errores */
 mat-error {
   font-size: 12px;
 }

@@ -1,5 +1,5 @@
 <div class="container">
-  <button class="back-button" mat-stroked-button color="accent" routerLink="/">
+  <button class="back-button" mat-stroked-button color="accent" routerLink="/complaint-list">
     ← {{ 'Back to Complaints' | translate }}
   </button>
 
@@ -28,7 +28,6 @@
       <textarea matInput formControlName="description"></textarea>
     </mat-form-field>
 
-    <!-- Evidencias -->
     <div class="evidence-section">
       <h3>{{ 'Evidence' | translate }}</h3>
 
@@ -50,7 +49,6 @@
       }
     </div>
 
-    <!-- Estado / Prioridad / Asignación -->
     <div class="row">
       <mat-form-field appearance="fill">
         <mat-label>{{ 'Status' | translate }}</mat-label>

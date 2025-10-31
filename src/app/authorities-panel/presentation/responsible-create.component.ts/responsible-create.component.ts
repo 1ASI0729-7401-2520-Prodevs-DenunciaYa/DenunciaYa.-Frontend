@@ -10,6 +10,7 @@ import { ResponsibleCreateStore } from '../../application/responsibleCreate.stor
 import { TranslatePipe } from '@ngx-translate/core';
 import {MatIconModule} from '@angular/material/icon';
 import {Responsible} from '../../domain/model/responsibleCreate.entity';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-responsible-create',
@@ -28,6 +29,17 @@ import {Responsible} from '../../domain/model/responsibleCreate.entity';
   templateUrl: './responsible-create.component.html',
   styleUrls: ['./responsible-create.component.css']
 })
+/**
+ * @class Responsible
+ * @constructor
+ * @summary Component for creating a new responsible authority.
+ * @param {FormBuilder} fb - FormBuilder for creating the responsible form.
+ * @param {ResponsibleCreateStore} store - Store for managing responsible creation state.
+ * @param {Router} router - Angular Router for navigation.
+ * @method onSubmit - Handles the submission of the responsible creation form.
+ * @method onCancel - Resets the responsible creation form.
+ * @method markFormGroupTouched - Marks all controls in the form group as touched to trigger validation messages.
+ */
 export class ResponsibleCreateComponent implements OnInit {
   form: FormGroup;
 
@@ -66,7 +78,9 @@ export class ResponsibleCreateComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    public store: ResponsibleCreateStore
+    public store: ResponsibleCreateStore,
+    private router: Router
+
   ) {
     this.form = this.fb.group({
       firstName: ['', [Validators.required, Validators.minLength(2)]],
@@ -119,7 +133,9 @@ export class ResponsibleCreateComponent implements OnInit {
       control?.markAsTouched();
     });
   }
-
+  navigateBack(): void {
+    this.router.navigate(['/team-managment']);
+  }
   getFirstNameErrorMessage(): string {
     const control = this.form.get('firstName');
     if (control?.hasError('required')) {

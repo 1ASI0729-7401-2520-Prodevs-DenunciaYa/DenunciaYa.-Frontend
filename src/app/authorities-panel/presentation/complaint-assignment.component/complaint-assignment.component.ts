@@ -15,6 +15,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { HttpClient } from '@angular/common/http';
+import {TranslatePipe} from '@ngx-translate/core';
+import {Router} from '@angular/router';
 
 interface TeamMember {
   id: string;
@@ -55,7 +57,7 @@ interface Assignment {
 
 interface TeamMemberWithCases extends TeamMember {
   currentAssignments: Assignment[];
-  assignedCases: Case[]; // Cambiado de assignedComplaints
+  assignedCases: Case[];
   availableCases: Case[];
   workload: number;
 }
@@ -77,32 +79,42 @@ interface TeamMemberWithCases extends TeamMember {
     MatChipsModule,
     MatTooltipModule,
     MatBadgeModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    TranslatePipe
   ],
   templateUrl: './complaint-assignment.component.html',
   styleUrls: ['./complaint-assignment.component.css']
 })
+/**
+ * @class ComplaintAssigmentComponent
+ * @summary Component for managing complaint assignments to team members.
+ * @method ngOnInit - Initializes the component and loads data.
+ * @method loadAllData - Loads team members, cases, and assignments from the API.
+ * @method getAvailableCasesForMember - Retrieves available cases for a specific team member based on their specialization.
+ * @method calculateWorkload - Calculates the workload percentage for a team member.
+ * @method onCaseAssignment - Handles case selection for assignment to a team member.
+ * @method assignCase - Assigns a selected case to a team member and updates the backend.
+ * @method unassignCase - Unassigns a case from a team member and updates the backend.
+ * @method showMessage - Displays a snack bar message for user feedback.
+ */
 export class ComplaintAssigmentComponent implements OnInit {
   private fb = inject(FormBuilder);
   private snackBar = inject(MatSnackBar);
   private http = inject(HttpClient);
+  private router = inject(Router);
 
-  // Signals para el estado
   private teamMembersSignal = signal<TeamMember[]>([]);
   private casesSignal = signal<Case[]>([]);
   private assignmentsSignal = signal<Assignment[]>([]);
   loading = signal<boolean>(false);
   selectedAssignments = signal<Map<string, string>>(new Map());
 
-  // Signals para filtros
   departmentFilter = signal<string>('');
   statusFilter = signal<string>('');
   priorityFilter = signal<string>('');
 
-  // URLs de la API
   private readonly baseUrl = 'http://localhost:3000';
 
-  // Computed signals
   readonly teamMembers = this.teamMembersSignal.asReadonly();
   readonly cases = this.casesSignal.asReadonly();
   readonly assignments = this.assignmentsSignal.asReadonly();
@@ -111,7 +123,6 @@ export class ComplaintAssigmentComponent implements OnInit {
     this.assignments().filter(a => a.status === 'active')
   );
 
-  // Computed para estadísticas del equipo
   readonly teamStats = computed(() => {
     const members = this.teamMembers();
     const activeCases = this.cases().filter(c =>
@@ -127,7 +138,6 @@ export class ComplaintAssigmentComponent implements OnInit {
     };
   });
 
-  // Computed para opciones de filtros
   readonly departments = computed(() => {
     const departments = this.teamMembers().map(m => m.department);
     return [...new Set(departments)].sort();
@@ -148,7 +158,6 @@ export class ComplaintAssigmentComponent implements OnInit {
     const assignments = this.activeAssignments();
     const cases = this.cases();
 
-    // Aplicar filtros
     let filteredMembers = members;
 
     if (this.departmentFilter()) {
@@ -192,12 +201,12 @@ export class ComplaintAssigmentComponent implements OnInit {
       status: [''],
       priority: ['']
     });
+
   }
 
   ngOnInit(): void {
     this.loadAllData();
 
-    // Suscribirse a cambios en los filtros
     this.filterForm.valueChanges.subscribe(values => {
       this.departmentFilter.set(values.department || '');
       this.statusFilter.set(values.status || '');
@@ -216,12 +225,24 @@ export class ComplaintAssigmentComponent implements OnInit {
       this.loading.set(false);
     });
   }
+  getDisplayedColumns(): string[] {
+    const screenWidth = window.innerWidth;
+
+    if (screenWidth < 480) {
+      return ['teamMember', 'workload', 'actions'];
+    } else if (screenWidth < 768) {
+      return ['teamMember', 'workload', 'availableCases', 'actions'];
+    } else if (screenWidth < 1024) {
+      return ['teamMember', 'status', 'workload', 'availableCases', 'actions'];
+    } else {
+      return ['teamMember', 'status', 'workload', 'assignedCases', 'availableCases', 'actions'];
+    }
+  }
 
   private loadTeamMembers(): Promise<void> {
     return new Promise((resolve) => {
       this.http.get<any[]>(`${this.baseUrl}/responsibles`).subscribe({
         next: (members) => {
-          // Transformar responsables a miembros del equipo
           const teamMembers: TeamMember[] = members.map(member => ({
             id: member.id,
             firstName: member.firstName,
@@ -239,7 +260,6 @@ export class ComplaintAssigmentComponent implements OnInit {
           resolve();
         },
         error: (error) => {
-          console.error('Error loading team members:', error);
           this.showMessage('Error loading team members', 'error');
           resolve();
         }
@@ -251,7 +271,6 @@ export class ComplaintAssigmentComponent implements OnInit {
     return new Promise((resolve) => {
       this.http.get<any[]>(`${this.baseUrl}/complaints`).subscribe({
         next: (complaints) => {
-          // Transformar denuncias a casos
           const cases: Case[] = complaints.map(complaint => ({
             id: complaint.id,
             title: `Case #${complaint.id}`,
@@ -268,7 +287,6 @@ export class ComplaintAssigmentComponent implements OnInit {
           resolve();
         },
         error: (error) => {
-          console.error('Error loading cases:', error);
           this.showMessage('Error loading cases', 'error');
           resolve();
         }
@@ -284,7 +302,6 @@ export class ComplaintAssigmentComponent implements OnInit {
           resolve();
         },
         error: (error) => {
-          console.error('Error loading assignments:', error);
           this.showMessage('Error loading assignments', 'error');
           resolve();
         }
@@ -328,7 +345,6 @@ export class ComplaintAssigmentComponent implements OnInit {
       )
     );
 
-    // Filtrar por prioridad si está activo el filtro
     if (this.priorityFilter()) {
       return unassignedCases.filter(c => c.priority === this.priorityFilter());
     }
@@ -337,8 +353,7 @@ export class ComplaintAssigmentComponent implements OnInit {
   }
 
   calculateWorkload(member: TeamMember, assignedCasesCount: number): number {
-    // Lógica simple para calcular workload basado en casos asignados
-    const maxCases = 5; // Máximo de casos por miembro
+    const maxCases = 5;
     return Math.min((assignedCasesCount / maxCases) * 100, 100);
   }
 
@@ -388,7 +403,6 @@ export class ComplaintAssigmentComponent implements OnInit {
         status: 'active'
       };
 
-      // Crear asignación
       await new Promise((resolve, reject) => {
         this.http.post<Assignment>(`${this.baseUrl}/complaintAssignments`, newAssignment).subscribe({
           next: (assignment) => {
@@ -398,19 +412,16 @@ export class ComplaintAssigmentComponent implements OnInit {
             resolve(assignment);
           },
           error: (error) => {
-            console.error('Error creating assignment:', error);
             reject(error);
           }
         });
       });
 
-      // Limpiar selección
       const currentSelections = this.selectedAssignments();
       currentSelections.delete(teamMemberId);
       this.selectedAssignments.set(new Map(currentSelections));
 
     } catch (error) {
-      console.error('Error assigning case:', error);
       this.showMessage('Error assigning case', 'error');
     } finally {
       this.loading.set(false);
@@ -439,7 +450,6 @@ export class ComplaintAssigmentComponent implements OnInit {
         );
       },
       error: (error) => {
-        console.error('Error updating case assignment:', error);
       }
     });
   }
@@ -456,7 +466,6 @@ export class ComplaintAssigmentComponent implements OnInit {
 
   unassignCase(assignmentId: string): void {
     if (!assignmentId) {
-      console.error('No assignment ID provided');
       return;
     }
 
@@ -473,7 +482,6 @@ export class ComplaintAssigmentComponent implements OnInit {
         this.loading.set(false);
       },
       error: (error) => {
-        console.error('Error unassigning case:', error);
         this.showMessage('Error unassigning case', 'error');
         this.loading.set(false);
       }
@@ -507,7 +515,15 @@ export class ComplaintAssigmentComponent implements OnInit {
     };
     return statusIcons[status] || 'help';
   }
-
+  getStatusTranslation(status: string): string {
+    const statusMap: { [key: string]: string } = {
+      'online': 'TEAM_MANAGEMENT.TABLE.STATUS.ONLINE',
+      'offline': 'TEAM_MANAGEMENT.TABLE.STATUS.OFFLINE',
+      'busy': 'TEAM_MANAGEMENT.TABLE.STATUS.BUSY',
+      'away': 'TEAM_MANAGEMENT.TABLE.STATUS.AWAY'
+    };
+    return statusMap[status] || status;
+  }
   getPriorityIcon(priority: string): string {
     const priorityIcons: { [key: string]: string } = {
       'low': 'arrow_downward',
@@ -520,5 +536,13 @@ export class ComplaintAssigmentComponent implements OnInit {
   getAssignmentIdForCase(member: TeamMemberWithCases, caseId: string): string {
     const assignment = member.currentAssignments.find(a => a.complaintId === caseId);
     return assignment?.id || '';
+  }
+
+  navigateToCreateResponsible(): void {
+    this.router.navigate(['/responsible-create']);
+  }
+
+  navigateBackToAssignment(): void {
+    this.router.navigate(['/team-management']);
   }
 }

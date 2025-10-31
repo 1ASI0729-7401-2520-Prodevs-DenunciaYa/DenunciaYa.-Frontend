@@ -3,7 +3,6 @@
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="responsible-form">
 
-    <!-- Nombre y Apellido -->
     <div class="row">
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>{{ 'First Name' | translate }}</mat-label>
@@ -28,7 +27,6 @@
       </mat-form-field>
     </div>
 
-    <!-- Email y Teléfono -->
     <div class="row">
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>{{ 'Email' | translate }}</mat-label>
@@ -54,7 +52,6 @@
       </mat-form-field>
     </div>
 
-    <!-- Posición y Departamento -->
     <div class="row">
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>{{ 'Position' | translate }}</mat-label>
@@ -81,7 +78,6 @@
       </mat-form-field>
     </div>
 
-    <!-- Rol y Nivel de Acceso -->
     <div class="row">
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>{{ 'Role' | translate }}</mat-label>
@@ -110,7 +106,6 @@
       </mat-form-field>
     </div>
 
-    <!-- Descripción -->
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>{{ 'Description' | translate }}</mat-label>
       <textarea matInput
@@ -124,7 +119,6 @@
       </mat-error>
     </mat-form-field>
 
-    <!-- Botones -->
     <div class="button-group">
       <button mat-flat-button
               color="primary"
@@ -133,6 +127,16 @@
               class="submit-button">
         <mat-icon *ngIf="!store.loading()">person_add</mat-icon>
         {{ 'Add Responsible' | translate }}
+      </button>
+
+      <button mat-stroked-button
+              color="primary"
+              type="button"
+              (click)="navigateBack()"
+              [disabled]="store.loading()"
+              class="back-button">
+        <mat-icon>arrow_back</mat-icon>
+        {{ 'Back to Team Management' | translate }}
       </button>
 
       <button mat-stroked-button
@@ -147,13 +151,11 @@
     </div>
   </form>
 
-  <!-- Spinner de carga -->
   <div *ngIf="store.loading()" class="loading-overlay">
     <mat-spinner diameter="40"></mat-spinner>
     <p>{{ 'Adding responsible...' | translate }}</p>
   </div>
 
-  <!-- Mensaje de error -->
   <div *ngIf="store.error()" class="error-message">
     <mat-icon color="warn">error</mat-icon>
     <span>{{ store.error() }}</span>
