@@ -17,6 +17,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { HttpClient } from '@angular/common/http';
 import {TranslatePipe} from '@ngx-translate/core';
 import {Router} from '@angular/router';
+import {Complaint} from '../../../complaint-creation/domain/model/complaint.entity';
 
 interface TeamMember {
   id: string;
@@ -27,23 +28,9 @@ interface TeamMember {
   email: string;
   phone: string;
   status: 'available' | 'busy' | 'offline';
-  assignedComplaints: string[];
+  assignedComplaints: string[]; // IDs de quejas asignadas
   specialization: string[];
   workload: number;
-}
-
-interface Case {
-  id: string;
-  title: string;
-  description: string;
-  category: string;
-  priority: 'low' | 'medium' | 'high' | 'critical';
-  status: 'new' | 'assigned' | 'in-progress' | 'resolved' | 'closed';
-  assignedTo: string | null;
-  createdAt: string;
-  updatedAt: string;
-  dueDate?: string;
-  tags: string[];
 }
 
 interface Assignment {
@@ -55,11 +42,22 @@ interface Assignment {
   status: 'active' | 'completed' | 'reassigned';
 }
 
-interface TeamMemberWithCases extends TeamMember {
-  currentAssignments: Assignment[];
-  assignedCases: Case[];
-  availableCases: Case[];
+// Interfaz separada para el miembro del equipo con quejas completas
+interface TeamMemberWithComplaints {
+  id: string;
+  firstName: string;
+  lastName: string;
+  department: string;
+  position: string;
+  email: string;
+  phone: string;
+  status: 'available' | 'busy' | 'offline';
+  assignedComplaintIds: string[]; // IDs de quejas asignadas
+  specialization: string[];
   workload: number;
+  currentAssignments: Assignment[];
+  assignedComplaints: Complaint[]; // Objetos Complaint completos
+  availableComplaints: Complaint[];
 }
 
 @Component({
@@ -85,18 +83,6 @@ interface TeamMemberWithCases extends TeamMember {
   templateUrl: './complaint-assignment.component.html',
   styleUrls: ['./complaint-assignment.component.css']
 })
-/**
- * @class ComplaintAssigmentComponent
- * @summary Component for managing complaint assignments to team members.
- * @method ngOnInit - Initializes the component and loads data.
- * @method loadAllData - Loads team members, cases, and assignments from the API.
- * @method getAvailableCasesForMember - Retrieves available cases for a specific team member based on their specialization.
- * @method calculateWorkload - Calculates the workload percentage for a team member.
- * @method onCaseAssignment - Handles case selection for assignment to a team member.
- * @method assignCase - Assigns a selected case to a team member and updates the backend.
- * @method unassignCase - Unassigns a case from a team member and updates the backend.
- * @method showMessage - Displays a snack bar message for user feedback.
- */
 export class ComplaintAssigmentComponent implements OnInit {
   private fb = inject(FormBuilder);
   private snackBar = inject(MatSnackBar);
@@ -104,7 +90,7 @@ export class ComplaintAssigmentComponent implements OnInit {
   private router = inject(Router);
 
   private teamMembersSignal = signal<TeamMember[]>([]);
-  private casesSignal = signal<Case[]>([]);
+  private complaintsSignal = signal<Complaint[]>([]);
   private assignmentsSignal = signal<Assignment[]>([]);
   loading = signal<boolean>(false);
   selectedAssignments = signal<Map<string, string>>(new Map());
@@ -116,7 +102,7 @@ export class ComplaintAssigmentComponent implements OnInit {
   private readonly baseUrl = 'http://localhost:3000';
 
   readonly teamMembers = this.teamMembersSignal.asReadonly();
-  readonly cases = this.casesSignal.asReadonly();
+  readonly complaints = this.complaintsSignal.asReadonly();
   readonly assignments = this.assignmentsSignal.asReadonly();
 
   readonly activeAssignments = computed(() =>
@@ -125,16 +111,11 @@ export class ComplaintAssigmentComponent implements OnInit {
 
   readonly teamStats = computed(() => {
     const members = this.teamMembers();
-    const activeCases = this.cases().filter(c =>
-      c.status === 'assigned' || c.status === 'in-progress'
-    ).length;
-
     return {
       totalMembers: members.length,
       availableMembers: members.filter(m => m.status === 'available').length,
       busyMembers: members.filter(m => m.status === 'busy').length,
-      activeCases: activeCases,
-      totalCases: this.cases().length
+      totalComplaints: this.complaints().length
     };
   });
 
@@ -143,20 +124,15 @@ export class ComplaintAssigmentComponent implements OnInit {
     return [...new Set(departments)].sort();
   });
 
-  readonly statuses = computed(() => {
-    const statuses = this.cases().map(c => c.status);
-    return [...new Set(statuses)].sort();
-  });
-
   readonly priorities = computed(() => {
-    const priorities = this.cases().map(c => c.priority);
+    const priorities = this.complaints().map(c => c.priority);
     return [...new Set(priorities)].sort();
   });
 
   teamMembersWithAssignments = computed(() => {
     const members = this.teamMembers();
     const assignments = this.activeAssignments();
-    const cases = this.cases();
+    const complaints = this.complaints();
 
     let filteredMembers = members;
 
@@ -168,27 +144,29 @@ export class ComplaintAssigmentComponent implements OnInit {
 
     return filteredMembers.map(member => {
       const memberAssignments = assignments.filter(a => a.responsibleId === member.id);
-      const assignedCases = memberAssignments.map(assignment =>
-        cases.find(c => c.id === assignment.complaintId)
-      ).filter(Boolean) as Case[];
+      const assignedComplaints = memberAssignments.map(assignment =>
+        complaints.find(c => c.id === assignment.complaintId)
+      ).filter(Boolean) as Complaint[];
 
-      const availableCases = this.getAvailableCasesForMember(member);
+      const assignedComplaintIds = assignedComplaints.map(c => c.id);
+      const availableComplaints = this.getAvailableComplaintsForMember(member);
 
-      const teamMemberWithCases: TeamMemberWithCases = {
+      const teamMemberWithComplaints: TeamMemberWithComplaints = {
         ...member,
+        assignedComplaintIds: assignedComplaintIds,
         currentAssignments: memberAssignments,
-        assignedCases: assignedCases,
-        availableCases: availableCases,
-        workload: this.calculateWorkload(member, assignedCases.length)
+        assignedComplaints: assignedComplaints,
+        availableComplaints: availableComplaints,
+        workload: this.calculateWorkload(member, assignedComplaints.length)
       };
 
-      return teamMemberWithCases;
+      return teamMemberWithComplaints;
     });
   });
 
   assignmentForm: FormGroup;
   filterForm: FormGroup;
-  displayedColumns: string[] = ['teamMember', 'status', 'workload', 'assignedCases', 'availableCases', 'actions'];
+  displayedColumns: string[] = ['teamMember', 'status', 'workload', 'assignedComplaints', 'availableComplaints', 'actions'];
 
   constructor() {
     this.assignmentForm = this.fb.group({
@@ -201,7 +179,6 @@ export class ComplaintAssigmentComponent implements OnInit {
       status: [''],
       priority: ['']
     });
-
   }
 
   ngOnInit(): void {
@@ -219,23 +196,24 @@ export class ComplaintAssigmentComponent implements OnInit {
 
     Promise.all([
       this.loadTeamMembers(),
-      this.loadCases(),
+      this.loadComplaints(),
       this.loadAssignments()
     ]).finally(() => {
       this.loading.set(false);
     });
   }
+
   getDisplayedColumns(): string[] {
     const screenWidth = window.innerWidth;
 
     if (screenWidth < 480) {
       return ['teamMember', 'workload', 'actions'];
     } else if (screenWidth < 768) {
-      return ['teamMember', 'workload', 'availableCases', 'actions'];
+      return ['teamMember', 'workload', 'availableComplaints', 'actions'];
     } else if (screenWidth < 1024) {
-      return ['teamMember', 'status', 'workload', 'availableCases', 'actions'];
+      return ['teamMember', 'status', 'workload', 'availableComplaints', 'actions'];
     } else {
-      return ['teamMember', 'status', 'workload', 'assignedCases', 'availableCases', 'actions'];
+      return ['teamMember', 'status', 'workload', 'assignedComplaints', 'availableComplaints', 'actions'];
     }
   }
 
@@ -267,27 +245,36 @@ export class ComplaintAssigmentComponent implements OnInit {
     });
   }
 
-  private loadCases(): Promise<void> {
+  private loadComplaints(): Promise<void> {
     return new Promise((resolve) => {
       this.http.get<any[]>(`${this.baseUrl}/complaints`).subscribe({
         next: (complaints) => {
-          const cases: Case[] = complaints.map(complaint => ({
-            id: complaint.id,
-            title: `Case #${complaint.id}`,
-            description: complaint.description,
-            category: complaint.category,
-            priority: this.mapPriority(complaint.priority),
-            status: this.mapStatus(complaint.status),
-            assignedTo: complaint.responsibleId,
-            createdAt: complaint.updateDate || new Date().toISOString(),
-            updatedAt: complaint.updateDate || new Date().toISOString(),
-            tags: [complaint.category, complaint.priority]
-          }));
-          this.casesSignal.set(cases);
+          const complaintEntities: Complaint[] = complaints.map(complaint => {
+            // Crear una nueva instancia de Complaint sin prefijos de guión bajo
+            return new Complaint({
+              id: complaint.id,
+              category: complaint.category,
+              department: complaint.department,
+              city: complaint.city,
+              district: complaint.district,
+              location: complaint.location,
+              referenceInfo: complaint.referenceInfo,
+              description: complaint.description,
+              status: complaint.status,
+              priority: complaint.priority,
+              evidence: complaint.evidence || [],
+              assignedTo: complaint.assignedTo,
+              updateMessage: complaint.updateMessage || '',
+              updateDate: complaint.updateDate,
+              timeline: complaint.timeline || [],
+              responsibleId: complaint.responsibleId
+            });
+          });
+          this.complaintsSignal.set(complaintEntities);
           resolve();
         },
         error: (error) => {
-          this.showMessage('Error loading cases', 'error');
+          this.showMessage('Error loading complaints', 'error');
           resolve();
         }
       });
@@ -314,47 +301,25 @@ export class ComplaintAssigmentComponent implements OnInit {
     return statuses[Math.floor(Math.random() * statuses.length)] as any;
   }
 
-  private mapPriority(priority: string): 'low' | 'medium' | 'high' | 'critical' {
-    const priorityMap: { [key: string]: 'low' | 'medium' | 'high' | 'critical' } = {
-      'Standard': 'medium',
-      'Urgent': 'high',
-      'Critical': 'critical'
-    };
-    return priorityMap[priority] || 'medium';
-  }
-
-  private mapStatus(status: string): 'new' | 'assigned' | 'in-progress' | 'resolved' | 'closed' {
-    const statusMap: { [key: string]: 'new' | 'assigned' | 'in-progress' | 'resolved' | 'closed' } = {
-      'Pending': 'new',
-      'Under review': 'in-progress',
-      'Awaiting response': 'assigned',
-      'Decision pending': 'in-progress',
-      'Completed': 'resolved',
-      'Rejected': 'closed'
-    };
-    return statusMap[status] || 'new';
-  }
-
-  getAvailableCasesForMember(member: TeamMember): Case[] {
-    const unassignedCases = this.cases().filter(caseItem =>
-      !caseItem.assignedTo &&
-      caseItem.status === 'new' &&
+  getAvailableComplaintsForMember(member: TeamMember): Complaint[] {
+    const unassignedComplaints = this.complaints().filter(complaint =>
+      !complaint.responsibleId &&
       member.specialization.some(spec =>
-        caseItem.category.toLowerCase().includes(spec.toLowerCase()) ||
-        spec.toLowerCase().includes(caseItem.category.toLowerCase())
+        complaint.category.toLowerCase().includes(spec.toLowerCase()) ||
+        spec.toLowerCase().includes(complaint.category.toLowerCase())
       )
     );
 
     if (this.priorityFilter()) {
-      return unassignedCases.filter(c => c.priority === this.priorityFilter());
+      return unassignedComplaints.filter(c => c.priority === this.priorityFilter());
     }
 
-    return unassignedCases;
+    return unassignedComplaints;
   }
 
-  calculateWorkload(member: TeamMember, assignedCasesCount: number): number {
-    const maxCases = 5;
-    return Math.min((assignedCasesCount / maxCases) * 100, 100);
+  calculateWorkload(member: TeamMember, assignedComplaintsCount: number): number {
+    const maxComplaints = 5;
+    return Math.min((assignedComplaintsCount / maxComplaints) * 100, 100);
   }
 
   getWorkloadColor(workload: number): string {
@@ -363,32 +328,32 @@ export class ComplaintAssigmentComponent implements OnInit {
     return 'warn';
   }
 
-  onCaseAssignment(teamMemberId: string, caseId: string): void {
+  onComplaintAssignment(teamMemberId: string, complaintId: string): void {
     const currentSelections = this.selectedAssignments();
-    if (caseId) {
-      currentSelections.set(teamMemberId, caseId);
+    if (complaintId) {
+      currentSelections.set(teamMemberId, complaintId);
     } else {
       currentSelections.delete(teamMemberId);
     }
     this.selectedAssignments.set(new Map(currentSelections));
   }
 
-  getSelectedCase(teamMemberId: string): string | null {
+  getSelectedComplaint(teamMemberId: string): string | null {
     return this.selectedAssignments().get(teamMemberId) || null;
   }
 
   hasPendingChanges(teamMemberId: string): boolean {
-    const selectedCaseId = this.getSelectedCase(teamMemberId);
-    return selectedCaseId !== null && selectedCaseId !== '';
+    const selectedComplaintId = this.getSelectedComplaint(teamMemberId);
+    return selectedComplaintId !== null && selectedComplaintId !== '';
   }
 
-  async assignCase(teamMemberId: string): Promise<void> {
-    const selectedCaseId = this.getSelectedCase(teamMemberId);
+  async assignComplaint(teamMemberId: string): Promise<void> {
+    const selectedComplaintId = this.getSelectedComplaint(teamMemberId);
     const teamMember = this.teamMembersWithAssignments().find(m => m.id === teamMemberId);
-    const caseItem = this.cases().find(c => c.id === selectedCaseId);
+    const complaint = this.complaints().find(c => c.id === selectedComplaintId);
 
-    if (!teamMember || !caseItem) {
-      this.showMessage('Team member or case not found', 'error');
+    if (!teamMember || !complaint) {
+      this.showMessage('Team member or complaint not found', 'error');
       return;
     }
 
@@ -396,7 +361,7 @@ export class ComplaintAssigmentComponent implements OnInit {
 
     try {
       const newAssignment: Omit<Assignment, 'id'> = {
-        complaintId: selectedCaseId!,
+        complaintId: selectedComplaintId!,
         responsibleId: teamMemberId,
         assignedDate: new Date().toISOString(),
         assignedBy: 'manager',
@@ -407,8 +372,8 @@ export class ComplaintAssigmentComponent implements OnInit {
         this.http.post<Assignment>(`${this.baseUrl}/complaintAssignments`, newAssignment).subscribe({
           next: (assignment) => {
             this.assignmentsSignal.update(assignments => [...assignments, assignment]);
-            this.updateCaseAssignment(selectedCaseId!, teamMemberId);
-            this.showMessage(`Case assigned to ${teamMember.firstName} ${teamMember.lastName}`, 'success');
+            this.updateComplaintAssignment(selectedComplaintId!, teamMemberId);
+            this.showMessage(`Complaint assigned to ${teamMember.firstName} ${teamMember.lastName}`, 'success');
             resolve(assignment);
           },
           error: (error) => {
@@ -422,34 +387,50 @@ export class ComplaintAssigmentComponent implements OnInit {
       this.selectedAssignments.set(new Map(currentSelections));
 
     } catch (error) {
-      this.showMessage('Error assigning case', 'error');
+      this.showMessage('Error assigning complaint', 'error');
     } finally {
       this.loading.set(false);
     }
   }
 
-  private updateCaseAssignment(caseId: string, teamMemberId: string): void {
-    const caseItem = this.cases().find(c => c.id === caseId);
-    if (!caseItem) return;
+  private updateComplaintAssignment(complaintId: string, teamMemberId: string): void {
+    const complaint = this.complaints().find(c => c.id === complaintId);
+    if (!complaint) return;
 
-    const updatedCase = {
-      ...caseItem,
-      assignedTo: teamMemberId,
-      status: 'assigned' as const,
-      updatedAt: new Date().toISOString()
-    };
+    const teamMember = this.teamMembers().find(m => m.id === teamMemberId);
+    const assignedTo = teamMember ? `${teamMember.firstName} ${teamMember.lastName} - ${teamMember.department}` : 'Not assigned';
 
-    this.http.put<any>(`${this.baseUrl}/complaints/${caseId}`, {
-      ...updatedCase,
-      responsibleId: teamMemberId,
-      assignedTo: `${this.getTeamMemberName(teamMemberId)} - ${this.getTeamMemberDepartment(teamMemberId)}`
+    // Actualizar la queja localmente
+    complaint.responsibleId = teamMemberId;
+    complaint.assignedTo = assignedTo;
+    complaint.updateDate = new Date().toISOString();
+
+    // Actualizar en el backend
+    this.http.put<any>(`${this.baseUrl}/complaints/${complaintId}`, {
+      id: complaint.id,
+      category: complaint.category,
+      department: complaint.department,
+      city: complaint.city,
+      district: complaint.district,
+      location: complaint.location,
+      referenceInfo: complaint.referenceInfo,
+      description: complaint.description,
+      status: complaint.status,
+      priority: complaint.priority,
+      evidence: complaint.evidence,
+      assignedTo: complaint.assignedTo,
+      updateMessage: complaint.updateMessage,
+      updateDate: complaint.updateDate,
+      timeline: complaint.timeline,
+      responsibleId: complaint.responsibleId
     }).subscribe({
       next: () => {
-        this.casesSignal.update(cases =>
-          cases.map(c => c.id === caseId ? updatedCase : c)
+        this.complaintsSignal.update(complaints =>
+          complaints.map(c => c.id === complaintId ? complaint : c)
         );
       },
       error: (error) => {
+        console.error('Error updating complaint:', error);
       }
     });
   }
@@ -464,7 +445,7 @@ export class ComplaintAssigmentComponent implements OnInit {
     return member ? member.department : 'Unknown';
   }
 
-  unassignCase(assignmentId: string): void {
+  unassignComplaint(assignmentId: string): void {
     if (!assignmentId) {
       return;
     }
@@ -478,11 +459,11 @@ export class ComplaintAssigmentComponent implements OnInit {
         this.assignmentsSignal.update(assignments =>
           assignments.map(a => a.id === assignmentId ? { ...a, status: 'completed' } : a)
         );
-        this.showMessage('Case unassigned successfully', 'success');
+        this.showMessage('Complaint unassigned successfully', 'success');
         this.loading.set(false);
       },
       error: (error) => {
-        this.showMessage('Error unassigning case', 'error');
+        this.showMessage('Error unassigning complaint', 'error');
         this.loading.set(false);
       }
     });
@@ -515,26 +496,27 @@ export class ComplaintAssigmentComponent implements OnInit {
     };
     return statusIcons[status] || 'help';
   }
+
   getStatusTranslation(status: string): string {
     const statusMap: { [key: string]: string } = {
-      'online': 'TEAM_MANAGEMENT.TABLE.STATUS.ONLINE',
+      'available': 'TEAM_MANAGEMENT.TABLE.STATUS.ONLINE',
       'offline': 'TEAM_MANAGEMENT.TABLE.STATUS.OFFLINE',
-      'busy': 'TEAM_MANAGEMENT.TABLE.STATUS.BUSY',
-      'away': 'TEAM_MANAGEMENT.TABLE.STATUS.AWAY'
+      'busy': 'TEAM_MANAGEMENT.TABLE.STATUS.BUSY'
     };
     return statusMap[status] || status;
   }
+
   getPriorityIcon(priority: string): string {
     const priorityIcons: { [key: string]: string } = {
-      'low': 'arrow_downward',
-      'medium': 'remove',
-      'high': 'arrow_upward',
-      'critical': 'warning'
+      'Standard': 'arrow_downward',
+      'Urgent': 'arrow_upward',
+      'Critical': 'warning'
     };
     return priorityIcons[priority] || 'help';
   }
-  getAssignmentIdForCase(member: TeamMemberWithCases, caseId: string): string {
-    const assignment = member.currentAssignments.find(a => a.complaintId === caseId);
+
+  getAssignmentIdForComplaint(member: TeamMemberWithComplaints, complaintId: string): string {
+    const assignment = member.currentAssignments.find(a => a.complaintId === complaintId);
     return assignment?.id || '';
   }
 

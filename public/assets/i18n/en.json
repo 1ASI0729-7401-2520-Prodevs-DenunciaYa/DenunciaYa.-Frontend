@@ -166,59 +166,39 @@
   }
 ,
 
+
   "TEAM_MANAGEMENT": {
-    "TITLE": "Team Management & Case Assignment",
-    "SUBTITLE": "Manage your team members and assign cases efficiently",
-    "STATS": {
-      "TEAM_MEMBERS": "Team Members",
-      "AVAILABLE": "Available",
-      "ACTIVE_CASES": "Active Cases",
-      "TOTAL_CASES": "Total Cases"
-    },
+    "TITLE": "Team Management",
+    "SUBTITLE": "Manage complaint assignments and team member workloads",
     "ACTIONS": {
       "REFRESH_DATA": "Refresh Data",
       "CLEAR_FILTERS": "Clear Filters",
-      "ASSIGN_CASE": "Assign Case",
+      "ADD_RESPONSIBLE": "Add Responsible",
+      "ASSIGN_COMPLAINT": "Assign Complaint",
       "UNASSIGN": "Unassign"
     },
     "FILTERS": {
-      "TITLE": "Filters",
-      "DEPARTMENT": {
-        "LABEL": "Department",
-        "ALL": "All Departments"
-      },
-      "STATUS": {
-        "LABEL": "Case Status",
-        "ALL": "All Statuses"
-      },
-      "PRIORITY": {
-        "LABEL": "Priority",
-        "ALL": "All Priorities"
-      }
+      "TITLE": "Filters"
     },
     "TABLE": {
-      "TITLE": "Team Members & Assignments",
+      "TITLE": "Team Members",
       "SUBTITLE": "Showing {{count}} team members",
       "DEPARTMENT_FILTER": "Department: {{department}}",
+      "LOADING": "Loading team data...",
       "COLUMNS": {
         "TEAM_MEMBER": "Team Member",
         "STATUS": "Status",
         "WORKLOAD": "Workload",
-        "ASSIGNED_CASES": "Assigned Cases",
-        "ASSIGN_NEW_CASE": "Assign New Case",
+        "ASSIGNED_COMPLAINTS": "Assigned Complaints",
+        "ASSIGN_NEW_COMPLAINT": "Assign New Complaint",
         "ACTIONS": "Actions"
       },
       "MEMBERS": {
-        "CONTACT": "Contact",
-        "ASSIGNED_CASES_COUNT": "assigned cases",
-        "NO_ASSIGNED_CASES": "No assigned cases",
-        "SELECT_CASE": "Select Case",
-        "NO_CASE_SELECTED": "No case selected",
-        "NO_AVAILABLE_CASES": "No available cases for this department",
-        "CASE_OPTION": {
-          "ID": "#{{id}}",
-          "CATEGORY": "Category"
-        }
+        "ASSIGNED_COMPLAINTS_COUNT": "assigned complaints",
+        "NO_ASSIGNED_COMPLAINTS": "No assigned complaints",
+        "SELECT_COMPLAINT": "Select complaint",
+        "NO_COMPLAINT_SELECTED": "No complaint selected",
+        "NO_AVAILABLE_COMPLAINTS": "No available complaints"
       },
       "STATUS": {
         "ONLINE": "Online",
@@ -227,13 +207,12 @@
         "AWAY": "Away"
       },
       "EMPTY_STATE": {
-        "TITLE": "No team members found",
-        "MESSAGE": "No team members found with the applied filters",
-        "ACTION": "Clear filters"
-      },
-      "LOADING": "Loading team data..."
+        "MESSAGE": "No team members found with the current filters",
+        "ACTION": "Clear all filters"
+      }
     }
-  },
+  }
+,
   "COMPLAINT_EDIT_CITIZEN": {
     "TITLE": "Edit Complaint",
     "SUBTITLE": "Modify the details of your complaint",

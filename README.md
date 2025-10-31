@@ -1,59 +1,63 @@
-# DenunciayaFrontend
+# DenunciaYa - Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.4.
+Angular frontend for the DenunciaYa citizen reporting platform.
 
-## Development server
+## Overview
 
-To start a local development server, run:
+DenunciaYa is a web application that allows citizens to register, track, and consult complaints, while authorities can manage and assign cases. Built with Angular 20, it features multilingual support, external API integration, and advanced UI components.
 
-```bash
-ng serve
-```
+## Key Features
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- **Multilingual**: English and Spanish support with `@ngx-translate/core`
+- **Dynamic Lists**: Complaints, responsible parties, and communities with pagination and filters
+- **Map Integration**: `@angular/google-maps` for complaint location visualization
+- **Advanced UI**: PrimeNG and Syncfusion components for tables, panels, and grids
+- **Responsive Design**: Adapts to various screen sizes
+- **External APIs**: Integration with services like Clearbit Logo API
 
-## Code scaffolding
+## Tech Stack
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- Angular 20
+- @ngx-translate/core & @ngx-translate/http-loader
+- @angular/google-maps
+- PrimeNG
+- Syncfusion (@syncfusion/ej2-angular-grids, @syncfusion/ej2-angular-layouts)
+- @angular/material
 
-```bash
-ng generate component component-name
-```
+## Quick Start
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+1. **Install dependencies:**
+   ```cmd
+   npm install
+   ```
 
-```bash
-ng generate --help
-```
+2. **Start mock API (Terminal 1):**
+   ```cmd
+   cd server
+   npx json-server --watch db.json --routes routes.json --port 3000
+   ```
 
-## Building
+3. **Start Angular app (Terminal 2):**
+   ```cmd
+   npm run start
+   ```
 
-To build the project run:
+4. **Access the application:**
+  - App: http://localhost:4200
+  - Mock API: http://localhost:3000
 
-```bash
-ng build
-```
+## Available Scripts
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+- `npm run start` - Development server (http://localhost:4200)
+- `npm run build` - Production build
+- `npm run watch` - Watch mode for development
+- `npm run test` - Run unit tests
 
-## Running unit tests
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## Development
 
-```bash
-ng test
-```
+The project uses a mock API (`json-server`) for development. Ensure both the mock server and Angular app are running simultaneously.
 
-## Running end-to-end tests
+## Author
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+ProDevs Team - 2025

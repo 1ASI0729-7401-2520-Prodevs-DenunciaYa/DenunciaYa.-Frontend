@@ -98,31 +98,31 @@
                   </mat-progress-bar>
                   <span class="workload-text">{{ member.workload.toFixed(0) }}%</span>
                 </div>
-                <small>{{ member.assignedCases.length }} {{ 'TEAM_MANAGEMENT.TABLE.MEMBERS.ASSIGNED_CASES_COUNT' | translate }}</small>
+                <small>{{ member.assignedComplaints.length }} {{ 'TEAM_MANAGEMENT.TABLE.MEMBERS.ASSIGNED_COMPLAINTS_COUNT' | translate }}</small>
               </td>
             </ng-container>
 
-            <ng-container matColumnDef="assignedCases">
+            <ng-container matColumnDef="assignedComplaints">
               <th mat-header-cell *matHeaderCellDef class="tablet-hidden">
-                {{ 'TEAM_MANAGEMENT.TABLE.COLUMNS.ASSIGNED_CASES' | translate }}
+                {{ 'TEAM_MANAGEMENT.TABLE.COLUMNS.ASSIGNED_COMPLAINTS' | translate }}
               </th>
               <td mat-cell *matCellDef="let member" class="tablet-hidden">
-                <div class="cases-list" *ngIf="member.assignedCases.length > 0; else noAssignedCases">
-                  <div *ngFor="let caseItem of member.assignedCases" class="case-item">
-                    <div class="case-header">
-                      <span class="case-id">#{{ caseItem.id }}</span>
+                <div class="complaints-list" *ngIf="member.assignedComplaints.length > 0; else noAssignedComplaints">
+                  <div *ngFor="let complaintItem of member.assignedComplaints" class="complaint-item">
+                    <div class="complaint-header">
+                      <span class="complaint-id">#{{ complaintItem.id }}</span>
                       <mat-icon
-                        [class]="caseItem.priority"
-                        [matTooltip]="caseItem.priority | titlecase"
+                        [class]="complaintItem.priority"
+                        [matTooltip]="complaintItem.priority | titlecase"
                         class="priority-icon">
-                        {{ getPriorityIcon(caseItem.priority) }}
+                        {{ getPriorityIcon(complaintItem.priority) }}
                       </mat-icon>
                     </div>
-                    <span class="case-title">{{ caseItem.title }}</span>
+                    <span class="complaint-title">{{ complaintItem.category }}</span>
                     <button
                       mat-icon-button
                       color="warn"
-                      (click)="unassignCase(getAssignmentIdForCase(member, caseItem.id))"
+                      (click)="unassignComplaint(getAssignmentIdForComplaint(member, complaintItem.id))"
                       [disabled]="loading()"
                       class="unassign-btn"
                       [matTooltip]="'TEAM_MANAGEMENT.ACTIONS.UNASSIGN' | translate">
@@ -130,35 +130,35 @@
                     </button>
                   </div>
                 </div>
-                <ng-template #noAssignedCases>
-                  <span class="no-cases">{{ 'TEAM_MANAGEMENT.TABLE.MEMBERS.NO_ASSIGNED_CASES' | translate }}</span>
+                <ng-template #noAssignedComplaints>
+                  <span class="no-complaints">{{ 'TEAM_MANAGEMENT.TABLE.MEMBERS.NO_ASSIGNED_COMPLAINTS' | translate }}</span>
                 </ng-template>
               </td>
             </ng-container>
 
-            <ng-container matColumnDef="availableCases">
-              <th mat-header-cell *matHeaderCellDef>{{ 'TEAM_MANAGEMENT.TABLE.COLUMNS.ASSIGN_NEW_CASE' | translate }}</th>
+            <ng-container matColumnDef="availableComplaints">
+              <th mat-header-cell *matHeaderCellDef>{{ 'TEAM_MANAGEMENT.TABLE.COLUMNS.ASSIGN_NEW_COMPLAINT' | translate }}</th>
               <td mat-cell *matCellDef="let member">
-                <mat-form-field appearance="outline" class="case-select">
-                  <mat-label>{{ 'TEAM_MANAGEMENT.TABLE.MEMBERS.SELECT_CASE' | translate }}</mat-label>
+                <mat-form-field appearance="outline" class="complaint-select">
+                  <mat-label>{{ 'TEAM_MANAGEMENT.TABLE.MEMBERS.SELECT_COMPLAINT' | translate }}</mat-label>
                   <mat-select
-                    [value]="getSelectedCase(member.id) || ''"
-                    (selectionChange)="onCaseAssignment(member.id, $event.value)">
-                    <mat-option value="">{{ 'TEAM_MANAGEMENT.TABLE.MEMBERS.NO_CASE_SELECTED' | translate }}</mat-option>
+                    [value]="getSelectedComplaint(member.id) || ''"
+                    (selectionChange)="onComplaintAssignment(member.id, $event.value)">
+                    <mat-option value="">{{ 'TEAM_MANAGEMENT.TABLE.MEMBERS.NO_COMPLAINT_SELECTED' | translate }}</mat-option>
                     <mat-option
-                      *ngFor="let caseItem of member.availableCases"
-                      [value]="caseItem.id"
+                      *ngFor="let complaintItem of member.availableComplaints"
+                      [value]="complaintItem.id"
                       [disabled]="member.status === 'offline'">
-                      <div class="case-option">
-                        <span class="case-id">#{{ caseItem.id }}</span>
-                        <span class="case-priority" [class]="caseItem.priority">
-                          {{ caseItem.priority }}
+                      <div class="complaint-option">
+                        <span class="complaint-id">#{{ complaintItem.id }}</span>
+                        <span class="complaint-priority" [class]="complaintItem.priority">
+                          {{ complaintItem.priority }}
                         </span>
-                        <span class="case-category">{{ caseItem.category }}</span>
+                        <span class="complaint-category">{{ complaintItem.category }}</span>
                       </div>
                     </mat-option>
-                    <mat-option *ngIf="member.availableCases.length === 0" disabled>
-                      {{ 'TEAM_MANAGEMENT.TABLE.MEMBERS.NO_AVAILABLE_CASES' | translate }}
+                    <mat-option *ngIf="member.availableComplaints.length === 0" disabled>
+                      {{ 'TEAM_MANAGEMENT.TABLE.MEMBERS.NO_AVAILABLE_COMPLAINTS' | translate }}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
@@ -171,11 +171,11 @@
                 <button
                   mat-raised-button
                   color="primary"
-                  (click)="assignCase(member.id)"
+                  (click)="assignComplaint(member.id)"
                   [disabled]="!hasPendingChanges(member.id) || loading() || member.status === 'offline'"
                   class="assign-btn">
                   <mat-icon>assignment</mat-icon>
-                  <span class="button-text">{{ 'TEAM_MANAGEMENT.ACTIONS.ASSIGN_CASE' | translate }}</span>
+                  <span class="button-text">{{ 'TEAM_MANAGEMENT.ACTIONS.ASSIGN_COMPLAINT' | translate }}</span>
                 </button>
               </td>
             </ng-container>

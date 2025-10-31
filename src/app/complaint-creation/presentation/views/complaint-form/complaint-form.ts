@@ -402,22 +402,20 @@ export class ComplaintForm implements OnInit {
       this.distritos = [];
     }
   }
-
   getDepartamentoNombre(codigo: string): string {
     const dept = this.departamentos.find(d => d.codigo === codigo);
-    return dept ? dept.nombre : '';
+    return dept ? dept.nombre : codigo
   }
 
   getProvinciaNombre(codigo: string): string {
     const prov = this.provincias.find(p => p.codigo === codigo);
-    return prov ? prov.nombre : '';
+    return prov ? prov.nombre : codigo;
   }
 
   getDistritoNombre(codigo: string): string {
     const dist = this.distritos.find(d => d.codigo === codigo);
-    return dist ? dist.nombre : '';
+    return dist ? dist.nombre : codigo;
   }
-
   private loadComplaintForEdit(): void {
     const complaint = this.store.getComplaintById(this.complaintId!)();
     if (complaint) {
@@ -426,7 +424,7 @@ export class ComplaintForm implements OnInit {
       this.form.patchValue({
         category: complaint.category,
         department: complaint.department,
-        province: complaint.city || '',
+        province: complaint.city || '', // Aquí complaint.city se asigna al campo province del formulario
         district: complaint.district,
         location: complaint.location,
         referenceInfo: complaint.referenceInfo,
@@ -444,11 +442,7 @@ export class ComplaintForm implements OnInit {
         }
       }
     }
-  }
-
-  submitComplaint() {
-;
-
+  }submitComplaint() {
     if (this.form.invalid) {
       this.markAllFieldsAsTouched();
       alert('Por favor, complete todos los campos requeridos correctamente.');
@@ -464,64 +458,69 @@ export class ComplaintForm implements OnInit {
       const provinciaNombre = this.getProvinciaNombre(this.form.value.province!);
       const distritoNombre = this.getDistritoNombre(this.form.value.district!);
 
-      const complaint = new Complaint();
+      // DEBUG: Verificar los valores
+      console.log('Departamento:', departamentoNombre);
+      console.log('Provincia:', provinciaNombre);
+      console.log('Distrito:', distritoNombre);
 
-      const initialTimeline = [
-        {
-          status: 'Complaint registered',
-          date: new Date().toISOString(),
-          completed: true,
-          current: true,
-          waitingDecision: false
-        },
-        {
-          status: 'Under review',
-          date: '',
-          completed: false,
-          current: false,
-          waitingDecision: false
-        },
-        {
-          status: 'Awaiting response',
-          date: '',
-          completed: false,
-          current: false,
-          waitingDecision: false
-        },
-        {
-          status: 'Decision pending',
-          date: '2025-10-07T20:19:00',
-          completed: false,
-          current: false,
-          waitingDecision: true
-        },
-        {
-          status: 'Completed',
-          date: '',
-          completed: false,
-          current: false,
-          waitingDecision: false
-        }
-      ];
-
-      Object.assign(complaint, {
+      const complaintData = {
         id: this.complaintId || this.generateId(),
         category: this.form.value.category!,
         department: departamentoNombre,
-        province: provinciaNombre,
+        city: provinciaNombre, // ESTA ES LA LÍNEA CLAVE - provinciaNombre va a city
         district: distritoNombre,
         location: this.form.value.location || `${departamentoNombre}, ${provinciaNombre}, ${distritoNombre}`,
         referenceInfo: this.form.value.referenceInfo!,
         description: this.form.value.description!,
-        status: 'Pending',
+        status: 'Pending' as const,
         priority: this.form.value.priority! as 'Standard' | 'Urgent' | 'Critical',
         evidence: evidenceArray,
         assignedTo: 'Not assigned',
         updateMessage: '',
         updateDate: new Date().toISOString(),
-        timeline: initialTimeline
-      });
+        timeline: [
+          {
+            status: 'Complaint registered',
+            date: new Date().toISOString(),
+            completed: true,
+            current: true,
+            waitingDecision: false
+          },
+          {
+            status: 'Under review',
+            date: '',
+            completed: false,
+            current: false,
+            waitingDecision: false
+          },
+          {
+            status: 'Awaiting response',
+            date: '',
+            completed: false,
+            current: false,
+            waitingDecision: false
+          },
+          {
+            status: 'Decision pending',
+            date: '2025-10-07T20:19:00',
+            completed: false,
+            current: false,
+            waitingDecision: true
+          },
+          {
+            status: 'Completed',
+            date: '',
+            completed: false,
+            current: false,
+            waitingDecision: false
+          }
+        ]
+      };
 
+      // DEBUG: Verificar el objeto completo antes de crear la Complaint
+      console.log('Complaint data:', complaintData);
+
+      const complaint = new Complaint(complaintData);
 
       if (this.isEditMode) {
         this.store.updateComplaint(complaint);
@@ -534,10 +533,10 @@ export class ComplaintForm implements OnInit {
       });
 
     } catch (error) {
+      console.error('Error creating complaint:', error);
       alert('Error al procesar la denuncia. Por favor, intente nuevamente.');
     }
   }
-
   private markAllFieldsAsTouched(): void {
     Object.keys(this.form.controls).forEach(key => {
       const control = this.form.get(key);

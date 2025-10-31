@@ -206,71 +206,48 @@
   }
   ,
   "TEAM_MANAGEMENT": {
-    "TITLE": "Gestión de Equipo y Asignación de Casos",
-    "SUBTITLE": "Gestiona los miembros de tu equipo y asigna casos eficientemente",
-    "STATS": {
-      "TEAM_MEMBERS": "Miembros del Equipo",
-      "AVAILABLE": "Disponibles",
-      "ACTIVE_CASES": "Casos Activos",
-      "TOTAL_CASES": "Casos Totales"
-    },
+    "TITLE": "Gestión de Equipo",
+    "SUBTITLE": "Gestiona asignaciones de quejas y cargas de trabajo del equipo",
     "ACTIONS": {
       "REFRESH_DATA": "Actualizar Datos",
       "CLEAR_FILTERS": "Limpiar Filtros",
-      "ASSIGN_CASE": "Asignar Caso",
+      "ADD_RESPONSIBLE": "Agregar Responsable",
+      "ASSIGN_COMPLAINT": "Asignar Queja",
       "UNASSIGN": "Desasignar"
     },
     "FILTERS": {
-      "TITLE": "Filtros",
-      "DEPARTMENT": {
-        "LABEL": "Departamento",
-        "ALL": "Todos los Departamentos"
-      },
-      "STATUS": {
-        "LABEL": "Estado del Caso",
-        "ALL": "Todos los Estados"
-      },
-      "PRIORITY": {
-        "LABEL": "Prioridad",
-        "ALL": "Todas las Prioridades"
-      }
+      "TITLE": "Filtros"
     },
     "TABLE": {
-      "TITLE": "Miembros del Equipo y Asignaciones",
+      "TITLE": "Miembros del Equipo",
       "SUBTITLE": "Mostrando {{count}} miembros del equipo",
       "DEPARTMENT_FILTER": "Departamento: {{department}}",
+      "LOADING": "Cargando datos del equipo...",
       "COLUMNS": {
         "TEAM_MEMBER": "Miembro del Equipo",
         "STATUS": "Estado",
         "WORKLOAD": "Carga de Trabajo",
-        "ASSIGNED_CASES": "Casos Asignados",
-        "ASSIGN_NEW_CASE": "Asignar Nuevo Caso",
+        "ASSIGNED_COMPLAINTS": "Quejas Asignadas",
+        "ASSIGN_NEW_COMPLAINT": "Asignar Nueva Queja",
         "ACTIONS": "Acciones"
       },
       "MEMBERS": {
-        "CONTACT": "Contacto",
-        "ASSIGNED_CASES_COUNT": "casos asignados",
-        "NO_ASSIGNED_CASES": "No hay casos asignados",
-        "SELECT_CASE": "Seleccionar Caso",
-        "NO_CASE_SELECTED": "No se seleccionó caso",
-        "NO_AVAILABLE_CASES": "No hay casos disponibles para este departamento",
-        "CASE_OPTION": {
-          "ID": "#{{id}}",
-          "CATEGORY": "Categoría"
-        }
+        "ASSIGNED_COMPLAINTS_COUNT": "quejas asignadas",
+        "NO_ASSIGNED_COMPLAINTS": "No hay quejas asignadas",
+        "SELECT_COMPLAINT": "Seleccionar queja",
+        "NO_COMPLAINT_SELECTED": "Ninguna queja seleccionada",
+        "NO_AVAILABLE_COMPLAINTS": "No hay quejas disponibles"
       },
       "STATUS": {
-        "ONLINE": "En Línea",
+        "ONLINE": "En línea",
         "OFFLINE": "Desconectado",
         "BUSY": "Ocupado",
         "AWAY": "Ausente"
       },
       "EMPTY_STATE": {
-        "TITLE": "No se encontraron miembros",
-        "MESSAGE": "No se encontraron miembros del equipo con los filtros aplicados",
-        "ACTION": "Limpiar filtros"
-      },
-      "LOADING": "Cargando datos del equipo..."
+        "MESSAGE": "No se encontraron miembros del equipo con los filtros actuales",
+        "ACTION": "Limpiar todos los filtros"
+      }
     }
   },
   "COMPLAINT_EDIT_CITIZEN": {

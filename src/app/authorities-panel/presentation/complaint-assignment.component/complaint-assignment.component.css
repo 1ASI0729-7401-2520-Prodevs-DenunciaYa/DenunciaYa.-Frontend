@@ -222,7 +222,7 @@ table {
   flex-shrink: 0;
 }
 
-.cases-list {
+.complaints-list {
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -231,7 +231,7 @@ table {
   min-width: 200px;
 }
 
-.case-item {
+.complaint-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -242,7 +242,7 @@ table {
   gap: 8px;
 }
 
-.case-header {
+.complaint-header {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -250,7 +250,7 @@ table {
   min-width: 0;
 }
 
-.case-id {
+.complaint-id {
   font-weight: bold;
   font-size: 11px;
   color: #3f51b5;
@@ -264,23 +264,19 @@ table {
   flex-shrink: 0;
 }
 
-.priority-icon.low {
+.priority-icon.Standard {
   color: #4caf50;
 }
 
-.priority-icon.medium {
+.priority-icon.Urgent {
   color: #ff9800;
 }
 
-.priority-icon.high {
+.priority-icon.Critical {
   color: #f44336;
 }
 
-.priority-icon.critical {
-  color: #9c27b0;
-}
-
-.case-title {
+.complaint-title {
   flex: 1;
   font-size: 11px;
   white-space: nowrap;
@@ -302,19 +298,19 @@ table {
   height: 14px;
 }
 
-.no-cases {
+.no-complaints {
   color: #666;
   font-style: italic;
   font-size: 12px;
   white-space: nowrap;
 }
 
-.case-select {
+.complaint-select {
   width: 100%;
   min-width: 150px;
 }
 
-.case-option {
+.complaint-option {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -322,7 +318,7 @@ table {
   font-size: 12px;
 }
 
-.case-priority {
+.complaint-priority {
   font-size: 9px;
   padding: 1px 4px;
   border-radius: 8px;
@@ -331,27 +327,22 @@ table {
   flex-shrink: 0;
 }
 
-.case-priority.low {
+.complaint-priority.Standard {
   background: #e8f5e8;
   color: #4caf50;
 }
 
-.case-priority.medium {
+.complaint-priority.Urgent {
   background: #fff3e0;
   color: #ff9800;
 }
 
-.case-priority.high {
+.complaint-priority.Critical {
   background: #ffebee;
   color: #f44336;
 }
 
-.case-priority.critical {
-  background: #f3e5f5;
-  color: #9c27b0;
-}
-
-.case-category {
+.complaint-category {
   font-size: 10px;
   color: #666;
   margin-left: auto;
@@ -540,11 +531,11 @@ table {
     display: none;
   }
 
-  .cases-list {
+  .complaints-list {
     max-height: 120px;
   }
 
-  .case-item {
+  .complaint-item {
     padding: 4px 6px;
   }
 
