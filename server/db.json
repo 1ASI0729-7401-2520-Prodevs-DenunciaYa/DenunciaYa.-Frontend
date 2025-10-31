@@ -550,74 +550,17 @@
   "complaints": [
     {
       "id": "100237",
-      "category": "Infrastructure and Public Spaces",
-      "department": "Lima",
-      "city": "Lima",
-      "district": "San Juan de Miraflores",
-      "location": "456 Lima Street, Block 7",
-      "referenceInfo": "In front of San Martín school",
+      "title": "Case #100237",
       "description": "Damaged streetlights affecting pedestrian safety at night",
-      "status": "Completed",
-      "priority": "Urgent",
-      "evidence": [
-        "https://picsum.photos/200/200?random=1",
-        "https://picsum.photos/200/200?random=2"
-      ],
-      "assignedTo": "Roberto Silva - Security Coordinator",
-      "updateMessage": "Your complaint has been accepted and is being processed.",
-      "updateDate": "2025-10-30T06:17:36.929Z",
-      "timeline": [
-        {
-          "status": "Complaint registered",
-          "date": "2025-10-07T20:09:00",
-          "completed": true,
-          "current": false,
-          "waitingDecision": false
-        },
-        {
-          "status": "Under review",
-          "date": "2025-10-08T03:16:46.898Z",
-          "completed": true,
-          "current": false,
-          "waitingDecision": false
-        },
-        {
-          "status": "Awaiting response",
-          "date": "2025-10-08T03:16:48.847Z",
-          "completed": true,
-          "current": false,
-          "waitingDecision": false
-        },
-        {
-          "status": "Accepted",
-          "date": "",
-          "completed": true,
-          "current": false,
-          "waitingDecision": false
-        },
-        {
-          "status": "Completed",
-          "date": "",
-          "completed": true,
-          "current": true,
-          "waitingDecision": false
-        }
-      ],
-      "responsibleId": "103"
-    },
-    {
-      "id": "204851",
-      "title": "Case #204851",
-      "description": "Irregular water supply reported in residential zone",
       "category": "Infrastructure and Public Spaces",
-      "priority": "medium",
+      "priority": "high",
       "status": "assigned",
       "assignedTo": "Lucía Ramírez - Infrastructure and Public Spaces",
-      "createdAt": "2025-10-08T02:37:26.514Z",
-      "updatedAt": "2025-10-30T06:00:14.873Z",
+      "createdAt": "2025-10-30T22:52:42.042Z",
+      "updatedAt": "2025-10-31T00:10:55.421Z",
       "tags": [
         "Infrastructure and Public Spaces",
-        "Standard"
+        "Urgent"
       ],
       "responsibleId": "102"
     },
@@ -1193,8 +1136,8 @@
         "https://picsum.photos/200/200?random=32"
       ],
       "assignedTo": "María Rodríguez - Others",
-      "updateMessage": "Complaint received and awaiting initial review",
-      "updateDate": "2025-10-08T09:15:27.444Z",
+      "updateMessage": "Complaint received and awaiting initial review waos",
+      "updateDate": "2025-10-30T15:42:44.661Z",
       "timeline": [
         {
           "status": "Complaint registered",
@@ -1249,9 +1192,9 @@
         "https://picsum.photos/200/200?random=33",
         "https://picsum.photos/200/200?random=34"
       ],
-      "assignedTo": "Daniela Quispe - Others",
+      "assignedTo": "María Torres - Environmental Inspector",
       "updateMessage": "Technical assessment in progress to determine repair scope",
-      "updateDate": "2025-10-08T15:40:19.777Z",
+      "updateDate": "2025-10-30T16:14:32.494Z",
       "timeline": [
         {
           "status": "Complaint registered",
@@ -2236,22 +2179,6 @@
         }
       ],
       "responsibleId": "603"
-    },
-    {
-      "id": "979261",
-      "title": "Case #979261",
-      "description": "asdasdasdasdasd",
-      "category": "Citizen Security",
-      "priority": "high",
-      "status": "assigned",
-      "assignedTo": "Juan Pérez - Citizen Security",
-      "createdAt": "2025-10-30T06:19:56.846Z",
-      "updatedAt": "2025-10-30T06:20:41.696Z",
-      "tags": [
-        "Citizen Security",
-        "Urgent"
-      ],
-      "responsibleId": "301"
     }
   ],
   "complaintAssignments": [
@@ -2271,10 +2198,9 @@
       "assignedBy": "admin-001",
       "status": "removed"
     },
-
     {
       "id": "3686",
-      "complaintId": "204851",
+      "complaintId": null,
       "responsibleId": "2",
       "assignedDate": "2025-10-30T05:18:59.157Z",
       "assignedBy": "admin",
@@ -2614,7 +2540,7 @@
     },
     {
       "id": "1040",
-      "complaintId": "204851",
+      "complaintId": null,
       "responsibleId": "102",
       "assignedDate": "2025-10-30T06:00:14.788Z",
       "assignedBy": "manager",
@@ -2622,9 +2548,17 @@
     },
     {
       "id": "b03a",
-      "complaintId": "979261",
+      "complaintId": null,
       "responsibleId": "301",
       "assignedDate": "2025-10-30T06:20:41.634Z",
+      "assignedBy": "manager",
+      "status": "active"
+    },
+    {
+      "id": "f15d",
+      "complaintId": "100237",
+      "responsibleId": "102",
+      "assignedDate": "2025-10-31T00:10:55.209Z",
       "assignedBy": "manager",
       "status": "active"
     }
