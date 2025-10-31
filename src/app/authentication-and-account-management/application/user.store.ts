@@ -4,6 +4,19 @@ import { retry } from 'rxjs';
 import { User } from '../domain/model/user.entity';
 import { UserApi } from '../infrastructure/user-api';
 
+/**
+ * @class UserStore
+ * @summary Manages user authentication and account state.
+ * @method loadAllUsers - Loads all users of a specific role.
+ * @method login - Authenticates a user with email and password.
+ * @method register - Registers a new user.
+ * @method logout - Logs out the current user.
+ * @property users - Readonly signal of all users.
+ * @property currentUser - Readonly signal of the currently logged-in user.
+ * @property loading - Readonly signal indicating loading state.
+ * @property error - Readonly signal for error messages.
+ * @property userCount - Computed property for the number of users.
+ */
 @Injectable({ providedIn: 'root' })
 export class UserStore {
   private readonly usersSignal = signal<User[]>([]);
@@ -27,9 +40,6 @@ export class UserStore {
     return fallback;
   }
 
-  /**
-   * Carga todos los usuarios según rol
-   */
   loadAllUsers(role: 'citizen' | 'authority' | 'responsibles'): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
@@ -46,9 +56,7 @@ export class UserStore {
     });
   }
 
-  /**
-   * Login genérico según rol
-   */
+
   login(role: 'citizen' | 'authority' | 'responsibles', email: string, password: string): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
@@ -57,7 +65,7 @@ export class UserStore {
       next: user => {
         if (user) {
           this.currentUserSignal.set(user);
-          localStorage.setItem('currentUser', JSON.stringify(user)); // 💾 persistencia opcional
+          localStorage.setItem('currentUser', JSON.stringify(user));
         } else {
           this.errorSignal.set('Invalid credentials');
         }
