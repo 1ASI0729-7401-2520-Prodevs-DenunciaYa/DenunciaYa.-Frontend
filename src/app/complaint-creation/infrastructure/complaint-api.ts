@@ -15,9 +15,7 @@ export class ComplaintsApiService {
 
   constructor(private http: HttpClient) {}
 
-  /**
-   * Obtiene todas las denuncias
-   */
+
   getComplaints(): Observable<Complaint[]> {
     return this.http
       .get<ComplaintResource[]>(`${this.baseUrl}${this.endpoint}`)
@@ -36,23 +34,20 @@ export class ComplaintsApiService {
               complaints: response
             };
           }
-          // Si tiene la estructura esperada
           else if (response.complaints) {
             return {
               status: response.status || 'success',
               complaints: response.complaints
             };
           }
-          // Si es un objeto con datos de complaint
           else {
             return {
               status: 'success',
-              complaints: [response] // convierte a array
+              complaints: [response]
             };
           }
         }),
         catchError(error => {
-          console.error('Error fetching complaints:', error);
           return of({
             status: 'error',
             complaints: []
@@ -61,9 +56,7 @@ export class ComplaintsApiService {
       );
   }
 
-  /**
-   * Crea una nueva denuncia
-   */
+
   createComplaint(complaint: Complaint): Observable<Complaint> {
     const resource = ComplaintAssembler.toResourceFromEntity(complaint);
     return this.http
@@ -71,24 +64,19 @@ export class ComplaintsApiService {
       .pipe(map(resource => ComplaintAssembler.toEntityFromResource(resource)));
   }
 
-  /**
-   * Obtiene una denuncia específica por ID
-   */
+
   getComplaintById(id: string): Observable<Complaint> {
     return this.http
       .get<ComplaintResource>(`${this.baseUrl}${this.endpoint}/${id}`)
       .pipe(
         catchError(error => {
-          console.error('API Error for ID:', id, error);
           throw error;
         }),
         map(resource => ComplaintAssembler.toEntityFromResource(resource))
       );
   }
 
-  /**
-   * Actualiza una denuncia existente
-   */
+
   updateComplaint(complaint: Complaint): Observable<Complaint> {
     const resource = ComplaintAssembler.toResourceFromEntity(complaint);
     return this.http
@@ -96,9 +84,7 @@ export class ComplaintsApiService {
       .pipe(map(updatedResource => ComplaintAssembler.toEntityFromResource(updatedResource)));
   }
 
-  /**
-   * Elimina una denuncia por ID
-   */
+
   deleteComplaint(id: string): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}${this.endpoint}/${id}`);
   }

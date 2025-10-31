@@ -3,6 +3,24 @@ import { Complaint } from '../domain/model/complaint.entity';
 import { ComplaintsApiService } from '../infrastructure/complaint-api';
 import { retry } from 'rxjs';
 
+/**
+ * @class ComplaintsStore
+ * @summary Manages the state of complaints including loading, error handling, and CRUD operations.
+ * @constructor
+ * @param {ComplaintsApiService} api - Service for interacting with the complaints API.
+ * @method loadAll - Loads all complaints from the API.
+ * @method getComplaintById - Retrieves a complaint by its ID.
+ * @param {string | null | undefined} id - The ID of the complaint to retrieve.
+ * @return {Signal<Complaint | undefined>} A signal containing the complaint or undefined if not found.
+ * @method addComplaint - Adds a new complaint via the API and updates the store.
+ * @param {Complaint} complaint - The complaint to add.
+ * @method updateComplaint - Updates an existing complaint via the API and updates the store.
+ * @param {Complaint} complaint - The complaint to update.
+ * @method updateComplaintInStore - Updates a complaint in the store without making an API call.
+ * @param {Complaint} complaint - The complaint to update in the store.
+ * @method deleteComplaint - Deletes a complaint via the API and updates the store.
+ * @param {string} id - The ID of the complaint to delete.
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -69,9 +87,7 @@ export class ComplaintsStore {
       },
       error: err => {
         this.errorSignal.set('Error al actualizar denuncia');
-        console.error('❌ Error updating complaint:', err);
 
-        // ✅ ACTUALIZACIÓN LOCAL SI LA API FALLA
         this.updateComplaintInStore(complaint);
         this.loadingSignal.set(false);
       }
