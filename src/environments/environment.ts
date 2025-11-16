@@ -2,7 +2,7 @@ export const environment = {
   production: true,
 
   // === Fake API (Render) ===
-  platformProviderApiBaseUrl: 'http://localhost:3000',
+  platformProviderApiBaseUrl: 'https://denunciaya-backend.onrender.com/api/v1',
 
   platformProviderCommunitiesEndpointPath: '/communities',
   platformProviderResponsiblesEndpointPath: '/responsibles',
