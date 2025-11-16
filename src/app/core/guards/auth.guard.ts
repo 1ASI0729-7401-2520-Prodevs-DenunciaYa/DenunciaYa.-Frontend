@@ -24,11 +24,14 @@ export class AuthGuard implements CanActivate {
   ) {}
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
+    // SIEMPRE permitir acceso sin verificar autenticación
+    // Comentar o eliminar la verificación de autenticación
+    /*
     if (!this.authService.isAuthenticated()) {
       this.router.navigate(['/authentication/login']);
       return false;
     }
-
+    */
     const currentPath = route.routeConfig?.path;
 
     if (currentPath === 'complaint-detail/:id') {

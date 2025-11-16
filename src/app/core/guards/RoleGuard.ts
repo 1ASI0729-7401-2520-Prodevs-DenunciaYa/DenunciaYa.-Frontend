@@ -38,10 +38,22 @@ export class RoleGuard implements CanActivate {
    *
    * @param {ActivatedRouteSnapshot} route - Activated route snapshot
    * @returns {boolean} True if user has access, false if not
-   */
-  canActivate(route: ActivatedRouteSnapshot): boolean {
-    const currentUser = this.authService.getCurrentUser();
+   */  canActivate(route: ActivatedRouteSnapshot): boolean {
     const requiredRoles = route.data['roles'] as Array<'citizen' | 'authority' | 'responsibles'>;
+
+    // Simular que el usuario tiene el rol 'authority' para ver TODAS las opciones
+    const simulatedUserRole = 'authority';
+
+    if (!requiredRoles.includes(simulatedUserRole)) {
+      this.router.navigate(['/home']);
+      return false;
+    }
+
+    return true;
+
+    // Código original comentado:
+    /*
+    const currentUser = this.authService.getCurrentUser();
 
     if (!currentUser || !requiredRoles.includes(currentUser.role)) {
       this.router.navigate(['/home']);
@@ -49,5 +61,6 @@ export class RoleGuard implements CanActivate {
     }
 
     return true;
+    */
   }
 }

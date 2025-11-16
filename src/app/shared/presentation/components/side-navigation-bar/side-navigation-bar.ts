@@ -67,6 +67,12 @@ export class SideNavigationBarComponent implements OnInit {
   }
 
   private loadUserRole(): void {
+    // Simular que el usuario tiene rol 'authority' para ver TODAS las opciones
+    this.currentUserRole = 'authority';
+    this.filterSidenavItems();
+
+    // Código original comentado:
+    /*
     const currentUser = this.authService.getCurrentUser();
     if (currentUser) {
       this.currentUserRole = currentUser.role;
@@ -75,6 +81,7 @@ export class SideNavigationBarComponent implements OnInit {
       this.currentUserRole = 'citizen';
       this.filterSidenavItems();
     }
+    */
   }
 
   private filterSidenavItems(): void {

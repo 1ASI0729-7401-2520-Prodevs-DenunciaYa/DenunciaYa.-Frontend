@@ -87,5 +87,5 @@ export const routes: Routes = [
     ]
   },
 
-  { path: '**', redirectTo: 'authentication/login' }
+  { path: '**', redirectTo: 'home' }
 ];
