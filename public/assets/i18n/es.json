@@ -14,7 +14,27 @@
     "CREATERESPONSIBLE": "Crear Responsable",
     "PROFILERESPONSIBLE": "Persona Responsable"
   },
+  "login-owner": {
+    "WORKER": "Trabajador",
+    "OWNER": "Dueño",
+    "SIGN IN": "Iniciar sesión como dueño",
+    "FIRST_TIME": "¿Primera vez en Keepltfresh?",
+    "CREATE_ACCOUNT": "¡Crea tu cuenta ahora!",
+    "FORGOT_PASSWORD": "¿Olvidaste tu contraseña?",
+    "LOGIN_OWNER": "Iniciar sesión como dueño"
+  },
 
+  "login-worker": {
+    "WORKER": "Trabajador",
+    "OWNER": "Dueño",
+    "SIGN_IN": "Iniciar sesión",
+    "FIRST_TIME": "¿Primera vez en Keepltfresh?",
+    "CREATE_ACCOUNT": "¡Crea tu cuenta ahora!",
+    "EMAIL_PLACEHOLDER": "Correo electrónico",
+    "PASSWORD_PLACEHOLDER": "Contraseña",
+    "FORGOT_PASSWORD": "¿Olvidaste tu contraseña?",
+    "LOGIN_WORKER": "Iniciar sesión como Trabajador"
+  },
   "CONFIGURATION": {
     "TITLE": "Configuración",
     "SUBTITLE": "Gestiona tus preferencias y configuraciones de notificaciones",

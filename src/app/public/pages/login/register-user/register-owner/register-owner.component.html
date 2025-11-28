@@ -1,0 +1,79 @@
+<div class="content-primary">
+
+  <br><br>
+  <mat-card class="contenedor">
+    <mat-card-content>
+      <div class="content-2">
+
+        <section>
+          <div class="example-button-row section-button">
+            <button mat-button id="btnn" routerLink="/pages/register-worker">
+              {{ 'register-owner.WORKER' | translate }}
+            </button>
+            <button mat-button id="btnn" routerLink="/pages/register-owner" style="margin-left: 1em">
+              {{ 'register-owner.DUENO' | translate }}
+            </button>
+          </div>
+        </section>
+
+        <br><br>
+        <mat-label style="text-align: center; font-size: 30px; color: #14131B">
+          <b>{{ 'register-owner.REGISTER' | translate }}</b>
+        </mat-label>
+        <br>
+
+        <mat-label style="text-align: left">
+          {{ 'register-owner.FIRST_NAME' | translate }}
+        </mat-label>
+        <mat-form-field>
+          <input matInput [(ngModel)]="user.firstName" type="text"
+                 [placeholder]="'register-owner.FIRST_NAME_PLACEHOLDER' | translate" class="input">
+        </mat-form-field>
+
+        <mat-label style="text-align: left">
+          {{ 'register-owner.LAST_NAME' | translate }}
+        </mat-label>
+        <mat-form-field>
+          <input matInput [(ngModel)]="user.lastName" type="text"
+                 [placeholder]="'register-owner.LAST_NAME_PLACEHOLDER' | translate" class="input">
+        </mat-form-field>
+
+        <mat-label style="text-align: left">
+          {{ 'register-owner.BIRTH_DATE' | translate }}
+        </mat-label>
+        <mat-form-field>
+          <input matInput [(ngModel)]="user.birthDate" type="date" class="input">
+        </mat-form-field>
+
+        <mat-label style="text-align: left">
+          {{ 'register-owner.PHONE' | translate }}
+        </mat-label>
+        <mat-form-field>
+          <input matInput [(ngModel)]="user.phoneNumber" type="tel"
+                 [placeholder]="'register-owner.PHONE_PLACEHOLDER' | translate" class="input">
+        </mat-form-field>
+
+        <mat-label style="text-align: left">
+          {{ 'register-owner.EMAIL' | translate }}
+        </mat-label>
+        <mat-form-field>
+          <input matInput [(ngModel)]="user.email" type="email"
+                 [placeholder]="'register-owner.EMAIL_PLACEHOLDER' | translate" class="input">
+        </mat-form-field>
+
+        <mat-label style="text-align: left">
+          {{ 'register-owner.PASSWORD' | translate }}
+        </mat-label>
+        <mat-form-field>
+          <input matInput [(ngModel)]="user.password" type="password"
+                 [placeholder]="'register-owner.PASSWORD_PLACEHOLDER' | translate" class="input">
+        </mat-form-field>
+
+        <button mat-button style="color: white; background-color: #FF7A00" type="submit"
+                (click)="onSubmit()" routerLink="/pages/validation">
+          {{ 'register-owner.REGISTER_AS_DUENO' | translate }}
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

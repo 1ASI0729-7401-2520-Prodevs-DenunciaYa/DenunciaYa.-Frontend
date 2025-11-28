@@ -21,8 +21,8 @@ import {MatButton} from '@angular/material/button';
     MatProgressSpinnerModule,
     TranslatePipe,
     MatIconModule,
-    MatCardModule,
-    MatButton
+    MatCardModule
+
   ],
   templateUrl: './profile-responsible.html',
   styleUrls: ['./profile-responsible.css']

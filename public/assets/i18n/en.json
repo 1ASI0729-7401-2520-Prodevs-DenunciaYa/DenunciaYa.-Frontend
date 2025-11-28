@@ -14,6 +14,28 @@
     "CREATERESPONSIBLE": "Create Responsible",
     "PROFILERESPONSIBLE": "Responsible Person"
   },
+
+  "login-owner": {
+    "WORKER": "Worker",
+    "OWNER": "Owner",
+    "SIGN IN": "Sign in as owner",
+    "FIRST_TIME": "First time on Keepltfresh?",
+    "CREATE_ACCOUNT": "Create your account now!",
+    "FORGOT_PASSWORD": "Forgot your password?",
+    "LOGIN_OWNER": "Log in as Owner"
+  },
+
+  "login-worker": {
+    "WORKER": "Worker",
+    "OWNER": "Owner",
+    "SIGN_IN": "Sign In",
+    "FIRST_TIME": "First time on Keepltfresh?",
+    "CREATE_ACCOUNT": "Create your account now!",
+    "EMAIL_PLACEHOLDER": "Email address",
+    "PASSWORD_PLACEHOLDER": "Password",
+    "FORGOT_PASSWORD": "Forgot your password?",
+    "LOGIN_WORKER": "Log in as Worker"
+  },
   "COMMUNITY": {
     "TITLE": "Community"
   },

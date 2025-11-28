@@ -5,7 +5,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule, MatNavList, MatListItem } from '@angular/material/list';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import {AuthService} from '../../../../authentication-and-account-management/infrastructure/auth.service';
 
 interface SideNavigationItem {
   label: string;
@@ -56,7 +55,6 @@ export class SideNavigationBarComponent implements OnInit {
   constructor(
     private translate: TranslateService,
     private router: Router,
-    private authService: AuthService
   ) {
     this.translate.setDefaultLang('es');
     this.translate.use('es');

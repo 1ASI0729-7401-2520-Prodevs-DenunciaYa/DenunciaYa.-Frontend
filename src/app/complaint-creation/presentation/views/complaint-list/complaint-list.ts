@@ -16,7 +16,6 @@ import {DatePipe, NgClass} from '@angular/common';
 import {MatIcon, MatIconModule} from '@angular/material/icon';
 import {Complaint} from '../../../domain/model/complaint.entity';
 import {TranslatePipe} from '@ngx-translate/core';
-import {AuthService} from '../../../../authentication-and-account-management/infrastructure/auth.service';
 import {MatTooltipModule} from '@angular/material/tooltip';
 
 @Component({
@@ -71,7 +70,6 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 export class ComplaintList {
   readonly store = inject(ComplaintsStore);
   protected router = inject(Router);
-  private authService = inject(AuthService);
 
   displayedColumns: string[] = ['id', 'category', 'updateDate', 'status', 'evolution', 'actions'];
   dataSource: Complaint[] = [];
@@ -87,8 +85,6 @@ export class ComplaintList {
   }
 
   private checkUserRole(): void {
-    const currentUser = this.authService.getCurrentUser();
-    this.userRole = currentUser?.role || null;
     this.isCitizen = this.userRole === 'citizen';
   }
 
@@ -129,14 +125,9 @@ export class ComplaintList {
     }
     return 'Eliminar denuncia';
   }
+
   viewComplaintDetails(complaintId: string) {
-    const currentUser = this.authService.getCurrentUser();
 
-    if (currentUser?.role === 'citizen') {
-      this.router.navigate(['/complaint-detail-citizen', complaintId]);
-    } else {
-      this.router.navigate(['/complaint-detail', complaintId]);
-    }
+
   }
-
 }

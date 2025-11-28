@@ -1,0 +1,72 @@
+<div class="content-primary">
+  <br><br>
+  <mat-card class="contenedor">
+    <mat-card-content>
+      <div class="content-2">
+        <section>
+          <div class="example-button-row section-button">
+            <button mat-button id="btnn" routerLink="/pages/login-worker">
+              {{ 'login-worker.WORKER' | translate }}
+            </button>
+            <button mat-button id="btnn" routerLink="/pages/login-owner" style="margin-left: 1em">
+              {{ 'login-worker.OWNER' | translate }}
+            </button>
+          </div>
+        </section>
+        <br><br>
+
+        <mat-label style="text-align: center; font-size: 30px; color: #14131B">
+          <b>{{ 'login-worker.SIGN_IN' | translate }}</b>
+        </mat-label>
+        <br>
+
+        <mat-label style="text-align: center; font-size: 15px; color: #14131B">
+          {{ 'login-worker.FIRST_TIME' | translate }}
+          <a routerLink="/pages/register-owner" style="color: #14131B; text-decoration: none">
+            <b>{{ 'login-worker.CREATE_ACCOUNT' | translate }}</b>
+          </a>
+        </mat-label>
+        <br>
+
+        <mat-form-field>
+          <input
+            matInput
+            [(ngModel)]="user.email"
+            name="username"
+            type="text"
+            [placeholder]="'login-worker.EMAIL_PLACEHOLDER' | translate"
+            class="input"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            [(ngModel)]="user.password"
+            name="password"
+            type="password"
+            [placeholder]="'login-worker.PASSWORD_PLACEHOLDER' | translate"
+            class="input"
+          />
+        </mat-form-field>
+
+        <mat-label style="color: #14131B; justify-content: right; text-align: right;">
+          <a mat-button routerLink="/pages/recover-password-worker">
+            <b style="font-family: 'Poppins', sans-serif">
+              {{ 'login-worker.FORGOT_PASSWORD' | translate }}
+            </b>
+          </a>
+        </mat-label>
+        <br>
+
+        <button
+          mat-button
+          style="color: white; background-color: #FF7A00"
+          type="submit"
+          (click)="onSubmit()"
+        >
+          {{ 'login-worker.LOGIN_WORKER' | translate }}
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
