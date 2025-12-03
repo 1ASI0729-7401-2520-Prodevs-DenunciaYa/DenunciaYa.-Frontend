@@ -82,6 +82,9 @@ export class CommunityForm {
         } catch (e) {
           // Si falla decodificación, deja los valores por defecto
         }
+      } else {
+        // Aviso útil para desarrollo: si no hay token, el backend puede rechazar la petición
+        console.warn('No se encontró token en localStorage: la creación de posts puede requerir autenticación');
       }
     }
 
@@ -90,7 +93,8 @@ export class CommunityForm {
       userId: userId,
       author: authorName,
       content: this.content,
-      imageUrl: this.imageUrl || undefined,
+      // Si no hay imageUrl, enviamos una imagen por defecto (el backend exige que no sea null/blank)
+      imageUrl: this.imageUrl || '/assets/images/secret-image.png',
       likes: 0,
       createdAt: new Date(),
     });

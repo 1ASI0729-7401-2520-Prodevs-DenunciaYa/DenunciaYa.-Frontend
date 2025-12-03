@@ -65,6 +65,12 @@ export abstract class BaseApiEndpoint<
    */
   create(entity: TEntity): Observable<TEntity> {
     const resource = this.assembler.toResourceFromEntity(entity);
+    // Debug: mostrar payload y headers antes de enviar
+    try {
+      console.debug('[API CREATE] POST', this.endpointUrl, 'payload:', resource);
+    } catch (e) {
+      // ignore
+    }
     return this.http.post<TResource>(this.endpointUrl, resource).pipe(
       map(createdResource => this.assembler.toEntityFromResource(createdResource)),
       catchError(this.handleError('Failed to create entity'))
