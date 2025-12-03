@@ -24,7 +24,7 @@
        [routerLink]="item.route"
        routerLinkActive="active-link"
        class="nav-item bottom-item"
-       (click)="onNavItemClick()">
+       (click)="onItemClick(item, $event)">
       <mat-icon>{{ item.icon }}</mat-icon>
       <span *ngIf="!collapsed">{{ item.label | translate }}</span>
     </a>

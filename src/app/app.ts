@@ -18,6 +18,8 @@ export class App {
   private readonly translate = inject(TranslateService);
 
   constructor() {
+    // No recargar automáticamente en logout; AuthService ya navega a login y limpia localStorage
+
     this.translate.addLangs(['en', 'es']);
     this.translate.setDefaultLang('en');
 

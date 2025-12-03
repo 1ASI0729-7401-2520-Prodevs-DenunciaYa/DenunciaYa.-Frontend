@@ -3,7 +3,8 @@ export const environment = {
 
   // === Fake API (Render) ===
   // En desarrollo usamos ruta relativa para que el dev-server pueda proxear a localhost:8080 y evitar CORS
-  platformProviderApiBaseUrl: '/api/v1',
+  // Para desarrollo local usar directamente el backend para evitar 404s en /api/v1
+  platformProviderApiBaseUrl: 'http://localhost:8080/api/v1',
 
   platformProviderCommunitiesEndpointPath: '/communities',
   platformProviderResponsiblesEndpointPath: '/responsibles',

@@ -9,12 +9,18 @@ export class PostAssembler implements BaseAssembler<Community, PostResource, Pos
   }
 
   toEntityFromResource(resource: PostResource): Community {
+    // Normalizar imageUrl: si el backend devuelve la imagen por defecto `secret-image.png`,
+    // considerarla como inexistente para que la UI no la muestre.
+    const normalizedImageUrl = resource.imageUrl && resource.imageUrl.indexOf('secret-image.png') === -1
+      ? resource.imageUrl
+      : undefined;
+
     return new Community({
       id: resource.id,
       userId: typeof resource.userId === 'number' ? resource.userId : Number(resource.userId),
       author: resource.author,
       content: resource.content,
-      imageUrl: resource.imageUrl,
+      imageUrl: normalizedImageUrl,
       likes: resource.likes,
       createdAt: new Date(resource.createdAt),
       comments: resource.comments?.map(c => ({ author: c.author, content: c.content, date: new Date(c.createdAt) })) ?? []
@@ -35,4 +41,3 @@ export class PostAssembler implements BaseAssembler<Community, PostResource, Pos
     } as PostResource;
   }
 }
-

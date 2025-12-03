@@ -20,7 +20,7 @@
       <mat-card-content>
         <p>{{ post.content }}</p>
         <img
-          *ngIf="post.imageUrl"
+          *ngIf="post.imageUrl && post.imageUrl.indexOf('secret-image.png') === -1"
           [src]="post.imageUrl"
           [alt]="'COMMUNITY_LIST.POST.IMAGE_ALT' | translate"
           class="post-image"

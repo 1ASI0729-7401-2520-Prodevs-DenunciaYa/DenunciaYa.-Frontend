@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule, MatNavList, MatListItem } from '@angular/material/list';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { AuthService } from '../../../../public/services/AuthService';
 
 interface SideNavigationItem {
   label: string;
@@ -55,6 +56,7 @@ export class SideNavigationBarComponent implements OnInit {
   constructor(
     private translate: TranslateService,
     private router: Router,
+    private authService: AuthService
   ) {
     this.translate.setDefaultLang('es');
     this.translate.use('es');
@@ -110,6 +112,23 @@ export class SideNavigationBarComponent implements OnInit {
     if (window.innerWidth <= 768) {
       this.navItemClicked.emit();
     }
+  }
+
+  onItemClick(item: SideNavigationItem, event: MouseEvent) {
+    if (item.route === '/cerrar-cuenta') {
+      // prevenir que routerLink ejecute la navegación antes de logout
+      event.preventDefault();
+      event.stopPropagation();
+      this.onLogoutClick();
+      return;
+    }
+
+    this.onNavItemClick();
+  }
+
+  onLogoutClick() {
+    // Llamar el servicio de autenticación para cerrar sesión y limpiar estado
+    this.authService.logout();
   }
 
 }

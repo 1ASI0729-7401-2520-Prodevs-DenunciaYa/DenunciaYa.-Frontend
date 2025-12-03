@@ -9,6 +9,10 @@ import { CommonModule } from '@angular/common';
 import { CommunityStore } from '../../application/community.store';
 import { Community } from '../../domain/model/community.entity';
 import {TranslatePipe} from '@ngx-translate/core';
+import { PostsApiEndpoint } from '../../infrastructure/posts-api-endpoint';
+import { ProfileService } from '../../../public/services/profile.service';
+import { of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-community-form',
@@ -36,81 +40,125 @@ import {TranslatePipe} from '@ngx-translate/core';
  * @method submitPost - Submits a new community post.
  */
 export class CommunityForm {
-  content: string = '';
-  imageUrl: string | null = null;
-  imageFile: File | null = null;
+   content: string = '';
+   imageUrl: string | null = null;
+   imageFile: File | null = null;
 
-  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
-  constructor(private communityStore: CommunityStore) {}
+   constructor(private communityStore: CommunityStore, private postsApi: PostsApiEndpoint, private profileService: ProfileService) {}
 
-  handleImageUpload(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    const file = input.files?.[0];
-    if (!file) return;
+   private resolveAuthor() {
+     // Devuelve un Observable con { name, id }
+     const userData = localStorage.getItem('user');
+     const currentUser = localStorage.getItem('currentUser');
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.imageUrl = reader.result as string;
-    };
-    reader.readAsDataURL(file);
-    this.imageFile = file;
-  }
+     if (userData) {
+       try {
+         const user = JSON.parse(userData);
+         const name = `${user.firstName || ''} ${user.lastName || ''}`.trim() || (user.username || user.email) || 'Usuario';
+         const id = user.id || user.userId || user.sub || user.onid || 1;
+         return of({ name, id });
+       } catch (e) {
+         return of({ name: String(userData) || 'Usuario', id: 1 });
+       }
+     }
 
-  submitPost(): void {
-    if (!this.content.trim() && !this.imageUrl) return;
+     if (currentUser) {
+       const maybeId = localStorage.getItem('onid') || localStorage.getItem('workerId') || localStorage.getItem('ownerId') || localStorage.getItem('userId');
+       return of({ name: currentUser, id: maybeId ? Number(maybeId) : 1 });
+     }
 
-    const userData = localStorage.getItem('user');
-    let authorName = 'Usuario';
-    let userId = 1;
+     const token = localStorage.getItem('token');
+     if (token) {
+       try {
+         const parts = token.split('.');
+         if (parts.length >= 2) {
+           const payload = JSON.parse(atob(parts[1]));
+           const name = payload.name || payload.username || payload.preferred_username || payload.email || 'Usuario';
+           const id = payload.sub || payload.userId || payload.id || 1;
+           return of({ name, id });
+         }
+       } catch (e) {
+         // ignore and try profile endpoint
+       }
+     }
 
-    if (userData) {
-      const user = JSON.parse(userData);
-      authorName = `${user.firstName || ''} ${user.lastName || ''}`.trim() || 'Usuario';
-      userId = user.id || 1;
-    } else {
-      // Si no hay objeto `user`, intentar extraer datos del token JWT
-      const token = localStorage.getItem('token');
-      if (token) {
-        try {
-          const parts = token.split('.');
-          if (parts.length >= 2) {
-            const payload = JSON.parse(atob(parts[1]));
-            authorName = payload.name || payload.username || payload.preferred_username || payload.email || authorName;
-            userId = payload.sub || payload.userId || payload.id || userId;
-          }
-        } catch (e) {
-          // Si falla decodificación, deja los valores por defecto
-        }
-      } else {
-        // Aviso útil para desarrollo: si no hay token, el backend puede rechazar la petición
-        console.warn('No se encontró token en localStorage: la creación de posts puede requerir autenticación');
-      }
-    }
+     // Fallback: pedir profile al backend (si está autenticado)
+     return this.profileService.getProfile().pipe(
+       map(profile => ({ name: profile?.firstName ? `${profile.firstName} ${profile.lastName || ''}`.trim() : (profile?.email || profile?.username || 'Usuario'), id: profile?.id || 1 })),
+       catchError(() => of({ name: 'Usuario', id: 1 }))
+     );
+   }
 
-    const newPost = new Community({
-      id: Date.now(),
-      userId: userId,
-      author: authorName,
-      content: this.content,
-      // Si no hay imageUrl, enviamos una imagen por defecto (el backend exige que no sea null/blank)
-      imageUrl: this.imageUrl || '/assets/images/secret-image.png',
-      likes: 0,
-      createdAt: new Date(),
-    });
+   handleImageUpload(event: Event): void {
+     const input = event.target as HTMLInputElement;
+     const file = input.files?.[0];
+     if (!file) return;
+
+     const reader = new FileReader();
+     reader.onload = () => {
+       this.imageUrl = reader.result as string;
+     };
+     reader.readAsDataURL(file);
+     this.imageFile = file;
+   }
+
+   submitPost(): void {
+     if (!this.content.trim() && !this.imageUrl) return;
+
+     this.resolveAuthor().subscribe(({ name: authorName, id: userId }) => {
+       const newPost = new Community({
+         id: Date.now(),
+         userId: userId,
+         author: authorName,
+         content: this.content,
+         // El backend actualmente exige que `imageUrl` no sea nulo o blank al crear posts.
+         // Por eso enviamos la imagen placeholder cuando el usuario no adjunta imagen.
+         // La UI la ocultará gracias al assembler que normaliza `secret-image.png` a undefined
+         // y a la plantilla que no renderiza esa imagen.
+         imageUrl: this.imageUrl ? this.imageUrl : '/assets/images/secret-image.png',
+         likes: 0,
+         createdAt: new Date(),
+       });
 
 
-    this.communityStore.addCommunity(newPost);
-    this.resetForm();
-  }
+       if (this.imageFile) {
+         // Enviar siempre multipart/form-data cuando hay archivo para evitar 415
+         // (el backend parece no aceptar JSON con base64 en este proyecto).
+         this.postsApi.createFromForm(newPost, this.imageFile).subscribe({
+           next: (created) => {
+             this.communityStore['communitiesSignal']?.update?.((c: any) => [...c, created]);
+             this.resetForm();
+           },
+           error: (err) => {
+             try {
+               console.error('Error creando post con imagen (multipart)', {
+                 status: err?.status,
+                 statusText: err?.statusText,
+                 body: err?.error,
+                 err
+               });
+             } catch (e) {
+               console.error('Error creando post con imagen (multipart, non-json)', err);
+             }
+             this.resetForm();
+           }
+         });
+       } else {
+         this.communityStore.addCommunity(newPost);
+         this.resetForm();
+       }
+     });
+   }
 
-  private resetForm(): void {
-    this.content = '';
-    this.imageUrl = null;
-    this.imageFile = null;
+   private resetForm(): void {
+     this.content = '';
+     this.imageUrl = null;
+     this.imageFile = null;
 
-    if (this.fileInput) {
-      this.fileInput.nativeElement.value = '';
-    }
-  }
+     if (this.fileInput) {
+       this.fileInput.nativeElement.value = '';
+     }
+   }
 }

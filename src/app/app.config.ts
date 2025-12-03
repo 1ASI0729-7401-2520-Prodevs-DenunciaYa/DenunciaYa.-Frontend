@@ -1,6 +1,6 @@
 import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
@@ -10,6 +10,8 @@ import { map } from 'rxjs/operators';
 import type { TranslationObject } from '@ngx-translate/core';
 import { GoogleMapsModule } from '@angular/google-maps';
 import {environment} from '../environments/environment';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './interceptor';
 
 export class TypedTranslateHttpLoader extends TranslateHttpLoader implements TranslateLoader {
   override getTranslation(lang: string): Observable<TranslationObject> {
@@ -27,7 +29,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(withFetch()),
+    provideHttpClient(),
 
     importProvidersFrom(
       TranslateModule.forRoot({
@@ -40,7 +42,8 @@ export const appConfig: ApplicationConfig = {
       })
     ),
     GoogleMapsModule,
-    { provide: 'googleMapsApiKey', useValue: environment.googleMapsApiKey }
+    { provide: 'googleMapsApiKey', useValue: environment.googleMapsApiKey },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
 
   ]
 };

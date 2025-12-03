@@ -6,7 +6,12 @@ export const environment = {
 
   // Para desarrollo local temporalmente apuntamos a la ruta relativa `/api/v1`.
   // El dev-server con `proxy.conf.json` reenviará `/api` a http://localhost:8080
-  platformProviderApiBaseUrl: '/api/v1',
+  // platformProviderApiBaseUrl: '/api/v1',
+
+  // Apuntar directamente al backend local Swagger para que todo el frontend use
+  // http://localhost:8080/api/v1 en lugar de la ruta relativa. Esto evita depender
+  // del proxy cuando quieres que el front se comunique con el backend real.
+  platformProviderApiBaseUrl: 'http://localhost:8080/api/v1',
 
   platformProviderCommunitiesEndpointPath: '/communities',
   platformProviderResponsiblesEndpointPath: '/responsibles',
@@ -17,7 +22,9 @@ export const environment = {
 
 
   // === Backend real local (Spring Boot o similar) ===
-  apiBaseUrl: 'http://localhost:8080',
+  // apiBaseUrl: 'http://localhost:8080',
+  // Normalizamos apiBaseUrl para que incluya el prefijo /api/v1 también.
+  apiBaseUrl: 'http://localhost:8080/api/v1',
   apiEndpoints: {
     complaints: '/complaints',
     citizens: '/citizen',
