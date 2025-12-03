@@ -35,27 +35,36 @@ import {
 import {RestoreOwnerComponent} from './public/pages/login/restore-owner/restore-owner.component';
 import {RestoreWorkerComponent} from './public/pages/login/restore-worker/restore-worker.component';
 import {ValidationComponent} from './public/pages/login/validation/validation.component';
+
 export const routes: Routes =[
+  // Rutas públicas dentro de un layout de autenticación
+  {
+    path: 'pages',
+    component: AuthLayoutComponent,
+    children: [
+      { path: 'login-owner', component: LoginOwnerComponent },
+      { path: 'login-worker', component: LoginWorkerComponent },
+      { path: 'register-worker', component: RegisterWorkerComponent },
+      { path: 'register-owner', component: RegisterOwnerComponent },
+      { path: 'recover-password-worker', component: RecoverPasswordWorkerComponent },
+      { path: 'recover-password-owner', component: RecoverPasswordOwnerComponent },
+      { path: 'restore-owner', component: RestoreOwnerComponent },
+      { path: 'restore-worker', component: RestoreWorkerComponent },
+      { path: 'validation', component: ValidationComponent },
+      { path: '', redirectTo: 'login-owner', pathMatch: 'full' }
+    ]
+  },
 
-
-
-      { path: 'pages/login-owner', component: LoginOwnerComponent },
-      { path: 'pages/login-worker', component: LoginWorkerComponent },
-      { path: 'pages/register-worker', component: RegisterWorkerComponent },
-      { path: 'pages/register-owner', component: RegisterOwnerComponent },
-      { path: 'pages/recover-password-worker', component: RecoverPasswordWorkerComponent },
-      { path: 'pages/recover-password-owner', component: RecoverPasswordOwnerComponent },
-      { path: 'pages/restore-owner', component: RestoreOwnerComponent },
-      { path: 'pages/restore-worker', component: RestoreWorkerComponent },
-      { path: 'pages/validation', component: ValidationComponent },
-
-
-
+  // Rutas de la aplicación dentro del layout principal que contiene el sidenav
+  {
+    path: '',
+    component: LayoutComponent,
+    children: [
+      { path: 'home', component: AuthorityHomeComponent },
       { path: 'community', component: CommunityPage },
       { path: 'map', component: MapTrackingComponent },
       { path: 'metrics', component: AuthorityMetricsAndGraphs },
       { path: 'responsible-create', component: ResponsibleCreateComponent },
-      { path: 'home', component: AuthorityHomeComponent },
       { path: 'complaint-form', component: ComplaintForm },
       { path: 'complaint-list', component: ComplaintList },
       { path: 'team-managment', component: ComplaintAssigmentComponent },
@@ -66,20 +75,11 @@ export const routes: Routes =[
       { path: 'complaint-creation/complaints/new', component: ComplaintForm },
       { path: 'responsible-profile/:id', component: ProfileResponsibleComponent },
       { path: 'complaints/edit/:id', component: ComplaintEditCitizen },
+      { path: 'complaint-detail-citizen/:id', component: ComplaintDetailCitizen, data: { roles: ['citizen'] } },
+      { path: '', redirectTo: 'home', pathMatch: 'full' }
+    ]
+  },
 
-      { path: '', redirectTo: 'pages/login-owner', pathMatch: 'full' },
-      {
-        path: 'complaint-detail/:id',
-        component: ComplaintDetailAuthority,
-        data: { roles: ['authority', 'responsibles'] }
-      },
-      {
-        path: 'complaint-detail-citizen/:id',
-        component: ComplaintDetailCitizen,
-        data: { roles: ['citizen'] }
-      },
-
-
-
-  { path: '**', redirectTo: 'home' }
+  // Catch-all: redirige a la página principal
+  { path: '**', redirectTo: '' }
 ];

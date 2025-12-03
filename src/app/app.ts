@@ -9,7 +9,7 @@ import {LoginOwnerComponent} from './public/pages/login/login-owner/login-owner.
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [TimelineModule, LoginOwnerComponent, RouterOutlet],
+  imports: [TimelineModule, LoginOwnerComponent, RouterOutlet, LayoutComponent],
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
