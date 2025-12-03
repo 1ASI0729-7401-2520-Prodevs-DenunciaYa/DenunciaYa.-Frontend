@@ -43,8 +43,20 @@ export class LoginOwnerComponent {
         next: (response) => {
           console.log('Login response:', response); // 👈 Agrega esto
 
-          localStorage.setItem('token', response.token);
+          const token = response.token;
+          localStorage.setItem('token', token);
           localStorage.setItem('onid', response.id);
+          // Guardar currentUser decodificando el token (si contiene sub/email)
+          try {
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            const username = payload.sub || payload.email || payload.name || payload.preferred_username;
+            if (username) {
+              localStorage.setItem('currentUser', username);
+            }
+          } catch (e) {
+            // ignore
+          }
+
           this.router.navigate(['/pages/dashboard']);
         },
         error: () => {

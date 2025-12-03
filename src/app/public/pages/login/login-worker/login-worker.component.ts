@@ -38,8 +38,29 @@ export class LoginWorkerComponent {
   onSubmit() {
     this.registerWorkerService.login(this.user.email, this.user.password).subscribe({
       next: (res: any) => {
-        localStorage.setItem('token', res.token); // si el backend devuelve un JWT
-        localStorage.setItem('wid', res.id.toString()); // para identificar que es worker
+        if (!res || !res.token) {
+          console.error('Login failed: empty or invalid response', res);
+          alert('Error al iniciar sesión: respuesta inválida del servidor');
+          return;
+        }
+        const token = res.token;
+        try {
+          localStorage.setItem('token', token); // si el backend devuelve un JWT
+          if (res.id !== undefined && res.id !== null) {
+            localStorage.setItem('wid', String(res.id)); // para identificar que es worker
+          }
+        } catch (e) {
+          // ignore storage errors
+        }
+        try {
+          const payload = JSON.parse(atob(token.split('.')[1]));
+          const username = payload.sub || payload.email || payload.name || payload.preferred_username;
+          if (username) {
+            localStorage.setItem('currentUser', username);
+          }
+        } catch (e) {
+          // ignore decoding errors
+        }
         this.router.navigate(['/pages/home']);
       },
       error: () => {
