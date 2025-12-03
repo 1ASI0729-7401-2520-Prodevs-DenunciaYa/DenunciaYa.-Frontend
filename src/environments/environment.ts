@@ -6,7 +6,7 @@ export const environment = {
 
   // Para desarrollo local temporalmente apuntamos a la ruta relativa `/api/v1`.
   // El dev-server con `proxy.conf.json` reenviará `/api` a http://localhost:8080
-  platformProviderApiBaseUrl: 'http://localhost:8080/api/v1',
+  platformProviderApiBaseUrl: '/api/v1',
 
   platformProviderCommunitiesEndpointPath: '/communities',
   platformProviderResponsiblesEndpointPath: '/responsibles',

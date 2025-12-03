@@ -3,7 +3,6 @@ import { FormBuilder, Validators, FormControl, FormsModule, ReactiveFormsModule 
 import { ComplaintsStore } from '../../../application/complaints-store';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Complaint } from '../../../domain/model/complaint.entity';
-import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
 import { MatInputModule } from '@angular/material/input';
@@ -60,7 +59,6 @@ interface Distrito {
  * @param {ComplaintsStore} store - Store for managing complaints.
  * @param {ActivatedRoute} route - ActivatedRoute for accessing route parameters.
  * @param {Router} router - Router for navigation.
- * @param {HttpClient} http - HttpClient for making HTTP requests.
  * @method ngOnInit - Initializes the component and sets up form controls.
  * @method onDepartmentChange - Updates provinces and districts based on selected department.
  * @param {string | null} departmentCode - The selected department code.
@@ -75,7 +73,6 @@ export class ComplaintForm implements OnInit {
   private store = inject(ComplaintsStore);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
-  private http = inject(HttpClient);
 
   categories = [
     'Infrastructure and Public Spaces',
@@ -311,6 +308,10 @@ export class ComplaintForm implements OnInit {
   provincias: Provincia[] = [];
   distritos: Distrito[] = [];
 
+  // Estado de edición e id de la denuncia
+  isEditMode = false;
+  complaintId: string | null = null;
+
   form = this.fb.group({
     category: new FormControl<string>('', {
       nonNullable: true,
@@ -351,10 +352,12 @@ export class ComplaintForm implements OnInit {
     })
   });
 
-  isEditMode = false;
-  complaintId: string | null = null;
-
+  // Establecer estado inicial: si no hay provincias/distritos, deshabilitar los controles
   constructor() {
+    // Deshabilitar controles dependientes hasta que haya opciones
+    this.form.get('province')?.disable();
+    this.form.get('district')?.disable();
+
     this.route.params.subscribe(params => {
       this.complaintId = params['id'] ?? null;
       this.isEditMode = !!this.complaintId;
@@ -384,9 +387,22 @@ export class ComplaintForm implements OnInit {
         district: ''
       });
       this.distritos = [];
+
+      // Habilitar o deshabilitar el control de provincia según disponibilidad
+      if (this.provincias.length > 0) {
+        this.form.get('province')?.enable();
+      } else {
+        this.form.get('province')?.disable();
+      }
+
+      // Al cambiar departamento, siempre deshabilitar distrito hasta que provincia se seleccione
+      this.form.get('district')?.disable();
     } else {
       this.provincias = [];
       this.distritos = [];
+      this.form.patchValue({ province: '', district: '' });
+      this.form.get('province')?.disable();
+      this.form.get('district')?.disable();
     }
   }
 
@@ -398,8 +414,17 @@ export class ComplaintForm implements OnInit {
       this.form.patchValue({
         district: ''
       });
+
+      // Habilitar o deshabilitar el control de distrito según disponibilidad
+      if (this.distritos.length > 0) {
+        this.form.get('district')?.enable();
+      } else {
+        this.form.get('district')?.disable();
+      }
     } else {
       this.distritos = [];
+      this.form.patchValue({ district: '' });
+      this.form.get('district')?.disable();
     }
   }
   getDepartamentoNombre(codigo: string): string {

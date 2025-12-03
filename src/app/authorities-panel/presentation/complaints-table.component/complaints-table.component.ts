@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit, inject, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import {TranslatePipe} from '@ngx-translate/core';
-import {environment} from '../../../../environments/environment';
+import { ComplaintsStore } from '../../../complaint-creation/application/complaints-store';
 
 @Component({
   selector: 'app-complaints-table',
@@ -15,36 +14,27 @@ import {environment} from '../../../../environments/environment';
 })
 /**
  * @class ComplaintsTableComponent
- * @summary Component to display a table of complaints fetched from an API.
- * @implements OnInit
- * @constructor
- * @method ngOnInit - Lifecycle hook to initialize the component and load complaints.
- * @method loadComplaints - Fetches complaints from the API and populates the data source.
- * @method viewComplaint - Displays details of a selected complaint.
+ * @summary Component to display a table of complaints fetched from the store.
  */
 export class ComplaintsTableComponent implements OnInit {
   displayedColumns: string[] = ['id', 'category', 'fecha', 'status', 'priority', 'detalles'];
   dataSource: any[] = [];
 
-  constructor(private http: HttpClient) {}
+  private readonly store = inject(ComplaintsStore);
+
+  constructor() {}
 
   ngOnInit(): void {
-    this.loadComplaints();
-  }
-
-  loadComplaints(): void {
-    const apiUrl = `${environment.platformProviderApiBaseUrl}${environment.platformProviderComplaintsEndpointPath}`;
-
-    this.http.get<any[]>(apiUrl).subscribe({
-      next: (data) => {
-        this.dataSource = data.map((c, index) => ({
-          id: c.id || index + 1,
-          category: c.category,
-          fecha: new Date(c.updateDate).toLocaleDateString(),
-          status: c.status,
-          priority: c.priority
-        }));
-      },
+    // Usar la señal del store y actualizar la dataSource cuando cambie
+    effect(() => {
+      const complaints = this.store.complaints();
+      this.dataSource = complaints.map((c, index) => ({
+        id: c.id || index + 1,
+        category: c.category,
+        fecha: new Date(c.updateDate).toLocaleDateString(),
+        status: c.status,
+        priority: c.priority
+      }));
     });
   }
 

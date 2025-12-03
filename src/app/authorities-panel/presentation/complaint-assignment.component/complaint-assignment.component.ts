@@ -99,7 +99,7 @@ export class ComplaintAssigmentComponent implements OnInit {
   statusFilter = signal<string>('');
   priorityFilter = signal<string>('');
 
-  private readonly baseUrl = 'http://localhost:3000';
+  private readonly baseUrl = 'http://localhost:8080/api';
 
   readonly teamMembers = this.teamMembersSignal.asReadonly();
   readonly complaints = this.complaintsSignal.asReadonly();

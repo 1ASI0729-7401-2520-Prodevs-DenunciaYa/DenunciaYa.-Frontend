@@ -89,7 +89,7 @@
 
             <mat-form-field appearance="outline">
               <mat-label>{{ 'COMPLAINT_FORM.FIELDS.LOCATION.PROVINCE.LABEL' | translate }}</mat-label>
-              <mat-select formControlName="province" [disabled]="!provincias.length">
+              <mat-select formControlName="province">
                 <mat-option value="">{{ 'COMPLAINT_FORM.FIELDS.LOCATION.PROVINCE.PLACEHOLDER' | translate }}</mat-option>
                 <mat-option *ngFor="let provincia of provincias" [value]="provincia.codigo">
                   {{ provincia.nombre }}
@@ -100,7 +100,7 @@
 
             <mat-form-field appearance="outline">
               <mat-label>{{ 'COMPLAINT_FORM.FIELDS.LOCATION.DISTRICT.LABEL' | translate }}</mat-label>
-              <mat-select formControlName="district" [disabled]="!distritos.length">
+              <mat-select formControlName="district">
                 <mat-option value="">{{ 'COMPLAINT_FORM.FIELDS.LOCATION.DISTRICT.PLACEHOLDER' | translate }}</mat-option>
                 <mat-option *ngFor="let distrito of distritos" [value]="distrito.codigo">
                   {{ distrito.nombre }}
