@@ -2,7 +2,7 @@ import { Injectable, Signal, signal, computed } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { retry } from 'rxjs';
 import { Community } from '../domain/model/community.entity';
-import { CommunityApiEndpoint } from '../infrastructure/community-api-endpoint';
+import { PostsApiEndpoint } from '../infrastructure/posts-api-endpoint';
 
 /**
  * @class CommunityStore
@@ -29,7 +29,7 @@ export class CommunityStore {
   readonly error = this.errorSignal.asReadonly();
   readonly communityCount = computed(() => this.communities().length);
 
-  constructor(private readonly communityApi: CommunityApiEndpoint) {
+  constructor(private readonly communityApi: PostsApiEndpoint) {
     this.loadCommunities();
   }
 

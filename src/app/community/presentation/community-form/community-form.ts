@@ -68,6 +68,21 @@ export class CommunityForm {
       const user = JSON.parse(userData);
       authorName = `${user.firstName || ''} ${user.lastName || ''}`.trim() || 'Usuario';
       userId = user.id || 1;
+    } else {
+      // Si no hay objeto `user`, intentar extraer datos del token JWT
+      const token = localStorage.getItem('token');
+      if (token) {
+        try {
+          const parts = token.split('.');
+          if (parts.length >= 2) {
+            const payload = JSON.parse(atob(parts[1]));
+            authorName = payload.name || payload.username || payload.preferred_username || payload.email || authorName;
+            userId = payload.sub || payload.userId || payload.id || userId;
+          }
+        } catch (e) {
+          // Si falla decodificación, deja los valores por defecto
+        }
+      }
     }
 
     const newPost = new Community({

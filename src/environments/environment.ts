@@ -2,7 +2,11 @@ export const environment = {
   production: true,
 
   // === Fake API (Render) ===
-  platformProviderApiBaseUrl: 'https://denunciaya-backend.onrender.com/api/v1',
+  // platformProviderApiBaseUrl: 'https://denunciaya-backend.onrender.com/api/v1',
+
+  // Para desarrollo local temporalmente apuntamos a la ruta relativa `/api/v1`.
+  // El dev-server con `proxy.conf.json` reenviará `/api` a http://localhost:8080
+  platformProviderApiBaseUrl: 'http://localhost:8080/api/v1',
 
   platformProviderCommunitiesEndpointPath: '/communities',
   platformProviderResponsiblesEndpointPath: '/responsibles',
@@ -13,7 +17,7 @@ export const environment = {
 
 
   // === Backend real local (Spring Boot o similar) ===
-  apiBaseUrl: 'http://localhost:3000',
+  apiBaseUrl: 'http://localhost:8080',
   apiEndpoints: {
     complaints: '/complaints',
     citizens: '/citizen',
