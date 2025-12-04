@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit, Inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, Inject, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { GoogleMapsModule } from '@angular/google-maps';
+// AGREGA MapMarkerClusterer AQUÍ
+import { GoogleMapsModule, GoogleMap, MapMarkerClusterer } from '@angular/google-maps';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MapStore } from '../../../application/map.store';
@@ -15,8 +16,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatChipsModule } from '@angular/material/chips';
-import {TranslatePipe} from '@ngx-translate/core';
-import {environment} from '../../../../../environments/environment';
+import { TranslatePipe } from '@ngx-translate/core';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-map-tracking',
@@ -25,6 +26,8 @@ import {environment} from '../../../../../environments/environment';
     CommonModule,
     FormsModule,
     GoogleMapsModule,
+    // AGREGA ESTO TAMBIÉN EN LOS IMPORTS DEL COMPONENTE
+    MapMarkerClusterer,
     MatSelectModule,
     MatFormFieldModule,
     MatProgressSpinnerModule,
@@ -38,21 +41,9 @@ import {environment} from '../../../../../environments/environment';
   templateUrl: './map-tracking.html',
   styleUrls: ['./map-tracking.css'],
 })
-/** @class MapTrackingComponent
- * @summary Component for displaying and filtering complaints on a Google Map.
- * @method ngOnInit - Initializes the component and subscribes to the store.
- * @method ngOnDestroy - Cleans up subscriptions on component destruction.
- * @method loadComplaintsFromAPI - Fetches complaints from the API and loads them into the store.
- * @method applyFilters - Applies selected filters to the map markers.
- * @method resetFilters - Resets all filters to show all markers.
- * @method getMarkerIcon - Returns the appropriate marker icon based on complaint status.
- * @method getStatusBadgeClass - Returns CSS class for status badge.
- * @method getPriorityBadgeClass - Returns CSS class for priority badge.
- * @method openImage - Opens the complaint image in a new tab.
- * @method trackByMarkerId - TrackBy function for optimizing ngFor rendering.
- * @author Omar Harold Rivera Ticllacuri
- */
 export class MapTrackingComponent implements OnInit, OnDestroy {
+  @ViewChild(GoogleMap) map!: GoogleMap;
+
   private subscriptions = new Subscription();
 
   mapStyles = [
@@ -67,6 +58,9 @@ export class MapTrackingComponent implements OnInit, OnDestroy {
       stylers: [{ visibility: "off" }]
     }
   ];
+
+  // Eliminamos la variable de opciones por ahora para limpiar el código
+  // markerClustererOptions = ...;
 
   filteredMarkers: MapMarker[] = [];
   loading = false;
@@ -87,8 +81,7 @@ export class MapTrackingComponent implements OnInit, OnDestroy {
     private http: HttpClient,
     private districtService: DistrictCoordinatesService,
     @Inject('googleMapsApiKey') private googleMapsApiKey: string
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.subscribeToStore();
@@ -99,12 +92,6 @@ export class MapTrackingComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  /**
-   * @method subscribeToStore
-   * @summary Subscribes to the MapStore observables to get filtered markers and loading state.
-   * @returns {void}
-   * @author Omar Harold Rivera Ticllacuri
-   */
   private subscribeToStore(): void {
     this.subscriptions.add(
       this.mapStore.filteredMarkers$.subscribe(markers => {
@@ -122,20 +109,23 @@ export class MapTrackingComponent implements OnInit, OnDestroy {
 
   loadComplaintsFromAPI(): void {
     this.loading = true;
-    const apiUrl = `${environment.platformProviderApiBaseUrl}${environment.platformProviderComplaintsEndpointPath}`;
+    const apiUrl = `${environment.platformProviderApiBaseUrl}${environment.platformProviderMapComplaintsEndpointPath}`;
 
     this.http.get<any>(apiUrl)
       .subscribe({
         next: (response) => {
           const complaints = Array.isArray(response) ? response : response.complaints;
+
           if (complaints && complaints.length > 0) {
             this.mapStore.loadComplaintsAsMarkers(complaints);
             this.loadFilterOptions();
           } else {
+            this.triggerMapResize();
           }
           this.loading = false;
         },
         error: (error) => {
+          console.error('Error cargando mapa:', error);
           this.loading = false;
         }
       });
@@ -145,14 +135,13 @@ export class MapTrackingComponent implements OnInit, OnDestroy {
     this.categories = this.mapStore.getUniqueCategories();
     this.districts = this.mapStore.getUniqueDistricts();
     this.statuses = this.mapStore.getUniqueStatuses();
-
-
   }
 
   private updateMapView(): void {
     if (this.filteredMarkers.length === 0) {
       this.center = { lat: -12.0464, lng: -77.0428 };
       this.zoom = 6;
+      this.triggerMapResize();
       return;
     }
 
@@ -161,6 +150,7 @@ export class MapTrackingComponent implements OnInit, OnDestroy {
     );
 
     if (validMarkers.length === 0) {
+      this.triggerMapResize();
       return;
     }
 
@@ -171,7 +161,6 @@ export class MapTrackingComponent implements OnInit, OnDestroy {
       lat: parseFloat(avgLat.toFixed(6)),
       lng: parseFloat(avgLng.toFixed(6))
     };
-
 
     if (this.filteredMarkers.length === 1) {
       this.zoom = 15;
@@ -185,11 +174,20 @@ export class MapTrackingComponent implements OnInit, OnDestroy {
       this.zoom = 6;
     }
 
+    this.triggerMapResize();
+  }
+
+  private triggerMapResize(): void {
+    setTimeout(() => {
+      if (this.map && this.map.googleMap) {
+        google.maps.event.trigger(this.map.googleMap, 'resize');
+        this.map.googleMap.setCenter(this.center);
+      }
+    }, 100);
   }
 
   getMarkerIcon(status: string): google.maps.Icon {
     const baseUrl = 'https://maps.google.com/mapfiles/ms/icons/';
-
     const statusIcons: { [key: string]: string } = {
       'Completed': 'green-dot.png',
       'Pending': 'yellow-dot.png',
@@ -201,7 +199,6 @@ export class MapTrackingComponent implements OnInit, OnDestroy {
       'Decision pending': 'purple-dot.png',
       'Under review': 'orange-dot.png'
     };
-
     const iconName = statusIcons[status] || 'red-dot.png';
 
     return {
@@ -213,22 +210,11 @@ export class MapTrackingComponent implements OnInit, OnDestroy {
 
   applyFilters(): void {
     const filters = new MapFilter();
-
-    if (this.selectedCategory) {
-      filters.categories = [this.selectedCategory];
-    }
-
-    if (this.selectedDistrict) {
-      filters.districts = [this.selectedDistrict];
-    }
-
-    if (this.selectedStatus) {
-      filters.statuses = [this.selectedStatus];
-    }
-
-
-
+    if (this.selectedCategory) filters.categories = [this.selectedCategory];
+    if (this.selectedDistrict) filters.districts = [this.selectedDistrict];
+    if (this.selectedStatus) filters.statuses = [this.selectedStatus];
     this.mapStore.applyFilters(filters);
+    this.triggerMapResize();
   }
 
   filterComplaints(): void {
@@ -240,6 +226,7 @@ export class MapTrackingComponent implements OnInit, OnDestroy {
     this.selectedDistrict = '';
     this.selectedStatus = '';
     this.mapStore.resetFilters();
+    this.triggerMapResize();
   }
 
   getStatusBadgeClass(status: string): string {

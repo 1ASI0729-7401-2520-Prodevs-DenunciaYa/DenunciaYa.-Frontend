@@ -3,7 +3,9 @@
   async
   defer
 ></script>
+
 <div class="map-container" [attr.aria-label]="'MAP.CONTAINER_LABEL' | translate">
+
   <div *ngIf="loading" class="loading-overlay">
     <mat-progress-spinner diameter="50" mode="indeterminate"></mat-progress-spinner>
     <p class="loading-text">{{ 'MAP.LOADING.TEXT' | translate }}</p>
@@ -16,18 +18,11 @@
         <p class="header-subtitle">{{ 'MAP.HEADER.SUBTITLE' | translate }}</p>
       </div>
       <div class="header-actions">
-        <button mat-raised-button
-                color="primary"
-                (click)="loadComplaintsFromAPI()"
-                [disabled]="loading"
-                [attr.aria-label]="'MAP.HEADER.ARIA_LABELS.REFRESH' | translate">
+        <button mat-raised-button color="primary" (click)="loadComplaintsFromAPI()" [disabled]="loading">
           <mat-icon>refresh</mat-icon>
           {{ loading ? ('MAP.LOADING.REFRESHING_BUTTON' | translate) : ('MAP.HEADER.ACTIONS.REFRESH' | translate) }}
         </button>
-        <button mat-stroked-button
-                color="warn"
-                (click)="resetFilters()"
-                [attr.aria-label]="'MAP.HEADER.ARIA_LABELS.CLEAR_FILTERS' | translate">
+        <button mat-stroked-button color="warn" (click)="resetFilters()">
           <mat-icon>clear_all</mat-icon>
           {{ 'MAP.HEADER.ACTIONS.CLEAR_FILTERS' | translate }}
         </button>
@@ -44,46 +39,38 @@
     </mat-card-header>
     <mat-card-content>
       <div class="filters-grid">
+
         <mat-form-field appearance="outline" class="filter-field">
           <mat-label>{{ 'MAP.FILTERS.CATEGORY.LABEL' | translate }}</mat-label>
-          <mat-select [(ngModel)]="selectedCategory"
-                      (ngModelChange)="filterComplaints()"
-                      [attr.aria-label]="'MAP.FILTERS.CATEGORY.ARIA_LABEL' | translate">
+          <mat-select [(ngModel)]="selectedCategory" (ngModelChange)="filterComplaints()">
             <mat-option value="">{{ 'MAP.FILTERS.CATEGORY.ALL' | translate }}</mat-option>
-            <mat-option *ngFor="let category of categories"
-                        [value]="category">
-              {{ category }}
-            </mat-option>
+            <mat-option *ngFor="let category of categories" [value]="category">{{ category }}</mat-option>
           </mat-select>
-          <mat-icon matSuffix>category</mat-icon>
+          <button mat-icon-button matSuffix *ngIf="selectedCategory" (click)="$event.stopPropagation(); selectedCategory=''; filterComplaints()">
+            <mat-icon>close</mat-icon>
+          </button>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="filter-field">
           <mat-label>{{ 'MAP.FILTERS.DISTRICT.LABEL' | translate }}</mat-label>
-          <mat-select [(ngModel)]="selectedDistrict"
-                      (ngModelChange)="filterComplaints()"
-                      [attr.aria-label]="'MAP.FILTERS.DISTRICT.ARIA_LABEL' | translate">
+          <mat-select [(ngModel)]="selectedDistrict" (ngModelChange)="filterComplaints()">
             <mat-option value="">{{ 'MAP.FILTERS.DISTRICT.ALL' | translate }}</mat-option>
-            <mat-option *ngFor="let district of districts"
-                        [value]="district">
-              {{ district }}
-            </mat-option>
+            <mat-option *ngFor="let district of districts" [value]="district">{{ district }}</mat-option>
           </mat-select>
-          <mat-icon matSuffix>location_on</mat-icon>
+          <button mat-icon-button matSuffix *ngIf="selectedDistrict" (click)="$event.stopPropagation(); selectedDistrict=''; filterComplaints()">
+            <mat-icon>close</mat-icon>
+          </button>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="filter-field">
           <mat-label>{{ 'MAP.FILTERS.STATUS.LABEL' | translate }}</mat-label>
-          <mat-select [(ngModel)]="selectedStatus"
-                      (ngModelChange)="filterComplaints()"
-                      [attr.aria-label]="'MAP.FILTERS.STATUS.ARIA_LABEL' | translate">
+          <mat-select [(ngModel)]="selectedStatus" (ngModelChange)="filterComplaints()">
             <mat-option value="">{{ 'MAP.FILTERS.STATUS.ALL' | translate }}</mat-option>
-            <mat-option *ngFor="let status of statuses"
-                        [value]="status">
-              {{ status }}
-            </mat-option>
+            <mat-option *ngFor="let status of statuses" [value]="status">{{ status }}</mat-option>
           </mat-select>
-          <mat-icon matSuffix>status</mat-icon>
+          <button mat-icon-button matSuffix *ngIf="selectedStatus" (click)="$event.stopPropagation(); selectedStatus=''; filterComplaints()">
+            <mat-icon>close</mat-icon>
+          </button>
         </mat-form-field>
       </div>
     </mat-card-content>
@@ -95,21 +82,6 @@
         <mat-icon>place</mat-icon>
         <span class="stat-label">{{ 'MAP.STATS.VISIBLE_MARKERS' | translate }}</span>
         <span class="stat-value">{{ filteredMarkers.length }}</span>
-      </div>
-      <div class="stat-item" *ngIf="selectedCategory">
-        <mat-icon>category</mat-icon>
-        <span class="stat-label">{{ 'MAP.STATS.CATEGORY' | translate }}</span>
-        <span class="stat-value">{{ selectedCategory }}</span>
-      </div>
-      <div class="stat-item" *ngIf="selectedDistrict">
-        <mat-icon>location_on</mat-icon>
-        <span class="stat-label">{{ 'MAP.STATS.DISTRICT' | translate }}</span>
-        <span class="stat-value">{{ selectedDistrict }}</span>
-      </div>
-      <div class="stat-item" *ngIf="selectedStatus">
-        <mat-icon>status</mat-icon>
-        <span class="stat-label">{{ 'MAP.STATS.STATUS' | translate }}</span>
-        <span class="stat-value">{{ selectedStatus }}</span>
       </div>
     </div>
   </mat-card>
@@ -125,118 +97,39 @@
         streetViewControl: true,
         fullscreenControl: true,
         styles: mapStyles
-      }"
-      [attr.aria-label]="'MAP.MAP.ARIA_LABEL' | translate">
+      }">
 
-      <map-marker
-        *ngFor="let marker of filteredMarkers; trackBy: trackByMarkerId"
-        [position]="marker.position"
-        [title]="marker.title"
-        [options]="{
-          icon: getMarkerIcon(marker.status)
-        }"
-        [attr.aria-label]="'MAP.MAP.MARKER_ARIA_LABEL' | translate: { category: marker.complaintData.category }">
+      <map-marker-clusterer>
 
-        <map-info-window>
-          <div class="info-window-content">
-            <div class="info-header">
-              <h3>{{ marker.complaintData.category }}</h3>
-              <div class="status-indicators">
-                <mat-chip [class]="getStatusBadgeClass(marker.status)" class="status-chip">
-                  {{ marker.status }}
-                </mat-chip>
-                <mat-chip [class]="getPriorityBadgeClass(marker.priority)" class="priority-chip">
-                  {{ marker.priority }}
-                </mat-chip>
+        <map-marker
+          *ngFor="let marker of filteredMarkers; trackBy: trackByMarkerId"
+          [position]="marker.position"
+          [title]="marker.title"
+          [options]="{ icon: getMarkerIcon(marker.status) }">
+
+          <map-info-window>
+            <div class="info-window-content">
+              <div class="info-header">
+                <h3>{{ marker.complaintData.category }}</h3>
               </div>
             </div>
+          </map-info-window>
 
-            <mat-divider></mat-divider>
-            <div class="info-section">
-              <div class="info-row">
-                <mat-icon>fingerprint</mat-icon>
-                <span><strong>{{ 'MAP.INFO_WINDOW.FIELDS.ID' | translate }}</strong> {{ marker.complaintData.id }}</span>
-              </div>
-              <div class="info-row">
-                <mat-icon>location_on</mat-icon>
-                <span><strong>{{ 'MAP.INFO_WINDOW.FIELDS.DISTRICT' | translate }}</strong> {{ marker.complaintData.district }}</span>
-              </div>
-              <div class="info-row">
-                <mat-icon>place</mat-icon>
-                <span><strong>{{ 'MAP.INFO_WINDOW.FIELDS.LOCATION' | translate }}</strong> {{ marker.complaintData.location }}</span>
-              </div>
-              <div class="info-row">
-                <mat-icon>description</mat-icon>
-                <span><strong>{{ 'MAP.INFO_WINDOW.FIELDS.DESCRIPTION' | translate }}</strong> {{ marker.complaintData.description }}</span>
-              </div>
-            </div>
+        </map-marker>
 
-            <mat-divider></mat-divider>
-            <div class="info-section">
-              <div class="info-row">
-                <mat-icon>person</mat-icon>
-                <span><strong>{{ 'MAP.INFO_WINDOW.FIELDS.ASSIGNED_TO' | translate }}</strong> {{ marker.complaintData.assignedTo }}</span>
-              </div>
-              <div class="info-row">
-                <mat-icon>schedule</mat-icon>
-                <span><strong>{{ 'MAP.INFO_WINDOW.FIELDS.LAST_UPDATE' | translate }}</strong> {{ marker.complaintData.updateDate | date:'medium' }}</span>
-              </div>
-              <div class="info-row">
-                <mat-icon>message</mat-icon>
-                <span><strong>{{ 'MAP.INFO_WINDOW.FIELDS.MESSAGE' | translate }}</strong> {{ marker.complaintData.updateMessage }}</span>
-              </div>
-            </div>
+      </map-marker-clusterer>
 
-            <div *ngIf="marker.complaintData.evidence && marker.complaintData.evidence.length > 0"
-                 class="evidence-section">
-              <mat-divider></mat-divider>
-              <div class="section-title">
-                <mat-icon>photo_library</mat-icon>
-                <span>{{ 'MAP.INFO_WINDOW.FIELDS.EVIDENCE' | translate: { count: marker.complaintData.evidence.length } }}</span>
-              </div>
-              <div class="evidence-grid">
-                <img *ngFor="let img of marker.complaintData.evidence; let i = index"
-                     [src]="img"
-                     [alt]="'MAP.INFO_WINDOW.EVIDENCE_ALT' | translate: { number: i + 1 }"
-                     class="evidence-image"
-                     (click)="openImage(img)">
-              </div>
-            </div>
-          </div>
-        </map-info-window>
-      </map-marker>
     </google-map>
   </mat-card>
 
   <mat-card class="legend-card">
-    <mat-card-header>
-      <mat-card-title>
-        <mat-icon>legend_toggle</mat-icon>
-        {{ 'MAP.LEGEND.TITLE' | translate }}
-      </mat-card-title>
-    </mat-card-header>
     <mat-card-content>
       <div class="legend-items">
-        <div class="legend-item">
-          <div class="legend-color completed"></div>
-          <span>{{ 'MAP.LEGEND.ITEMS.COMPLETED' | translate }}</span>
-        </div>
-        <div class="legend-item">
-          <div class="legend-color pending"></div>
-          <span>{{ 'MAP.LEGEND.ITEMS.PENDING' | translate }}</span>
-        </div>
-        <div class="legend-item">
-          <div class="legend-color awaiting-response"></div>
-          <span>{{ 'MAP.LEGEND.ITEMS.AWAITING_RESPONSE' | translate }}</span>
-        </div>
-        <div class="legend-item">
-          <div class="legend-color rejected"></div>
-          <span>{{ 'MAP.LEGEND.ITEMS.REJECTED' | translate }}</span>
-        </div>
-        <div class="legend-item">
-          <div class="legend-color in-process"></div>
-          <span>{{ 'MAP.LEGEND.ITEMS.IN_PROCESS' | translate }}</span>
-        </div>
+        <div class="legend-item"><div class="legend-color completed"></div><span>{{ 'MAP.LEGEND.ITEMS.COMPLETED' | translate }}</span></div>
+        <div class="legend-item"><div class="legend-color pending"></div><span>{{ 'MAP.LEGEND.ITEMS.PENDING' | translate }}</span></div>
+        <div class="legend-item"><div class="legend-color awaiting-response"></div><span>{{ 'MAP.LEGEND.ITEMS.AWAITING_RESPONSE' | translate }}</span></div>
+        <div class="legend-item"><div class="legend-color rejected"></div><span>{{ 'MAP.LEGEND.ITEMS.REJECTED' | translate }}</span></div>
+        <div class="legend-item"><div class="legend-color in-process"></div><span>{{ 'MAP.LEGEND.ITEMS.IN_PROCESS' | translate }}</span></div>
       </div>
     </mat-card-content>
   </mat-card>
