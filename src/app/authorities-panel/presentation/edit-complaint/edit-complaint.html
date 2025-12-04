@@ -5,6 +5,22 @@
 
   <h2>{{ 'Edit Complaint' | translate }} #{{ complaintId }}</h2>
 
+  <!-- Botón de editar siempre visible -->
+  <div class="action-header">
+    <button mat-flat-button color="primary" (click)="toggleEditMode()" class="edit-button">
+      <mat-icon>{{ isEditing ? 'save' : 'edit' }}</mat-icon>
+      {{ (isEditing ? 'Save Changes' : 'Edit') | translate }}
+    </button>
+
+    <!-- Botón de avanzar estado (comentado) -->
+    <!--
+    <button mat-stroked-button color="accent" (click)="advanceStatus()">
+      <mat-icon>arrow_forward</mat-icon>
+      {{ 'Advance Status' | translate }}
+    </button>
+    -->
+  </div>
+
   <ng-container *ngIf="isLoading; else notLoading">
     <div class="loading">
       <mat-spinner diameter="40"></mat-spinner>
@@ -25,25 +41,25 @@
   <ng-template #showForm>
     <form [formGroup]="complaintForm" class="edit-form" (ngSubmit)="saveChanges()">
       <div class="row">
-        <mat-form-field appearance="fill" class="readonly">
+        <mat-form-field appearance="fill" [class.readonly]="!isEditing">
           <mat-label>{{ 'Category' | translate }}</mat-label>
-          <input matInput formControlName="category" readonly />
+          <input matInput formControlName="category" [readonly]="!isEditing" />
         </mat-form-field>
 
-        <mat-form-field appearance="fill" class="readonly">
+        <mat-form-field appearance="fill" [class.readonly]="!isEditing">
           <mat-label>{{ 'Location' | translate }}</mat-label>
-          <input matInput formControlName="location" readonly />
+          <input matInput formControlName="location" [readonly]="!isEditing" />
         </mat-form-field>
       </div>
 
-      <mat-form-field appearance="fill" class="full-width readonly">
+      <mat-form-field appearance="fill" class="full-width" [class.readonly]="!isEditing">
         <mat-label>{{ 'Reference' | translate }}</mat-label>
-        <input matInput formControlName="referenceInfo" />
+        <input matInput formControlName="referenceInfo" [readonly]="!isEditing" />
       </mat-form-field>
 
-      <mat-form-field appearance="fill" class="full-width readonly">
+      <mat-form-field appearance="fill" class="full-width" [class.readonly]="!isEditing">
         <mat-label>{{ 'Description' | translate }}</mat-label>
-        <textarea matInput formControlName="description" readonly></textarea>
+        <textarea matInput formControlName="description" [readonly]="!isEditing"></textarea>
       </mat-form-field>
 
       <div class="evidence-section">
@@ -66,9 +82,9 @@
       </div>
 
       <div class="row">
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill" [class.disabled]="!isEditing">
           <mat-label>{{ 'Status' | translate }}</mat-label>
-          <mat-select formControlName="status" required>
+          <mat-select formControlName="status" [disabled]="!isEditing" required>
             <mat-option *ngFor="let s of statuses" [value]="s">
               {{ s | translate }}
             </mat-option>
@@ -78,9 +94,9 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill" [class.disabled]="!isEditing">
           <mat-label>{{ 'Priority' | translate }}</mat-label>
-          <mat-select formControlName="priority" required>
+          <mat-select formControlName="priority" [disabled]="!isEditing" required>
             <mat-option *ngFor="let p of priorities" [value]="p">
               {{ p | translate }}
             </mat-option>
@@ -90,9 +106,9 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill" [class.disabled]="!isEditing">
           <mat-label>{{ 'Assign to' | translate }}</mat-label>
-          <mat-select formControlName="assignedTo" required>
+          <mat-select formControlName="assignedTo" [disabled]="!isEditing" required>
             <mat-option *ngFor="let a of assignedOptions" [value]="a">
               {{ a }}
             </mat-option>
@@ -103,14 +119,15 @@
         </mat-form-field>
       </div>
 
-      <mat-form-field appearance="fill" class="full-width">
+      <mat-form-field appearance="fill" class="full-width" [class.disabled]="!isEditing">
         <mat-label>{{ 'Update Message' | translate }}</mat-label>
         <textarea matInput formControlName="updateMessage"
                   placeholder="{{ 'Add an update message...' | translate }}"
-                  rows="3"></textarea>
+                  rows="3"
+                  [readonly]="!isEditing"></textarea>
       </mat-form-field>
 
-      <div class="button-group">
+      <div class="button-group" *ngIf="isEditing">
         <button mat-flat-button color="primary" type="submit">{{ 'Save changes' | translate }}</button>
         <button mat-stroked-button color="warn" type="button" (click)="discardChanges()">{{ 'Discard' | translate }}</button>
       </div>

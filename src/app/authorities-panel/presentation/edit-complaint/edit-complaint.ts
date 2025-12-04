@@ -49,11 +49,11 @@ export class EditComplaintComponent implements OnInit {
   complaintId!: string;
   complaintData: Complaint | null = null;
   selectedImage: string | null = null;
+  isEditing = false; // Nueva propiedad para controlar el modo edición
 
   // Lista completa de estados según la entidad
   statuses = [
     'Pending',
-    'In Process',
     'Completed',
     'Rejected',
     'Awaiting Response',
@@ -98,13 +98,33 @@ export class EditComplaintComponent implements OnInit {
     this.complaintForm = this.fb.group({
       category: [{ value: '', disabled: true }, Validators.required],
       location: [{ value: '', disabled: true }, Validators.required],
-      referenceInfo: [{ value: '', disabled: false }],
+      referenceInfo: [{ value: '', disabled: true }],
       description: [{ value: '', disabled: true }, Validators.required],
-      status: ['', Validators.required],
-      priority: ['', Validators.required],
-      assignedTo: ['', Validators.required],
-      updateMessage: ['']
+      status: [{ value: '', disabled: true }, Validators.required],
+      priority: [{ value: '', disabled: true }, Validators.required],
+      assignedTo: [{ value: '', disabled: true }, Validators.required],
+      updateMessage: [{ value: '', disabled: true }]
     });
+  }
+
+  // Nuevo método para alternar el modo edición
+  toggleEditMode(): void {
+    this.isEditing = !this.isEditing;
+
+    if (this.isEditing) {
+      // Habilitar todos los campos cuando se activa la edición
+      this.complaintForm.enable();
+
+      // Mantener algunos campos como solo lectura si es necesario
+      this.complaintForm.get('category')?.disable();
+      this.complaintForm.get('location')?.disable();
+      this.complaintForm.get('description')?.disable();
+
+      this.snackBar.open('Modo edición activado', 'Cerrar', { duration: 2000 });
+    } else {
+      // Guardar cambios automáticamente al salir del modo edición
+      this.saveChanges();
+    }
   }
 
   loadComplaintData(): void {
@@ -206,7 +226,9 @@ export class EditComplaintComponent implements OnInit {
         console.log('  - Response updateMessage:', response.updateMessage);
 
         this.snackBar.open('Denuncia actualizada correctamente', 'Cerrar', { duration: 3000 });
-        this.router.navigate(['/complaint-list']);
+        this.isEditing = false; // Salir del modo edición
+        this.complaintForm.disable(); // Deshabilitar el formulario
+        this.complaintData = response; // Actualizar datos locales
       },
       error: (err) => {
         console.error('❌ Update error:', err);
@@ -237,7 +259,10 @@ export class EditComplaintComponent implements OnInit {
 
   discardChanges(): void {
     if (confirm('¿Está seguro de que desea descartar los cambios?')) {
-      this.router.navigate(['/complaint-list']);
+      // Recargar datos originales
+      this.loadComplaintData();
+      this.isEditing = false;
+      this.complaintForm.disable();
     }
   }
 
@@ -252,4 +277,24 @@ export class EditComplaintComponent implements OnInit {
   trackByImage(index: number, img: string): string {
     return img;
   }
+
+  // Método para avanzar estado (comentado en HTML)
+  /*
+  advanceStatus(): void {
+    // Lógica para avanzar al siguiente estado
+    const currentStatus = this.complaintForm.get('status')?.value;
+    const currentIndex = this.statuses.indexOf(currentStatus);
+
+    if (currentIndex < this.statuses.length - 1) {
+      const nextStatus = this.statuses[currentIndex + 1];
+      this.complaintForm.patchValue({
+        status: nextStatus,
+        updateMessage: `Estado avanzado automáticamente a ${nextStatus}`
+      });
+      this.saveChanges();
+    } else {
+      this.snackBar.open('Ya se encuentra en el último estado', 'Cerrar', { duration: 3000 });
+    }
+  }
+  */
 }

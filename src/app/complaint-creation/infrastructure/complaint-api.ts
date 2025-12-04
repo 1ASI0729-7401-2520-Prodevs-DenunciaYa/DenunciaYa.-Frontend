@@ -261,5 +261,15 @@ export class ComplaintsApiService {
       .pipe(map(resource => ComplaintAssembler.toEntityFromResource(resource)));
   }
 
+  updateTimelineItemStatus(complaintId: string, timelineItemId: number,
+                           payload: { completed?: boolean, current?: boolean,
+                             waitingDecision?: boolean, updateMessage?: string }): Observable<Complaint> {
+    const url = this.fullUrl(`/${encodeURIComponent(complaintId)}/timeline/${encodeURIComponent(String(timelineItemId))}/status`);
+    const opts = this.authHeaders();
+    console.debug('[ComplaintsApiService] PUT timeline item status', url, 'payload:', payload);
 
+    return this.http
+      .put<ComplaintResource>(url, payload, opts)
+      .pipe(map(resource => ComplaintAssembler.toEntityFromResource(resource)));
+  }
 }

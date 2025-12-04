@@ -94,8 +94,21 @@
     </div>
   </div>
 
-  <div class="timeline-controls" *ngIf="complaint.timeline && complaint.timeline.length > 0" [attr.aria-label]="'COMPLAINT_DETAIL.CONTROLS.TIMELINE_CONTROLS' | translate">
+  <!-- Botón de editar siempre visible -->
+  <div class="button-group" [attr.aria-label]="'COMPLAINT_DETAIL.MANAGEMENT.LABEL' | translate">
+    <button
+      mat-stroked-button
+      color="primary"
+      (click)="editComplaint()"
+      [attr.aria-label]="'COMPLAINT_DETAIL.MANAGEMENT.EDIT.ARIA_LABEL' | translate">
+      <mat-icon>edit</mat-icon>
+      {{ 'COMPLAINT_DETAIL.MANAGEMENT.EDIT.BUTTON' | translate }}
+    </button>
+  </div>
 
+  <!-- Los demás botones comentados -->
+  <!--
+  <div class="timeline-controls" *ngIf="complaint.timeline && complaint.timeline.length > 0" [attr.aria-label]="'COMPLAINT_DETAIL.CONTROLS.TIMELINE_CONTROLS' | translate">
     <button
       mat-stroked-button
       color="primary"
@@ -136,11 +149,11 @@
   <div *ngIf="canEditOrDelete()" class="button-group" [attr.aria-label]="'COMPLAINT_DETAIL.MANAGEMENT.LABEL' | translate">
     <button
       mat-stroked-button
-      color="primary"
-      (click)="editComplaint()"
-      [attr.aria-label]="'COMPLAINT_DETAIL.MANAGEMENT.EDIT.ARIA_LABEL' | translate">
-      {{ 'COMPLAINT_DETAIL.MANAGEMENT.EDIT.BUTTON' | translate }}
+      color="warn"
+      (click)="deleteComplaint()"
+      [attr.aria-label]="'COMPLAINT_DETAIL.MANAGEMENT.DELETE.ARIA_LABEL' | translate">
+      {{ 'COMPLAINT_DETAIL.MANAGEMENT.DELETE.BUTTON' | translate }}
     </button>
-
   </div>
+  -->
 </div>
