@@ -41,8 +41,7 @@ export class ResponsibleCreateStore {
     this._loading.set(true);
     this._error.set(null);
 
-
-    this.http.get<ResponsibleResource[]>(this.apiUrl)
+    this.http.get<ResponsibleResource[] | null | undefined>(this.apiUrl)
       .pipe(
         catchError(err => {
           this._error.set('Error loading responsibles');
@@ -50,7 +49,8 @@ export class ResponsibleCreateStore {
         })
       )
       .subscribe(data => {
-        const responsibles = data.map(r => this.assembler.toEntityFromResource(r));
+        const safeData: ResponsibleResource[] = Array.isArray(data) ? data : [];
+        const responsibles = safeData.map(r => this.assembler.toEntityFromResource(r));
         this._responsibles.set(responsibles);
         this._loading.set(false);
       });

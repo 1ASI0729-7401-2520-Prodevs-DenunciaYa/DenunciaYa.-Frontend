@@ -136,9 +136,16 @@ export class ComplaintsApiService {
 
   updateComplaint(complaint: Complaint): Observable<Complaint> {
     const resource = ComplaintAssembler.toResourceFromEntity(complaint);
+    // Verifica el ID antes de construir la URL
+    console.log('[ComplaintsApiService] updateComplaint - complaint.id:', complaint.id);
+    console.log('[ComplaintsApiService] updateComplaint - resource.id:', resource.id);
+
     const url = this.fullUrl(`/${encodeURIComponent(complaint.id)}`);
+    console.log('[ComplaintsApiService] PUT URL:', url);
+
     const opts = this.authHeaders();
     console.debug('[ComplaintsApiService] PUT', url);
+
     return this.http
       .put<ComplaintResource>(url, resource, opts)
       .pipe(map(updatedResource => ComplaintAssembler.toEntityFromResource(updatedResource)));
@@ -226,12 +233,13 @@ export class ComplaintsApiService {
       .pipe(map(resource => ComplaintAssembler.toEntityFromResource(resource)));
   }
 
-  advanceTimeline(complaintId: string, updateMessage?: string): Observable<Complaint> {
+  advanceTimeline(complaintId: string): Observable<Complaint> {
     const url = this.fullUrl(`/${encodeURIComponent(complaintId)}/timeline/advance`);
     const opts = this.authHeaders();
     console.debug('[ComplaintsApiService] PATCH advance timeline', url);
+
     return this.http
-      .patch<ComplaintResource>(url, { updateMessage }, opts)
+      .patch<ComplaintResource>(url, {}, opts)
       .pipe(map(resource => ComplaintAssembler.toEntityFromResource(resource)));
   }
 
@@ -243,4 +251,15 @@ export class ComplaintsApiService {
       .patch<ComplaintResource>(url, { updateMessage }, opts)
       .pipe(map(resource => ComplaintAssembler.toEntityFromResource(resource)));
   }
+
+  updateTimelineItemById(complaintId: string, timelineItemId: number, payload: { completed?: boolean; current?: boolean; waitingDecision?: boolean; status?: string; updateMessage?: string }): Observable<Complaint> {
+    const url = this.fullUrl(`/${encodeURIComponent(complaintId)}/timeline/${encodeURIComponent(String(timelineItemId))}`);
+    const opts = this.authHeaders();
+    console.debug('[ComplaintsApiService] PUT timeline item by id', url, 'payload:', payload);
+    return this.http
+      .put<ComplaintResource>(url, { timelineItemId, ...payload }, opts)
+      .pipe(map(resource => ComplaintAssembler.toEntityFromResource(resource)));
+  }
+
+
 }

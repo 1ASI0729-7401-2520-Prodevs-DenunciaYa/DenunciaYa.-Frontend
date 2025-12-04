@@ -159,6 +159,7 @@ export class Complaint {
 }
 
 export interface TimelineItem {
+  id?: number;
   status: string;
   date: string;
   completed: boolean;
@@ -166,5 +167,3 @@ export interface TimelineItem {
   waitingDecision?: boolean;
   updateMessage?: string;
 }
-
-

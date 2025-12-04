@@ -35,13 +35,11 @@ export class ComplaintDetailAuthority implements OnInit {
   public showDecisionButtons = false;
 
   private statusMessages: {[key: string]: string} = {
-    'Complaint registered': 'Awareness has been taken of the problem and preventive actions will begin.',
-    'Under review': 'Your complaint is currently being processed by our team.',
-    'Awaiting response': 'Your complaint is being processed, you will have a response soon.',
-    'Decision pending': 'Your case is in the final evaluation process.',
-    'Accepted': 'Your complaint has been accepted and is being processed.',
-    'Rejected': 'We apologize for the inconvenience, but your complaint will be rejected due to lack of evidence.',
-    'Completed': 'Your complaint has been completed. Thank you for your support. The residents of your city appreciate such a noble act.'
+    'Pending': 'Awareness has been taken of the problem and preventive actions will begin.',
+    'In Process': 'Your complaint is currently being processed by our team.',
+    'Awaiting Response': 'Your complaint is being processed, you will have a response soon.',
+    'Completed': 'Your complaint has been completed. Thank you for your support.',
+    'Rejected': 'We apologize for the inconvenience, but your complaint has been rejected.'
   };
 
   constructor(
@@ -83,14 +81,17 @@ export class ComplaintDetailAuthority implements OnInit {
     }
 
     this.assignedResponsible = this.responsibleApi.findResponsibleFromAssignedTo(this.complaint.assignedTo);
-
-    if (this.assignedResponsible) {
-    } else {
-    }
   }
 
   generateTimeline(): void {
     if (!this.complaint || !this.complaint.timeline) return;
+
+    // Ordenar timeline cronológicamente
+    this.complaint.timeline = [...this.complaint.timeline].sort((a, b) => {
+      const da = a.date ? new Date(a.date).getTime() : 0;
+      const db = b.date ? new Date(b.date).getTime() : 0;
+      return da - db;
+    });
 
     this.orderStatus = this.complaint.timeline.map(item => {
       let cssClass = 'state-default';
@@ -98,14 +99,16 @@ export class ComplaintDetailAuthority implements OnInit {
       if (item.completed) {
         if (item.status === 'Rejected') {
           cssClass = 'state-error';
+        } else if (item.current) {
+          cssClass = 'state-info';
         } else {
-          cssClass = item.current ? 'state-info' : 'state-success';
+          cssClass = 'state-success';
         }
       } else if (item.waitingDecision) {
         cssClass = 'state-waiting';
       }
 
-      const formattedDate = this.formatTimelineDate(new Date(item.date));
+      const formattedDate = item.date ? this.formatTimelineDate(new Date(item.date)) : '';
 
       return {
         content: item.status,
@@ -116,19 +119,10 @@ export class ComplaintDetailAuthority implements OnInit {
   }
 
   private checkDecisionState(): void {
-    if (!this.complaint || !this.complaint.timeline) return;
+    if (!this.complaint) return;
 
-    const currentIndex = this.complaint.timeline.findIndex(item => item.current);
-
-    if (currentIndex !== -1 && currentIndex < this.complaint.timeline.length - 1) {
-      const currentItem = this.complaint.timeline[currentIndex];
-      const nextItem = this.complaint.timeline[currentIndex + 1];
-
-      this.showDecisionButtons = currentItem.status === 'Awaiting response' &&
-        nextItem.waitingDecision === true;
-    } else {
-      this.showDecisionButtons = false;
-    }
+    // Mostrar botones de decisión solo si el estado es "Awaiting Response"
+    this.showDecisionButtons = this.complaint.status === 'Awaiting response';
   }
 
   private formatTimelineDate(date: Date): string {
@@ -149,169 +143,84 @@ export class ComplaintDetailAuthority implements OnInit {
   }
 
   acceptComplaint(): void {
-    if (!this.complaint || !this.complaint.timeline) return;
+    if (!this.complaint) return;
 
     if (confirm('Are you sure you want to accept this complaint?')) {
-      const currentIndex = this.complaint.timeline.findIndex(item => item.current);
-      const decisionIndex = this.complaint.timeline.findIndex(item => item.waitingDecision);
-
-      if (currentIndex !== -1 && decisionIndex !== -1) {
-        this.complaint.timeline[currentIndex].completed = true;
-        this.complaint.timeline[currentIndex].current = false;
-
-        this.complaint.timeline[decisionIndex].completed = true;
-        this.complaint.timeline[decisionIndex].current = false;
-        this.complaint.timeline[decisionIndex].status = "Accepted";
-        this.complaint.timeline[decisionIndex].waitingDecision = false;
-        this.complaint.timeline[decisionIndex].date = new Date().toISOString();
-
-        this.complaint.timeline[decisionIndex + 1].current = true;
-        this.complaint.timeline[decisionIndex + 1].completed = true;
-        this.complaint.timeline[decisionIndex + 1].date = new Date().toISOString();
-
-        this.complaint.status = 'Completed';
-        this.complaint.updateDate = new Date().toISOString();
-        this.complaint.updateMessage = this.statusMessages['Accepted'];
-
-        this.showDecisionButtons = false;
-        this.saveComplaintChanges();
-      }
+      this.complaintsService.acceptDecision(this.complaint.id).subscribe({
+        next: (updatedComplaint) => {
+          this.complaint = updatedComplaint;
+          this.generateTimeline();
+          this.checkDecisionState();
+          alert('Complaint accepted successfully!');
+        },
+        error: (error) => {
+          alert('Error accepting complaint');
+          console.error(error);
+        }
+      });
     }
   }
 
   rejectComplaint(): void {
-    if (!this.complaint || !this.complaint.timeline) return;
+    if (!this.complaint) return;
 
     if (confirm('Are you sure you want to reject this complaint?')) {
-      const currentIndex = this.complaint.timeline.findIndex(item => item.current);
-      const decisionIndex = this.complaint.timeline.findIndex(item => item.waitingDecision);
-
-      if (currentIndex !== -1 && decisionIndex !== -1) {
-        this.complaint.timeline[currentIndex].completed = true;
-        this.complaint.timeline[currentIndex].current = false;
-
-        this.complaint.timeline[decisionIndex].completed = true;
-        this.complaint.timeline[decisionIndex].current = true;
-        this.complaint.timeline[decisionIndex].status = "Rejected";
-        this.complaint.timeline[decisionIndex].waitingDecision = false;
-        this.complaint.timeline[decisionIndex].date = new Date().toISOString();
-
-        this.complaint.timeline[decisionIndex + 1].completed = false;
-        this.complaint.timeline[decisionIndex + 1].current = false;
-
-        this.complaint.status = 'Rejected';
-        this.complaint.updateDate = new Date().toISOString();
-        this.complaint.updateMessage = this.statusMessages['Rejected'];
-
-        this.showDecisionButtons = false;
-        this.saveComplaintChanges();
-      }
+      this.complaintsService.rejectDecision(this.complaint.id).subscribe({
+        next: (updatedComplaint) => {
+          this.complaint = updatedComplaint;
+          this.generateTimeline();
+          this.checkDecisionState();
+          alert('Complaint rejected successfully!');
+        },
+        error: (error) => {
+          alert('Error rejecting complaint');
+          console.error(error);
+        }
+      });
     }
   }
 
   advanceStatus(): void {
-    if (!this.complaint || !this.complaint.timeline) return;
-
-    const currentIndex = this.complaint.timeline.findIndex(item => item.current);
-
-    if (currentIndex < this.complaint.timeline.length - 1) {
-      this.complaint.timeline[currentIndex].completed = true;
-      this.complaint.timeline[currentIndex].current = false;
-
-      this.complaint.timeline[currentIndex + 1].current = true;
-
-      if (!this.complaint.timeline[currentIndex + 1].waitingDecision) {
-        this.complaint.timeline[currentIndex + 1].completed = true;
-      }
-
-      this.complaint.timeline[currentIndex + 1].date = new Date().toISOString();
-
-      this.updateComplaintStatusFromTimeline();
-
-      const newStatus = this.complaint.timeline[currentIndex + 1].status;
-      this.complaint.updateDate = new Date().toISOString();
-      this.complaint.updateMessage = this.statusMessages[newStatus] || `Status advanced to: ${newStatus}`;
-
-      this.checkDecisionState();
-
-      this.saveComplaintChanges();
-    } else {
-      alert('Complaint is already completed!');
-    }
-  }
-
-  resetComplaint(): void {
-    if (!this.complaint || !this.complaint.timeline) return;
-
-    if (confirm('Reset complaint to initial status?')) {
-      this.complaint.timeline.forEach((item, index) => {
-        item.completed = index === 0;
-        item.current = index === 0;
-
-        if (index === 0) {
-          item.date = "2025-10-07T20:09:00";
-          item.status = "Complaint registered";
-          item.waitingDecision = false;
-        } else if (index === 1) {
-          item.date = "2025-10-07T18:44:00";
-          item.status = "Under review";
-          item.waitingDecision = false;
-        } else if (index === 2) {
-          item.date = "2025-10-07T18:44:00";
-          item.status = "Awaiting response";
-          item.waitingDecision = false;
-        } else if (index === 3) {
-          item.date = "2025-10-07T20:19:00";
-          item.status = "Decision pending";
-          item.waitingDecision = true;
-        } else {
-          item.date = "2025-10-07T18:44:00";
-          item.status = "Completed";
-          item.waitingDecision = false;
-        }
-      });
-
-      this.complaint.status = 'Pending';
-      this.complaint.updateDate = new Date().toISOString();
-      this.complaint.updateMessage = this.statusMessages['Complaint registered'];
-      this.showDecisionButtons = false;
-
-      this.saveComplaintChanges();
-    }
-  }
-
-  private updateComplaintStatusFromTimeline(): void {
-    if (!this.complaint || !this.complaint.timeline) return;
-
-    const currentItem = this.complaint.timeline.find(item => item.current);
-    if (currentItem) {
-      const statusMap: {[key: string]: Complaint['status']} = {
-        'Complaint registered': 'Pending',
-        'Under review': 'Pending',
-        'Awaiting response': 'Awaiting response',
-        'Decision pending': 'Awaiting response',
-        'Accepted': 'Completed',
-        'Rejected': 'Rejected',
-        'Completed': 'Completed'
-      };
-
-      this.complaint.status = statusMap[currentItem.status] || 'Pending';
-    }
-  }
-
-  private saveComplaintChanges(): void {
     if (!this.complaint) return;
 
-    this.complaintsService.updateComplaint(this.complaint).subscribe({
+    // Verificar si puede avanzar
+    if (!this.canAdvanceStatus()) {
+      alert('Cannot advance status from current state!');
+      return;
+    }
+
+    this.complaintsService.advanceTimeline(this.complaint.id).subscribe({
       next: (updatedComplaint) => {
         this.complaint = updatedComplaint;
         this.generateTimeline();
-        alert('Status updated successfully!');
+        this.checkDecisionState();
+        alert('Status advanced successfully!');
       },
       error: (error) => {
-        alert('Error updating status');
+        alert('Error advancing status');
+        console.error(error);
       }
     });
+  }
+
+  resetComplaint(): void {
+    if (!this.complaint) return;
+
+    if (confirm('Reset complaint to initial status?')) {
+      // Usar el endpoint de update status para resetear a PENDING
+      this.complaintsService.updateComplaintStatus(this.complaint.id, 'Pending').subscribe({
+        next: (updatedComplaint) => {
+          this.complaint = updatedComplaint;
+          this.generateTimeline();
+          this.checkDecisionState();
+          alert('Complaint reset to initial status!');
+        },
+        error: (error) => {
+          alert('Error resetting complaint');
+          console.error(error);
+        }
+      });
+    }
   }
 
   deleteComplaint(): void {
@@ -333,18 +242,18 @@ export class ComplaintDetailAuthority implements OnInit {
 
   canEditOrDelete(): boolean {
     return this.complaint?.status === 'Pending' ||
-      this.complaint?.status === 'Draft' ||
       this.complaint?.status === 'Awaiting response';
   }
 
   canAdvanceStatus(): boolean {
-    if (!this.complaint || !this.complaint.timeline) return false;
+    if (!this.complaint) return false;
 
-    const currentIndex = this.complaint.timeline.findIndex(item => item.current);
-    return currentIndex < this.complaint.timeline.length - 1 &&
-      this.complaint.status !== 'Rejected' &&
-      this.complaint.status !== 'Completed' &&
-      !this.showDecisionButtons;
+    const currentStatus = this.complaint.status;
+
+    // Puede avanzar si el estado no es final (Completed o Rejected)
+    return currentStatus !== 'Completed' &&
+      currentStatus !== 'Rejected' &&
+      !this.showDecisionButtons; // No avanzar si está esperando decisión
   }
 
   getStatusClass(status: string): string {
@@ -353,11 +262,9 @@ export class ComplaintDetailAuthority implements OnInit {
     const normalized = status.toLowerCase().replace(' ', '-');
     switch (normalized) {
       case 'pending': return 'status pending';
-      case 'accepted': return 'status accepted';
       case 'in-process': return 'status in-process';
       case 'completed': return 'status completed';
       case 'rejected': return 'status rejected';
-      case 'draft': return 'status draft';
       case 'awaiting-response': return 'status awaiting';
       default: return 'status default';
     }
@@ -378,12 +285,16 @@ export class ComplaintDetailAuthority implements OnInit {
   getCurrentStatusMessage(): string {
     if (!this.complaint) return '';
 
+    // Buscar mensaje del timeline item actual
     const currentItem = this.complaint.timeline?.find(item => item.current);
     if (currentItem && currentItem.updateMessage) {
       return currentItem.updateMessage;
     }
 
-    return this.complaint.updateMessage || this.statusMessages[this.complaint.status] || '';
+    // Usar mensaje por defecto basado en el estado
+    return this.complaint.updateMessage ||
+      this.statusMessages[this.complaint.status] ||
+      'Status information not available';
   }
 
   isAssigned(): boolean {
