@@ -31,7 +31,7 @@ export class RegisterWorkerComponent {
     lastName: '',
     firstName: '',
     birthDate: '',
-    phoneNumber: '',
+    phone: '',
     username: '' // lo llenamos con el mismo email
   };
 

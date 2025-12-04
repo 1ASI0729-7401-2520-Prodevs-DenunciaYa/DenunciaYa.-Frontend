@@ -24,7 +24,7 @@ export class Responsible {
   private _email: string;
   private _position: string;
   private _department: string;
-  private _phoneNumber: string;
+  private _phone: string;
   private _role: string;
   private _description: string;
   private _accessLevel: string;
@@ -40,7 +40,7 @@ export class Responsible {
     this._email = responsible.email ?? '';
     this._position = responsible.position ?? '';
     this._department = responsible.department ?? '';
-    this._phoneNumber = responsible.phoneNumber ?? '';
+    this._phone = responsible.phone ?? '';
     this._role = responsible.role ?? '';
     this._description = responsible.description ?? '';
     this._accessLevel = responsible.accessLevel ?? '';
@@ -75,8 +75,8 @@ export class Responsible {
   get department(): string { return this._department; }
   set department(value: string) { this._department = value; }
 
-  get phoneNumber(): string { return this._phoneNumber; }
-  set phoneNumber(value: string) { this._phoneNumber = value; }
+  get phone(): string { return this._phone; }
+  set phone(value: string) { this._phone = value; }
 
   get role(): string { return this._role; }
   set role(value: string) { this._role = value; }

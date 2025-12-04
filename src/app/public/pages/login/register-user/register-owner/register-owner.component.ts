@@ -35,7 +35,7 @@ export class RegisterOwnerComponent {
     lastName: '',
     firstName: '',
     birthDate: '',
-    phoneNumber: ''
+    phone: ''
   };
 
 
@@ -58,7 +58,7 @@ export class RegisterOwnerComponent {
         lastName: this.user.lastName,
         email: this.user.email,
         birthDate: this.user.birthDate,
-        phoneNumber: this.user.phoneNumber,
+        phone: this.user.phone,
         userId: ownerId
       };
 

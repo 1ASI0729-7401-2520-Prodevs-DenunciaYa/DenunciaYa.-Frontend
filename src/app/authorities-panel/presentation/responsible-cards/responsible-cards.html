@@ -60,7 +60,7 @@
                 type="tel"
                 id="phone"
                 name="phone"
-                [(ngModel)]="newResponsible.phoneNumber"
+                [(ngModel)]="newResponsible.phone"
                 required
                 class="form-control"
                 placeholder="+51 999 999 999"
@@ -214,7 +214,7 @@
             <div class="info-row">
               <i class="fas fa-phone"></i>
               <strong>Teléfono:</strong>
-              <span>{{ responsible.phoneNumber }}</span>
+              <span>{{ responsible.phone }}</span>
             </div>
 
             <div *ngIf="responsible.position" class="info-row">

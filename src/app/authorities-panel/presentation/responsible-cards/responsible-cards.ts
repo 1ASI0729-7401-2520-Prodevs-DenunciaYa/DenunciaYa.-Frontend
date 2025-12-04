@@ -19,7 +19,7 @@ export class ResponsibleCardsComponent implements OnInit {
     firstName: '',
     lastName: '',
     email: '',
-    phoneNumber: '',
+    phone: '',
     role: '',
     description: '',
     accessLevel: 'TECNICO',
@@ -70,7 +70,7 @@ export class ResponsibleCardsComponent implements OnInit {
       this.newResponsible.firstName?.trim() &&
       this.newResponsible.lastName?.trim() &&
       this.newResponsible.email?.trim() &&
-      this.newResponsible.phoneNumber?.trim() &&
+      this.newResponsible.phone?.trim() &&
       this.newResponsible.role?.trim() &&
       this.newResponsible.accessLevel?.trim()
     );
@@ -81,7 +81,7 @@ export class ResponsibleCardsComponent implements OnInit {
       firstName: '',
       lastName: '',
       email: '',
-      phoneNumber: '',
+      phone: '',
       role: '',
       description: '',
       accessLevel: 'TECNICO',

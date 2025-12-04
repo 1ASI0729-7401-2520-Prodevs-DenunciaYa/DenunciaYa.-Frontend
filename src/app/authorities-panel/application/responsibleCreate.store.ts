@@ -10,7 +10,7 @@ interface CreateResponsibleRequest {
   firstName: string;
   lastName: string;
   email: string;
-  phoneNumber: string;
+  phone: string;
   role: string;
   description: string;
   accessLevel: string;
@@ -68,7 +68,7 @@ export class ResponsibleCreateStore {
       firstName: responsibleData.firstName || '',
       lastName: responsibleData.lastName || '',
       email: responsibleData.email || '',
-      phoneNumber: responsibleData.phoneNumber || '', // <-- Cambiado a phoneNumber
+      phone: responsibleData.phone || '', // <-- Cambiado a phone
       role: responsibleData.role || '',
       description: responsibleData.description || '',
       accessLevel: responsibleData.accessLevel || 'TECNICO',
@@ -96,7 +96,7 @@ export class ResponsibleCreateStore {
       firstName: updateData.firstName,
       lastName: updateData.lastName,
       email: updateData.email,
-      phone: updateData.phoneNumber,
+      phone: updateData.phone,
       role: updateData.role,
       description: updateData.description,
       accessLevel: updateData.accessLevel,

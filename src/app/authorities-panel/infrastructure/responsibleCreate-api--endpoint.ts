@@ -32,17 +32,12 @@ export class ResponsibleApiEndpoint {
   }
 
   create(responsible: Responsible): Observable<Responsible> {
-    // Convierte 'phone' a 'phoneNumber' para el backend
-    const resource: any = this.assembler.toResourceFromEntity(responsible);
-    const backendResource = {
-      ...resource,
-      phoneNumber: resource.phone,  // Mapea phone → phoneNumber
-      phone: undefined  // Elimina el campo phone original
-    };
+    // SIMPLIFICADO: Como ya todo se llama 'phone', no necesitamos convertir nada manual.
+    const resource = this.assembler.toResourceFromEntity(responsible);
 
-    console.log('Creating with resource:', backendResource);
+    console.log('Creating with resource:', resource);
 
-    return this.http.post<ResponsibleResource>(this.baseUrl, backendResource)
+    return this.http.post<ResponsibleResource>(this.baseUrl, resource)
       .pipe(
         map(response => this.assembler.toEntityFromResource(response))
       );

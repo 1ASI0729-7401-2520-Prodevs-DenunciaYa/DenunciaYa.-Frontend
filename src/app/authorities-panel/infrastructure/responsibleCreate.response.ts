@@ -24,7 +24,7 @@ export interface ResponsibleResource{
   email: string;
   position?: string;
   department?: string;
-  phoneNumber: string;
+  phone: string;
   role: string;
   description: string;
   accessLevel: string;
