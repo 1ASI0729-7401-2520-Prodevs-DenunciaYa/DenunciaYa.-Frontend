@@ -68,29 +68,38 @@
       <div class="row">
         <mat-form-field appearance="fill">
           <mat-label>{{ 'Status' | translate }}</mat-label>
-          <mat-select formControlName="status">
-            <mat-option *ngFor="let s of statuses" [value]="s">{{ s | translate }}</mat-option>
+          <mat-select formControlName="status" required>
+            <mat-option *ngFor="let s of statuses" [value]="s">
+              {{ s | translate }}
+            </mat-option>
           </mat-select>
-          <mat-error *ngIf="complaintForm.get('status')?.invalid && complaintForm.get('status')?.touched">
+          <mat-error *ngIf="complaintForm.get('status')?.hasError('required') && complaintForm.get('status')?.touched">
             {{ 'Status is required' | translate }}
           </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>{{ 'Priority' | translate }}</mat-label>
-          <mat-select formControlName="priority">
-            <mat-option *ngFor="let p of priorities" [value]="p">{{ p | translate }}</mat-option>
+          <mat-select formControlName="priority" required>
+            <mat-option *ngFor="let p of priorities" [value]="p">
+              {{ p | translate }}
+            </mat-option>
           </mat-select>
-          <mat-error *ngIf="complaintForm.get('priority')?.invalid && complaintForm.get('priority')?.touched">
+          <mat-error *ngIf="complaintForm.get('priority')?.hasError('required') && complaintForm.get('priority')?.touched">
             {{ 'Priority is required' | translate }}
           </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>{{ 'Assign to' | translate }}</mat-label>
-          <mat-select formControlName="assignedTo">
-            <mat-option *ngFor="let a of assignedOptions" [value]="a">{{ a | translate }}</mat-option>
+          <mat-select formControlName="assignedTo" required>
+            <mat-option *ngFor="let a of assignedOptions" [value]="a">
+              {{ a }}
+            </mat-option>
           </mat-select>
+          <mat-error *ngIf="complaintForm.get('assignedTo')?.hasError('required') && complaintForm.get('assignedTo')?.touched">
+            {{ 'Assignee is required' | translate }}
+          </mat-error>
         </mat-form-field>
       </div>
 

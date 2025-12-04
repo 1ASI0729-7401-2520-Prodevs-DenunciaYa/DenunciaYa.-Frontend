@@ -24,7 +24,7 @@ import {Complaint} from '../../../complaint-creation/domain/model/complaint.enti
 import {ComplaintsApiService} from '../../../complaint-creation/infrastructure/complaint-api';
 import {MatIconModule} from '@angular/material/icon';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-edit-complaint',
@@ -47,13 +47,18 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 export class EditComplaintComponent implements OnInit {
   complaintForm!: FormGroup;
   complaintId!: string;
-  complaintData: Complaint | null = null; // Usar la entidad
+  complaintData: Complaint | null = null;
   selectedImage: string | null = null;
 
-  // Ajusta los estados para que coincidan con la entidad
+  // Lista completa de estados según la entidad
   statuses = [
-    'Pending', 'In Process',
-    'Completed', 'Rejected',  'Awaiting response'
+    'Pending',
+    'In Process',
+    'Completed',
+    'Rejected',
+    'Awaiting Response',
+    'Accepted',
+    'Under Review'
   ];
 
   priorities = ['Standard', 'Urgent', 'Critical'];
@@ -75,7 +80,8 @@ export class EditComplaintComponent implements OnInit {
     private route: ActivatedRoute,
     private http: HttpClient,
     private router: Router,
-    private complaintsApiService: ComplaintsApiService // Inyectar el servicio
+    private complaintsApiService: ComplaintsApiService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -92,31 +98,38 @@ export class EditComplaintComponent implements OnInit {
     this.complaintForm = this.fb.group({
       category: [{ value: '', disabled: true }, Validators.required],
       location: [{ value: '', disabled: true }, Validators.required],
-      referenceInfo: ['', Validators.required], // ¡CORREGIDO! Quitado "disabled: true"
+      referenceInfo: [{ value: '', disabled: false }],
       description: [{ value: '', disabled: true }, Validators.required],
-      status: ['', Validators.required], // ¡CORREGIDO! Quitado "disabled: false" (es el valor por defecto)
+      status: ['', Validators.required],
       priority: ['', Validators.required],
       assignedTo: ['', Validators.required],
-      updateMessage: [''] // Debe estar sin validators.required si es opcional
+      updateMessage: ['']
     });
   }
+
   loadComplaintData(): void {
     this.isLoading = true;
     this.errorMessage = '';
 
-    console.log('Loading complaint with ID:', this.complaintId);
+    console.log('📥 Loading complaint with ID:', this.complaintId);
 
     this.complaintsApiService.getComplaintById(this.complaintId).subscribe({
       next: (complaint: Complaint) => {
-        console.log('Complaint loaded successfully:', complaint);
+        console.log('✅ Complaint loaded successfully:', complaint);
+        console.log('📊 Complaint details:');
+        console.log('  - Status:', complaint.status);
+        console.log('  - Priority:', complaint.priority);
+        console.log('  - Update Message:', complaint.updateMessage);
+        console.log('  - Assigned To:', complaint.assignedTo);
+
         this.complaintData = complaint;
 
-        // Debug: verificar todos los campos
-        console.log('Complaint status:', complaint.status);
-        console.log('Complaint updateMessage:', complaint.updateMessage);
-        console.log('Complaint referenceInfo:', complaint.referenceInfo);
+        // Verificar que el estado esté en la lista permitida
+        if (!this.statuses.includes(complaint.status)) {
+          console.warn(`⚠️ Status "${complaint.status}" not in allowed list, defaulting to "Pending"`);
+        }
 
-        // Rellenar el formulario con los datos de la entidad
+        // Rellenar el formulario
         this.complaintForm.patchValue({
           category: complaint.category || '',
           location: complaint.location || '',
@@ -128,94 +141,100 @@ export class EditComplaintComponent implements OnInit {
           updateMessage: complaint.updateMessage || ''
         });
 
-        // Verificar que los valores se hayan establecido correctamente
-        console.log('Form status value:', this.complaintForm.get('status')?.value);
-        console.log('Form updateMessage value:', this.complaintForm.get('updateMessage')?.value);
-        console.log('Form referenceInfo value:', this.complaintForm.get('referenceInfo')?.value);
+        console.log('✅ Form populated with values:');
+        console.log('  - Form status:', this.complaintForm.get('status')?.value);
+        console.log('  - Form priority:', this.complaintForm.get('priority')?.value);
 
         this.isLoading = false;
       },
       error: (err) => {
-        console.error('Error loading complaint:', err);
+        console.error('❌ Error loading complaint:', err);
         this.errorMessage = `Error al cargar los datos de la denuncia: ${err.message}`;
         this.isLoading = false;
+        this.snackBar.open(this.errorMessage, 'Cerrar', { duration: 5000 });
       }
     });
   }
 
-
   saveChanges(): void {
     if (this.complaintForm.invalid) {
-      console.log('Form is invalid:', this.complaintForm.errors);
-      console.log('Form controls:', this.complaintForm.controls);
-      alert('Por favor, complete todos los campos requeridos');
+      console.log('❌ Form is invalid:', this.complaintForm.errors);
+      this.markFormGroupTouched(this.complaintForm);
+      this.snackBar.open('Por favor, complete todos los campos requeridos', 'Cerrar', { duration: 3000 });
       return;
     }
 
     if (!this.complaintData) {
-      alert('No hay datos de denuncia para actualizar');
+      this.snackBar.open('No hay datos de denuncia para actualizar', 'Cerrar', { duration: 3000 });
       return;
     }
 
     const formValue = this.complaintForm.getRawValue();
 
-    // Debug detallado de los valores del formulario
-    console.log('=== SAVE CHANGES DEBUG ===');
-    console.log('Form values to save:', formValue);
-    console.log('status value:', formValue.status);
-    console.log('updateMessage value:', formValue.updateMessage);
-    console.log('referenceInfo value:', formValue.referenceInfo);
-    console.log('priority value:', formValue.priority);
+    console.log('💾 === SAVE CHANGES DEBUG ===');
+    console.log('Form values:', formValue);
+    console.log('Selected status:', formValue.status);
+    console.log('Selected priority:', formValue.priority);
 
-    // Asegúrate de usar el ID correcto
-    const complaintIdToUse = this.complaintId || this.complaintData.id;
-
-    if (!complaintIdToUse || complaintIdToUse === '') {
-      alert('Error: ID de denuncia no válido');
+    // Validar que el estado sea válido
+    if (!this.statuses.includes(formValue.status)) {
+      this.snackBar.open(`Estado "${formValue.status}" no es válido`, 'Cerrar', { duration: 3000 });
       return;
     }
 
-    // Crear un nuevo objeto Complaint con todos los datos actualizados
+    // Crear objeto actualizado
     const updatedComplaint = new Complaint({
-      ...this.complaintData, // Mantiene los datos originales
-      id: complaintIdToUse,
+      ...this.complaintData,
+      id: this.complaintId,
       status: formValue.status,
       priority: formValue.priority,
       assignedTo: formValue.assignedTo,
-      referenceInfo: formValue.referenceInfo || '', // Asegurar que no sea undefined
-      updateMessage: formValue.updateMessage || '', // Asegurar que no sea undefined
+      referenceInfo: formValue.referenceInfo || '',
+      updateMessage: formValue.updateMessage || `Status changed to ${formValue.status}`,
       updateDate: new Date().toISOString()
     });
 
-    // Debug del objeto que se enviará
-    console.log('=== UPDATED COMPLAINT OBJECT ===');
-    console.log('Status:', updatedComplaint.status);
-    console.log('UpdateMessage:', updatedComplaint.updateMessage);
-    console.log('ReferenceInfo:', updatedComplaint.referenceInfo);
-    console.log('Priority:', updatedComplaint.priority);
+    console.log('📤 Sending updated complaint to backend:');
+    console.log('  - ID:', updatedComplaint.id);
+    console.log('  - Status (frontend):', updatedComplaint.status);
+    console.log('  - Update Message:', updatedComplaint.updateMessage);
 
     this.complaintsApiService.updateComplaint(updatedComplaint).subscribe({
       next: (response) => {
-        console.log('=== UPDATE RESPONSE ===');
-        console.log('Update response:', response);
-        console.log('Response status:', response.status);
-        console.log('Response updateMessage:', response.updateMessage);
-        console.log('Response referenceInfo:', response.referenceInfo);
+        console.log('✅ Update successful:', response);
+        console.log('  - Response status:', response.status);
+        console.log('  - Response updateMessage:', response.updateMessage);
 
-        alert('Denuncia actualizada correctamente');
+        this.snackBar.open('Denuncia actualizada correctamente', 'Cerrar', { duration: 3000 });
         this.router.navigate(['/complaint-list']);
       },
       error: (err) => {
-        console.error('=== UPDATE ERROR ===');
-        console.error('Error updating complaint:', err);
-        console.error('Error status:', err.status);
-        console.error('Error message:', err.message);
-        console.error('Error details:', err.error);
+        console.error('❌ Update error:', err);
+        console.error('  - Error status:', err.status);
+        console.error('  - Error message:', err.message);
+        console.error('  - Error details:', err.error);
 
-        alert(`Error al actualizar la denuncia: ${err.message}`);
+        let errorMessage = 'Error al actualizar la denuncia';
+        if (err.error?.message) {
+          errorMessage += `: ${err.error.message}`;
+        } else if (err.message) {
+          errorMessage += `: ${err.message}`;
+        }
+
+        this.snackBar.open(errorMessage, 'Cerrar', { duration: 5000 });
       }
     });
   }
+
+  private markFormGroupTouched(formGroup: FormGroup) {
+    Object.values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+      if (control instanceof FormGroup) {
+        this.markFormGroupTouched(control);
+      }
+    });
+  }
+
   discardChanges(): void {
     if (confirm('¿Está seguro de que desea descartar los cambios?')) {
       this.router.navigate(['/complaint-list']);
@@ -229,6 +248,7 @@ export class EditComplaintComponent implements OnInit {
   closeImage(): void {
     this.selectedImage = null;
   }
+
   trackByImage(index: number, img: string): string {
     return img;
   }

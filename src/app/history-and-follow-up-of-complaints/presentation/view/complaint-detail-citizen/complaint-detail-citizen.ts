@@ -290,14 +290,16 @@ export class ComplaintDetailCitizen implements OnInit {
       const statusMap: {[key: string]: Complaint['status']} = {
         'Complaint registered': 'Pending',
         'Under review': 'Pending',
-        'Awaiting response': 'Awaiting response',
-        'Decision pending': 'Awaiting response',
-        'Accepted': 'Completed',
+        'Awaiting response': 'Awaiting Response',
+        'Awaiting Response': 'Awaiting Response',
+        'Decision pending': 'Awaiting Response',
+        'Accepted': 'In Process',
         'Rejected': 'Rejected',
         'Completed': 'Completed'
       };
 
       this.complaint.status = statusMap[currentItem.status] || 'Pending';
+      this.complaint.updateMessage = this.statusMessages[currentItem.status] || this.complaint.updateMessage;
     }
   }
 
@@ -335,8 +337,7 @@ export class ComplaintDetailCitizen implements OnInit {
 
   canEditOrDelete(): boolean {
     return this.complaint?.status === 'Pending' ||
-      this.complaint?.status === 'Draft' ||
-      this.complaint?.status === 'Awaiting response';
+      this.complaint?.status === 'Awaiting Response';
   }
 
   canAdvanceStatus(): boolean {

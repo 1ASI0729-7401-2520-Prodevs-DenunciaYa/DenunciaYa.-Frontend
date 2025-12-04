@@ -31,7 +31,7 @@ export class Complaint {
   private _location: string;
   private _referenceInfo: string;
   private _description: string;
-  private _status: 'Pending' | 'Accepted' | 'In Process' | 'Completed' | 'Rejected' | 'Draft' | 'Awaiting response';
+  private _status: 'Pending' | 'In Process' | 'Completed' | 'Rejected' | 'Awaiting Response' | 'Accepted' | 'Under Review';
   private _priority: 'Standard' | 'Urgent' | 'Critical';
   private _evidence: string[];
   private _assignedTo: string;
@@ -108,10 +108,10 @@ export class Complaint {
   set description(value: string) {
     this._description = value;
   }
-  get status(): 'Pending' | 'Accepted' | 'In Process' | 'Completed' | 'Rejected' | 'Draft' | 'Awaiting response' {
+  get status(): 'Pending' | 'In Process' | 'Completed' | 'Rejected' | 'Awaiting Response' | 'Accepted' | 'Under Review' {
     return this._status;
   }
-  set status(value: 'Pending' | 'Accepted' | 'In Process' | 'Completed' | 'Rejected' | 'Draft' | 'Awaiting response') {
+  set status(value: 'Pending' | 'In Process' | 'Completed' | 'Rejected' | 'Awaiting Response' | 'Accepted' | 'Under Review') {
     this._status = value;
   }
   get priority(): 'Standard' | 'Urgent' | 'Critical' {

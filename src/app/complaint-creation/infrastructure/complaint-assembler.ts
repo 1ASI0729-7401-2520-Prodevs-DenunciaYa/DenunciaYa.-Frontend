@@ -4,39 +4,55 @@ import {ComplaintResource, ComplaintsResponse, TimelineItemResource, EvidenceRes
 export class ComplaintAssembler {
 
   static toEntityFromResource(resource: any): Complaint {
-    console.log('Raw resource from backend:', resource);
+    console.log('🔍 Assembler - Raw resource from backend:', resource);
 
-    // Manejar diferentes estructuras del backend
     const id = resource.id || resource.complaintId || '';
+    console.log('🔍 Assembler - Mapped ID:', id);
 
-    console.log('Mapped ID from backend:', id);
-    // Mapear los estados del backend al frontend
+    // Mapear estados del backend al frontend
     const backendStatus = resource.status || '';
     let frontendStatus: Complaint['status'] = 'Pending';
 
+    console.log('🔍 Assembler - Backend status:', backendStatus);
+
+    // Mapeo completo según ComplaintStatus.java
     switch (backendStatus.toLowerCase()) {
       case 'pending':
+      case 'pending': // backend: PENDING
         frontendStatus = 'Pending';
         break;
-      case 'accepted':
       case 'in_process':
+      case 'in process':
+      case 'in_process': // backend: IN_PROCESS
         frontendStatus = 'In Process';
         break;
       case 'completed':
+      case 'completed': // backend: COMPLETED
         frontendStatus = 'Completed';
         break;
       case 'rejected':
+      case 'rejected': // backend: REJECTED
         frontendStatus = 'Rejected';
         break;
-      case 'draft':
-        frontendStatus = 'Draft';
-        break;
       case 'awaiting_response':
-        frontendStatus = 'Awaiting response';
+      case 'awaiting response':
+      case 'awaiting_response': // backend: AWAITING_RESPONSE
+        frontendStatus = 'Awaiting Response';
+        break;
+      case 'accepted':
+      case 'accepted': // backend: ACCEPTED
+        frontendStatus = 'Accepted';
+        break;
+      case 'under_review':
+      case 'under review': // backend: UNDER_REVIEW
+        frontendStatus = 'Under Review';
         break;
       default:
+        console.warn('⚠️ Assembler - Unknown backend status:', backendStatus, 'defaulting to Pending');
         frontendStatus = 'Pending';
     }
+
+    console.log('🔍 Assembler - Mapped frontend status:', frontendStatus);
 
     // Mapear prioridades
     const backendPriority = resource.priority || '';
@@ -56,7 +72,7 @@ export class ComplaintAssembler {
         frontendPriority = 'Standard';
     }
 
-    // Obtener evidencias - manejar diferentes estructuras
+    // Obtener evidencias
     let evidenceUrls: string[] = [];
     if (Array.isArray(resource.evidence)) {
       evidenceUrls = resource.evidence;
@@ -104,22 +120,15 @@ export class ComplaintAssembler {
     return response.complaints.map(resource => this.toEntityFromResource(resource as ComplaintResource));
   }
 
-  static toTimelineItemFromResource(resource: TimelineItemResource): TimelineItem {
-    return {
-      id: (resource as any).id,
-      status: resource.status,
-      date: resource.date,
-      completed: !!resource.completed,
-      current: !!resource.current,
-      waitingDecision: (resource as any).waitingDecision ?? false,
-      updateMessage: (resource as any).updateMessage ?? ''
-    };
-  }
-
   static toResourceFromEntity(entity: Complaint): any {
-    // Convertir estados del frontend al backend
+    console.log('🔍 Assembler - Converting entity to resource, entity status:', entity.status);
+
+    // Convertir estados del frontend al backend (valores exactos del enum Java)
     const backendStatus = this.mapStatusToBackend(entity.status);
     const backendPriority = this.mapPriorityToBackend(entity.priority);
+
+    console.log('🔍 Assembler - Mapped backend status:', backendStatus);
+    console.log('🔍 Assembler - Mapped backend priority:', backendPriority);
 
     return {
       id: entity.id,
@@ -131,7 +140,7 @@ export class ComplaintAssembler {
       location: entity.location,
       referenceInfo: entity.referenceInfo || '',
       description: entity.description,
-      status: backendStatus,
+      status: backendStatus, // Enviar el valor correcto al backend
       priority: backendPriority,
       evidence: Array.isArray(entity.evidence) ? entity.evidence : [],
       assignedTo: entity.assignedTo,
@@ -142,17 +151,25 @@ export class ComplaintAssembler {
     };
   }
 
-
   private static mapStatusToBackend(frontendStatus: Complaint['status']): string {
     console.log('🔍 mapStatusToBackend - frontendStatus:', frontendStatus);
 
+    // Mapeo exacto según el enum ComplaintStatus.java
     switch (frontendStatus) {
-      case 'Pending': return 'PENDING';
-      case 'In Process': return 'IN_PROCESS'; // O 'IN_PROCESS' dependiendo del backend
-      case 'Completed': return 'COMPLETED';
-      case 'Rejected': return 'REJECTED';
-      case 'Awaiting response': return 'AWAITING_RESPONSE';
-      case 'Draft': return 'DRAFT'; // Si existe
+      case 'Pending':
+        return 'PENDING';
+      case 'In Process':
+        return 'IN_PROCESS';
+      case 'Completed':
+        return 'COMPLETED';
+      case 'Rejected':
+        return 'REJECTED';
+      case 'Awaiting Response':
+        return 'AWAITING_RESPONSE';
+      case 'Accepted':
+        return 'ACCEPTED';
+      case 'Under Review':
+        return 'UNDER_REVIEW';
       default:
         console.warn('⚠️ Estado no reconocido:', frontendStatus);
         return 'PENDING';

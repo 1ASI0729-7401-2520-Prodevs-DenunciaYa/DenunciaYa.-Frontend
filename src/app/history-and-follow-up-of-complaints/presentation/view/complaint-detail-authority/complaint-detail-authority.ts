@@ -122,7 +122,7 @@ export class ComplaintDetailAuthority implements OnInit {
     if (!this.complaint) return;
 
     // Mostrar botones de decisión solo si el estado es "Awaiting Response"
-    this.showDecisionButtons = this.complaint.status === 'Awaiting response';
+    this.showDecisionButtons = this.complaint.status === 'Awaiting Response';
   }
 
   private formatTimelineDate(date: Date): string {
@@ -242,7 +242,7 @@ export class ComplaintDetailAuthority implements OnInit {
 
   canEditOrDelete(): boolean {
     return this.complaint?.status === 'Pending' ||
-      this.complaint?.status === 'Awaiting response';
+      this.complaint?.status === 'Awaiting Response';
   }
 
   canAdvanceStatus(): boolean {

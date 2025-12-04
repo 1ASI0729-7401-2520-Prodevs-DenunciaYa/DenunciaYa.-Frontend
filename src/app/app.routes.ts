@@ -13,7 +13,6 @@ import { ComplaintList } from './complaint-creation/presentation/views/complaint
 import { ComplaintDetailCitizen } from './history-and-follow-up-of-complaints/presentation/view/complaint-detail-citizen/complaint-detail-citizen';
 import { EditComplaintComponent } from './authorities-panel/presentation/edit-complaint/edit-complaint';
 import { ComplaintDetailAuthority } from './history-and-follow-up-of-complaints/presentation/view/complaint-detail-authority/complaint-detail-authority';
-import {TeamManagementComponent} from './authorities-panel/presentation/team-management/team-management';
 import {
   ComplaintAssigmentComponent
 } from './authorities-panel/presentation/complaint-assignment.component/complaint-assignment.component';
