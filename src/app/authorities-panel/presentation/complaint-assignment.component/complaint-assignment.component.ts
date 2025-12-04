@@ -15,6 +15,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 import {TranslatePipe} from '@ngx-translate/core';
 import {Router} from '@angular/router';
 import {Complaint} from '../../../complaint-creation/domain/model/complaint.entity';
@@ -99,7 +100,8 @@ export class ComplaintAssigmentComponent implements OnInit {
   statusFilter = signal<string>('');
   priorityFilter = signal<string>('');
 
-  private readonly baseUrl = 'http://localhost:8080/api/v1';
+  // Usar la base URL desde environment para apuntar al backend desplegado
+  private readonly baseUrl = environment.apiBaseUrl;
 
   readonly teamMembers = this.teamMembersSignal.asReadonly();
   readonly complaints = this.complaintsSignal.asReadonly();

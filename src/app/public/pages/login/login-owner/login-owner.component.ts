@@ -31,6 +31,7 @@ import {AuthService} from '../../../services/auth.service';
 })
 export class LoginOwnerComponent {
   user = {email: '', password: ''};
+  errorMessage = '';
 
   constructor(
     private router: Router,
@@ -82,8 +83,13 @@ export class LoginOwnerComponent {
 
           this.router.navigate(['/pages/dashboard']);
         },
-        error: () => {
-          alert('Credenciales incorrectas. Vuelve a intentarlo.');
+        error: (err) => {
+          console.error('Login owner error in component:', err);
+          // Mostrar mensaje útil y body crudo para depuración
+          const raw = err?.error ?? err;
+          const pretty = (typeof raw === 'string') ? raw : JSON.stringify(raw, null, 2);
+          this.errorMessage = err?.error?.message || err?.message || 'Credenciales incorrectas. Vuelve a intentarlo.';
+          alert(`Error al iniciar sesión:\n${this.errorMessage}\n\nDetalle crudo:\n${pretty}`);
         }
       });
   }

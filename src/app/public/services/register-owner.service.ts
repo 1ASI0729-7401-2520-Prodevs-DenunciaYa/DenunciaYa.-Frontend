@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import {Router} from '@angular/router';
+import { Observable, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegisterOwnerService {
-  private apiUrl = 'http://localhost:8080/api/v1/authentication';
-  private profileUrl = 'http://localhost:8080/api/v1/profiles';
+  private apiUrl = `${environment.apiBaseUrl}/authentication`;
+  private profileUrl = `${environment.apiBaseUrl}/profiles`;
   private currentUserId: number | null = null;
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) {}
@@ -37,58 +38,44 @@ export class RegisterOwnerService {
 
   // Iniciar sesión del usuario
   login(email: string, password: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/sign-in`, {
-      username: email,
-      password: password
-    }).pipe(
-      tap(response => {
-        let token = response.token;
-        console.debug('[RegisterOwnerService] login response token preview:', typeof token === 'string' ? `${token.slice(0,10)}...${token.slice(-8)}` : token);
-        // Sanitizar token
-        try {
-          if (typeof token === 'string') {
-            token = token.trim();
-            if ((token.startsWith('"') && token.endsWith('"')) || (token.startsWith("'") && token.endsWith("'"))) {
-              token = token.slice(1, -1);
-            }
-            if (token === 'null' || token === 'undefined') {
-              token = null as any;
-            }
-          }
-        } catch (e) {
-          token = null as any;
+    // El backend espera username y password, username es el email
+    const payload = { username: email, password };
+    const url = `${environment.apiBaseUrl}/authentication/sign-in`;
+    return this.http.post<any>(url, payload).pipe(
+      map(res => {
+        if (!res || !res.token) {
+          throw new Error('No se recibió token en la respuesta del servidor.');
         }
-
-        if (token) {
-          // Usar AuthService para centralizar almacenamiento y notificación
-          this.authService.setToken(token);
-
-          // ✅ Extraer el username desde el JWT
-          try {
-            const payload = JSON.parse(atob(token.split('.')[1]));
-            const username = payload.sub;
-            localStorage.setItem('currentUser', username);
-          } catch (e) {
-            // ignore
-          }
+        this.authService.setToken(res.token);
+        return res;
+      }),
+      catchError(err => {
+        // Mostrar mensaje real del backend si existe
+        let message = 'Error desconocido';
+        if (err?.error && typeof err.error === 'object') {
+          message = err.error.message || JSON.stringify(err.error);
+        } else if (err?.message) {
+          message = err.message;
         }
-
+        const status = err?.status ?? null;
+        console.warn('[RegisterOwnerService] login failed', status, message);
+        return throwError(() => new Error(`(${status}) ${message}`));
       })
     );
   }
 
-  // Cerrar sesión: eliminar token e ID, redirigir si es necesario
-  logout(): void {
-    localStorage.removeItem('token');
-    localStorage.removeItem('onid');
-    localStorage.removeItem('currentUser'); // También esto, si lo guardas
-    this.currentUserId = null;
-    this.router.navigate(['/pages/login-owner']); // Redirige al login
-  }
+   // Cerrar sesión: eliminar token e ID, redirigir si es necesario
+   logout(): void {
+     localStorage.removeItem('token');
+     localStorage.removeItem('onid');
+     localStorage.removeItem('currentUser'); // También esto, si lo guardas
+     this.currentUserId = null;
+     this.router.navigate(['/pages/login-owner']); // Redirige al login
+   }
 
-  // Verifica si el usuario está autenticado
-  isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
-  }
+   // Verifica si el usuario está autenticado
+   isLoggedIn(): boolean {
+     return !!localStorage.getItem('token');
+   }
 
-}
+ }

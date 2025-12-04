@@ -78,8 +78,13 @@ export class LoginWorkerComponent {
         }
         this.router.navigate(['/pages/home']);
       },
-      error: () => {
-        this.errorMessage = 'Credenciales inválidas. Intenta de nuevo.';
+      error: (err) => {
+        console.error('Login worker error in component:', err);
+        // Mostrar el body crudo del error para facilitar el análisis (incluye stacktrace o JSON del backend)
+        const raw = err?.error ?? err;
+        const pretty = (typeof raw === 'string') ? raw : JSON.stringify(raw, null, 2);
+        this.errorMessage = err?.error?.message || err?.message || 'Credenciales inválidas. Intenta de nuevo.';
+        alert(`Error al iniciar sesión:\n${this.errorMessage}\n\nDetalle crudo:\n${pretty}`);
       }
     });
   }

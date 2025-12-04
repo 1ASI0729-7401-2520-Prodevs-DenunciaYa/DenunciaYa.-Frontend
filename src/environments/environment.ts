@@ -11,7 +11,7 @@ export const environment = {
   // Apuntar directamente al backend local Swagger para que todo el frontend use
   // http://localhost:8080/api/v1 en lugar de la ruta relativa. Esto evita depender
   // del proxy cuando quieres que el front se comunique con el backend real.
-  platformProviderApiBaseUrl: 'http://localhost:8080/api/v1',
+  platformProviderApiBaseUrl: 'https://denunciayaa.onrender.com/api/v1',
 
   platformProviderCommunitiesEndpointPath: '/communities',
   platformProviderResponsiblesEndpointPath: '/responsibles',
@@ -25,7 +25,7 @@ export const environment = {
   // === Backend real local (Spring Boot o similar) ===
   // apiBaseUrl: 'http://localhost:8080',
   // Normalizamos apiBaseUrl para que incluya el prefijo /api/v1 también.
-  apiBaseUrl: 'http://localhost:8080/api/v1',
+  apiBaseUrl: 'https://denunciayaa.onrender.com/api/v1',
   apiEndpoints: {
     complaints: '/complaints',
     citizens: '/citizen',
