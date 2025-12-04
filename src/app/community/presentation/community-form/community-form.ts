@@ -13,6 +13,7 @@ import { PostsApiEndpoint } from '../../infrastructure/posts-api-endpoint';
 import { ProfileService } from '../../../public/services/profile.service';
 import { of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { UploadService } from '../../../public/services/upload.service';
 
 @Component({
   selector: 'app-community-form',
@@ -46,7 +47,7 @@ export class CommunityForm {
 
    @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
-   constructor(private communityStore: CommunityStore, private postsApi: PostsApiEndpoint, private profileService: ProfileService) {}
+   constructor(private communityStore: CommunityStore, private postsApi: PostsApiEndpoint, private profileService: ProfileService, private uploadService: UploadService) {}
 
    private resolveAuthor() {
      // Devuelve un Observable con { name, id }
@@ -113,10 +114,6 @@ export class CommunityForm {
          userId: userId,
          author: authorName,
          content: this.content,
-         // El backend actualmente exige que `imageUrl` no sea nulo o blank al crear posts.
-         // Por eso enviamos la imagen placeholder cuando el usuario no adjunta imagen.
-         // La UI la ocultará gracias al assembler que normaliza `secret-image.png` a undefined
-         // y a la plantilla que no renderiza esa imagen.
          imageUrl: this.imageUrl ? this.imageUrl : '/assets/images/secret-image.png',
          likes: 0,
          createdAt: new Date(),
@@ -124,30 +121,65 @@ export class CommunityForm {
 
 
        if (this.imageFile) {
-         // Enviar siempre multipart/form-data cuando hay archivo para evitar 415
-         // (el backend parece no aceptar JSON con base64 en este proyecto).
-         this.postsApi.createFromForm(newPost, this.imageFile).subscribe({
+         // Primero intentar subir la imagen al backend y usar la URL resultante
+         this.uploadService.uploadPostImage(this.imageFile).pipe(
+           catchError((uploadErr) => {
+             console.warn('Upload failed, falling back to dataURL strategy', uploadErr);
+             // Fallback: devolver observable con null para indicar que fallo
+             return of(null as any);
+           })
+         ).subscribe((uploadedUrl) => {
+           if (uploadedUrl) {
+             // Usar la URL devuelta por el backend
+             const postWithUrl = new Community({
+               id: newPost.id,
+               userId: newPost.userId,
+               author: newPost.author,
+               content: newPost.content,
+               imageUrl: uploadedUrl,
+               likes: newPost.likes,
+               createdAt: newPost.createdAt,
+               comments: newPost.comments
+             });
+
+             this.postsApi.create(postWithUrl).subscribe({
+               next: (created) => {
+                 this.communityStore['communitiesSignal']?.update?.((c: any) => [...c, created]);
+                 this.resetForm();
+               },
+               error: (err) => {
+                 console.error('Error creando post con imagen (upload URL)', err);
+                 this.resetForm();
+               }
+             });
+
+           } else {
+             // Fallback: convertir a dataURL y usar la implementación previa
+             this.postsApi.create(newPost, this.imageFile!).subscribe({
+               next: (created) => {
+                 this.communityStore['communitiesSignal']?.update?.((c: any) => [...c, created]);
+                 this.resetForm();
+               },
+               error: (err) => {
+                 console.error('Error creando post con imagen (fallback dataURL)', err);
+                 this.resetForm();
+               }
+             });
+           }
+         });
+
+       } else {
+         // No hay archivo: usar create normal y esperar confirmación del backend antes de actualizar la UI
+         this.postsApi.create(newPost).subscribe({
            next: (created) => {
              this.communityStore['communitiesSignal']?.update?.((c: any) => [...c, created]);
              this.resetForm();
            },
            error: (err) => {
-             try {
-               console.error('Error creando post con imagen (multipart)', {
-                 status: err?.status,
-                 statusText: err?.statusText,
-                 body: err?.error,
-                 err
-               });
-             } catch (e) {
-               console.error('Error creando post con imagen (multipart, non-json)', err);
-             }
+             console.error('Error creando post', err);
              this.resetForm();
            }
          });
-       } else {
-         this.communityStore.addCommunity(newPost);
-         this.resetForm();
        }
      });
    }

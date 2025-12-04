@@ -3,6 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { retry } from 'rxjs';
 import { Community } from '../domain/model/community.entity';
 import { PostsApiEndpoint } from '../infrastructure/posts-api-endpoint';
+import { AuthService } from '../../public/services/auth.service';
 
 /**
  * @class CommunityStore
@@ -29,14 +30,33 @@ export class CommunityStore {
   readonly error = this.errorSignal.asReadonly();
   readonly communityCount = computed(() => this.communities().length);
 
-  constructor(private readonly communityApi: PostsApiEndpoint) {
-    this.loadCommunities();
+  constructor(private readonly communityApi: PostsApiEndpoint, private authService: AuthService) {
+    // Solo cargar si ya hay token
+    if (this.authService.isLoggedIn()) {
+      this.loadCommunities();
+    }
+
+    // Suscribirse a cambios de token: cuando se establezca, recargar
+    this.authService.token$.subscribe((token) => {
+      if (token) {
+        this.loadCommunities();
+      }
+    });
   }
 
 
   loadCommunities(): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
+
+    const token = localStorage.getItem('token');
+    if (!token) {
+      // Evitar llamada al backend sin token; mejorar UX mostrando mensaje específico
+      this.errorSignal.set('No autenticado: por favor inicia sesión para ver publicaciones.');
+      this.loadingSignal.set(false);
+      return;
+    }
+
     this.communityApi
       .getAll()
       .pipe(takeUntilDestroyed(), retry(2))

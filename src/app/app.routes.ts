@@ -35,6 +35,7 @@ import {
 import {RestoreOwnerComponent} from './public/pages/login/restore-owner/restore-owner.component';
 import {RestoreWorkerComponent} from './public/pages/login/restore-worker/restore-worker.component';
 import {ValidationComponent} from './public/pages/login/validation/validation.component';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes =[
   // Rutas públicas dentro de un layout de autenticación
@@ -59,6 +60,7 @@ export const routes: Routes =[
   {
     path: '',
     component: LayoutComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: 'home', component: AuthorityHomeComponent },
       { path: 'community', component: CommunityPage },

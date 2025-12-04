@@ -7,6 +7,7 @@ import { MatInput, MatLabel } from '@angular/material/input';
 import { MatFormField } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-login-worker',
@@ -32,7 +33,8 @@ export class LoginWorkerComponent {
 
   constructor(
     private router: Router,
-    private registerWorkerService: RegisterWorkerService
+    private registerWorkerService: RegisterWorkerService,
+    private authService: AuthService
   ) {}
 
   onSubmit() {
@@ -43,15 +45,28 @@ export class LoginWorkerComponent {
           alert('Error al iniciar sesión: respuesta inválida del servidor');
           return;
         }
-        const token = res.token;
+        let token = res.token;
         try {
-          localStorage.setItem('token', token); // si el backend devuelve un JWT
-          if (res.id !== undefined && res.id !== null) {
-            localStorage.setItem('wid', String(res.id)); // para identificar que es worker
+          token = (typeof token === 'string') ? token.trim() : token;
+          if (typeof token === 'string' && ((token.startsWith('"') && token.endsWith('"')) || (token.startsWith("'") && token.endsWith("'")))) {
+            token = token.slice(1, -1);
           }
+          if (token === 'null' || token === 'undefined') token = null as any;
         } catch (e) {
-          // ignore storage errors
+          token = null as any;
         }
+
+        if (token) {
+          try {
+            this.authService.setToken(token);
+            if (res.id !== undefined && res.id !== null) {
+              localStorage.setItem('wid', String(res.id)); // para identificar que es worker
+            }
+          } catch (e) {
+            // ignore storage errors
+          }
+        }
+
         try {
           const payload = JSON.parse(atob(token.split('.')[1]));
           const username = payload.sub || payload.email || payload.name || payload.preferred_username;

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import {Router} from '@angular/router';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class RegisterOwnerService {
   private profileUrl = 'http://localhost:8080/api/v1/profiles';
   private currentUserId: number | null = null;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService) {}
 
   // Registrar nuevo usuario (Owner)
   addUser(userData: any): Observable<any> {
@@ -41,15 +42,37 @@ export class RegisterOwnerService {
       password: password
     }).pipe(
       tap(response => {
-        const token = response.token;
-        localStorage.setItem('token', token);
+        let token = response.token;
+        console.debug('[RegisterOwnerService] login response token preview:', typeof token === 'string' ? `${token.slice(0,10)}...${token.slice(-8)}` : token);
+        // Sanitizar token
+        try {
+          if (typeof token === 'string') {
+            token = token.trim();
+            if ((token.startsWith('"') && token.endsWith('"')) || (token.startsWith("'") && token.endsWith("'"))) {
+              token = token.slice(1, -1);
+            }
+            if (token === 'null' || token === 'undefined') {
+              token = null as any;
+            }
+          }
+        } catch (e) {
+          token = null as any;
+        }
 
-        // ✅ Extraer el username desde el JWT
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        const username = payload.sub;
+        if (token) {
+          // Usar AuthService para centralizar almacenamiento y notificación
+          this.authService.setToken(token);
 
-        // ✅ Guardar el username en el localStorage
-        localStorage.setItem('currentUser', username);
+          // ✅ Extraer el username desde el JWT
+          try {
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            const username = payload.sub;
+            localStorage.setItem('currentUser', username);
+          } catch (e) {
+            // ignore
+          }
+        }
+
       })
     );
   }

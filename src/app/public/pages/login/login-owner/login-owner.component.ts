@@ -7,6 +7,7 @@ import {MatInput, MatLabel} from '@angular/material/input';
 import {MatFormField} from '@angular/material/form-field';
 import {FormsModule} from '@angular/forms';
 import {TranslatePipe} from '@ngx-translate/core';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-login-owner',
@@ -33,7 +34,8 @@ export class LoginOwnerComponent {
 
   constructor(
     private router: Router,
-    private registerOwnerService: RegisterOwnerService
+    private registerOwnerService: RegisterOwnerService,
+    private authService: AuthService
   ) {
   }
 
@@ -43,15 +45,36 @@ export class LoginOwnerComponent {
         next: (response) => {
           console.log('Login response:', response); // 👈 Agrega esto
 
-          const token = response.token;
-          localStorage.setItem('token', token);
+          let token = response.token;
+          // Sanitizar token: quitar comillas envolventes si existen y valores 'null'/'undefined'
+          try {
+            if (typeof token === 'string') {
+              token = token.trim();
+              // quitar comillas envolventes
+              if ((token.startsWith('"') && token.endsWith('"')) || (token.startsWith("'") && token.endsWith("'"))) {
+                token = token.slice(1, -1);
+              }
+              if (token === 'null' || token === 'undefined') {
+                token = null as any;
+              }
+            }
+          } catch (e) {
+            token = null as any;
+          }
+
+          if (token) {
+            this.authService.setToken(token);
+          }
+
           localStorage.setItem('onid', response.id);
           // Guardar currentUser decodificando el token (si contiene sub/email)
           try {
-            const payload = JSON.parse(atob(token.split('.')[1]));
-            const username = payload.sub || payload.email || payload.name || payload.preferred_username;
-            if (username) {
-              localStorage.setItem('currentUser', username);
+            if (token) {
+              const payload = JSON.parse(atob(token.split('.')[1]));
+              const username = payload.sub || payload.email || payload.name || payload.preferred_username;
+              if (username) {
+                localStorage.setItem('currentUser', username);
+              }
             }
           } catch (e) {
             // ignore
