@@ -120,28 +120,7 @@ export class ComplaintAssembler {
     // Convertir estados del frontend al backend
     const backendStatus = this.mapStatusToBackend(entity.status);
     const backendPriority = this.mapPriorityToBackend(entity.priority);
-    let frontendStatus: Complaint['status'] = 'Pending';
-    switch (backendStatus.toLowerCase()) {
-      case 'pending':
-        frontendStatus = 'Pending';
-        break;
-      case 'in_process':
-      case 'in process': // ¡AMBOS FORMATOS!
-        frontendStatus = 'In Process';
-        break;
-      case 'completed':
-        frontendStatus = 'Completed';
-        break;
-      case 'rejected':
-        frontendStatus = 'Rejected';
-        break;
-      case 'awaiting_response':
-      case 'awaiting response': // ¡AMBOS FORMATOS!
-        frontendStatus = 'Awaiting response';
-        break;
-      default:
-        frontendStatus = 'Pending';
-    }
+
     return {
       id: entity.id,
       complaintId: entity.id,
@@ -169,12 +148,14 @@ export class ComplaintAssembler {
 
     switch (frontendStatus) {
       case 'Pending': return 'PENDING';
-      case 'In Process': return 'IN_PROCESS'; // ¡CORREGIDO!
+      case 'In Process': return 'IN_PROCESS'; // O 'IN_PROCESS' dependiendo del backend
       case 'Completed': return 'COMPLETED';
       case 'Rejected': return 'REJECTED';
       case 'Awaiting response': return 'AWAITING_RESPONSE';
-      // Quitar 'Accepted' y 'Draft' que no existen
-      default: return 'PENDING';
+      case 'Draft': return 'DRAFT'; // Si existe
+      default:
+        console.warn('⚠️ Estado no reconocido:', frontendStatus);
+        return 'PENDING';
     }
   }
 

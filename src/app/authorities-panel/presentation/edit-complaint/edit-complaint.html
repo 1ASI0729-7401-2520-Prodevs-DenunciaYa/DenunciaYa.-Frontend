@@ -5,19 +5,25 @@
 
   <h2>{{ 'Edit Complaint' | translate }} #{{ complaintId }}</h2>
 
-  @if (isLoading) {
+  <ng-container *ngIf="isLoading; else notLoading">
     <div class="loading">
       <mat-spinner diameter="40"></mat-spinner>
       <p>{{ 'Loading complaint data...' | translate }}</p>
     </div>
-  } @else if (errorMessage) {
-    <div class="error">
-      <mat-icon color="warn">error</mat-icon>
-      <p>{{ errorMessage }}</p>
-      <button mat-button (click)="loadComplaintData()">{{ 'Retry' | translate }}</button>
-    </div>
-  } @else {
-    <form [formGroup]="complaintForm" class="edit-form">
+  </ng-container>
+
+  <ng-template #notLoading>
+    <ng-container *ngIf="errorMessage; else showForm">
+      <div class="error">
+        <mat-icon color="warn">error</mat-icon>
+        <p>{{ errorMessage }}</p>
+        <button mat-button (click)="loadComplaintData()">{{ 'Retry' | translate }}</button>
+      </div>
+    </ng-container>
+  </ng-template>
+
+  <ng-template #showForm>
+    <form [formGroup]="complaintForm" class="edit-form" (ngSubmit)="saveChanges()">
       <div class="row">
         <mat-form-field appearance="fill" class="readonly">
           <mat-label>{{ 'Category' | translate }}</mat-label>
@@ -32,7 +38,7 @@
 
       <mat-form-field appearance="fill" class="full-width readonly">
         <mat-label>{{ 'Reference' | translate }}</mat-label>
-        <input matInput formControlName="referenceInfo" /> <!-- Quitado readonly -->
+        <input matInput formControlName="referenceInfo" />
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="full-width readonly">
@@ -43,55 +49,47 @@
       <div class="evidence-section">
         <h3>{{ 'Evidence' | translate }}</h3>
 
-        @let evidence = complaintData?.evidence;
-
-        @if (evidence && evidence.length > 0) {
-          <div class="evidence-gallery">
-            @for (img of evidence; track img) {
-              <img
-                [src]="img"
-                alt="{{ 'Evidence' | translate }}"
-                class="evidence-img"
-                (click)="openImage(img)"
-              />
-            }
+        <ng-container *ngIf="complaintData?.evidence as evidence">
+          <div *ngIf="evidence && evidence.length > 0; else noEvidence">
+            <div class="evidence-gallery">
+              <img *ngFor="let img of evidence; trackBy: trackByImage"
+                   [src]="img"
+                   alt="{{ 'Evidence' | translate }}"
+                   class="evidence-img"
+                   (click)="openImage(img)" />
+            </div>
           </div>
-        } @else {
-          <p class="no-evidence">{{ 'No attached images' | translate }}</p>
-        }
+          <ng-template #noEvidence>
+            <p class="no-evidence">{{ 'No attached images' | translate }}</p>
+          </ng-template>
+        </ng-container>
       </div>
 
       <div class="row">
         <mat-form-field appearance="fill">
           <mat-label>{{ 'Status' | translate }}</mat-label>
           <mat-select formControlName="status">
-            @for (s of statuses; track s) {
-              <mat-option [value]="s">{{ s | translate }}</mat-option>
-            }
+            <mat-option *ngFor="let s of statuses" [value]="s">{{ s | translate }}</mat-option>
           </mat-select>
-          @if (complaintForm.get('status')?.invalid && complaintForm.get('status')?.touched) {
-            <mat-error>{{ 'Status is required' | translate }}</mat-error>
-          }
+          <mat-error *ngIf="complaintForm.get('status')?.invalid && complaintForm.get('status')?.touched">
+            {{ 'Status is required' | translate }}
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>{{ 'Priority' | translate }}</mat-label>
           <mat-select formControlName="priority">
-            @for (p of priorities; track p) {
-              <mat-option [value]="p">{{ p | translate }}</mat-option>
-            }
+            <mat-option *ngFor="let p of priorities" [value]="p">{{ p | translate }}</mat-option>
           </mat-select>
-          @if (complaintForm.get('priority')?.invalid && complaintForm.get('priority')?.touched) {
-            <mat-error>{{ 'Priority is required' | translate }}</mat-error>
-          }
+          <mat-error *ngIf="complaintForm.get('priority')?.invalid && complaintForm.get('priority')?.touched">
+            {{ 'Priority is required' | translate }}
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>{{ 'Assign to' | translate }}</mat-label>
           <mat-select formControlName="assignedTo">
-            @for (a of assignedOptions; track a) {
-              <mat-option [value]="a">{{ a | translate }}</mat-option>
-            }
+            <mat-option *ngFor="let a of assignedOptions" [value]="a">{{ a | translate }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -104,15 +102,13 @@
       </mat-form-field>
 
       <div class="button-group">
-        <button mat-flat-button color="primary" (click)="saveChanges()">{{ 'Save changes' | translate }}</button>
-        <button mat-stroked-button color="warn" (click)="discardChanges()">{{ 'Discard' | translate }}</button>
+        <button mat-flat-button color="primary" type="submit">{{ 'Save changes' | translate }}</button>
+        <button mat-stroked-button color="warn" type="button" (click)="discardChanges()">{{ 'Discard' | translate }}</button>
       </div>
     </form>
 
-    @if (selectedImage) {
-      <div class="image-modal" (click)="closeImage()">
-        <img [src]="selectedImage" alt="{{ 'Large evidence' | translate }}" />
-      </div>
-    }
-  }
+    <div *ngIf="selectedImage" class="image-modal" (click)="closeImage()">
+      <img [src]="selectedImage" alt="{{ 'Large evidence' | translate }}" />
+    </div>
+  </ng-template>
 </div>

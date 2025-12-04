@@ -229,4 +229,7 @@ export class EditComplaintComponent implements OnInit {
   closeImage(): void {
     this.selectedImage = null;
   }
+  trackByImage(index: number, img: string): string {
+    return img;
+  }
 }
