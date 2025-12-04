@@ -41,156 +41,113 @@ import { UploadService } from '../../../public/services/upload.service';
  * @method submitPost - Submits a new community post.
  */
 export class CommunityForm {
-   content: string = '';
-   imageUrl: string | null = null;
-   imageFile: File | null = null;
+  content: string = '';
+  imageUrl: string | null = null;
+  imageFile: File | null = null;
 
-   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
-   constructor(private communityStore: CommunityStore, private postsApi: PostsApiEndpoint, private profileService: ProfileService, private uploadService: UploadService) {}
+  constructor(private communityStore: CommunityStore, private postsApi: PostsApiEndpoint, private profileService: ProfileService, private uploadService: UploadService) {}
 
-   private resolveAuthor() {
-     // Devuelve un Observable con { name, id }
-     const userData = localStorage.getItem('user');
-     const currentUser = localStorage.getItem('currentUser');
+  private resolveAuthor() {
+    // Devuelve un Observable con { name, id }
+    const userData = localStorage.getItem('user');
+    const currentUser = localStorage.getItem('currentUser');
 
-     if (userData) {
-       try {
-         const user = JSON.parse(userData);
-         const name = `${user.firstName || ''} ${user.lastName || ''}`.trim() || (user.username || user.email) || 'Usuario';
-         const id = user.id || user.userId || user.sub || user.onid || 1;
-         return of({ name, id });
-       } catch (e) {
-         return of({ name: String(userData) || 'Usuario', id: 1 });
-       }
-     }
+    if (userData) {
+      try {
+        const user = JSON.parse(userData);
+        const name = `${user.firstName || ''} ${user.lastName || ''}`.trim() || (user.username || user.email) || 'Usuario';
+        const id = user.id || user.userId || user.sub || user.onid || 1;
+        return of({ name, id });
+      } catch (e) {
+        return of({ name: String(userData) || 'Usuario', id: 1 });
+      }
+    }
 
-     if (currentUser) {
-       const maybeId = localStorage.getItem('onid') || localStorage.getItem('workerId') || localStorage.getItem('ownerId') || localStorage.getItem('userId');
-       return of({ name: currentUser, id: maybeId ? Number(maybeId) : 1 });
-     }
+    if (currentUser) {
+      const maybeId = localStorage.getItem('onid') || localStorage.getItem('workerId') || localStorage.getItem('ownerId') || localStorage.getItem('userId');
+      return of({ name: currentUser, id: maybeId ? Number(maybeId) : 1 });
+    }
 
-     const token = localStorage.getItem('token');
-     if (token) {
-       try {
-         const parts = token.split('.');
-         if (parts.length >= 2) {
-           const payload = JSON.parse(atob(parts[1]));
-           const name = payload.name || payload.username || payload.preferred_username || payload.email || 'Usuario';
-           const id = payload.sub || payload.userId || payload.id || 1;
-           return of({ name, id });
-         }
-       } catch (e) {
-         // ignore and try profile endpoint
-       }
-     }
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const parts = token.split('.');
+        if (parts.length >= 2) {
+          const payload = JSON.parse(atob(parts[1]));
+          const name = payload.name || payload.username || payload.preferred_username || payload.email || 'Usuario';
+          const id = payload.sub || payload.userId || payload.id || 1;
+          return of({ name, id });
+        }
+      } catch (e) {
+        // ignore and try profile endpoint
+      }
+    }
 
-     // Fallback: pedir profile al backend (si está autenticado)
-     return this.profileService.getProfile().pipe(
-       map(profile => ({ name: profile?.firstName ? `${profile.firstName} ${profile.lastName || ''}`.trim() : (profile?.email || profile?.username || 'Usuario'), id: profile?.id || 1 })),
-       catchError(() => of({ name: 'Usuario', id: 1 }))
-     );
-   }
+    // Fallback: pedir profile al backend (si está autenticado)
+    return this.profileService.getProfile().pipe(
+      map(profile => ({ name: profile?.firstName ? `${profile.firstName} ${profile.lastName || ''}`.trim() : (profile?.email || profile?.username || 'Usuario'), id: profile?.id || 1 })),
+      catchError(() => of({ name: 'Usuario', id: 1 }))
+    );
+  }
 
-   handleImageUpload(event: Event): void {
-     const input = event.target as HTMLInputElement;
-     const file = input.files?.[0];
-     if (!file) return;
+  handleImageUpload(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file) return;
 
-     const reader = new FileReader();
-     reader.onload = () => {
-       this.imageUrl = reader.result as string;
-     };
-     reader.readAsDataURL(file);
-     this.imageFile = file;
-   }
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imageUrl = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+    this.imageFile = file;
+  }
 
-   submitPost(): void {
-     if (!this.content.trim() && !this.imageUrl) return;
+  submitPost(): void {
+    if (!this.content.trim() && !this.imageFile) return;
 
-     this.resolveAuthor().subscribe(({ name: authorName, id: userId }) => {
-       const newPost = new Community({
-         id: Date.now(),
-         userId: userId,
-         author: authorName,
-         content: this.content,
-         imageUrl: this.imageUrl ? this.imageUrl : '/assets/images/secret-image.png',
-         likes: 0,
-         createdAt: new Date(),
-       });
+    this.resolveAuthor().subscribe(({ name: authorName, id: userId }) => {
+
+      // 1. Creamos el JSON que el backend quiere
+      const postJson = JSON.stringify({
+        userId: userId,
+        author: authorName,
+        content: this.content,
+        imageUrl: null
+      });
+
+      // 2. Creamos el FormData EXACTO
+      const formData = new FormData();
+      formData.append("post", postJson);     // ✔ nombre correcto
+      if (this.imageFile) {
+        formData.append("image", this.imageFile); // ✔ nombre correcto
+      }
+
+      // 3. Llamar al endpoint MULTIPART
+      this.postsApi.createMultipart(formData).subscribe({
+        next: (createdPost) => {
+          this.communityStore['communitiesSignal']?.update?.((c: any) => [...c, createdPost]);
+          this.resetForm();
+        },
+        error: (err) => {
+          console.error("Error creando post con imagen:", err);
+          this.resetForm();
+        }
+      });
+
+    });
+  }
 
 
-       if (this.imageFile) {
-         // Primero intentar subir la imagen al backend y usar la URL resultante
-         this.uploadService.uploadPostImage(this.imageFile).pipe(
-           catchError((uploadErr) => {
-             console.warn('Upload failed, falling back to dataURL strategy', uploadErr);
-             // Fallback: devolver observable con null para indicar que fallo
-             return of(null as any);
-           })
-         ).subscribe((uploadedUrl) => {
-           if (uploadedUrl) {
-             // Usar la URL devuelta por el backend
-             const postWithUrl = new Community({
-               id: newPost.id,
-               userId: newPost.userId,
-               author: newPost.author,
-               content: newPost.content,
-               imageUrl: uploadedUrl,
-               likes: newPost.likes,
-               createdAt: newPost.createdAt,
-               comments: newPost.comments
-             });
+  private resetForm(): void {
+    this.content = '';
+    this.imageUrl = null;
+    this.imageFile = null;
 
-             this.postsApi.create(postWithUrl).subscribe({
-               next: (created) => {
-                 this.communityStore['communitiesSignal']?.update?.((c: any) => [...c, created]);
-                 this.resetForm();
-               },
-               error: (err) => {
-                 console.error('Error creando post con imagen (upload URL)', err);
-                 this.resetForm();
-               }
-             });
-
-           } else {
-             // Fallback: convertir a dataURL y usar la implementación previa
-             this.postsApi.create(newPost, this.imageFile!).subscribe({
-               next: (created) => {
-                 this.communityStore['communitiesSignal']?.update?.((c: any) => [...c, created]);
-                 this.resetForm();
-               },
-               error: (err) => {
-                 console.error('Error creando post con imagen (fallback dataURL)', err);
-                 this.resetForm();
-               }
-             });
-           }
-         });
-
-       } else {
-         // No hay archivo: usar create normal y esperar confirmación del backend antes de actualizar la UI
-         this.postsApi.create(newPost).subscribe({
-           next: (created) => {
-             this.communityStore['communitiesSignal']?.update?.((c: any) => [...c, created]);
-             this.resetForm();
-           },
-           error: (err) => {
-             console.error('Error creando post', err);
-             this.resetForm();
-           }
-         });
-       }
-     });
-   }
-
-   private resetForm(): void {
-     this.content = '';
-     this.imageUrl = null;
-     this.imageFile = null;
-
-     if (this.fileInput) {
-       this.fileInput.nativeElement.value = '';
-     }
-   }
+    if (this.fileInput) {
+      this.fileInput.nativeElement.value = '';
+    }
+  }
 }
