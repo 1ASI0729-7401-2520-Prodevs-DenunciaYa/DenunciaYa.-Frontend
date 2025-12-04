@@ -11,6 +11,7 @@ export const environment = {
   platformProviderCitizensEndpointPath: '/citizen',
   platformProviderAuthoritiesEndpointPath: '/authority',
   platformProviderComplaintsEndpointPath: '/complaints',
+  platformProviderMapComplaintsEndpointPath: '/map/complaints',
   platformProviderAssignmentsEndpointPath: '/complaintAssignments',
 
   // === Backend real local (Spring Boot o similar) ===
