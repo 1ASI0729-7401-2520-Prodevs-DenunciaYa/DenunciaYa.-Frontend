@@ -2,25 +2,9 @@ import { Injectable, signal, computed, Signal } from '@angular/core';
 import { Complaint } from '../domain/model/complaint.entity';
 import { ComplaintsApiService } from '../infrastructure/complaint-api';
 import { retry } from 'rxjs';
+import { AuthService } from '../../public/services/auth.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-/**
- * @class ComplaintsStore
- * @summary Manages the state of complaints including loading, error handling, and CRUD operations.
- * @constructor
- * @param {ComplaintsApiService} api - Service for interacting with the complaints API.
- * @method loadAll - Loads all complaints from the API.
- * @method getComplaintById - Retrieves a complaint by its ID.
- * @param {string | null | undefined} id - The ID of the complaint to retrieve.
- * @return {Signal<Complaint | undefined>} A signal containing the complaint or undefined if not found.
- * @method addComplaint - Adds a new complaint via the API and updates the store.
- * @param {Complaint} complaint - The complaint to add.
- * @method updateComplaint - Updates an existing complaint via the API and updates the store.
- * @param {Complaint} complaint - The complaint to update.
- * @method updateComplaintInStore - Updates a complaint in the store without making an API call.
- * @param {Complaint} complaint - The complaint to update in the store.
- * @method deleteComplaint - Deletes a complaint via the API and updates the store.
- * @param {string} id - The ID of the complaint to delete.
- */
 @Injectable({
   providedIn: 'root'
 })
@@ -36,20 +20,40 @@ export class ComplaintsStore {
 
   readonly complaintCount = computed(() => this.complaints().length);
 
-  constructor(private api: ComplaintsApiService) {
+  constructor(private api: ComplaintsApiService, private authService: AuthService) {
+    // Cargar siempre al iniciar. El backend actual no requiere autenticación.
     this.loadAll();
+
+    // Si en el futuro hay token, se puede refrescar la data al establecerse.
+    this.authService.token$.pipe(takeUntilDestroyed()).subscribe(token => {
+      if (token) {
+        this.loadAll();
+      }
+    });
   }
 
   loadAll(): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
+
+    // No bloquear por token: el backend público no lo requiere.
+    // const token = localStorage.getItem('token');
+    // if (!token) {
+    //   this.errorSignal.set('No autenticado: inicia sesión para ver denuncias.');
+    //   this.loadingSignal.set(false);
+    //   return;
+    // }
+
     this.api.getComplaints().pipe(retry(2)).subscribe({
       next: data => {
         this.complaintsSignal.set(data);
         this.loadingSignal.set(false);
       },
       error: err => {
-        this.errorSignal.set('Error al cargar denuncias');
+        const msg = err?.status === 401 || err?.status === 403
+          ? 'No autorizado: verifica tu token de sesión.'
+          : 'Error al cargar denuncias';
+        this.errorSignal.set(msg);
         this.loadingSignal.set(false);
       }
     });
@@ -87,7 +91,6 @@ export class ComplaintsStore {
       },
       error: err => {
         this.errorSignal.set('Error al actualizar denuncia');
-
         this.updateComplaintInStore(complaint);
         this.loadingSignal.set(false);
       }
