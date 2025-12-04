@@ -59,6 +59,7 @@ export class AssignmentStore {
     });
   }
 
+
   assignComplaint(complaintId: string, responsibleId: string, assignedBy: string): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);

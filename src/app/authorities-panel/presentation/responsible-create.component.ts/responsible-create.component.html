@@ -123,9 +123,9 @@
       <button mat-flat-button
               color="primary"
               type="submit"
-              [disabled]="form.invalid || store.loading()"
+              [disabled]="form.invalid"
               class="submit-button">
-        <mat-icon *ngIf="!store.loading()">person_add</mat-icon>
+        <mat-icon >person_add</mat-icon>
         {{ 'Add Responsible' | translate }}
       </button>
 
@@ -133,7 +133,6 @@
               color="primary"
               type="button"
               (click)="navigateBack()"
-              [disabled]="store.loading()"
               class="back-button">
         <mat-icon>arrow_back</mat-icon>
         {{ 'Back to Team Management' | translate }}
@@ -143,7 +142,6 @@
               color="warn"
               type="button"
               (click)="onCancel()"
-              [disabled]="store.loading()"
               class="cancel-button">
         <mat-icon>clear</mat-icon>
         {{ 'Cancel' | translate }}
@@ -151,13 +149,4 @@
     </div>
   </form>
 
-  <div *ngIf="store.loading()" class="loading-overlay">
-    <mat-spinner diameter="40"></mat-spinner>
-    <p>{{ 'Adding responsible...' | translate }}</p>
-  </div>
-
-  <div *ngIf="store.error()" class="error-message">
-    <mat-icon color="warn">error</mat-icon>
-    <span>{{ store.error() }}</span>
-  </div>
 </div>

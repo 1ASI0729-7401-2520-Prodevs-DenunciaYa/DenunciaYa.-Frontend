@@ -109,7 +109,7 @@ export class ResponsibleCreateComponent implements OnInit {
       firstName: formValue.firstName,
       lastName: formValue.lastName,
       email: formValue.email,
-      phone: formValue.phone,
+      phoneNumber: formValue.phone,
       position: formValue.position,
       department: formValue.department,
       role: formValue.role,

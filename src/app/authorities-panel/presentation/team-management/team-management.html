@@ -1,31 +1,74 @@
 <div class="team-container">
-  <h2>{{ 'Team Management' | translate }}</h2>
+  <div class="header-row">
+    <h2>{{ 'Team Management' | translate }}</h2>
+    <div class="actions-container">
+      <div class="search-container">
+        <input
+          type="text"
+          [(ngModel)]="searchKeyword"
+          (keyup.enter)="searchResponsibles()"
+          placeholder="{{ 'Search by name or role' | translate }}"
+          class="search-input"
+        >
+        <button class="search-btn" (click)="searchResponsibles()">
+          {{ 'Search' | translate }}
+        </button>
+      </div>
+      <button class="add-btn" (click)="addResponsible()">
+        {{ 'Add Responsible' | translate }}
+      </button>
+    </div>
+  </div>
 
+  <!-- Eliminado el bloque de loading -->
   @if (filteredResponsibles.length > 0) {
-    <table class="team-table">
-      <thead>
-      <tr>
-        <th>{{ 'Responsible' | translate }}</th>
-        <th>{{ 'Case Number' | translate }}</th>
-        <th>{{ 'Category' | translate }}</th>
-        <th>{{ 'Assignment' | translate }}</th>
-      </tr>
-      </thead>
-      <tbody>
-        @for (r of filteredResponsibles; track r.id) {
-          <tr>
-            <td>{{ r.firstName }} {{ r.lastName }}</td>
-            <td>{{ r.caseCount || '0' }}</td>
-            <td>{{ r.category || ('Unassigned' | translate) }}</td>
-            <td>
-              <button class="assign-btn" (click)="assignComplaint(r)">
-                {{ 'Assign complaint' | translate }}
+    <div class="cards-grid">
+      @for (r of filteredResponsibles; track r.id) {
+        <div class="card">
+          <div class="card-header">
+            <div class="avatar">
+              {{ (r.fullName || (r.firstName + ' ' + r.lastName))?.charAt(0) }}
+            </div>
+            <div class="title-group">
+              <div class="name">{{ r.fullName || (r.firstName + ' ' + r.lastName) }}</div>
+              <div class="role">{{ r.role || ('Unassigned' | translate) }}</div>
+              <div class="access-level">{{ r.accessLevel }}</div>
+            </div>
+            <div class="card-actions-menu">
+              <button class="icon-btn" (click)="editResponsible(r)" title="Edit">
+                ✏️
               </button>
-            </td>
-          </tr>
-        }
-      </tbody>
-    </table>
+              <button class="icon-btn delete" (click)="deleteResponsible(r)" title="Delete">
+                🗑️
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="meta">
+              <span class="label">{{ 'Cases' | translate }}:</span>
+              <span class="value">{{ r.caseCount || 0 }}</span>
+            </div>
+            <div class="meta">
+              <span class="label">Email:</span>
+              <span class="value">{{ r.email }}</span>
+            </div>
+            <div class="meta">
+              <span class="label">{{ 'Phone' | translate }}:</span>
+              <span class="value">{{ r.phone }}</span>
+            </div>
+            <div class="meta">
+              <span class="label">{{ 'Created' | translate }}:</span>
+              <span class="value">{{ r.createdAt | date:'shortDate' }}</span>
+            </div>
+          </div>
+          <div class="card-actions">
+            <button class="assign-btn" (click)="assignComplaint(r)">
+              {{ 'Assign complaint' | translate }}
+            </button>
+          </div>
+        </div>
+      }
+    </div>
   } @else {
     <p class="empty-text">{{ 'No registered responsible' | translate }}</p>
   }

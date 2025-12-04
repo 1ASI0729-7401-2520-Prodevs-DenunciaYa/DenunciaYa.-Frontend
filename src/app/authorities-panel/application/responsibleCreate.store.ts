@@ -1,135 +1,182 @@
-import { Injectable, signal, computed, Signal } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
+import {BehaviorSubject, Observable, map, catchError, of} from 'rxjs';
 import { Responsible } from '../domain/model/responsibleCreate.entity';
-import { catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
-import { ResponsibleAssembler } from '../infrastructure/responsibleCreate.assembler';
-import { ResponsibleResource } from '../infrastructure/responsibleCreate.response';
+import {environment} from '../../../environments/environment';
+import {ResponsibleAssembler} from '../infrastructure/responsibleCreate.assembler';
+import {ResponsibleResource} from '../infrastructure/responsibleCreate.response';
 
-/**
- * @class Responsible
- * @summary Manages the state and operations related to Responsible entities, including loading, adding, and updating responsibles.
- * @method loadResponsibles - Loads the list of responsibles from the API.
- * @method addResponsible - Adds a new responsible to the store and API.
- * @method updateResponsible - Updates an existing responsible in the store and API.
- * @property responsibles - Readonly signal of the list of responsibles.
- * @property loading - Readonly signal indicating loading state.
- * @property error - Readonly signal for error messages.
- * @property count - Computed property for the number of responsibles.
- */
+interface CreateResponsibleRequest {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  role: string;
+  description: string;
+  accessLevel: string;
+  position?: string;
+  department?: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class ResponsibleCreateStore {
-  private readonly apiUrl = `${environment.platformProviderApiBaseUrl}${environment.platformProviderResponsiblesEndpointPath}`;
+  private http = inject(HttpClient);
   private assembler = new ResponsibleAssembler();
 
-  private readonly _responsibles = signal<Responsible[]>([]);
-  private readonly _loading = signal<boolean>(false);
-  private readonly _error = signal<string | null>(null);
+  private readonly baseUrl = `${environment.platformProviderApiBaseUrl}/responsibles`;
 
-  readonly responsibles: Signal<Responsible[]> = this._responsibles.asReadonly();
-  readonly loading: Signal<boolean> = this._loading.asReadonly();
-  readonly error: Signal<string | null> = this._error.asReadonly();
+  private responsiblesSubject = new BehaviorSubject<Responsible[]>([]);
+  responsibles$ = this.responsiblesSubject.asObservable();
 
-  readonly count = computed(() => this._responsibles().length);
-
-  constructor(private readonly http: HttpClient) {
-    this.loadResponsibles();
-  }
+  constructor() {}
 
   loadResponsibles(): void {
-    this._loading.set(true);
-    this._error.set(null);
-
-    this.http.get<ResponsibleResource[] | null | undefined>(this.apiUrl)
+    console.log('Loading from:', this.baseUrl);
+    this.http.get<ResponsibleResource[]>(this.baseUrl)
       .pipe(
-        catchError(err => {
-          this._error.set('Error loading responsibles');
-          return of([] as ResponsibleResource[]);
+        map(resources => {
+          console.log('API Response:', resources);
+          return resources.map(resource =>
+            this.assembler.toEntityFromResource(resource)
+          );
+        }),
+        catchError(error => {
+          console.error('HTTP Error loading responsibles:', error);
+          return of([]);
         })
       )
-      .subscribe(data => {
-        const safeData: ResponsibleResource[] = Array.isArray(data) ? data : [];
-        const responsibles = safeData.map(r => this.assembler.toEntityFromResource(r));
-        this._responsibles.set(responsibles);
-        this._loading.set(false);
+      .subscribe({
+        next: (responsibles) => {
+          console.log('Loaded responsibles:', responsibles);
+          this.responsiblesSubject.next(responsibles);
+        },
+        error: (error) => {
+          console.error('Subscription error:', error);
+        }
       });
   }
 
-  addResponsible(responsibleData: Omit<Responsible, 'id' | 'createdAt'>): void {
-    this._loading.set(true);
-    this._error.set(null);
+  getResponsibleById(id: string): Observable<Responsible> {
+    return this.http.get<ResponsibleResource>(`${this.baseUrl}/${id}`)
+      .pipe(
+        map(resource => this.assembler.toEntityFromResource(resource))
+      );
+  }
 
-    const newResponsible = new Responsible({
-      id: Date.now().toString(),
-      ...responsibleData,
-      createdAt: new Date(),
+  addResponsible(responsibleData: Partial<Responsible>): Observable<Responsible> {
+    const request: CreateResponsibleRequest = {
+      firstName: responsibleData.firstName || '',
+      lastName: responsibleData.lastName || '',
+      email: responsibleData.email || '',
+      phoneNumber: responsibleData.phoneNumber || '', // <-- Cambiado a phoneNumber
+      role: responsibleData.role || '',
+      description: responsibleData.description || '',
+      accessLevel: responsibleData.accessLevel || 'TECNICO',
+      position: responsibleData.position || responsibleData.role || '',
+      department: responsibleData.department || 'Default Department'
+    };
+
+    return this.http.post<ResponsibleResource>(this.baseUrl, request)
+      .pipe(
+        map(resource => {
+          const newResponsible = this.assembler.toEntityFromResource(resource);
+          const currentResponsibles = this.responsiblesSubject.value;
+          this.responsiblesSubject.next([...currentResponsibles, newResponsible]);
+          return newResponsible;
+        }),
+        catchError(error => {
+          console.error('Error creating responsible:', error);
+          throw error;
+        })
+      );
+  }
+
+  updateResponsible(id: string, updateData: Partial<Responsible>): Observable<Responsible> {
+    const request = {
+      firstName: updateData.firstName,
+      lastName: updateData.lastName,
+      email: updateData.email,
+      phone: updateData.phoneNumber,
+      role: updateData.role,
+      description: updateData.description,
+      accessLevel: updateData.accessLevel,
+      position: updateData.position,
+      department: updateData.department,
+      status: updateData.status
+    };
+
+    return this.http.put<ResponsibleResource>(`${this.baseUrl}/${id}`, request)
+      .pipe(
+        map(resource => {
+          const updatedResponsible = this.assembler.toEntityFromResource(resource);
+          const currentResponsibles = this.responsiblesSubject.value;
+          const updatedResponsibles = currentResponsibles.map(r =>
+            r.id === id ? updatedResponsible : r
+          );
+          this.responsiblesSubject.next(updatedResponsibles);
+          return updatedResponsible;
+        })
+      );
+  }
+
+  deleteResponsible(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`)
+      .pipe(
+        map(() => {
+          const currentResponsibles = this.responsiblesSubject.value;
+          const updatedResponsibles = currentResponsibles.filter(r => r.id !== id);
+          this.responsiblesSubject.next(updatedResponsibles);
+        })
+      );
+  }
+  searchResponsibles(keyword: string): Observable<Responsible[]> {
+    // Si no hay keyword, devolver todos los responsables del store
+    if (!keyword || keyword.trim() === '') {
+      return of(this.responsiblesSubject.value);
+    }
+
+    const searchTerm = keyword.toLowerCase().trim();
+
+    // Primero intentar búsqueda local
+    const localResults = this.responsiblesSubject.value.filter(responsible => {
+      const fullName = responsible.fullName?.toLowerCase() ||
+        `${responsible.firstName} ${responsible.lastName}`.toLowerCase();
+      return fullName.includes(searchTerm) ||
+        responsible.email.toLowerCase().includes(searchTerm) ||
+        responsible.role.toLowerCase().includes(searchTerm) ||
+        responsible.accessLevel.toLowerCase().includes(searchTerm);
     });
 
-    const resource = this.assembler.toResourceFromEntity(newResponsible);
+    // Si encontramos resultados locales, devolverlos
+    if (localResults.length > 0) {
+      return of(localResults);
+    }
 
-    this.http.post<ResponsibleResource>(this.apiUrl, resource)
-      .pipe(
-        catchError(err => {
-          this._error.set('Error creating responsible');
-          return of(null);
-        })
-      )
-      .subscribe(response => {
-        if (response) {
-          const added = this.assembler.toEntityFromResource(response);
-          this._responsibles.update(list => [...list, added]);
-        }
-        this._loading.set(false);
-      });
-  }
-
-  getResponsiblesForUI() {
-    return this._responsibles().map(r => ({
-      id: r.id,
-      fullName: r.fullName,
-      email: r.email,
-      phone: r.phone,
-      role: r.role,
-      description: r.description,
-      accessLevel: r.accessLevel,
-      status: r.status,
-      caseCount: r.getComplaintCount(),
-      createdAt: r.createdAt,
-    }));
-  }
-
-  updateResponsible(responsible: Responsible): void {
-    this._loading.set(true);
-    this._error.set(null);
-
-    const resource = this.assembler.toResourceFromEntity(responsible);
-
-    this.http.put<ResponsibleResource>(`${this.apiUrl}/${responsible.id}`, resource)
-      .pipe(
-        catchError(err => {
-          this._error.set('Error updating responsible');
-          this._responsibles.update(list =>
-            list.map(r => r.id === responsible.id ? responsible : r)
-          );
-          this._loading.set(false);
-          return of(null);
-        })
-      )
-      .subscribe(response => {
-        if (response) {
-          const updated = this.assembler.toEntityFromResource(response);
-          this._responsibles.update(list =>
-            list.map(r => r.id === updated.id ? updated : r)
-          );
-        }
-        this._loading.set(false);
-      });
-  }
-
-  updateResponsibleInStore(responsible: Responsible): void {
-    this._responsibles.update(list =>
-      list.map(r => r.id === responsible.id ? responsible : r)
+    // Si no, hacer llamada API
+    return this.http.get<ResponsibleResource[]>(`${this.baseUrl}/search`, {
+      params: { keyword: searchTerm }
+    }).pipe(
+      map(resources => resources.map(resource =>
+        this.assembler.toEntityFromResource(resource)
+      )),
+      catchError(() => {
+        // Si hay error en la API, devolver array vacío
+        return of([]);
+      })
     );
+  }
+
+  // Método auxiliar para AssignmentStore
+  updateResponsibleInStore(responsible: Responsible): void {
+    const currentResponsibles = this.responsiblesSubject.value;
+    const updatedResponsibles = currentResponsibles.map(r =>
+      r.id === responsible.id ? responsible : r
+    );
+    this.responsiblesSubject.next(updatedResponsibles);
+  }
+
+  // Getter para signals (si es necesario)
+  responsibles(): Responsible[] {
+    return this.responsiblesSubject.value;
   }
 }

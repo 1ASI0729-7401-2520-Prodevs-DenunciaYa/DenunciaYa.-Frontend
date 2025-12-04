@@ -16,6 +16,26 @@ h2 {
   letter-spacing: -0.3px;
 }
 
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.add-btn {
+  background-color: #0ea5e9;
+  border: none;
+  color: #ffffff;
+  border-radius: 8px;
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.add-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(14,165,233,0.3); }
+
 .filter-box {
   margin-bottom: 1.3rem;
   display: flex;
@@ -93,3 +113,46 @@ h2 {
   color: #777;
   padding: 1.5rem 0;
 }
+
+/* Cards layout */
+.cards-grid {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  border: 1px solid #e6e6e6;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #eef6ff;
+  color: #1e3a8a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.title-group .name { font-weight: 700; color: #111827; }
+.title-group .role { font-size: 0.85rem; color: #374151; }
+
+.card-body { margin-top: 0.75rem; }
+.meta { display: flex; gap: 6px; font-size: 0.92rem; margin: 4px 0; }
+.meta .label { color: #6b7280; }
+.meta .value { color: #111827; }
+
+.card-actions { margin-top: 0.75rem; display: flex; justify-content: flex-end; }

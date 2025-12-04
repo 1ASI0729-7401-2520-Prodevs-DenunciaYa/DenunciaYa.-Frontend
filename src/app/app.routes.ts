@@ -35,6 +35,7 @@ import {RestoreOwnerComponent} from './public/pages/login/restore-owner/restore-
 import {RestoreWorkerComponent} from './public/pages/login/restore-worker/restore-worker.component';
 import {ValidationComponent} from './public/pages/login/validation/validation.component';
 import { AuthGuard } from './guards/auth.guard';
+import {ResponsibleCardsComponent} from './authorities-panel/presentation/responsible-cards/responsible-cards';
 
 export const routes: Routes =[
   // Rutas públicas dentro de un layout de autenticación
@@ -68,7 +69,7 @@ export const routes: Routes =[
       { path: 'responsible-create', component: ResponsibleCreateComponent },
       { path: 'complaint-form', component: ComplaintForm },
       { path: 'complaint-list', component: ComplaintList },
-      { path: 'team-managment', component: ComplaintAssigmentComponent },
+      { path: 'team-managment', component: ResponsibleCardsComponent },
       { path: 'complaints', component: ComplaintList },
       { path: 'complaint-detail/:id', component: ComplaintDetailAuthority },
       { path: 'complaint-edit/:id', component: EditComplaintComponent },

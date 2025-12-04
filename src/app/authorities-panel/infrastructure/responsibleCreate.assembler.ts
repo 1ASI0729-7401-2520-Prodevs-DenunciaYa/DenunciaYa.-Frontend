@@ -18,13 +18,13 @@ export class ResponsibleAssembler {
 
   toEntityFromResource(resource: ResponsibleResource): Responsible {
     return new Responsible({
-      id: resource.id,
+      id: resource.id.toString(),
       firstName: resource.firstName,
       lastName: resource.lastName,
       email: resource.email,
       position: resource.position,
       department: resource.department,
-      phone: resource.phone,
+      phoneNumber: resource.phoneNumber,
       role: resource.role,
       description: resource.description,
       accessLevel: resource.accessLevel,
@@ -43,7 +43,7 @@ export class ResponsibleAssembler {
       email: entity.email,
       position: entity.position,
       department: entity.department,
-      phone: entity.phone,
+      phoneNumber: entity.phoneNumber,
       role: entity.role,
       description: entity.description,
       accessLevel: entity.accessLevel,

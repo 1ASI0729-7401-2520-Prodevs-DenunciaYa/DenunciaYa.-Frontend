@@ -1,0 +1,276 @@
+<!-- file name: responsible-cards.component.html -->
+<div class="container">
+  <!-- Formulario para crear nuevo responsable -->
+  <div class="card form-card">
+    <div class="card-header">
+      <h3>Crear Nuevo Responsable</h3>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="onSubmit()" #responsibleForm="ngForm">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group mb-4">
+              <label for="firstName" class="form-label required">Nombre</label>
+              <input
+                type="text"
+                id="firstName"
+                name="firstName"
+                [(ngModel)]="newResponsible.firstName"
+                required
+                class="form-control"
+                placeholder="Ingrese el nombre"
+              />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group mb-4">
+              <label for="lastName" class="form-label required">Apellido</label>
+              <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                [(ngModel)]="newResponsible.lastName"
+                required
+                class="form-control"
+                placeholder="Ingrese el apellido"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group mb-4">
+              <label for="email" class="form-label required">Correo Electrónico</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                [(ngModel)]="newResponsible.email"
+                required
+                class="form-control"
+                placeholder="ejemplo@dominio.com"
+              />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group mb-4">
+              <label for="phone" class="form-label required">Teléfono</label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                [(ngModel)]="newResponsible.phoneNumber"
+                required
+                class="form-control"
+                placeholder="+51 999 999 999"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group mb-4">
+              <label for="role" class="form-label required">Rol</label>
+              <input
+                type="text"
+                id="role"
+                name="role"
+                [(ngModel)]="newResponsible.role"
+                required
+                class="form-control"
+                placeholder="Ej: Analista, Supervisor"
+              />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group mb-4">
+              <label for="accessLevel" class="form-label required">Nivel de Acceso</label>
+              <select
+                id="accessLevel"
+                name="accessLevel"
+                [(ngModel)]="newResponsible.accessLevel"
+                required
+                class="form-select"
+              >
+                <option value="">Seleccione nivel</option>
+                <option value="TECNICO">Técnico</option>
+                <option value="SUPERVISOR">Supervisor</option>
+                <option value="ADMINISTRADOR">Administrador</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group mb-4">
+              <label for="position" class="form-label">Cargo</label>
+              <input
+                type="text"
+                id="position"
+                name="position"
+                [(ngModel)]="newResponsible.position"
+                class="form-control"
+                placeholder="Ej: Jefe de Departamento"
+              />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group mb-4">
+              <label for="department" class="form-label">Departamento</label>
+              <input
+                type="text"
+                id="department"
+                name="department"
+                [(ngModel)]="newResponsible.department"
+                class="form-control"
+                placeholder="Ej: TI, Recursos Humanos"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group mb-4">
+          <label for="description" class="form-label">Descripción</label>
+          <textarea
+            id="description"
+            name="description"
+            [(ngModel)]="newResponsible.description"
+            class="form-control"
+            rows="4"
+            placeholder="Observaciones adicionales sobre el responsable..."
+          ></textarea>
+        </div>
+
+        <div class="btn-group">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="resetForm()"
+            [disabled]="loading"
+          >
+            <i class="fas fa-eraser"></i>
+            Limpiar
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="responsibleForm.invalid || loading"
+          >
+            <i class="fas fa-plus-circle" *ngIf="!loading"></i>
+            <span *ngIf="!loading">Crear Responsable</span>
+            <span *ngIf="loading">
+              <div class="spinner" style="width: 16px; height: 16px; border-width: 2px;"></div>
+              Creando...
+            </span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Cards de responsables existentes -->
+  <div class="section-header d-flex justify-content-between align-items-center">
+    <h3>Responsables Registrados     <span class="responsible-count">
+      <i class="fas fa-users me-2"></i>
+      {{ responsibles.length }} responsable{{ responsibles.length !== 1 ? 's' : '' }}
+    </span></h3>
+
+  </div>
+
+  <ng-container *ngIf="responsibles.length > 0; else noResponsibles">
+    <div class="row">
+      <div *ngFor="let responsible of responsibles; let i = index"
+           class="col-md-6 col-lg-4 mb-4"
+           [style.--index]="i">
+        <div class="card responsible-card">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0 text-truncate">
+              <i class="fas fa-user-circle me-2"></i>
+              {{ responsible.fullName }}
+            </h5>
+            <span class="status-badge" [ngClass]="{'inactive': responsible.status === 'inactive'}">
+              <i class="fas fa-circle me-1" style="font-size: 0.5rem"></i>
+              {{ responsible.status === 'active' ? 'Activo' : 'Inactivo' }}
+            </span>
+          </div>
+          <div class="card-body">
+            <div class="info-row">
+              <i class="fas fa-id-badge"></i>
+              <strong>Rol:</strong>
+              <span>{{ responsible.role }}</span>
+            </div>
+
+            <div class="info-row">
+              <i class="fas fa-envelope"></i>
+              <strong>Email:</strong>
+              <a href="mailto:{{ responsible.email }}" class="text-truncate d-inline-block" style="max-width: 200px;">
+                {{ responsible.email }}
+              </a>
+            </div>
+
+            <div class="info-row">
+              <i class="fas fa-phone"></i>
+              <strong>Teléfono:</strong>
+              <span>{{ responsible.phoneNumber }}</span>
+            </div>
+
+            <div *ngIf="responsible.position" class="info-row">
+              <i class="fas fa-briefcase"></i>
+              <strong>Cargo:</strong>
+              <span>{{ responsible.position }}</span>
+            </div>
+
+            <div *ngIf="responsible.department" class="info-row">
+              <i class="fas fa-building"></i>
+              <strong>Departamento:</strong>
+              <span>{{ responsible.department }}</span>
+            </div>
+
+            <div class="info-row">
+              <i class="fas fa-shield-alt"></i>
+              <strong>Nivel:</strong>
+              <span class="access-badge">{{ responsible.accessLevel }}</span>
+            </div>
+
+            <div *ngIf="responsible.description" class="info-row">
+              <i class="fas fa-sticky-note"></i>
+              <strong>Descripción:</strong>
+              <span class="small text-muted d-block mt-1">{{ responsible.description }}</span>
+            </div>
+
+            <div class="info-row mt-3 pt-2" style="border-top: 2px dashed #e0e0e0;">
+              <i class="fas fa-clipboard-check"></i>
+              <strong>Denuncias:</strong>
+              <span class="complaints-counter">
+                {{ responsible.getComplaintCount() }}
+              </span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="footer-info">
+              <span>
+                <i class="fas fa-hashtag"></i>
+                ID: {{ responsible.id | slice:0:8 }}...
+              </span>
+              <span>
+                <i class="fas fa-calendar-alt"></i>
+                {{ responsible.createdAt | date:'dd/MM/yyyy' }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #noResponsibles>
+    <div class="empty-state">
+      <i class="fas fa-user-plus"></i>
+      <h4 class="text-gradient">No hay responsables registrados</h4>
+      <p class="text-muted">Comienza agregando un nuevo responsable usando el formulario de arriba.</p>
+    </div>
+  </ng-template>
+</div>
