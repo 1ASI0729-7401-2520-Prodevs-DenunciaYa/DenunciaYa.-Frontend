@@ -57,8 +57,7 @@ export class EditComplaintComponent implements OnInit {
     'Completed',
     'Rejected',
     'Awaiting Response',
-    'Accepted',
-    'Under Review'
+    'Accepted'
   ];
 
   priorities = ['Standard', 'Urgent', 'Critical'];
