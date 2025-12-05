@@ -6,6 +6,7 @@ import {RouterLink} from '@angular/router';
 import {MatCard, MatCardContent} from '@angular/material/card';
 import {MatFormField} from '@angular/material/form-field';
 import {TranslatePipe} from '@ngx-translate/core';
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'app-recover-password-owner',
@@ -21,6 +22,7 @@ import {TranslatePipe} from '@ngx-translate/core';
     MatInput,
     FormsModule,
     TranslatePipe,
+    MatIconModule
 
   ],
   standalone: true,

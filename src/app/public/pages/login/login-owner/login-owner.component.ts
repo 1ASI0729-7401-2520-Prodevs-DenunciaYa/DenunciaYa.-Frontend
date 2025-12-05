@@ -8,6 +8,8 @@ import {MatFormField} from '@angular/material/form-field';
 import {FormsModule} from '@angular/forms';
 import {TranslatePipe} from '@ngx-translate/core';
 import {AuthService} from '../../../services/auth.service';
+import {UpperCasePipe} from '@angular/common';
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'app-login-owner',
@@ -24,7 +26,9 @@ import {AuthService} from '../../../services/auth.service';
     MatInput,
     FormsModule,
 
-    MatAnchor
+    MatAnchor,
+    UpperCasePipe,
+    MatIconModule
   ],
   standalone: true,
   styleUrls: ['./login-owner.component.css']

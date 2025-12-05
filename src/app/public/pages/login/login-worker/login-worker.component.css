@@ -1,66 +1,218 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400,500,600&display=swap');
 
 .content-primary {
   min-height: 100vh;
-  background-color: #003333 !important;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
   font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
-.contenedor{
-  padding: 15px;
+.contenedor {
+  padding: 40px 30px;
   display: flex;
   flex-direction: column;
   margin: auto;
+  width: 100%;
   max-width: 500px;
-  justify-content: center;
+  background-color: rgb(255, 255, 255);
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(12, 36, 97, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
-.content-2{
-  display: flex;
 
+.logo-container {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.logo {
+  max-width: 180px;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+.logo-text {
+  font-size: 24px;
+  font-weight: 600;
+  color: #0c2461;
+  letter-spacing: 1px;
+}
+
+.content-2 {
+  display: flex;
   flex-direction: column;
-  padding: 15px;
   justify-content: center;
   align-content: center;
-  max-width: 700px;
+  width: 100%;
 }
-.section-button{
 
-  place-items: center;
+.tabs-container {
   display: flex;
-  margin: auto;
-
-  justify-content: center;
-
-
-
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  padding: 5px;
+  margin-bottom: 30px;
+  border: 1px solid #e0e7ff;
 }
 
-#btnn{
-
+.tab-button {
+  flex: 1;
   background-color: transparent;
   border: none;
+  padding: 12px 20px;
+  font-weight: 600;
+  color: #4a69bd;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
 
-  padding: 0;
-  flex-direction: column;
-  font-weight: bold;
-  color: black;
-  font-family: 'Poppins',sans-serif;
-  box-shadow: none;
+.tab-button:hover {
+  background-color: rgba(74, 105, 189, 0.1);
 }
-#btnn:hover{
-  background-color: transparent;
+
+.tab-button.active {
+  background-color: #0c2461;
+  color: white;
+  box-shadow: 0 4px 12px rgba(12, 36, 97, 0.2);
 }
-#btnn:focus{
-  color:#FF7A00;
+
+.title {
+  text-align: center;
+  font-size: 28px;
+  color: #0c2461;
+  font-weight: 600;
+  margin-bottom: 10px;
 }
-.input{
+
+.subtitle {
+  text-align: center;
+  font-size: 14px;
+  color: #4a69bd;
+  margin-bottom: 30px;
+  line-height: 1.5;
+}
+
+.create-account-link {
+  color: #0c2461;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.create-account-link:hover {
+  color: #4a69bd;
+  text-decoration: underline;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+mat-form-field .mat-form-field-wrapper {
+  padding-bottom: 0;
+}
+
+mat-form-field .mat-form-field-outline {
+  background-color: white;
+  border-radius: 10px;
+}
+
+mat-form-field .mat-form-field-outline-thick {
+  color: #4a69bd;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 16px;
+}
+
+.forgot-password {
   display: flex;
-  min-width: 300px;
-  max-width: 100%;
+  justify-content: flex-end;
+  margin-bottom: 25px;
+}
+
+.forgot-password-link {
+  color: #4a69bd;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.forgot-password-link:hover {
+  color: #0c2461;
+  text-decoration: underline;
+}
+
+.submit-button {
+  width: 100%;
+  background: linear-gradient(to right, #0c2461, #1e3799);
+  color: white;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 600;
   border: none;
-  text-align: start;
-  justify-content: center;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(12, 36, 97, 0.3);
+  font-family: 'Poppins', sans-serif;
+  margin-top: 10px;
+}
+
+.submit-button:hover {
+  background: linear-gradient(to right, #1e3799, #4a69bd);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(12, 36, 97, 0.4);
+}
+
+.submit-button:active {
+  transform: translateY(0);
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 25px 0;
+  color: #7b8a8b;
+  font-size: 14px;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background-color: #e0e7ff;
+}
+
+.divider span {
+  padding: 0 15px;
+}
+
+@media (max-width: 600px) {
+  .contenedor {
+    padding: 30px 20px;
+    max-width: 90%;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .logo {
+    max-width: 150px;
+  }
 }

@@ -1,79 +1,91 @@
 <div class="content-primary">
-
-  <br><br>
   <mat-card class="contenedor">
+    <div class="logo-container">
+      <!-- Reemplaza 'assets/logo.png' con la ruta correcta de tu logo -->
+      <img src="assets/images/Logo_1.jpg" alt="Denuncia Ya Logo" class="logo">
+      <div class="logo-text">DENUNCIA YA</div>
+    </div>
+
     <mat-card-content>
       <div class="content-2">
+        <div class="tabs-container">
+          <button mat-button class="tab-button active" [routerLink]="['/pages/register-worker']">
+            {{ 'register-worker.WORKER' | translate }}
+          </button>
+          <button mat-button class="tab-button" [routerLink]="['/pages/register-owner']" style="margin-left: 5px">
+            {{ 'register-worker.DUENO' | translate }}
+          </button>
+        </div>
 
-        <section>
-          <div class="example-button-row section-button">
-            <button mat-button [routerLink]="['/pages/register-worker']">
-              {{ 'register-worker.WORKER' | translate }}
-            </button>
-            <button mat-button [routerLink]="['/pages/register-owner']" style="margin-left: 1em">
-              {{ 'register-worker.DUENO' | translate }}
-            </button>
+        <div class="title">
+          {{ 'register-worker.REGISTER' | translate }}
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label class="field-label">{{ 'register-worker.FIRST_NAME' | translate }}</label>
+            <mat-form-field appearance="outline">
+              <input matInput [(ngModel)]="user.firstName" type="text"
+                     [placeholder]="'register-worker.FIRST_NAME_PLACEHOLDER' | translate" class="input">
+              <mat-icon matSuffix>person</mat-icon>
+            </mat-form-field>
           </div>
-        </section>
 
-        <br><br>
-        <mat-label style="text-align: center; font-size: 30px; color: #14131B">
-          <b>{{ 'register-worker.REGISTER' | translate }}</b>
-        </mat-label>
-        <br>
+          <div class="form-field">
+            <label class="field-label">{{ 'register-worker.LAST_NAME' | translate }}</label>
+            <mat-form-field appearance="outline">
+              <input matInput [(ngModel)]="user.lastName" type="text"
+                     [placeholder]="'register-worker.LAST_NAME_PLACEHOLDER' | translate" class="input">
+              <mat-icon matSuffix>person</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
 
-        <mat-label style="text-align: left">
-          {{ 'register-worker.FIRST_NAME' | translate }}
-        </mat-label>
-        <mat-form-field>
-          <input matInput [(ngModel)]="user.firstName" type="text"
-                 [placeholder]="'register-worker.FIRST_NAME_PLACEHOLDER' | translate" class="input">
-        </mat-form-field>
+        <div class="form-field">
+          <label class="field-label">{{ 'register-worker.BIRTH_DATE' | translate }}</label>
+          <mat-form-field appearance="outline">
+            <input matInput [(ngModel)]="user.birthDate" type="date" class="input">
+            <mat-icon matSuffix>calendar_today</mat-icon>
+          </mat-form-field>
+        </div>
 
-        <mat-label style="text-align: left">
-          {{ 'register-worker.LAST_NAME' | translate }}
-        </mat-label>
-        <mat-form-field>
-          <input matInput [(ngModel)]="user.lastName" type="text"
-                 [placeholder]="'register-worker.LAST_NAME_PLACEHOLDER' | translate" class="input">
-        </mat-form-field>
+        <div class="form-field">
+          <label class="field-label">{{ 'register-worker.PHONE' | translate }}</label>
+          <mat-form-field appearance="outline">
+            <input matInput [(ngModel)]="user.phoneNumber" type="tel"
+                   [placeholder]="'register-worker.PHONE_PLACEHOLDER' | translate" class="input">
+            <mat-icon matSuffix>phone</mat-icon>
+          </mat-form-field>
+        </div>
 
-        <mat-label style="text-align: left">
-          {{ 'register-worker.BIRTH_DATE' | translate }}
-        </mat-label>
-        <mat-form-field>
-          <input matInput [(ngModel)]="user.birthDate" type="date" class="input">
-        </mat-form-field>
+        <div class="form-field">
+          <label class="field-label">{{ 'register-worker.EMAIL' | translate }}</label>
+          <mat-form-field appearance="outline">
+            <input matInput [(ngModel)]="user.email" type="email"
+                   [placeholder]="'register-worker.EMAIL_PLACEHOLDER' | translate" class="input">
+            <mat-icon matSuffix>email</mat-icon>
+          </mat-form-field>
+        </div>
 
-        <mat-label style="text-align: left">
-          {{ 'register-worker.PHONE' | translate }}
-        </mat-label>
-        <mat-form-field>
-          <input matInput [(ngModel)]="user.phoneNumber" type="tel"
-                 [placeholder]="'register-worker.PHONE_PLACEHOLDER' | translate" class="input">
-        </mat-form-field>
+        <div class="form-field">
+          <label class="field-label">{{ 'register-worker.PASSWORD' | translate }}</label>
+          <mat-form-field appearance="outline">
+            <input matInput [(ngModel)]="user.password" type="password"
+                   [placeholder]="'register-worker.PASSWORD_PLACEHOLDER' | translate" class="input">
+            <mat-icon matSuffix>lock</mat-icon>
+          </mat-form-field>
+        </div>
 
-        <mat-label style="text-align: left">
-          {{ 'register-worker.EMAIL' | translate }}
-        </mat-label>
-        <mat-form-field>
-          <input matInput [(ngModel)]="user.email" type="email"
-                 [placeholder]="'register-worker.EMAIL_PLACEHOLDER' | translate" class="input">
-        </mat-form-field>
-
-        <mat-label style="text-align: left">
-          {{ 'register-worker.PASSWORD' | translate }}
-        </mat-label>
-        <mat-form-field>
-          <input matInput [(ngModel)]="user.password" type="password"
-                 [placeholder]="'register-worker.PASSWORD_PLACEHOLDER' | translate" class="input">
-        </mat-form-field>
-
-        <button mat-button style="color: white; background-color: #FF7A00" type="submit"
-                (click)="onSubmit()" routerLink="/pages/validation">
+        <button class="submit-button" type="submit" (click)="onSubmit()" routerLink="/pages/validation">
           {{ 'register-worker.REGISTER_AS_WORKER' | translate }}
         </button>
 
+        <div class="login-link-container">
+          {{ 'register-worker.ALREADY_HAVE_ACCOUNT' | translate }}
+          <a routerLink="/pages/login-worker" class="login-link">
+            {{ 'register-worker.SIGN_IN' | translate }}
+          </a>
+        </div>
       </div>
     </mat-card-content>
   </mat-card>

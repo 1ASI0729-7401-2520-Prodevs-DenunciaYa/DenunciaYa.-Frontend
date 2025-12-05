@@ -6,6 +6,7 @@ import {MatInput, MatLabel} from '@angular/material/input';
 import {MatFormField} from '@angular/material/form-field';
 import {FormsModule} from '@angular/forms';
 import {TranslatePipe} from '@ngx-translate/core';
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'app-recover-password-worker',
@@ -15,7 +16,7 @@ import {TranslatePipe} from '@ngx-translate/core';
     MatCardContent,
     MatButton,
     RouterLink,
-
+    MatIconModule,
     MatLabel,
     MatFormField,
     MatLabel,

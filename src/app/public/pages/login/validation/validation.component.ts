@@ -5,6 +5,8 @@ import {RouterLink} from '@angular/router';
 import {MatInput, MatLabel} from '@angular/material/input';
 import {MatFormField} from '@angular/material/form-field';
 import {FormsModule} from '@angular/forms';
+import {TranslatePipe} from '@ngx-translate/core';
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'app-validation',
@@ -23,6 +25,8 @@ import {FormsModule} from '@angular/forms';
     MatLabel,
     MatLabel,
     FormsModule,
+    TranslatePipe,
+    MatIconModule
   ],
   styleUrls: ['./validation.component.css']
 })

@@ -1,34 +1,79 @@
 <div class="content-primary">
 
-  <br><br>
   <mat-card class="contenedor">
     <mat-card-content>
       <div class="content-2">
 
-        <br>
-        <mat-label style="text-align: center; font-size: 30px; color: #14131B;"><b>Reset Password</b></mat-label>
-        <br>
-        <mat-label style="text-align: center">Owner</mat-label>
-        <br>
-        <mat-label style="text-align: center; font-size: 20px; color: #14131B"><br>Enter your new password</mat-label>
-        <br>
+        <!-- Título principal -->
+        <h2 class="title">Reset Password</h2>
 
-        <mat-label style="text-align: left">New Password</mat-label>
-        <mat-form-field>
-          <input matInput [(ngModel)]="password" type="password" placeholder="New Password" class="input">
-        </mat-form-field>
+        <!-- Tipo de usuario -->
+        <div class="user-type">Worker</div>
+        <!-- Si quieres que sea dinámico, simplemente cambia la variable -->
 
-        <br>
-        <mat-label style="text-align: left">Confirm Password</mat-label>
-        <mat-form-field>
-          <input matInput [(ngModel)]="newpassword" type="password" placeholder="Confirm Password" class="input">
-        </mat-form-field>
-        <br>
-        <button mat-button style="color: white; background-color: #FF7A00; font-family: 'Poppins', sans-serif" routerLink="/pages/validation">
+        <!-- Subtítulo -->
+        <p class="subtitle">
+          Enter your new password
+        </p>
+
+        <!-- Requisitos de contraseña -->
+        <div class="password-requirements">
+          <div class="requirements-title">
+            Password Requirements
+          </div>
+
+          <ul class="requirements-list">
+            <li class="invalid">At least 8 characters</li>
+            <li class="invalid">One capital letter</li>
+            <li class="invalid">One number</li>
+            <li class="invalid">One special character</li>
+          </ul>
+        </div>
+
+        <!-- Campo: Nueva contraseña -->
+        <div class="form-field">
+          <label class="field-label">New Password</label>
+
+          <mat-form-field appearance="outline">
+            <input matInput [(ngModel)]="password" type="password" placeholder="New Password" class="input">
+          </mat-form-field>
+
+          <!-- Indicador de fuerza -->
+          <div class="password-strength">
+            <div class="strength-bar">
+              <div class="strength-fill"></div>
+            </div>
+            <span class="strength-text">Weak</span>
+          </div>
+        </div>
+
+        <!-- Campo: Confirmar contraseña -->
+        <div class="form-field">
+          <label class="field-label">Confirm Password</label>
+
+          <mat-form-field appearance="outline">
+            <input matInput [(ngModel)]="newpassword" type="password" placeholder="Confirm Password" class="input">
+          </mat-form-field>
+
+          <!-- Mensaje de coincidencia -->
+          <div class="password-match invalid">
+            Passwords do not match
+          </div>
+        </div>
+
+        <!-- Botón principal -->
+        <button mat-button class="change-button" routerLink="/pages/validation">
           Change Password
         </button>
+
+        <!-- Link para volver -->
+        <div class="back-link-container">
+          Go back?
+          <a class="back-link" routerLink="/login">Click here</a>
+        </div>
 
       </div>
     </mat-card-content>
   </mat-card>
+
 </div>

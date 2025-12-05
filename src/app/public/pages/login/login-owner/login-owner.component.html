@@ -1,51 +1,73 @@
 <div class="content-primary">
-  <br><br>
   <mat-card class="contenedor">
+    <div class="logo-container">
+      <!-- Reemplaza 'assets/logo.png' con la ruta correcta de tu logo -->
+      <img src="assets/images/Logo_1.jpg" alt="Denuncia Ya Logo" class="logo">
+      <div class="logo-text">DENUNCIA YA</div>
+    </div>
+
     <mat-card-content>
       <div class="content-2">
-        <section>
-          <div class="example-button-row section-button">
-            <button mat-button id="btnn" routerLink="/pages/login-worker">
-              {{ 'login-owner.WORKER' | translate }}
-            </button>
-            <button mat-button id="btnn" routerLink="/pages/login-owner" style="margin-left: 1em">
-              {{ 'login-owner.OWNER' | translate }}
-            </button>
-          </div>
-        </section>
-        <br><br>
+        <div class="tabs-container">
+          <button mat-button class="tab-button" routerLink="/pages/login-worker">
+            {{ 'login-owner.WORKER' | translate }}
+          </button>
+          <button mat-button class="tab-button active" routerLink="/pages/login-owner" style="margin-left: 5px">
+            {{ 'login-owner.OWNER' | translate }}
+          </button>
+        </div>
 
-        <mat-label style="text-align: center;font-size: 30px;color: #14131B">
-          <b>{{ 'login-owner.SIGN IN' | translate }}</b>
-        </mat-label>
-        <br>
+        <div class="title">
+          {{ 'login-owner.SIGN IN' | translate }}
+        </div>
 
-        <mat-label style="text-align: center;font-size: 15px;color: #14131B">
+        <div class="subtitle">
           {{ 'login-owner.FIRST_TIME' | translate }}
-          <a routerLink="/pages/register-owner" style="color: #14131B;text-decoration: none">
-            <b>{{ 'login-owner.CREATE_ACCOUNT' | translate }}</b>
+          <a routerLink="/pages/register-owner" class="create-account-link">
+            {{ 'login-owner.CREATE_ACCOUNT' | translate }}
           </a>
-        </mat-label>
-        <br>
+        </div>
 
-        <mat-form-field>
-          <input matInput [(ngModel)]="user.email" name="username" type="text" placeholder="Email address" class="input">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput [(ngModel)]="user.password" name="password" type="password" placeholder="Password" class="input">
+        <mat-form-field appearance="outline">
+          <mat-label>Email address</mat-label>
+          <input
+            matInput
+            [(ngModel)]="user.email"
+            name="username"
+            type="text"
+            class="input"
+          >
+          <mat-icon matSuffix>person</mat-icon>
         </mat-form-field>
 
-        <mat-label style="color: #14131B; justify-content: right; text-align: right;">
-          <a mat-button routerLink="/pages/recover-password-owner">
-            <b style="font-family: 'Poppins', sans-serif">
-              {{ 'login-owner.FORGOT_PASSWORD' | translate }}
-            </b>
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            [(ngModel)]="user.password"
+            name="password"
+            type="password"
+            class="input"
+          >
+          <mat-icon matSuffix>lock</mat-icon>
+        </mat-form-field>
+
+        <div class="forgot-password">
+          <a mat-button routerLink="/pages/recover-password-owner" class="forgot-password-link">
+            {{ 'login-owner.FORGOT_PASSWORD' | translate }}
           </a>
-        </mat-label>
-        <br>
+        </div>
 
-        <button mat-button style="color: white; background-color: #FF7A00" type="submit" (click)="onSubmit()">
+        <button class="submit-button" type="submit" (click)="onSubmit()">
           {{ 'login-owner.LOGIN_OWNER' | translate }}
+        </button>
+
+        <div class="divider">
+          <span>{{ 'login-owner.OR' | translate | uppercase }}</span>
+        </div>
+
+        <button mat-button class="tab-button" style="margin-top: 10px" routerLink="/pages/register-owner">
+          {{ 'login-owner.REGISTER_OWNER' | translate }}
         </button>
       </div>
     </mat-card-content>

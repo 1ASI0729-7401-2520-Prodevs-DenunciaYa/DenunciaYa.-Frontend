@@ -1,24 +1,43 @@
 <div class="content-primary">
-
-  <br><br>
   <mat-card class="contenedor">
+    <div class="logo-container">
+      <!-- Reemplaza 'assets/logo.png' con la ruta correcta de tu logo -->
+      <img src="assets/images/Logo_1.jpg" alt="Denuncia Ya Logo" class="logo">
+      <div class="logo-text">DENUNCIA YA</div>
+    </div>
+
     <mat-card-content>
       <div class="content-2">
+        <div class="user-type">
+          {{ 'validation.OWNER' | translate }}
+        </div>
 
-        <br>
-        <mat-label style="text-align: center">Propietario</mat-label>
-        <br>
+        <div class="success-icon">
+          <img src="https://i.postimg.cc/zX17p3rv/lista-de-verificacion.png" alt="Success Icon">
+        </div>
 
-        <img src="https://i.postimg.cc/zX17p3rv/lista-de-verificacion.png" style="display: flex; width: 20em; margin: auto">
+        <div class="success-title">
+          {{ 'validation.PROCESS_SUCCESSFUL' | translate }}
+        </div>
 
-        <mat-label style="text-align: center; font-size: 30px; color: #FF7A00;">
-          <br>El proceso ha sido exitoso!
-        </mat-label>
-        <br><br>
-        <button mat-button style="color: white; background-color: #14131B; font-family: 'Poppins', sans-serif" routerLink="/pages/login-worker">
-          Iniciar Sesión
-        </button>
+        <div class="success-message">
+          {{ 'validation.SUCCESS_MESSAGE' | translate }}
+        </div>
 
+        <a mat-button class="login-button" routerLink="/pages/login-owner">
+          <mat-icon>login</mat-icon>
+          {{ 'validation.LOGIN_BUTTON' | translate }}
+        </a>
+
+        <div class="countdown">
+          <mat-icon>timer</mat-icon>
+          <span>{{ 'validation.REDIRECTING' | translate }} 5 {{ 'validation.SECONDS' | translate }}</span>
+        </div>
+
+        <div class="additional-info">
+          <p>{{ 'validation.ADDITIONAL_INFO_1' | translate }}</p>
+          <p>{{ 'validation.ADDITIONAL_INFO_2' | translate }}</p>
+        </div>
       </div>
     </mat-card-content>
   </mat-card>
