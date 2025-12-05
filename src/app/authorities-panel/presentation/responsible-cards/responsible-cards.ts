@@ -52,12 +52,10 @@ export class ResponsibleCardsComponent implements OnInit {
 
       this.responsibleStore.addResponsible(this.newResponsible).subscribe({
         next: (createdResponsible) => {
-          console.log('Responsable creado exitosamente:', createdResponsible);
           this.resetForm();
           this.loading = false;
         },
         error: (error) => {
-          console.error('Error al crear responsable:', error);
           alert('Error al crear el responsable. Por favor, intente nuevamente.');
           this.loading = false;
         }

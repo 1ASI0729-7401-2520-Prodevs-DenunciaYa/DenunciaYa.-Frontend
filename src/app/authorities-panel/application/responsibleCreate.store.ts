@@ -31,27 +31,22 @@ export class ResponsibleCreateStore {
   constructor() {}
 
   loadResponsibles(): void {
-    console.log('Loading from:', this.baseUrl);
     this.http.get<ResponsibleResource[]>(this.baseUrl)
       .pipe(
         map(resources => {
-          console.log('API Response:', resources);
           return resources.map(resource =>
             this.assembler.toEntityFromResource(resource)
           );
         }),
         catchError(error => {
-          console.error('HTTP Error loading responsibles:', error);
           return of([]);
         })
       )
       .subscribe({
         next: (responsibles) => {
-          console.log('Loaded responsibles:', responsibles);
           this.responsiblesSubject.next(responsibles);
         },
         error: (error) => {
-          console.error('Subscription error:', error);
         }
       });
   }

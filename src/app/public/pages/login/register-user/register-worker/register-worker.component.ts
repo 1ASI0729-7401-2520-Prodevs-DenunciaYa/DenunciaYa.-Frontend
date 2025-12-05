@@ -46,18 +46,15 @@ export class RegisterWorkerComponent {
     this.user.username = this.user.email;
 
     this.userService.addUser(this.user).subscribe((data: any) => {
-      console.log('Usuario creado:', data);
       this.userService.setCurrentUserId(data.id);
 
       const workerId = data.id;
       if (workerId != null) {
         this.profile.workerId = workerId;
         this.userService.addImageProfile(this.profile).subscribe((profileData: any) => {
-          console.log('Perfil creado:', profileData);
           this.router.navigate(['/pages/login-worker']);
         });
       } else {
-        console.error('workerId es nulo');
       }
     });
   }

@@ -32,10 +32,8 @@ export class ResponsibleApiEndpoint {
   }
 
   create(responsible: Responsible): Observable<Responsible> {
-    // SIMPLIFICADO: Como ya todo se llama 'phone', no necesitamos convertir nada manual.
     const resource = this.assembler.toResourceFromEntity(responsible);
 
-    console.log('Creating with resource:', resource);
 
     return this.http.post<ResponsibleResource>(this.baseUrl, resource)
       .pipe(
@@ -67,7 +65,6 @@ export class ResponsibleApiEndpoint {
     );
   }
 
-  // Métodos que usan el store local (no hacen llamadas API)
   getResponsibleById(id: string): Responsible | null {
     const cleanId = id.replace('$', '').trim();
     const allResponsibles = this.store.responsibles();

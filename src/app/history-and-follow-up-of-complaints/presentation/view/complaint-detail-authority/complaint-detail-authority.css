@@ -1,1 +1,49 @@
 :root{--bg-color:#f8faff;--primary-text:#222;--title-color:#1a237e;--subtitle-color:#0d47a1;--card-bg:#fff;--shadow:0 4px 12px rgba(0,0,0,.05)}body,html{margin:0;padding:0;background-color:var(--bg-color);color:var(--primary-text);font-family:'Roboto',sans-serif}h1,h2{font-family:'Roboto',sans-serif;color:var(--title-color);margin:.5rem 0}.title{font-size:clamp(1.6rem,2vw + 1rem,2.4rem);text-align:center;margin:1rem 0 2rem;font-weight:700}.subtitle{font-size:clamp(1.1rem,1vw + .6rem,1.4rem);margin-top:1.5rem;color:var(--subtitle-color)}.complaint-detail{max-width:900px;margin:2rem auto;background:var(--card-bg);border-radius:16px;padding:2.2rem;box-shadow:var(--shadow);transition:all .3s ease-in-out}.complaint-info p{margin:.5rem 0;font-size:1rem;line-height:1.6}.status span,.priority span{display:inline-block;margin:.3rem;padding:.5rem .9rem;border-radius:8px;font-weight:600;color:#fff;font-size:.9rem;white-space:nowrap}.status.pending,.priority.urgent{background-color:#f9a825}.status.accepted,.status.completed{background-color:#43a047}.status.in-process,.status.awaiting{background-color:#1e88e5}.status.draft{background-color:#9e9e9e}.status.rejected,.priority.critical{background-color:#d32f2f}.priority.standard{background-color:#0288d1}.image-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:.8rem;margin-top:1rem;justify-items:center}.image-grid img,.image-grid .more{width:100%;max-width:120px;aspect-ratio:1/1;border-radius:12px;object-fit:cover}.image-grid .more{display:flex;justify-content:center;align-items:center;background:#e0e0e0;color:#555;font-weight:600}.container{width:100%;max-width:850px;margin:30px auto}.dot-color .e-dot{width:25px!important;height:25px!important}.dot-color .state-success .e-dot{background-color:#28a745!important;border-color:#28a745!important}.dot-color .state-info .e-dot{background-color:#007bff!important;border-color:#007bff!important}.dot-color .state-warning .e-dot{background-color:#ffc107!important;border-color:#ffc107!important}.dot-color .state-error .e-dot{background-color:#dc3545!important;border-color:#dc3545!important}.dot-color .state-default .e-dot{background-color:#6c757d!important;border-color:#6c757d!important}.e-timeline-item .e-connector::before,.e-timeline-item .e-connector::after{border-color:#ddd!important;border-width:3px!important}.status,.priority{display:inline-block;padding:4px;font-weight:600;color:#fff;font-size:.9rem;text-transform:capitalize}.update-channel{background:#fff;outline-color:#333;border-radius:16px;padding:2rem;color:#fff;position:relative;overflow:hidden}.update-channel h3{font-family:'Roboto',sans-serif;font-size:1.2rem;font-weight:700;margin:0 0 1rem;text-align:center;text-transform:uppercase;letter-spacing:1px;color:#333}.channel-message{text-align:center;color:#333}.channel-message p{font-size:1.2rem;line-height:1.6;margin-bottom:1rem;font-weight:500;color:#333}.channel-message .message-date{display:inline-block;background:rgba(255,255,255,.2);padding:.5rem 1rem;border-radius:20px;font-size:.9rem;font-weight:600;backdrop-filter:blur(10px);color:#333}.responsible-section{margin:1.5rem 0;text-align:center}@media (max-width:992px){.complaint-detail{padding:1.8rem;margin:1.5rem}}@media (max-width:768px){.complaint-detail{padding:1.5rem}.title{text-align:center}.image-grid{grid-template-columns:repeat(auto-fit,minmax(80px,1fr))}.status span,.priority span{font-size:.8rem;padding:.4rem .7rem}.responsible-button{width:100%;justify-content:center;padding:14px 24px}}@media (max-width:480px){.complaint-detail{padding:1rem;border-radius:10px}.title{font-size:1.6rem}.subtitle{font-size:1rem}.image-grid{grid-template-columns:repeat(2,1fr);gap:.6rem}}
+.action-buttons {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid #eee;
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.assign-action-button {
+  background-color: #e3f2fd;
+  border-color: #1976d2;
+  color: #1976d2;
+}
+
+.assign-action-button:hover {
+  background-color: #bbdefb;
+}
+
+.additional-actions {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+@media (max-width: 768px) {
+  .button-group {
+    flex-direction: column;
+  }
+
+  .button-group button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+mat-button[color="primary"] {
+  transition: all 0.3s ease;
+}
+
+mat-button[color="primary"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

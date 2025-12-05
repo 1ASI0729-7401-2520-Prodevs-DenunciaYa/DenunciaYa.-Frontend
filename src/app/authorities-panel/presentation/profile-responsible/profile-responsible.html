@@ -1,7 +1,6 @@
 <div class="profile-container">
   <div class="profile-card">
     <div class="profile-header">
-
       <h1 class="profile-title">{{ 'Responsible Profile' | translate }}</h1>
       <div class="profile-subtitle">
         {{ 'Assigned responsible details' | translate }}
@@ -15,6 +14,7 @@
     }
 
     @if (responsible && !loading) {
+      <!-- Sección de información personal -->
       <div class="info-section">
         <div class="section-header">
           <mat-icon class="section-icon">person</mat-icon>
@@ -36,6 +36,26 @@
             </mat-form-field>
           </div>
 
+          <div class="field-row">
+            <mat-form-field appearance="outline" class="field-half">
+              <mat-label>{{ 'Full Name' | translate }}</mat-label>
+              <input matInput [value]="responsible.fullName" readonly />
+              <mat-icon matSuffix>person</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="field-half">
+              <mat-label>{{ 'Status' | translate }}</mat-label>
+              <input matInput [value]="responsible.status" readonly />
+              <mat-icon matSuffix>
+                @if (responsible.status === 'active') {
+                  check_circle
+                } @else {
+                  cancel
+                }
+              </mat-icon>
+            </mat-form-field>
+          </div>
+
           <mat-form-field appearance="outline" class="full-width">
             <mat-label>{{ 'Email' | translate }}</mat-label>
             <input matInput [value]="responsible.email" readonly />
@@ -50,6 +70,7 @@
         </div>
       </div>
 
+      <!-- Sección de información profesional -->
       <div class="info-section">
         <div class="section-header">
           <mat-icon class="section-icon">work</mat-icon>
@@ -86,20 +107,46 @@
           @if (responsible.description) {
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>{{ 'Description' | translate }}</mat-label>
-              <input matInput [value]="responsible.description" readonly />
+              <textarea matInput rows="3" readonly>{{ responsible.description }}</textarea>
               <mat-icon matSuffix>description</mat-icon>
+            </mat-form-field>
+          }
+
+          @if (responsible.accessLevel) {
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>{{ 'Access Level' | translate }}</mat-label>
+              <input matInput [value]="responsible.accessLevel" readonly />
+              <mat-icon matSuffix>security</mat-icon>
             </mat-form-field>
           }
         </div>
       </div>
 
 
+
+      <!-- Botones de acción -->
+      <div class="action-buttons">
+        <button mat-stroked-button color="primary" (click)="goBack()">
+          <mat-icon>arrow_back</mat-icon>
+          {{ 'Back to Complaint List' | translate }}
+        </button>
+
+        @if (responsible.assignedComplaints && responsible.assignedComplaints.length > 0) {
+          <button mat-stroked-button color="accent" (click)="viewAssignedComplaints()">
+            <mat-icon>list</mat-icon>
+            {{ 'View Assigned Complaints' | translate }}
+          </button>
+        }
+      </div>
     }
 
     @if (!responsible && !loading) {
       <div class="error-message">
         <mat-icon>error_outline</mat-icon>
         <p>{{ 'Responsible not found' | translate }}</p>
+        <button mat-stroked-button color="primary" (click)="goBack()">
+          {{ 'Back to Complaint List' | translate }}
+        </button>
       </div>
     }
   </div>

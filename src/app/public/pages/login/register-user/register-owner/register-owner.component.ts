@@ -48,11 +48,9 @@ export class RegisterOwnerComponent {
     this.user.username = this.user.email;
 
     this.userService.addUser(this.user).subscribe((data: any) => {
-      console.log('Usuario creado:', data);
       const ownerId = data.id;
       this.userService.setCurrentUserId(ownerId);
 
-      // ✅ Crear perfil con los campos correctos
       const profile = {
         firstName: this.user.firstName,
         lastName: this.user.lastName,
@@ -64,11 +62,9 @@ export class RegisterOwnerComponent {
 
       this.userService.addimageprofile(profile).subscribe({
         next: (res: any) => {
-          console.log('Perfil creado:', res);
           this.router.navigate(['/pages/login-owner']);
         },
         error: (err) => {
-          console.error('Error al crear perfil', err);
         }
       });
     });

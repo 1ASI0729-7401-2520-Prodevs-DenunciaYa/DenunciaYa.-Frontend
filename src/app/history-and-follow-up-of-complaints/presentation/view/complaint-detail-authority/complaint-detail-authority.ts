@@ -80,7 +80,37 @@ export class ComplaintDetailAuthority implements OnInit {
       return;
     }
 
+
+    // Primero intentar con el método existente
     this.assignedResponsible = this.responsibleApi.findResponsibleFromAssignedTo(this.complaint.assignedTo);
+
+    if (!this.assignedResponsible) {
+      // Si no se encuentra, intentar cargar todos los responsables y buscar
+      this.responsibleApi.getAll().subscribe({
+        next: (responsibles: Responsible[]) => {
+          // Buscar por ID
+          const idMatch = this.complaint?.assignedTo?.match(/\[(.*?)\]/);
+          if (idMatch) {
+            const id = idMatch[1];
+            this.assignedResponsible = responsibles.find(r => r.id === id) || null;
+          }
+
+          // Si aún no se encuentra, buscar por nombre
+          if (!this.assignedResponsible) {
+            const nameOnly = this.complaint?.assignedTo?.split(' - ')[0]?.trim();
+            if (nameOnly) {
+              this.assignedResponsible = responsibles.find(r =>
+                r.fullName?.toLowerCase().includes(nameOnly.toLowerCase()) ||
+                `${r.firstName} ${r.lastName}`.toLowerCase().includes(nameOnly.toLowerCase())
+              ) || null;
+            }
+          }
+
+        },
+        error: (error) => {
+        }
+      });
+    }
   }
 
   generateTimeline(): void {

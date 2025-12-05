@@ -5,7 +5,8 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { environment } from '../../../../environments/environment';
 import { ResponsibleCreateStore } from '../../application/responsibleCreate.store';
 import { Responsible } from '../../domain/model/responsibleCreate.entity';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-team-management',
@@ -16,6 +17,7 @@ import {FormsModule} from '@angular/forms';
 })
 export class TeamManagementComponent implements OnInit {
   private store = inject(ResponsibleCreateStore);
+  private router = inject(Router);
 
   responsibles: Array<{
     id: string;
@@ -27,15 +29,17 @@ export class TeamManagementComponent implements OnInit {
     role: string;
     caseCount: number;
     accessLevel: string;
-    createdAt: Date
+    createdAt: Date;
+    assignedComplaints: string[];
+    status: 'active' | 'inactive';
   }> = [];
+
   filteredResponsibles: typeof this.responsibles = [];
   loading = signal<boolean>(false);
   searchKeyword = '';
 
   ngOnInit(): void {
     this.loadResponsibles();
-    // Suscribirse a cambios en la lista
     this.store.responsibles$.subscribe(responsibles => {
       this.updateResponsiblesList(responsibles);
     });
@@ -56,6 +60,8 @@ export class TeamManagementComponent implements OnInit {
       role: r.role,
       caseCount: r.getComplaintCount(),
       accessLevel: r.accessLevel,
+      assignedComplaints: r.assignedComplaints,
+      status: r.status,
       createdAt: r.createdAt
     }));
     this.filteredResponsibles = [...this.responsibles];
@@ -99,6 +105,7 @@ export class TeamManagementComponent implements OnInit {
       }
     });
   }
+
   searchResponsibles(): void {
     if (!this.searchKeyword.trim()) {
       this.filteredResponsibles = [...this.responsibles];
@@ -117,12 +124,13 @@ export class TeamManagementComponent implements OnInit {
           role: r.role,
           caseCount: r.getComplaintCount(),
           accessLevel: r.accessLevel,
+          assignedComplaints: r.assignedComplaints,
+          status: r.status,
           createdAt: r.createdAt
         }));
       },
       error: (error) => {
         console.error('Error searching responsibles:', error);
-        // En caso de error, mostrar array vacío
         this.filteredResponsibles = [];
       }
     });
@@ -134,6 +142,8 @@ export class TeamManagementComponent implements OnInit {
     const newEmail = prompt('New email', responsible.email);
     const newPhone = prompt('New phone', responsible.phone);
     const newRole = prompt('New role', responsible.role);
+    const newAccessLevel = prompt('New access level', responsible.accessLevel);
+    const newStatus = prompt('New status (active/inactive)', responsible.status);
 
     if (newFirstName && newLastName && newEmail && newPhone && newRole) {
       this.store.updateResponsible(responsible.id, {
@@ -142,7 +152,8 @@ export class TeamManagementComponent implements OnInit {
         email: newEmail,
         phone: newPhone,
         role: newRole,
-        status: 'active'
+        accessLevel: newAccessLevel || responsible.accessLevel,
+        status: (newStatus === 'active' || newStatus === 'inactive') ? newStatus : responsible.status
       } as Partial<Responsible>).subscribe({
         next: () => {
           alert('Responsible updated successfully');
@@ -170,6 +181,18 @@ export class TeamManagementComponent implements OnInit {
   }
 
   assignComplaint(responsible: any): void {
-    alert(`Assigning complaint to ${responsible.fullName || responsible.firstName}`);
+    // Redirigir a la lista de denuncias con este responsable seleccionado
+    this.router.navigate(['/complaint-list'], {
+      queryParams: { assignTo: responsible.id }
+    });
+  }
+
+  viewResponsibleProfile(responsible: any): void {
+    this.router.navigate(['/responsible-profile', responsible.id]);
+  }
+
+  // Obtener el formato completo para usar en dropdowns
+  getResponsibleFullFormat(responsible: any): string {
+    return `${responsible.fullName} - ${responsible.position || responsible.role} [${responsible.id}]`;
   }
 }

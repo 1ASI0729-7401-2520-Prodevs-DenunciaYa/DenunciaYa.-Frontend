@@ -43,7 +43,6 @@ export class LoginOwnerComponent {
     this.registerOwnerService.login(this.user.email, this.user.password)
       .subscribe({
         next: (response) => {
-          console.log('Login response:', response); // 👈 Agrega esto
 
           let token = response.token;
           // Sanitizar token: quitar comillas envolventes si existen y valores 'null'/'undefined'

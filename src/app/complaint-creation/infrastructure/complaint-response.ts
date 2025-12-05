@@ -7,7 +7,18 @@ export interface ComplaintsResponse {
   complaints: ComplaintResource[];
 }
 
-// Representa la evidencia detallada devuelta por el backend
+/**
+ * @interface EvidenceResource
+ * @summary Represents the resource structure for evidence related to a complaint.
+ * @property {string} id - The unique identifier of the evidence.
+ * @property {string} complaintId - The identifier of the associated complaint.
+ * @property {string} url - The URL where the evidence is stored.
+ * @property {string} uploadDate - The date when the evidence was uploaded.
+ * @property {string | null} description - A description of the evidence (optional).
+ * @property {string | null} fileName - The name of the evidence file (optional).
+ * @property {string | null} fileType - The type of the evidence file (optional).
+ * @property {number | null} fileSize - The size of the evidence file in bytes (optional).
+ */
 export interface EvidenceResource {
   id: string;
   complaintId: string;
@@ -39,7 +50,7 @@ export interface EvidenceResource {
  * @property {TimelineItemResource[]} timeline - An array representing the timeline of the complaint.
  */
 export interface ComplaintResource {
-  id: string; // el backend usa 'id'
+  id: string;
   category: string;
   department: string;
   city: string;
@@ -49,8 +60,8 @@ export interface ComplaintResource {
   description: string;
   status: string;
   priority: string;
-  evidence: string[]; // arreglo de URLs simples
-  evidences?: EvidenceResource[]; // arreglo de objetos evidencia (opcional)
+  evidence: string[];
+  evidences?: EvidenceResource[];
   assignedTo: string | null;
   responsibleId: string | null;
   updateMessage: string;
@@ -70,11 +81,11 @@ export interface ComplaintResource {
  * @property {string} [updateMessage] - Optional update message for the timeline item.
  */
 export interface TimelineItemResource {
-  id: number; // el backend incluye id del item
+  id: number;
   status: string;
   date: string;
   completed: boolean;
   current: boolean;
   waitingDecision?: boolean;
-  updateMessage?: string; // presente en backend
+  updateMessage?: string;
 }

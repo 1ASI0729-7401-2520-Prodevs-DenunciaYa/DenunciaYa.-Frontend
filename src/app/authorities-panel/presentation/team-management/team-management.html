@@ -20,19 +20,21 @@
     </div>
   </div>
 
-  <!-- Eliminado el bloque de loading -->
   @if (filteredResponsibles.length > 0) {
     <div class="cards-grid">
       @for (r of filteredResponsibles; track r.id) {
-        <div class="card">
+        <div class="card" [class.inactive]="r.status === 'inactive'">
           <div class="card-header">
-            <div class="avatar">
+            <div class="avatar" [class.inactive-avatar]="r.status === 'inactive'">
               {{ (r.fullName || (r.firstName + ' ' + r.lastName))?.charAt(0) }}
             </div>
             <div class="title-group">
               <div class="name">{{ r.fullName || (r.firstName + ' ' + r.lastName) }}</div>
               <div class="role">{{ r.role || ('Unassigned' | translate) }}</div>
               <div class="access-level">{{ r.accessLevel }}</div>
+              <div class="status-badge" [class.active]="r.status === 'active'" [class.inactive]="r.status === 'inactive'">
+                {{ r.status }}
+              </div>
             </div>
             <div class="card-actions-menu">
               <button class="icon-btn" (click)="editResponsible(r)" title="Edit">
@@ -57,6 +59,10 @@
               <span class="value">{{ r.phone }}</span>
             </div>
             <div class="meta">
+              <span class="label">{{ 'ID' | translate }}:</span>
+              <span class="value id-value">{{ r.id }}</span>
+            </div>
+            <div class="meta">
               <span class="label">{{ 'Created' | translate }}:</span>
               <span class="value">{{ r.createdAt | date:'shortDate' }}</span>
             </div>
@@ -65,6 +71,13 @@
             <button class="assign-btn" (click)="assignComplaint(r)">
               {{ 'Assign complaint' | translate }}
             </button>
+            <button class="profile-btn" (click)="viewResponsibleProfile(r)">
+              {{ 'View Profile' | translate }}
+            </button>
+          </div>
+          <div class="card-footer">
+            <small>{{ 'Use for assignment' | translate }}:</small>
+            <code class="assignment-code">{{ getResponsibleFullFormat(r) }}</code>
           </div>
         </div>
       }
