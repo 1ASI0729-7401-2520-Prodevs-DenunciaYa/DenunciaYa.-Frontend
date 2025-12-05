@@ -24,6 +24,7 @@
           [src]="post.imageUrl"
           [alt]="'COMMUNITY_LIST.POST.IMAGE_ALT' | translate"
           class="post-image"
+          (error)="$event.target.src='/assets/secret-image.png'"
         />
       </mat-card-content>
 

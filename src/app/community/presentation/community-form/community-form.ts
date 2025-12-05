@@ -109,34 +109,29 @@ export class CommunityForm {
     if (!this.content.trim() && !this.imageFile) return;
 
     this.resolveAuthor().subscribe(({ name: authorName, id: userId }) => {
-
-      // 1. Creamos el JSON que el backend quiere
-      const postJson = JSON.stringify({
-        userId: userId,
+      const postPayload = {
+        userId,
         author: authorName,
-        content: this.content,
+        content: this.content && this.content.trim() !== '' ? this.content : null,
         imageUrl: null
-      });
+      };
 
-      // 2. Creamos el FormData EXACTO
       const formData = new FormData();
-      formData.append("post", postJson);     // ✔ nombre correcto
+      formData.append('post', JSON.stringify(postPayload));
       if (this.imageFile) {
-        formData.append("image", this.imageFile); // ✔ nombre correcto
+        formData.append('image', this.imageFile, this.imageFile.name);
       }
 
-      // 3. Llamar al endpoint MULTIPART
       this.postsApi.createMultipart(formData).subscribe({
         next: (createdPost) => {
           this.communityStore['communitiesSignal']?.update?.((c: any) => [...c, createdPost]);
           this.resetForm();
         },
         error: (err) => {
-          console.error("Error creando post con imagen:", err);
+          console.error('Error creando post con imagen:', err);
           this.resetForm();
         }
       });
-
     });
   }
 

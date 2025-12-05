@@ -110,14 +110,33 @@ export abstract class BaseApiEndpoint<
    */
   protected handleError(operation: string) {
     return (error: HttpErrorResponse): Observable<never> => {
-      let errorMessage = operation;
-      if (error.status === 404) {
-        errorMessage = `${operation}: Resource not found`;
-      } else if (error.error instanceof ErrorEvent) {
-        errorMessage = `${operation}: ${error.error.message }`;
-      } else {
-        errorMessage = `${operation}: ${error.statusText || 'Unexpected error'}`;
+      // Log raw error for debugging
+      try {
+        console.error(`[API ERROR] ${operation}`, error);
+      } catch (e) {
+        // ignore logging failure
       }
+
+      let errorMessage = operation;
+      // Si es HttpErrorResponse usar sus propiedades
+      if (error && typeof (error as any).status === 'number') {
+        const httpErr = error as HttpErrorResponse;
+        if (httpErr.status === 404) {
+          errorMessage = `${operation}: Resource not found`;
+        } else if (httpErr.error instanceof ErrorEvent) {
+          errorMessage = `${operation}: ${httpErr.error.message}`;
+        } else {
+          // Preferir mensaje del body si existe
+          const bodyMessage = typeof httpErr.error === 'string' ? httpErr.error : (httpErr.error && (httpErr.error.message || httpErr.error.description));
+          errorMessage = `${operation}: ${bodyMessage || httpErr.statusText || 'Unexpected error'}`;
+        }
+      } else if (error instanceof Error) {
+        // Error lanzado en mapeos u otros handlers
+        errorMessage = `${operation}: ${error.message}`;
+      } else {
+        errorMessage = `${operation}: Unexpected error`;
+      }
+
       return throwError(() => new Error(errorMessage));
     }
   }
