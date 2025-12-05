@@ -51,7 +51,6 @@ export class CommunityStore {
 
     const token = localStorage.getItem('token');
     if (!token) {
-      // Evitar llamada al backend sin token; mejorar UX mostrando mensaje específico
       this.errorSignal.set('No autenticado: por favor inicia sesión para ver publicaciones.');
       this.loadingSignal.set(false);
       return;
@@ -62,6 +61,7 @@ export class CommunityStore {
       .pipe(takeUntilDestroyed(), retry(2))
       .subscribe({
         next: (communities) => {
+          // El resultado ya es un array de Community
           this.communitiesSignal.set(communities);
           this.loadingSignal.set(false);
         },
