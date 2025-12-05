@@ -45,8 +45,6 @@ export class SideNavigationBarComponent implements OnInit {
     { label: 'SIDENAV.TEAMS', icon: 'groups', route: '/team-managment', roles: ['authority', 'responsibles'] },
     { label: 'SIDENAV.SUPPORT', icon: 'help_outline', route: '/support', roles: ['citizen', 'authority', 'responsibles'] },
     { label: 'SIDENAV.COMMUNITY', icon: 'forum', route: '/community', roles: ['citizen', 'authority', 'responsibles'] },
-    { label: 'SIDENAV.PROFILE', icon: 'person', route: '/profile', roles: ['citizen', 'authority', 'responsibles'] },
-    { label: 'SIDENAV.SETTINGS', icon: 'settings', route: '/settings', roles: ['citizen', 'authority', 'responsibles'] },
     { label: 'SIDENAV.LOGOUT', icon: 'logout', route: '/cerrar-cuenta', roles: ['citizen', 'authority', 'responsibles'] },
   ];
 
