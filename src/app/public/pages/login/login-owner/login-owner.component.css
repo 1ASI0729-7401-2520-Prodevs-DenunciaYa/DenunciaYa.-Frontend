@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
 
-.content-primary{
-  height: 100%;
+.content-primary {
+  min-height: 100vh;
+  background-color: #003333 !important;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  font-family: 'Poppins', sans-serif;
   background-size: cover;
+  font-family: 'Poppins', sans-serif;
 }
 .contenedor{
   padding: 15px;

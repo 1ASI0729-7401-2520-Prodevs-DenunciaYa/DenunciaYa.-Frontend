@@ -1,5 +1,6 @@
 .content-primary {
   min-height: 100vh;
+  background-color: #003333 !important;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
