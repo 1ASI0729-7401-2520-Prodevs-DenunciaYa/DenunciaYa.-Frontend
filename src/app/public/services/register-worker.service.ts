@@ -21,7 +21,7 @@ export class RegisterWorkerService {
       lastName: userData.lastName,
       birthDate: userData.birthDate,
       phone: userData.phone,
-      roles: ['ROLE_WORKER'] // ✅ CAMBIADO
+      roles: ['ROLE_WORKER']
     };
     return this.http.post<any>(`${this.apiUrl}/sign-up`, userWithRole);
   }

@@ -3,18 +3,28 @@ import {Responsible} from '../../domain/model/responsibleCreate.entity';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {ResponsibleCreateStore} from '../../application/responsibleCreate.store';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-responsible-cards',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslatePipe],
   templateUrl: './responsible-cards.html',
   styleUrls: ['./responsible-cards.css']
 })
+/** @class Responsible
+ * @summary Component for displaying and creating responsible cards.
+ * @description This component displays a list of responsible cards and provides a form to create new responsibles.
+ * @method ngOnInit Initializes the component and loads the list of responsibles.
+ * @method loadResponsibles Loads the list of responsibles from the store.
+ * @method onSubmit Handles the form submission to create a new responsible.
+ * @method isValidResponsible Validates the new responsible data before submission.
+ * @method resetForm Resets the form fields after successful creation.
+ * @author Omar Harold Rivera Ticllacuri
+ */
 export class ResponsibleCardsComponent implements OnInit {
   responsibles: Responsible[] = [];
   loading = false;
 
-  // Objeto para el nuevo responsable
   newResponsible: Partial<Responsible> = {
     firstName: '',
     lastName: '',

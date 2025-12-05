@@ -54,7 +54,6 @@ export class EditComplaintComponent implements OnInit {
   selectedImage: string | null = null;
   isEditing = false;
 
-  // Lista completa de estados según la entidad
   statuses = [
     'Pending',
     'Completed',
@@ -65,8 +64,8 @@ export class EditComplaintComponent implements OnInit {
 
   priorities = ['Standard', 'Urgent', 'Critical'];
 
-  assignedOptions: string[] = ['Not assigned']; // Inicializar con 'Not assigned'
-  responsibles: Responsible[] = []; // Lista de responsables reales
+  assignedOptions: string[] = ['Not assigned'];
+  responsibles: Responsible[] = [];
   isLoading = true;
   errorMessage = '';
   loadingResponsibles = true;
@@ -89,8 +88,8 @@ export class EditComplaintComponent implements OnInit {
       return;
     }
     this.initForm();
-    this.loadResponsibles(); // Primero cargar responsables
-    this.loadComplaintData(); // Luego cargar datos de la denuncia
+    this.loadResponsibles();
+    this.loadComplaintData();
   }
 
   initForm(): void {
@@ -106,16 +105,13 @@ export class EditComplaintComponent implements OnInit {
     });
   }
 
-  // Cargar responsables desde la API
   loadResponsibles(): void {
     this.loadingResponsibles = true;
 
-    // Obtener responsables activos
     this.responsibleApi.getAll().subscribe({
       next: (responsibles: Responsible[]) => {
         this.responsibles = responsibles;
 
-        // Crear opciones para el dropdown
         this.assignedOptions = [
           'Not assigned',
           ...responsibles.map(r => `${r.fullName} - ${r.position || r.role} [${r.id}]`)
@@ -133,13 +129,11 @@ export class EditComplaintComponent implements OnInit {
     });
   }
 
-  // Método para obtener responsable por su formato de string
   getResponsibleFromOption(option: string): Responsible | null {
     if (option === 'Not assigned') {
       return null;
     }
 
-    // Buscar por ID entre corchetes
     const idMatch = option.match(/\[(.*?)\]/);
     if (idMatch) {
       const id = idMatch[1];
@@ -185,7 +179,6 @@ export class EditComplaintComponent implements OnInit {
             let assignedToValue = 'Not assigned';
 
             if (complaint.assignedTo && complaint.assignedTo !== 'Not assigned') {
-              // Buscar si el assignedTo actual coincide con algún responsable
               const matchingOption = this.assignedOptions.find(option =>
                 option === complaint.assignedTo ||
                 option.includes(complaint.assignedTo || '')
@@ -194,12 +187,10 @@ export class EditComplaintComponent implements OnInit {
               if (matchingOption) {
                 assignedToValue = matchingOption;
               } else {
-                // Mantener el valor original
                 assignedToValue = complaint.assignedTo;
               }
             }
 
-            // Rellenar el formulario
             this.complaintForm.patchValue({
               category: complaint.category || '',
               location: complaint.location || '',
@@ -217,8 +208,6 @@ export class EditComplaintComponent implements OnInit {
         }, 100);
       },
       error: (err) => {
-        console.error('❌ Error loading complaint:', err);
-        this.errorMessage = `Error al cargar los datos de la denuncia: ${err.message}`;
         this.isLoading = false;
         this.snackBar.open(this.errorMessage, 'Cerrar', { duration: 5000 });
       }
@@ -240,16 +229,13 @@ export class EditComplaintComponent implements OnInit {
     const formValue = this.complaintForm.getRawValue();
 
 
-    // Validar que el estado sea válido
     if (!this.statuses.includes(formValue.status)) {
       this.snackBar.open(`Estado "${formValue.status}" no es válido`, 'Cerrar', { duration: 3000 });
       return;
     }
 
-    // Obtener el responsable asignado
     const assignedResponsible = this.getResponsibleFromOption(formValue.assignedTo);
 
-    // Preparar el mensaje de actualización
     let updateMessage = formValue.updateMessage || '';
     if (!updateMessage) {
       if (assignedResponsible) {
@@ -261,13 +247,12 @@ export class EditComplaintComponent implements OnInit {
       }
     }
 
-    // Crear objeto actualizado
     const updatedComplaint = new Complaint({
       ...this.complaintData,
       id: this.complaintId,
       status: formValue.status,
       priority: formValue.priority,
-      assignedTo: formValue.assignedTo, // Guardar el string completo
+      assignedTo: formValue.assignedTo,
       referenceInfo: formValue.referenceInfo || '',
       updateMessage: updateMessage,
       updateDate: new Date().toISOString()
@@ -284,7 +269,6 @@ export class EditComplaintComponent implements OnInit {
         this.complaintForm.disable();
         this.complaintData = response;
 
-        // Si se asignó un responsable, actualizar su lista de denuncias
         if (assignedResponsible && assignedResponsible.id) {
           this.updateResponsibleComplaints(assignedResponsible.id, this.complaintId);
         }
@@ -303,12 +287,8 @@ export class EditComplaintComponent implements OnInit {
     });
   }
 
-  // Actualizar la lista de denuncias del responsable
   private updateResponsibleComplaints(responsibleId: string, complaintId: string): void {
-    // En una implementación real, aquí harías una llamada API
-    // para actualizar la lista de assignedComplaints del responsable
 
-    // Por ahora, solo logueamos la acción
     this.snackBar.open(`Denuncia asignada al responsable`, 'Cerrar', { duration: 2000 });
   }
 

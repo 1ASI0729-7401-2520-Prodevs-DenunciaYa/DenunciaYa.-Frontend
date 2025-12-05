@@ -15,6 +15,23 @@ import { Router } from '@angular/router';
   templateUrl: './team-management.html',
   styleUrls: ['./team-management.css']
 })
+
+/**
+ * @class TeamManagementComponent
+ * @summary Component for managing the team of responsibles.
+ * @description This component allows viewing, adding, editing, deleting, and searching for responsibles.
+ * @method ngOnInit Initializes the component and loads the list of responsibles.
+ * @method loadResponsibles Loads the list of responsibles from the store.
+ * @method updateResponsiblesList Updates the local list of responsibles.
+ * @method addResponsible Adds a new responsible.
+ * @method searchResponsibles Searches for responsibles based on a keyword.
+ * @method editResponsible Edits an existing responsible.
+ * @method deleteResponsible Deletes a responsible.
+ * @method assignComplaint Assigns a complaint to a responsible.
+ * @method viewResponsibleProfile Navigates to the profile of a responsible.
+ * @method getResponsibleFullFormat Returns a formatted string for a responsible.
+ * @author Omar Harold Rivera Ticllacuri
+ */
 export class TeamManagementComponent implements OnInit {
   private store = inject(ResponsibleCreateStore);
   private router = inject(Router);
@@ -181,7 +198,6 @@ export class TeamManagementComponent implements OnInit {
   }
 
   assignComplaint(responsible: any): void {
-    // Redirigir a la lista de denuncias con este responsable seleccionado
     this.router.navigate(['/complaint-list'], {
       queryParams: { assignTo: responsible.id }
     });
@@ -191,7 +207,6 @@ export class TeamManagementComponent implements OnInit {
     this.router.navigate(['/responsible-profile', responsible.id]);
   }
 
-  // Obtener el formato completo para usar en dropdowns
   getResponsibleFullFormat(responsible: any): string {
     return `${responsible.fullName} - ${responsible.position || responsible.role} [${responsible.id}]`;
   }

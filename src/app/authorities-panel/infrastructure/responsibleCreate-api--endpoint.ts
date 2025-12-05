@@ -8,9 +8,21 @@ import { environment } from '../../../environments/environment';
 import {map} from 'rxjs/operators';
 import {ResponsibleCreateStore} from '../application/responsibleCreate.store';
 
+/** @class Responsible
+ * @summary API endpoint service for managing Responsible entities.
+ * @description This service provides methods to perform CRUD operations on Responsible entities
+ *              by interacting with the backend API.
+ * @method getAll Retrieves all Responsible entities.
+ * @method getById Retrieves a Responsible entity by its ID.
+ * @method create Creates a new Responsible entity.
+ * @method patch Partially updates a Responsible entity.
+ * @method update Updates an existing Responsible entity.
+ * @method delete Deletes a Responsible entity by its ID.
+ * @method search Searches for Responsible entities based on a keyword.
+ * @author Omar Harold Rivera Ticllacuri
+ */
 @Injectable({ providedIn: 'root' })
 export class ResponsibleApiEndpoint {
-  // CORREGIDO: Usa la estructura correcta de endpoints
   private readonly baseUrl = `${environment.platformProviderApiBaseUrl}/responsibles`;
   private assembler = new ResponsibleAssembler();
   private readonly store = inject(ResponsibleCreateStore);

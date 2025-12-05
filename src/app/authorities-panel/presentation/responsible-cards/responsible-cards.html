@@ -3,14 +3,14 @@
   <!-- Formulario para crear nuevo responsable -->
   <div class="card form-card">
     <div class="card-header">
-      <h3>Crear Nuevo Responsable</h3>
+      <h3>{{ 'CREATERESPONSIBLE' | translate }}</h3>
     </div>
     <div class="card-body">
       <form (ngSubmit)="onSubmit()" #responsibleForm="ngForm">
         <div class="row">
           <div class="col-md-6">
             <div class="form-group mb-4">
-              <label for="firstName" class="form-label required">Nombre</label>
+              <label for="firstName" class="form-label required">{{ 'First Name' | translate }}</label>
               <input
                 type="text"
                 id="firstName"
@@ -18,13 +18,13 @@
                 [(ngModel)]="newResponsible.firstName"
                 required
                 class="form-control"
-                placeholder="Ingrese el nombre"
+                placeholder="{{ 'Enter your first name' | translate }}"
               />
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group mb-4">
-              <label for="lastName" class="form-label required">Apellido</label>
+              <label for="lastName" class="form-label required">{{ 'Last Name' | translate }}</label>
               <input
                 type="text"
                 id="lastName"
@@ -32,7 +32,7 @@
                 [(ngModel)]="newResponsible.lastName"
                 required
                 class="form-control"
-                placeholder="Ingrese el apellido"
+                placeholder="{{ 'Enter your last name' | translate }}"
               />
             </div>
           </div>
@@ -41,7 +41,7 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group mb-4">
-              <label for="email" class="form-label required">Correo Electrónico</label>
+              <label for="email" class="form-label required">{{ 'Email' | translate }}</label>
               <input
                 type="email"
                 id="email"
@@ -49,13 +49,13 @@
                 [(ngModel)]="newResponsible.email"
                 required
                 class="form-control"
-                placeholder="ejemplo@dominio.com"
+                placeholder="{{ 'Enter your email' | translate }}"
               />
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group mb-4">
-              <label for="phone" class="form-label required">Teléfono</label>
+              <label for="phone" class="form-label required">{{ 'Phone' | translate }}</label>
               <input
                 type="tel"
                 id="phone"
@@ -63,7 +63,7 @@
                 [(ngModel)]="newResponsible.phone"
                 required
                 class="form-control"
-                placeholder="+51 999 999 999"
+                placeholder="{{ 'Enter your phone number' | translate }}"
               />
             </div>
           </div>
@@ -72,7 +72,7 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group mb-4">
-              <label for="role" class="form-label required">Rol</label>
+              <label for="role" class="form-label required">{{ 'Role' | translate }}</label>
               <input
                 type="text"
                 id="role"
@@ -80,13 +80,13 @@
                 [(ngModel)]="newResponsible.role"
                 required
                 class="form-control"
-                placeholder="Ej: Analista, Supervisor"
+                placeholder="{{ 'Enter your role' | translate }}"
               />
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group mb-4">
-              <label for="accessLevel" class="form-label required">Nivel de Acceso</label>
+              <label for="accessLevel" class="form-label required">{{ 'Access Level' | translate }}</label>
               <select
                 id="accessLevel"
                 name="accessLevel"
@@ -94,10 +94,10 @@
                 required
                 class="form-select"
               >
-                <option value="">Seleccione nivel</option>
-                <option value="TECNICO">Técnico</option>
-                <option value="SUPERVISOR">Supervisor</option>
-                <option value="ADMINISTRADOR">Administrador</option>
+                <option value="">{{ 'Access Level' | translate }}</option>
+                <option value="TECNICO">{{ 'TECHNICIAN' | translate }}</option>
+                <option value="SUPERVISOR">{{ 'SUPERVISOR' | translate }}</option>
+                <option value="ADMINISTRADOR">{{ 'ADMINISTRATOR' | translate }}</option>
               </select>
             </div>
           </div>
@@ -106,41 +106,41 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group mb-4">
-              <label for="position" class="form-label">Cargo</label>
+              <label for="position" class="form-label">{{ 'POSITION' | translate }}</label>
               <input
                 type="text"
                 id="position"
                 name="position"
                 [(ngModel)]="newResponsible.position"
                 class="form-control"
-                placeholder="Ej: Jefe de Departamento"
+                placeholder="{{ 'POSITION_PLACEHOLDER' | translate }}"
               />
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group mb-4">
-              <label for="department" class="form-label">Departamento</label>
+              <label for="department" class="form-label">{{ 'DEPARTMENT' | translate }}</label>
               <input
                 type="text"
                 id="department"
                 name="department"
                 [(ngModel)]="newResponsible.department"
                 class="form-control"
-                placeholder="Ej: TI, Recursos Humanos"
+                placeholder="{{ 'DEPARTMENT_PLACEHOLDER' | translate }}"
               />
             </div>
           </div>
         </div>
 
         <div class="form-group mb-4">
-          <label for="description" class="form-label">Descripción</label>
+          <label for="description" class="form-label">{{ 'Description / Area' | translate }}</label>
           <textarea
             id="description"
             name="description"
             [(ngModel)]="newResponsible.description"
             class="form-control"
             rows="4"
-            placeholder="Observaciones adicionales sobre el responsable..."
+            placeholder="{{ 'DESCRIPTION_PLACEHOLDER' | translate }}"
           ></textarea>
         </div>
 
@@ -152,7 +152,7 @@
             [disabled]="loading"
           >
             <i class="fas fa-eraser"></i>
-            Limpiar
+            {{ 'Discard' | translate }}
           </button>
           <button
             type="submit"
@@ -160,10 +160,10 @@
             [disabled]="responsibleForm.invalid || loading"
           >
             <i class="fas fa-plus-circle" *ngIf="!loading"></i>
-            <span *ngIf="!loading">Crear Responsable</span>
+            <span *ngIf="!loading">{{ 'Add Responsible' | translate }}</span>
             <span *ngIf="loading">
               <div class="spinner" style="width: 16px; height: 16px; border-width: 2px;"></div>
-              Creando...
+              {{ 'CREATING' | translate }}
             </span>
           </button>
         </div>
@@ -173,11 +173,12 @@
 
   <!-- Cards de responsables existentes -->
   <div class="section-header d-flex justify-content-between align-items-center">
-    <h3>Responsables Registrados     <span class="responsible-count">
-      <i class="fas fa-users me-2"></i>
-      {{ responsibles.length }} responsable{{ responsibles.length !== 1 ? 's' : '' }}
-    </span></h3>
-
+    <h3>{{ 'PROFILERESPONSIBLE' | translate }}
+      <span class="responsible-count">
+        <i class="fas fa-users me-2"></i>
+        {{ responsibles.length }} {{ 'RESPONSIBLES' | translate }}{{ responsibles.length !== 1 ? 's' : '' }}
+      </span>
+    </h3>
   </div>
 
   <ng-container *ngIf="responsibles.length > 0; else noResponsibles">
@@ -193,19 +194,19 @@
             </h5>
             <span class="status-badge" [ngClass]="{'inactive': responsible.status === 'inactive'}">
               <i class="fas fa-circle me-1" style="font-size: 0.5rem"></i>
-              {{ responsible.status === 'active' ? 'Activo' : 'Inactivo' }}
+              {{ responsible.status === 'active' ? ('ACTIVE' | translate) : ('INACTIVE' | translate) }}
             </span>
           </div>
           <div class="card-body">
             <div class="info-row">
               <i class="fas fa-id-badge"></i>
-              <strong>Rol:</strong>
+              <strong>{{ 'Role' | translate }}:</strong>
               <span>{{ responsible.role }}</span>
             </div>
 
             <div class="info-row">
               <i class="fas fa-envelope"></i>
-              <strong>Email:</strong>
+              <strong>{{ 'Email' | translate }}:</strong>
               <a href="mailto:{{ responsible.email }}" class="text-truncate d-inline-block" style="max-width: 200px;">
                 {{ responsible.email }}
               </a>
@@ -213,41 +214,39 @@
 
             <div class="info-row">
               <i class="fas fa-phone"></i>
-              <strong>Teléfono:</strong>
+              <strong>{{ 'Phone' | translate }}:</strong>
               <span>{{ responsible.phone }}</span>
             </div>
 
             <div *ngIf="responsible.position" class="info-row">
               <i class="fas fa-briefcase"></i>
-              <strong>Cargo:</strong>
+              <strong>{{ 'POSITION' | translate }}:</strong>
               <span>{{ responsible.position }}</span>
             </div>
 
             <div *ngIf="responsible.department" class="info-row">
               <i class="fas fa-building"></i>
-              <strong>Departamento:</strong>
+              <strong>{{ 'DEPARTMENT' | translate }}:</strong>
               <span>{{ responsible.department }}</span>
             </div>
 
             <div class="info-row">
               <i class="fas fa-shield-alt"></i>
-              <strong>Nivel:</strong>
+              <strong>{{ 'Access Level' | translate }}:</strong>
               <span class="access-badge">{{ responsible.accessLevel }}</span>
             </div>
 
             <div *ngIf="responsible.description" class="info-row">
               <i class="fas fa-sticky-note"></i>
-              <strong>Descripción:</strong>
+              <strong>{{ 'Description / Area' | translate }}:</strong>
               <span class="small text-muted d-block mt-1">{{ responsible.description }}</span>
             </div>
-
-
           </div>
           <div class="card-footer">
             <div class="footer-info">
               <span>
                 <i class="fas fa-hashtag"></i>
-                ID: {{ responsible.id | slice:0:8 }}...
+                {{ 'ID' | translate }}: {{ responsible.id | slice:0:8 }}...
               </span>
               <span>
                 <i class="fas fa-calendar-alt"></i>
@@ -263,8 +262,8 @@
   <ng-template #noResponsibles>
     <div class="empty-state">
       <i class="fas fa-user-plus"></i>
-      <h4 class="text-gradient">No hay responsables registrados</h4>
-      <p class="text-muted">Comienza agregando un nuevo responsable usando el formulario de arriba.</p>
+      <h4 class="text-gradient">{{ 'No registered responsible' | translate }}</h4>
+      <p class="text-muted">{{ 'NO_RESPONSIBLES_MESSAGE' | translate }}</p>
     </div>
   </ng-template>
 </div>

@@ -24,7 +24,62 @@
     "FORGOT_PASSWORD": "Forgot your password?",
     "LOGIN_OWNER": "Log in as Owner"
   },
-
+  "ACTIONS": {
+    "REFRESH_DATA": "Actualizar Datos",
+    "CLEAR_FILTERS": "Limpiar Filtros",
+    "ADD_RESPONSIBLE": "Agregar Responsable",
+    "ASSIGN_COMPLAINT": "Asignar Queja",
+    "UNASSIGN": "Desasignar"
+  },
+  "FILTERS": {
+    "TITLE": "Filtros"
+  },
+  "TECHNICIAN": " TECHNICIAN",
+  "SUPERVISOR": "Supervisor",
+  "ADMINISTRATOR": "Administrator",
+  "POSITION": "Position",
+  "POSITION_PLACEHOLDER": "Ex: Department Boss",
+  "DEPARTMENT": "Departament",
+  "DEPARTMENT_PLACEHOLDER": "Ej: TI, Resources Humanos",
+  "DESCRIPTION_PLACEHOLDER": "Additional information about the responsible person",
+  "CREATING": "Creating...",
+  "RESPONSIBLES": "responsable",
+  "ACTIVE": "Active",
+  "INACTIVE": "Inactive",
+  "NO_RESPONSIBLES_MESSAGE": "No responsables registered yet.",
+  "PROFILERESPONSIBLE": "Responsible Person Profile",
+  "CREATERESPONSIBLE": "Create Responsible",
+  "TABLE": {
+    "TITLE": "Miembros del Equipo",
+    "SUBTITLE": "Mostrando {{count}} miembros del equipo",
+    "DEPARTMENT_FILTER": "Departamento: {{department}}",
+    "LOADING": "Cargando datos del equipo...",
+    "COLUMNS": {
+      "TEAM_MEMBER": "Miembro del Equipo",
+      "STATUS": "Estado",
+      "WORKLOAD": "Carga de Trabajo",
+      "ASSIGNED_COMPLAINTS": "Quejas Asignadas",
+      "ASSIGN_NEW_COMPLAINT": "Asignar Nueva Queja",
+      "ACTIONS": "Acciones"
+    },
+    "MEMBERS": {
+      "ASSIGNED_COMPLAINTS_COUNT": "quejas asignadas",
+      "NO_ASSIGNED_COMPLAINTS": "No hay quejas asignadas",
+      "SELECT_COMPLAINT": "Seleccionar queja",
+      "NO_COMPLAINT_SELECTED": "Ninguna queja seleccionada",
+      "NO_AVAILABLE_COMPLAINTS": "No hay quejas disponibles"
+    },
+    "STATUS": {
+      "ONLINE": "En línea",
+      "OFFLINE": "Desconectado",
+      "BUSY": "Ocupado",
+      "AWAY": "Ausente"
+    },
+    "EMPTY_STATE": {
+      "MESSAGE": "No se encontraron miembros del equipo con los filtros actuales",
+      "ACTION": "Limpiar todos los filtros"
+    }
+  },
   "login-worker": {
     "WORKER": "Worker",
     "OWNER": "Owner",

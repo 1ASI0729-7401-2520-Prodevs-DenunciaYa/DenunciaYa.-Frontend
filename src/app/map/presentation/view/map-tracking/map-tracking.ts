@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit, Inject, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-// AGREGA MapMarkerClusterer AQUÍ
 import { GoogleMapsModule, GoogleMap, MapMarkerClusterer } from '@angular/google-maps';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -26,7 +25,6 @@ import { environment } from '../../../../../environments/environment';
     CommonModule,
     FormsModule,
     GoogleMapsModule,
-    // AGREGA ESTO TAMBIÉN EN LOS IMPORTS DEL COMPONENTE
     MapMarkerClusterer,
     MatSelectModule,
     MatFormFieldModule,
@@ -59,8 +57,7 @@ export class MapTrackingComponent implements OnInit, OnDestroy {
     }
   ];
 
-  // Eliminamos la variable de opciones por ahora para limpiar el código
-  // markerClustererOptions = ...;
+
 
   filteredMarkers: MapMarker[] = [];
   loading = false;

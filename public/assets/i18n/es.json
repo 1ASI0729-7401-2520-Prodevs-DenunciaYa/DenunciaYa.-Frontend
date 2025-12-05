@@ -14,6 +14,117 @@
     "CREATERESPONSIBLE": "Crear Responsable",
     "PROFILERESPONSIBLE": "Persona Responsable"
   },
+  "CREATERESPONSIBLE": "Crear Responsable",
+  "PROFILERESPONSIBLE": "Perfil del Responsable",
+  "COMPLAINT_FORM": {
+    "TITLE": "Denunciar Ahora",
+    "SUBTITLE": "Reporte problemas en su comunidad de manera rápida y segura",
+    "SECTIONS": {
+      "CATEGORY_LOCATION": "Categoría y Ubicación",
+      "REFERENCE": "Referencia",
+      "DESCRIPTION": "Descripción",
+      "EVIDENCE": "Evidencias",
+      "OPTIONS": "Opciones"
+    },
+    "FIELDS": {
+      "CATEGORY": {
+        "LABEL": "Categoría *",
+        "PLACEHOLDER": "Seleccione categoría",
+        "OPTIONS": {
+          "INFRASTRUCTURE": "Infraestructura y Espacios Públicos",
+          "ENVIRONMENT": "Medio Ambiente",
+          "SECURITY": "Seguridad Ciudadana",
+          "TRANSPORT": "Transporte y Movilidad",
+          "HEALTH": "Salud Público",
+          "CLEANING": "Limpieza Urbana",
+          "PUBLIC_TRANSPORT": "Transporte Público",
+          "OTHERS": "Otros"
+        }
+      },
+      "PRIORITY": {
+        "LABEL": "Tipo de Prioridad *",
+        "PLACEHOLDER": "Seleccione prioridad",
+        "OPTIONS": {
+          "STANDARD": "Standard",
+          "URGENT": "Urgente",
+          "CRITICAL": "Crítico"
+        }
+      },
+      "LOCATION": {
+        "TITLE": "Ubicación Geográfica",
+        "DEPARTMENT": {
+          "LABEL": "Departamento",
+          "PLACEHOLDER": "Seleccione departamento"
+        },
+        "PROVINCE": {
+          "LABEL": "Provincia",
+          "PLACEHOLDER": "Seleccione provincia"
+        },
+        "DISTRICT": {
+          "LABEL": "Distrito",
+          "PLACEHOLDER": "Seleccione distrito"
+        },
+        "CITY": {
+          "LABEL": "Ciudad",
+          "PLACEHOLDER": "Seleccione ciudad"
+        }
+      },
+      "REFERENCE": {
+        "LABEL": "Información adicional de referencia",
+        "PLACEHOLDER": "Ej: Frente al parque, al lado del mercado municipal..."
+      },
+      "DESCRIPTION": {
+        "LABEL": "Información de la denuncia *",
+        "PLACEHOLDER": "Describa detalladamente el problema que desea reportar...",
+        "HINT": "Mínimo 10 caracteres. Sea específico y claro en su descripción."
+      },
+      "EVIDENCE": {
+        "LABEL": "URLs de evidencias (opcional)",
+        "PLACEHOLDER": "https://ejemplo.com/foto1.jpg, https://ejemplo.com/foto2.jpg",
+        "HINT": "Separe múltiples URLs con comas"
+      }
+    },
+    "OPTIONS": {
+      "ANONYMOUS": {
+        "LABEL": "Desea enviar la denuncia anónimamente",
+        "DESCRIPTION": "Su identidad no será revelada"
+      },
+      "TERMS": {
+        "LABEL": "Aceptar términos y condiciones *",
+        "DESCRIPTION": "He leído y acepto los términos del servicio"
+      },
+      "TERMS_ERROR": "Debe aceptar los términos y condiciones para enviar la denuncia"
+    },
+    "BUTTONS": {
+      "SUBMIT": "Enviar denuncia",
+      "SAVE_DRAFT": "Guardar Borrador"
+    },
+    "VALIDATION": {
+      "REQUIRED_FIELDS": "Complete todos los campos requeridos (*) para enviar la denuncia"
+    },
+    "SIDEBAR": {
+      "TITLE": "Su voz importa",
+      "DESCRIPTION": "Al reportar problemas, contribuye a mejorar la calidad de vida en su comunidad y ayuda a las autoridades a identificar y solucionar problemas importantes.",
+      "BENEFITS": {
+        "SECURITY": "Reporte seguro y confidencial",
+        "SPEED": "Proceso rápido y sencillo",
+        "COMMUNITY": "Impacto positivo en la comunidad"
+      }
+    }
+  },
+  "TECHNICIAN": "Técnico",
+  "SUPERVISOR": "Supervisor",
+  "ADMINISTRATOR": "Administrador",
+  "POSITION": "Cargo",
+  "POSITION_PLACEHOLDER": "Ej: Jefe de Departamento",
+  "DEPARTMENT": "Departamento",
+  "DEPARTMENT_PLACEHOLDER": "Ej: TI, Recursos Humanos",
+  "DESCRIPTION_PLACEHOLDER": "Observaciones adicionales sobre el responsable...",
+  "CREATING": "Creando...",
+  "RESPONSIBLES": "responsable",
+  "ACTIVE": "Activo",
+  "INACTIVE": "Inactivo",
+  "NO_RESPONSIBLES_MESSAGE": "Comienza agregando un nuevo responsable usando el formulario de arriba.",
   "login-owner": {
     "WORKER": "Trabajador",
     "OWNER": "Dueño",
