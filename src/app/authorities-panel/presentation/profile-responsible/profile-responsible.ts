@@ -34,6 +34,7 @@ import {MatButton} from '@angular/material/button';
  * @summary Component for displaying the profile of a responsible authority.
  * @method ngOnInit - Initializes the component and loads responsible data based on route parameters.
  * @method goBack - Navigates back to the complaint list view.
+ * @method viewAssignedComplaints - Navigates to view the assigned complaints.
  */
 export class ProfileResponsibleComponent implements OnInit {
   private route = inject(ActivatedRoute);
@@ -46,8 +47,6 @@ export class ProfileResponsibleComponent implements OnInit {
   ngOnInit(): void {
     const responsibleId = this.route.snapshot.paramMap.get('id');
 
-
-
     if (!responsibleId) {
       this.loading = false;
       this.router.navigate(['/complaint-list']);
@@ -56,15 +55,36 @@ export class ProfileResponsibleComponent implements OnInit {
 
     const cleanResponsibleId = responsibleId.replace('$', '').trim();
 
+    // Buscar en el store local primero
     this.responsible = this.responsibleApi.getResponsibleById(cleanResponsibleId);
 
-    this.loading = false;
-
+    // Si no está en el store local, cargar desde API
     if (!this.responsible) {
+      this.responsibleApi.getById(cleanResponsibleId).subscribe({
+        next: (responsible) => {
+          this.responsible = responsible;
+          this.loading = false;
+        },
+        error: () => {
+          this.loading = false;
+          this.router.navigate(['/complaint-list']);
+        }
+      });
+    } else {
+      this.loading = false;
     }
   }
 
   goBack(): void {
     this.router.navigate(['/complaint-list']);
+  }
+
+  viewAssignedComplaints(): void {
+    if (this.responsible && this.responsible.assignedComplaints.length > 0) {
+      // Navegar a una vista de lista de denuncias filtradas por este responsable
+      this.router.navigate(['/complaint-list'], {
+        queryParams: { responsibleId: this.responsible.id }
+      });
+    }
   }
 }

@@ -85,7 +85,6 @@ export class ComplaintList {
   }
 
   private checkUserRole(): void {
-    // Intentar obtener el rol desde localStorage si existe
     const storedRole = (localStorage.getItem('role') || localStorage.getItem('userRole')) as (typeof this.userRole);
     if (storedRole === 'citizen' || storedRole === 'authority' || storedRole === 'responsibles') {
       this.userRole = storedRole;
@@ -95,10 +94,9 @@ export class ComplaintList {
 
 
   viewComplaintDetail(complaintId: string): void {
-    // Mantener compatibilidad con rutas de autoridad por defecto
     const route = this.userRole === 'citizen'
       ? `/complaint-detail-citizen/${complaintId}`
-      : `/complaint-detail/${complaintId}`; // autoridad
+      : `/complaint-detail/${complaintId}`;
     this.router.navigate([route]);
   }
 
@@ -135,7 +133,6 @@ export class ComplaintList {
     return 'Eliminar denuncia';
   }
 
-  // Reemplazar método vacío para que use la misma lógica de navegación
   viewComplaintDetails(complaintId: string) {
     const route = this.userRole === 'citizen'
       ? `/complaint-detail-citizen/${complaintId}`

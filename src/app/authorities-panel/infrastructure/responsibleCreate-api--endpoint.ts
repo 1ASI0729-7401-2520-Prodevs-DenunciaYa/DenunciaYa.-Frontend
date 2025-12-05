@@ -8,9 +8,21 @@ import { environment } from '../../../environments/environment';
 import {map} from 'rxjs/operators';
 import {ResponsibleCreateStore} from '../application/responsibleCreate.store';
 
+/** @class Responsible
+ * @summary API endpoint service for managing Responsible entities.
+ * @description This service provides methods to perform CRUD operations on Responsible entities
+ *              by interacting with the backend API.
+ * @method getAll Retrieves all Responsible entities.
+ * @method getById Retrieves a Responsible entity by its ID.
+ * @method create Creates a new Responsible entity.
+ * @method patch Partially updates a Responsible entity.
+ * @method update Updates an existing Responsible entity.
+ * @method delete Deletes a Responsible entity by its ID.
+ * @method search Searches for Responsible entities based on a keyword.
+ * @author Omar Harold Rivera Ticllacuri
+ */
 @Injectable({ providedIn: 'root' })
 export class ResponsibleApiEndpoint {
-  // CORREGIDO: Usa la estructura correcta de endpoints
   private readonly baseUrl = `${environment.platformProviderApiBaseUrl}/responsibles`;
   private assembler = new ResponsibleAssembler();
   private readonly store = inject(ResponsibleCreateStore);
@@ -32,17 +44,10 @@ export class ResponsibleApiEndpoint {
   }
 
   create(responsible: Responsible): Observable<Responsible> {
-    // Convierte 'phone' a 'phoneNumber' para el backend
-    const resource: any = this.assembler.toResourceFromEntity(responsible);
-    const backendResource = {
-      ...resource,
-      phoneNumber: resource.phone,  // Mapea phone → phoneNumber
-      phone: undefined  // Elimina el campo phone original
-    };
+    const resource = this.assembler.toResourceFromEntity(responsible);
 
-    console.log('Creating with resource:', backendResource);
 
-    return this.http.post<ResponsibleResource>(this.baseUrl, backendResource)
+    return this.http.post<ResponsibleResource>(this.baseUrl, resource)
       .pipe(
         map(response => this.assembler.toEntityFromResource(response))
       );
@@ -72,7 +77,6 @@ export class ResponsibleApiEndpoint {
     );
   }
 
-  // Métodos que usan el store local (no hacen llamadas API)
   getResponsibleById(id: string): Responsible | null {
     const cleanId = id.replace('$', '').trim();
     const allResponsibles = this.store.responsibles();

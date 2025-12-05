@@ -10,7 +10,7 @@ interface CreateResponsibleRequest {
   firstName: string;
   lastName: string;
   email: string;
-  phoneNumber: string;
+  phone: string;
   role: string;
   description: string;
   accessLevel: string;
@@ -31,27 +31,22 @@ export class ResponsibleCreateStore {
   constructor() {}
 
   loadResponsibles(): void {
-    console.log('Loading from:', this.baseUrl);
     this.http.get<ResponsibleResource[]>(this.baseUrl)
       .pipe(
         map(resources => {
-          console.log('API Response:', resources);
           return resources.map(resource =>
             this.assembler.toEntityFromResource(resource)
           );
         }),
         catchError(error => {
-          console.error('HTTP Error loading responsibles:', error);
           return of([]);
         })
       )
       .subscribe({
         next: (responsibles) => {
-          console.log('Loaded responsibles:', responsibles);
           this.responsiblesSubject.next(responsibles);
         },
         error: (error) => {
-          console.error('Subscription error:', error);
         }
       });
   }
@@ -68,7 +63,7 @@ export class ResponsibleCreateStore {
       firstName: responsibleData.firstName || '',
       lastName: responsibleData.lastName || '',
       email: responsibleData.email || '',
-      phoneNumber: responsibleData.phoneNumber || '', // <-- Cambiado a phoneNumber
+      phone: responsibleData.phone || '', // <-- Cambiado a phone
       role: responsibleData.role || '',
       description: responsibleData.description || '',
       accessLevel: responsibleData.accessLevel || 'TECNICO',
@@ -96,7 +91,7 @@ export class ResponsibleCreateStore {
       firstName: updateData.firstName,
       lastName: updateData.lastName,
       email: updateData.email,
-      phone: updateData.phoneNumber,
+      phone: updateData.phone,
       role: updateData.role,
       description: updateData.description,
       accessLevel: updateData.accessLevel,

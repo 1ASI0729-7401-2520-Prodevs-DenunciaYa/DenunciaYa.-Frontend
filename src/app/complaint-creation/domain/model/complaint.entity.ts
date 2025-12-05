@@ -158,6 +158,17 @@ export class Complaint {
   }
 }
 
+/**
+ * TimelineItem interface representing a single item in the complaint timeline.
+ * @interface TimelineItem
+ * @property {number} [id] - Unique identifier for the timeline item.
+ * @property {string} status - Status description of the timeline item.
+ * @property {string} date - Date of the timeline item in ISO format.
+ * @property {boolean} completed - Indicates if the timeline item is completed.
+ * @property {boolean} current - Indicates if the timeline item is the current status.
+ * @property {boolean} [waitingDecision] - Indicates if the timeline item is waiting for a decision (optional).
+ * @property {string} [updateMessage] - Update message associated with the timeline item (optional).
+ */
 export interface TimelineItem {
   id?: number;
   status: string;

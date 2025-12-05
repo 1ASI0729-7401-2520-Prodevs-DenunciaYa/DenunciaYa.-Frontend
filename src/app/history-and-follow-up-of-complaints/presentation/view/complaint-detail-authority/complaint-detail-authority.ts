@@ -26,6 +26,27 @@ import {MatIconModule} from '@angular/material/icon';
   templateUrl: './complaint-detail-authority.html',
   styleUrl: './complaint-detail-authority.css'
 })
+
+/** @class ComplaintDetailAuthority
+ *  @summary Component for displaying detailed information about a complaint for authorities.
+ *  @description This component fetches and displays detailed information about a specific complaint,
+ *             including its timeline, status, assigned responsible party, and provides options to manage the complaint.
+ *  @method ngOnInit Initializes the component and loads complaint details.
+ *  @method loadComplaint Loads complaint details from the API.
+ *  @method generateTimeline Generates the timeline of the complaint based on its status updates.
+ *  @method checkDecisionState Checks if decision buttons should be shown based on the complaint status.
+ *  @method formatTimelineDate Formats the date for display in the timeline.
+ *  @method acceptComplaint Accepts the complaint decision.
+ *  @method rejectComplaint Rejects the complaint decision.
+ *  @method advanceStatus Advances the complaint status to the next stage.
+ *  @method resetComplaint Resets the complaint to its initial status.
+ *  @method deleteComplaint Deletes the complaint.
+ *  @method editComplaint Navigates to the complaint edit view.
+ *  @method canEditOrDelete Checks if the complaint can be edited or deleted based on its status.
+ *  @method canAdvanceStatus Checks if the complaint status can be advanced.
+ *  @method getStatusClass Returns CSS class for the complaint status.
+ *  @method getPriorityClass Returns CSS class for the complaint priority
+ */
 export class ComplaintDetailAuthority implements OnInit {
   complaint?: Complaint;
   assignedResponsible: Responsible | null = null;
@@ -80,13 +101,38 @@ export class ComplaintDetailAuthority implements OnInit {
       return;
     }
 
+
     this.assignedResponsible = this.responsibleApi.findResponsibleFromAssignedTo(this.complaint.assignedTo);
+
+    if (!this.assignedResponsible) {
+      this.responsibleApi.getAll().subscribe({
+        next: (responsibles: Responsible[]) => {
+          const idMatch = this.complaint?.assignedTo?.match(/\[(.*?)\]/);
+          if (idMatch) {
+            const id = idMatch[1];
+            this.assignedResponsible = responsibles.find(r => r.id === id) || null;
+          }
+
+          if (!this.assignedResponsible) {
+            const nameOnly = this.complaint?.assignedTo?.split(' - ')[0]?.trim();
+            if (nameOnly) {
+              this.assignedResponsible = responsibles.find(r =>
+                r.fullName?.toLowerCase().includes(nameOnly.toLowerCase()) ||
+                `${r.firstName} ${r.lastName}`.toLowerCase().includes(nameOnly.toLowerCase())
+              ) || null;
+            }
+          }
+
+        },
+        error: (error) => {
+        }
+      });
+    }
   }
 
   generateTimeline(): void {
     if (!this.complaint || !this.complaint.timeline) return;
 
-    // Ordenar timeline cronológicamente
     this.complaint.timeline = [...this.complaint.timeline].sort((a, b) => {
       const da = a.date ? new Date(a.date).getTime() : 0;
       const db = b.date ? new Date(b.date).getTime() : 0;
@@ -121,7 +167,6 @@ export class ComplaintDetailAuthority implements OnInit {
   private checkDecisionState(): void {
     if (!this.complaint) return;
 
-    // Mostrar botones de decisión solo si el estado es "Awaiting Response"
     this.showDecisionButtons = this.complaint.status === 'Awaiting Response';
   }
 
@@ -183,7 +228,6 @@ export class ComplaintDetailAuthority implements OnInit {
   advanceStatus(): void {
     if (!this.complaint) return;
 
-    // Verificar si puede avanzar
     if (!this.canAdvanceStatus()) {
       alert('Cannot advance status from current state!');
       return;
@@ -207,7 +251,6 @@ export class ComplaintDetailAuthority implements OnInit {
     if (!this.complaint) return;
 
     if (confirm('Reset complaint to initial status?')) {
-      // Usar el endpoint de update status para resetear a PENDING
       this.complaintsService.updateComplaintStatus(this.complaint.id, 'Pending').subscribe({
         next: (updatedComplaint) => {
           this.complaint = updatedComplaint;
@@ -250,10 +293,9 @@ export class ComplaintDetailAuthority implements OnInit {
 
     const currentStatus = this.complaint.status;
 
-    // Puede avanzar si el estado no es final (Completed o Rejected)
     return currentStatus !== 'Completed' &&
       currentStatus !== 'Rejected' &&
-      !this.showDecisionButtons; // No avanzar si está esperando decisión
+      !this.showDecisionButtons;
   }
 
   getStatusClass(status: string): string {
@@ -285,13 +327,11 @@ export class ComplaintDetailAuthority implements OnInit {
   getCurrentStatusMessage(): string {
     if (!this.complaint) return '';
 
-    // Buscar mensaje del timeline item actual
     const currentItem = this.complaint.timeline?.find(item => item.current);
     if (currentItem && currentItem.updateMessage) {
       return currentItem.updateMessage;
     }
 
-    // Usar mensaje por defecto basado en el estado
     return this.complaint.updateMessage ||
       this.statusMessages[this.complaint.status] ||
       'Status information not available';

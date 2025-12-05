@@ -308,7 +308,6 @@ export class ComplaintForm implements OnInit {
   provincias: Provincia[] = [];
   distritos: Distrito[] = [];
 
-  // Estado de edición e id de la denuncia
   isEditMode = false;
   complaintId: string | null = null;
 
@@ -352,9 +351,7 @@ export class ComplaintForm implements OnInit {
     })
   });
 
-  // Establecer estado inicial: si no hay provincias/distritos, deshabilitar los controles
   constructor() {
-    // Deshabilitar controles dependientes hasta que haya opciones
     this.form.get('province')?.disable();
     this.form.get('district')?.disable();
 
@@ -388,14 +385,12 @@ export class ComplaintForm implements OnInit {
       });
       this.distritos = [];
 
-      // Habilitar o deshabilitar el control de provincia según disponibilidad
       if (this.provincias.length > 0) {
         this.form.get('province')?.enable();
       } else {
         this.form.get('province')?.disable();
       }
 
-      // Al cambiar departamento, siempre deshabilitar distrito hasta que provincia se seleccione
       this.form.get('district')?.disable();
     } else {
       this.provincias = [];
@@ -415,7 +410,6 @@ export class ComplaintForm implements OnInit {
         district: ''
       });
 
-      // Habilitar o deshabilitar el control de distrito según disponibilidad
       if (this.distritos.length > 0) {
         this.form.get('district')?.enable();
       } else {

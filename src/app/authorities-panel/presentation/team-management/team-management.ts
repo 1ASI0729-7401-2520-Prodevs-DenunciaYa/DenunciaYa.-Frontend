@@ -5,7 +5,8 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { environment } from '../../../../environments/environment';
 import { ResponsibleCreateStore } from '../../application/responsibleCreate.store';
 import { Responsible } from '../../domain/model/responsibleCreate.entity';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-team-management',
@@ -14,8 +15,26 @@ import {FormsModule} from '@angular/forms';
   templateUrl: './team-management.html',
   styleUrls: ['./team-management.css']
 })
+
+/**
+ * @class TeamManagementComponent
+ * @summary Component for managing the team of responsibles.
+ * @description This component allows viewing, adding, editing, deleting, and searching for responsibles.
+ * @method ngOnInit Initializes the component and loads the list of responsibles.
+ * @method loadResponsibles Loads the list of responsibles from the store.
+ * @method updateResponsiblesList Updates the local list of responsibles.
+ * @method addResponsible Adds a new responsible.
+ * @method searchResponsibles Searches for responsibles based on a keyword.
+ * @method editResponsible Edits an existing responsible.
+ * @method deleteResponsible Deletes a responsible.
+ * @method assignComplaint Assigns a complaint to a responsible.
+ * @method viewResponsibleProfile Navigates to the profile of a responsible.
+ * @method getResponsibleFullFormat Returns a formatted string for a responsible.
+ * @author Omar Harold Rivera Ticllacuri
+ */
 export class TeamManagementComponent implements OnInit {
   private store = inject(ResponsibleCreateStore);
+  private router = inject(Router);
 
   responsibles: Array<{
     id: string;
@@ -27,15 +46,17 @@ export class TeamManagementComponent implements OnInit {
     role: string;
     caseCount: number;
     accessLevel: string;
-    createdAt: Date
+    createdAt: Date;
+    assignedComplaints: string[];
+    status: 'active' | 'inactive';
   }> = [];
+
   filteredResponsibles: typeof this.responsibles = [];
   loading = signal<boolean>(false);
   searchKeyword = '';
 
   ngOnInit(): void {
     this.loadResponsibles();
-    // Suscribirse a cambios en la lista
     this.store.responsibles$.subscribe(responsibles => {
       this.updateResponsiblesList(responsibles);
     });
@@ -52,10 +73,12 @@ export class TeamManagementComponent implements OnInit {
       lastName: r.lastName,
       fullName: r.fullName,
       email: r.email,
-      phone: r.phoneNumber,
+      phone: r.phone,
       role: r.role,
       caseCount: r.getComplaintCount(),
       accessLevel: r.accessLevel,
+      assignedComplaints: r.assignedComplaints,
+      status: r.status,
       createdAt: r.createdAt
     }));
     this.filteredResponsibles = [...this.responsibles];
@@ -99,6 +122,7 @@ export class TeamManagementComponent implements OnInit {
       }
     });
   }
+
   searchResponsibles(): void {
     if (!this.searchKeyword.trim()) {
       this.filteredResponsibles = [...this.responsibles];
@@ -113,16 +137,17 @@ export class TeamManagementComponent implements OnInit {
           lastName: r.lastName,
           fullName: r.fullName,
           email: r.email,
-          phone: r.phoneNumber,
+          phone: r.phone,
           role: r.role,
           caseCount: r.getComplaintCount(),
           accessLevel: r.accessLevel,
+          assignedComplaints: r.assignedComplaints,
+          status: r.status,
           createdAt: r.createdAt
         }));
       },
       error: (error) => {
         console.error('Error searching responsibles:', error);
-        // En caso de error, mostrar array vacío
         this.filteredResponsibles = [];
       }
     });
@@ -134,6 +159,8 @@ export class TeamManagementComponent implements OnInit {
     const newEmail = prompt('New email', responsible.email);
     const newPhone = prompt('New phone', responsible.phone);
     const newRole = prompt('New role', responsible.role);
+    const newAccessLevel = prompt('New access level', responsible.accessLevel);
+    const newStatus = prompt('New status (active/inactive)', responsible.status);
 
     if (newFirstName && newLastName && newEmail && newPhone && newRole) {
       this.store.updateResponsible(responsible.id, {
@@ -142,7 +169,8 @@ export class TeamManagementComponent implements OnInit {
         email: newEmail,
         phone: newPhone,
         role: newRole,
-        status: 'active'
+        accessLevel: newAccessLevel || responsible.accessLevel,
+        status: (newStatus === 'active' || newStatus === 'inactive') ? newStatus : responsible.status
       } as Partial<Responsible>).subscribe({
         next: () => {
           alert('Responsible updated successfully');
@@ -170,6 +198,16 @@ export class TeamManagementComponent implements OnInit {
   }
 
   assignComplaint(responsible: any): void {
-    alert(`Assigning complaint to ${responsible.fullName || responsible.firstName}`);
+    this.router.navigate(['/complaint-list'], {
+      queryParams: { assignTo: responsible.id }
+    });
+  }
+
+  viewResponsibleProfile(responsible: any): void {
+    this.router.navigate(['/responsible-profile', responsible.id]);
+  }
+
+  getResponsibleFullFormat(responsible: any): string {
+    return `${responsible.fullName} - ${responsible.position || responsible.role} [${responsible.id}]`;
   }
 }

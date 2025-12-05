@@ -1,79 +1,73 @@
+
 .profile-container {
-  padding: 24px;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  min-height: 100vh;
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem;
 }
 
 .profile-card {
-  max-width: 800px;
-  margin: 0 auto;
   background: white;
   border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
 }
 
 .profile-header {
-  background: linear-gradient(135deg, #0c2233 0%, #1a3d57 100%);
-  color: white;
-  padding: 32px;
   text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid #f0f0f0;
 }
 
 .profile-title {
-  margin: 0 0 8px 0;
-  font-size: 28px;
+  font-size: 2rem;
   font-weight: 700;
-  color: white;
+  color: #1a237e;
+  margin: 0 0 0.5rem 0;
 }
 
 .profile-subtitle {
-  opacity: 0.8;
-  font-size: 16px;
-  font-weight: 400;
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 1rem;
 }
 
 .info-section {
-  padding: 32px;
-  border-bottom: 1px solid #eef2f7;
-}
-
-.info-section:last-of-type {
-  border-bottom: none;
+  margin-bottom: 2rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  background: #fafafa;
 }
 
 .section-header {
   display: flex;
   align-items: center;
-  margin-bottom: 24px;
-  padding-bottom: 16px;
-  border-bottom: 2px solid #f0f4f8;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .section-icon {
-  color: #0c2233;
-  margin-right: 12px;
-  font-size: 24px;
-  width: 24px;
-  height: 24px;
+  margin-right: 0.75rem;
+  color: #1a237e;
 }
 
 .section-title {
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 600;
-  color: #0c2233;
+  color: #333;
 }
 
 .profile-fields {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 1rem;
 }
 
 .field-row {
   display: flex;
-  gap: 20px;
+  gap: 1rem;
 }
 
 .field-half {
@@ -84,109 +78,168 @@
   width: 100%;
 }
 
-mat-form-field {
-  width: 100%;
-}
-
-::ng-deep .mat-form-field-outline {
-  background-color: #f8fafc !important;
-  border-radius: 8px !important;
-}
-
-::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-thick {
-  color: #e2e8f0 !important;
-}
-
-::ng-deep .mat-form-field-label {
-  color: #64748b !important;
-  font-weight: 500 !important;
-}
-
-::ng-deep .mat-input-element:read-only {
-  color: #1e293b !important;
-  font-weight: 500 !important;
-  cursor: default !important;
-}
-
-::ng-deep .mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-outline {
-  background-color: #f8fafc !important;
-}
-
-.stats-section {
+.stats-row {
   display: flex;
-  justify-content: center;
-  gap: 40px;
-  padding: 32px;
-  background: #f8fafc;
-  border-top: 1px solid #eef2f7;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
-.stat-item {
+.stat-card {
+  flex: 1;
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
   text-align: center;
-  padding: 20px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 .stat-value {
-  font-size: 32px;
+  font-size: 1.75rem;
   font-weight: 700;
-  color: #0c2233;
-  margin-bottom: 8px;
+  color: #1a237e;
+  margin-bottom: 0.25rem;
 }
 
 .stat-label {
-  font-size: 14px;
-  color: #64748b;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-size: 0.875rem;
+  color: #666;
 }
 
-.status-badge {
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 14px !important;
+.assigned-complaints {
+  margin-top: 1rem;
+}
+
+.assigned-complaints h4 {
+  margin: 0 0 0.75rem 0;
+  color: #333;
+  font-size: 1rem;
   font-weight: 600;
 }
 
-.status-badge.active {
-  background-color: #10b981;
-  color: white;
+.complaint-list {
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 0.5rem;
+  background: white;
 }
 
-.status-badge:not(.active) {
-  background-color: #ef4444;
-  color: white;
+.complaint-item {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  border-bottom: 1px solid #f0f0f0;
 }
 
-.profile-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.complaint-item:last-child {
+  border-bottom: none;
 }
 
-.profile-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+.complaint-icon {
+  margin-right: 0.5rem;
+  color: #666;
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
 }
 
+.complaint-id {
+  font-family: monospace;
+  font-size: 0.875rem;
+  color: #333;
+}
+
+.no-complaints {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  color: #666;
+}
+
+.no-complaints mat-icon {
+  font-size: 3rem;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 1rem;
+  color: #bdbdbd;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid #f0f0f0;
+}
+
+.action-buttons button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.error-message {
+  text-align: center;
+  padding: 3rem;
+  color: #d32f2f;
+}
+
+.error-message mat-icon {
+  font-size: 4rem;
+  width: 4rem;
+  height: 4rem;
+  margin-bottom: 1rem;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-  .profile-container {
-    padding: 16px;
+  .profile-card {
+    padding: 1.5rem;
   }
 
   .field-row {
     flex-direction: column;
-    gap: 20px;
+    gap: 1rem;
   }
 
-  .stats-section {
+  .stats-row {
     flex-direction: column;
-    gap: 20px;
   }
 
-  .profile-header {
-    padding: 24px 20px;
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .profile-title {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-container {
+    margin: 1rem auto;
+    padding: 0.5rem;
+  }
+
+  .profile-card {
+    padding: 1rem;
+    border-radius: 12px;
   }
 
   .info-section {
-    padding: 24px 20px;
+    padding: 1rem;
   }
 }

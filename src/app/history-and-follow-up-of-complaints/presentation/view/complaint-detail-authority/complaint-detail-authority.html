@@ -28,8 +28,6 @@
     <h2>{{ 'COMPLAINT_DETAIL.INFO_SECTION.FIELDS.DEPARTMENT' | translate }}</h2>
     <p>{{ complaint.department }}</p>
 
-
-
     <h2>{{ 'COMPLAINT_DETAIL.INFO_SECTION.FIELDS.DISTRICT' | translate }}</h2>
     <p>{{ complaint.district }}</p>
 
@@ -66,22 +64,51 @@
     </div>
 
     <h2>{{ 'COMPLAINT_DETAIL.INFO_SECTION.FIELDS.ASSIGNED_TO' | translate }}</h2>
-    <p>{{ complaint.assignedTo }}</p>
 
-    <div *ngIf="isAssigned()" class="responsible-section">
-      <h3>{{ 'Assigned Responsible' | translate }}</h3>
-      <div class="assigned-info">
-        <p><strong>{{ 'Assigned To' | translate }}:</strong> {{ complaint?.assignedTo }}</p>
-        <button
-          mat-stroked-button
-          color="primary"
-          (click)="viewResponsibleProfile()"
-          class="profile-button">
-          <mat-icon>person</mat-icon>
-          {{ 'View Responsible Profile' | translate }}
-        </button>
+    <!-- Sección del responsable asignado -->
+    <div class="assigned-section" *ngIf="isAssigned(); else notAssigned">
+      <div class="assigned-info-card">
+        <div class="assigned-header">
+          <mat-icon class="assigned-icon">person</mat-icon>
+          <div>
+            <h4>{{ 'Assigned Responsible' | translate }}</h4>
+            <p class="assigned-details">{{ complaint?.assignedTo }}</p>
+          </div>
+        </div>
+
+        <div class="assigned-actions" *ngIf="assignedResponsible">
+          <button
+            mat-stroked-button
+            color="primary"
+            (click)="viewResponsibleProfile()"
+            class="profile-button">
+            <mat-icon>person</mat-icon>
+            {{ 'View Responsible Profile' | translate }}
+          </button>
+
+          <div class="assigned-stats" *ngIf="assignedResponsible">
+            <div class="stat">
+              <span class="stat-label">{{ 'Total Cases' | translate }}:</span>
+              <span class="stat-value">{{ assignedResponsible.getComplaintCount() }}</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">{{ 'Status' | translate }}:</span>
+              <span class="stat-value" [class.active]="assignedResponsible.status === 'active'"
+                    [class.inactive]="assignedResponsible.status === 'inactive'">
+                {{ assignedResponsible.status }}
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+
+    <ng-template #notAssigned>
+      <div class="not-assigned-card">
+        <mat-icon>person_off</mat-icon>
+        <p>{{ 'No responsible assigned' | translate }}</p>
+      </div>
+    </ng-template>
 
     <div class="update-channel" [attr.aria-label]="'COMPLAINT_DETAIL.UPDATE_CHANNEL.LABEL' | translate">
       <h3>{{ 'COMPLAINT_DETAIL.UPDATE_CHANNEL.TITLE' | translate }}</h3>
@@ -94,66 +121,43 @@
     </div>
   </div>
 
-  <!-- Botón de editar siempre visible -->
-  <div class="button-group" [attr.aria-label]="'COMPLAINT_DETAIL.MANAGEMENT.LABEL' | translate">
-    <button
-      mat-stroked-button
-      color="primary"
-      (click)="editComplaint()"
-      [attr.aria-label]="'COMPLAINT_DETAIL.MANAGEMENT.EDIT.ARIA_LABEL' | translate">
-      <mat-icon>edit</mat-icon>
-      {{ 'COMPLAINT_DETAIL.MANAGEMENT.EDIT.BUTTON' | translate }}
-    </button>
-  </div>
-
-  <!-- Los demás botones comentados -->
-  <!--
-  <div class="timeline-controls" *ngIf="complaint.timeline && complaint.timeline.length > 0" [attr.aria-label]="'COMPLAINT_DETAIL.CONTROLS.TIMELINE_CONTROLS' | translate">
-    <button
-      mat-stroked-button
-      color="primary"
-      (click)="advanceStatus()"
-      [disabled]="!canAdvanceStatus()"
-      [attr.aria-label]="'COMPLAINT_DETAIL.CONTROLS.ADVANCE_STATUS.ARIA_LABEL' | translate">
-      {{ 'COMPLAINT_DETAIL.CONTROLS.ADVANCE_STATUS.BUTTON' | translate }}
-    </button>
-
-    <div class="decision-buttons" *ngIf="showDecisionButtons" [attr.aria-label]="'COMPLAINT_DETAIL.CONTROLS.DECISION_BUTTONS.LABEL' | translate">
+  <!-- Botón de editar SIEMPRE visible -->
+  <div class="action-buttons" [attr.aria-label]="'COMPLAINT_DETAIL.MANAGEMENT.LABEL' | translate">
+    <div class="button-group">
       <button
         mat-stroked-button
         color="primary"
-        (click)="acceptComplaint()"
-        [attr.aria-label]="'COMPLAINT_DETAIL.CONTROLS.DECISION_BUTTONS.ACCEPT.ARIA_LABEL' | translate">
-        {{ 'COMPLAINT_DETAIL.CONTROLS.DECISION_BUTTONS.ACCEPT.BUTTON' | translate }}
+        (click)="editComplaint()"
+        [attr.aria-label]="'COMPLAINT_DETAIL.MANAGEMENT.EDIT.ARIA_LABEL' | translate">
+        <mat-icon>edit</mat-icon>
+        {{ 'COMPLAINT_DETAIL.MANAGEMENT.EDIT.BUTTON' | translate }}
       </button>
 
+      <!-- Botón para asignar responsable si no está asignado -->
       <button
+        *ngIf="!isAssigned()"
         mat-stroked-button
-        color="warn"
-        (click)="rejectComplaint()"
-        [attr.aria-label]="'COMPLAINT_DETAIL.CONTROLS.DECISION_BUTTONS.REJECT.ARIA_LABEL' | translate">
-        {{ 'COMPLAINT_DETAIL.CONTROLS.DECISION_BUTTONS.REJECT.BUTTON' | translate }}
+        color="accent"
+        (click)="editComplaint()"
+        class="assign-action-button">
+        <mat-icon>person_add</mat-icon>
+        {{ 'Assign Responsible' | translate }}
       </button>
     </div>
 
-    <button
-      mat-stroked-button
-      color="basic"
-      (click)="resetComplaint()"
-      *ngIf="complaint.status !== 'Pending'"
-      [attr.aria-label]="'COMPLAINT_DETAIL.CONTROLS.RESET_TIMELINE.ARIA_LABEL' | translate">
-      {{ 'COMPLAINT_DETAIL.CONTROLS.RESET_TIMELINE.BUTTON' | translate }}
-    </button>
+    <!-- Botones de acción adicionales (opcionales, comentados por ahora) -->
+    <!--
+    <div class="additional-actions">
+      <button
+        mat-stroked-button
+        color="warn"
+        (click)="deleteComplaint()"
+        *ngIf="canEditOrDelete()"
+        [attr.aria-label]="'COMPLAINT_DETAIL.MANAGEMENT.DELETE.ARIA_LABEL' | translate">
+        <mat-icon>delete</mat-icon>
+        {{ 'COMPLAINT_DETAIL.MANAGEMENT.DELETE.BUTTON' | translate }}
+      </button>
+    </div>
+    -->
   </div>
-
-  <div *ngIf="canEditOrDelete()" class="button-group" [attr.aria-label]="'COMPLAINT_DETAIL.MANAGEMENT.LABEL' | translate">
-    <button
-      mat-stroked-button
-      color="warn"
-      (click)="deleteComplaint()"
-      [attr.aria-label]="'COMPLAINT_DETAIL.MANAGEMENT.DELETE.ARIA_LABEL' | translate">
-      {{ 'COMPLAINT_DETAIL.MANAGEMENT.DELETE.BUTTON' | translate }}
-    </button>
-  </div>
-  -->
 </div>
