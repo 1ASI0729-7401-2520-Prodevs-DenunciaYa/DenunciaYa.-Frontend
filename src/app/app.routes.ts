@@ -3,24 +3,13 @@ import {LayoutComponent} from './shared/presentation/components/layout/layout';
 import {AuthLayoutComponent} from './shared/presentation/components/auth-layout/auth-layout';
 
 import { CommunityPage } from './community/presentation/community-page/community-page';
-import { MapTrackingComponent } from './map/presentation/view/map-tracking/map-tracking';
 import { AuthorityMetricsAndGraphs } from './history-and-follow-up-of-complaints/presentation/view/authority-metrics-and-graphs/authority-metrics-and-graphs';
-import { ResponsibleCreateComponent } from './authorities-panel/presentation/responsible-create.component.ts/responsible-create.component';
-import { ProfileResponsibleComponent } from './authorities-panel/presentation/profile-responsible/profile-responsible';
-import { AuthorityHomeComponent } from './history-and-follow-up-of-complaints/presentation/view/authority-home/authority-home';
-import { ComplaintForm } from './complaint-creation/presentation/views/complaint-form/complaint-form';
-import { ComplaintList } from './complaint-creation/presentation/views/complaint-list/complaint-list';
 import { ComplaintDetailCitizen } from './history-and-follow-up-of-complaints/presentation/view/complaint-detail-citizen/complaint-detail-citizen';
 import { EditComplaintComponent } from './authorities-panel/presentation/edit-complaint/edit-complaint';
 import { ComplaintDetailAuthority } from './history-and-follow-up-of-complaints/presentation/view/complaint-detail-authority/complaint-detail-authority';
-import {
-  ComplaintAssigmentComponent
-} from './authorities-panel/presentation/complaint-assignment.component/complaint-assignment.component';
-import {SupportHelpComponent} from './history-and-follow-up-of-complaints/presentation/view/support/support';
 
-import {
-  ComplaintEditCitizen
-} from './complaint-creation/presentation/views/complaint-edit-citizen/complaint-edit-citizen';
+
+
 import { LoginOwnerComponent } from './public/pages/login/login-owner/login-owner.component';
 import { LoginWorkerComponent } from './public/pages/login/login-worker/login-worker.component';
 import {RegisterWorkerComponent} from './public/pages/login/register-user/register-worker/register-worker.component';
@@ -35,7 +24,21 @@ import {RestoreOwnerComponent} from './public/pages/login/restore-owner/restore-
 import {RestoreWorkerComponent} from './public/pages/login/restore-worker/restore-worker.component';
 import {ValidationComponent} from './public/pages/login/validation/validation.component';
 import { AuthGuard } from './guards/auth.guard';
+import {
+  AuthorityHomeComponent
+} from './history-and-follow-up-of-complaints/presentation/view/authority-home/authority-home';
+import {MapTrackingComponent} from './map/presentation/view/map-tracking/map-tracking';
 import {ResponsibleCardsComponent} from './authorities-panel/presentation/responsible-cards/responsible-cards';
+import {
+  ResponsibleCreateComponent
+} from './authorities-panel/presentation/responsible-create.component.ts/responsible-create.component';
+import {ComplaintForm} from './complaint-creation/presentation/views/complaint-form/complaint-form';
+import { ComplaintList } from './complaint-creation/presentation/views/complaint-list/complaint-list';
+import {SupportHelpComponent} from './history-and-follow-up-of-complaints/presentation/view/support/support';
+import {ProfileResponsibleComponent} from './authorities-panel/presentation/profile-responsible/profile-responsible';
+import {
+  ComplaintEditCitizen
+} from './complaint-creation/presentation/views/complaint-edit-citizen/complaint-edit-citizen';
 
 export const routes: Routes =[
   // Rutas públicas dentro de un layout de autenticación

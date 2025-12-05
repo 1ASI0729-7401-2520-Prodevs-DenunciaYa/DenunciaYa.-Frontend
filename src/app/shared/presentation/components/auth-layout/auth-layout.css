@@ -5,3 +5,19 @@
   min-height: 100vh;
   background: linear-gradient(135deg, #0c2233, #1b2b44);
 }
+
+.auth-layout-header {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 12px 24px 0 24px;
+  box-sizing: border-box;
+}
+
+.auth-layout-header-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+}
